@@ -104,7 +104,7 @@
     <Folder Include="Resources\layout\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChGKWebServicesResolver\ChGK.Core.csproj">
+    <ProjectReference Include="..\ChGK.Core\ChGK.Core.csproj">
       <Project>{41472CE0-9B2C-4562-86AB-FA907F3C0129}</Project>
       <Name>ChGK.Core</Name>
     </ProjectReference>
