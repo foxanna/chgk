@@ -1,19 +1,41 @@
 ﻿using System;
-using ChGK.Core.Protocol;
-using ChGK.Core.Protocol.Entities;
-using ChGK.Core.DbChGKInfo.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using ChGK.Core.DbChGKInfo.Dto;
+using ChGK.Core.Models;
+using ChGK.Core.NetworkService;
+using ChGK.Core.Services;
 
 namespace ChGK.Core.DbChGKInfo
 {
-	public class ChGKWebService : IWebService
+	public class ChGKWebService : IChGKWebService
 	{
-		public ChGKWebService ()
-		{
-		}
+		private readonly ISimpleRestService _simpleRestService;
+		private const string host = "http://db.chgk.info/";
 
-		public System.Collections.Generic.List<IQuestionType> getQuestionTypes ()
+		public ChGKWebService (ISimpleRestService simpleRestService)
+		{
+			_simpleRestService = simpleRestService;
+		}
+		/*	public List<IQuestionType> getQuestionTypes ()
 		{
 			return ChGKQuestionType.QuestionTypes;
+		}*/
+		public async Task<List<IQuestion>> GetRandomPackage ()
+		{
+			var randomPackage = await _simpleRestService.GetAsync<RandomPackageDto> (host, 
+				                    "xml/random", new XmlDeserializer<RandomPackageDto> ());
+			return randomPackage.questions.Select (dto => dto.ToModel ()).Cast<IQuestion> ().ToList ();
+		}
+
+		public async Task<List<ITournament>> GetLastAddedTournaments (int? page)
+		{
+			var lastAddedTournaments = await _simpleRestService.GetAsync<LastAddedTournamentsDto> (host, 
+				                           "", new HtmlDeserializer<LastAddedTournamentsDto> ());
+
+			return lastAddedTournaments.Tournaments;
 		}
 	}
 }

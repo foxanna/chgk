@@ -1,0 +1,31 @@
+﻿<Properties GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.56.101:5555" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ChGK.Droid\Resources\Values\SplashStyle.xml">
+    <Files>
+      <File FileName="ChGK.Core\DbChGKInfo\Serialization.cs" Line="48" Column="1" />
+      <File FileName="ChGK.Core\DbChGKInfo\Dto\LastAddedTournamentsDto.cs" Line="25" Column="47" />
+      <File FileName="ChGK.Core\Models\ITournament.cs" Line="33" Column="1" />
+      <File FileName="e:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\LastAddedTournamentsViewModel.cs" Line="27" Column="7" />
+      <File FileName="ChGK.Droid\Views\LastAddedTournamentsView.cs" Line="24" Column="6" />
+      <File FileName="ChGK.Droid\Resources\Layout\RandomQuestionsView.axml" Line="1" Column="1" />
+      <File FileName="ChGK.Core\App.cs" Line="6" Column="1" />
+      <File FileName="ChGK.Droid\Resources\Layout\a.axml" Line="7" Column="16" />
+      <File FileName="ChGK.Droid\Views\QuestionView.cs" Line="15" Column="32" />
+      <File FileName="ChGK.Droid\SplashScreen.cs" Line="1" Column="1" />
+      <File FileName="ChGK.Droid\Resources\Values\SplashStyle.xml" Line="7" Column="13" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="e:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\QuestionsViewModel.cs" line="61" column="1" />
+      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\QuestionsViewModel.cs" line="77" column="1" />
+      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\DbChGKInfo\ChGKWebService.cs" line="28" column="1" />
+      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\RandomQuestionsViewModel.cs" line="29" column="1" />
+      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\LastAddedTournamentsViewModel.cs" line="31" column="1" />
+      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\LastAddedTournamentsViewModel.cs" line="29" column="25" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="foxanna" Email="" Copyright="foxanna" Company="" Trademark="" />
+  <MonoDevelop.Ide.ItemProperties.ChGK.Droid MonoForAntroid.PreferredDevice="3.7&quot; WVGA (Nexus One)" />
+</Properties>

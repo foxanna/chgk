@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{41472CE0-9B2C-4562-86AB-FA907F3C0129}</ProjectGuid>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <RootNamespace>ChGK.Core</RootNamespace>
     <AssemblyName>ChGKWebServicesResolver2</AssemblyName>
-    <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile49</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,13 +34,27 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App.cs" />
-    <Compile Include="Protocol\Entities\IQuestion.cs" />
-    <Compile Include="Protocol\Entities\IQuestionType.cs" />
-    <Compile Include="Protocol\IWebService.cs" />
-    <Compile Include="DbChGKInfo\Entities\ChGKQuestion.cs" />
-    <Compile Include="DbChGKInfo\Entities\ChGKQuestionType.cs" />
     <Compile Include="DbChGKInfo\ChGKWebService.cs" />
-    <Compile Include="Protocol\WebServiceType.cs" />
+    <Compile Include="NetworkService\ISimpleRestService.cs" />
+    <Compile Include="NetworkService\SimpleRestService.cs" />
+    <Compile Include="ViewModels\QuestionViewModel.cs" />
+    <Compile Include="ViewModels\RandomQuestionsViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="Models\IQuestion.cs" />
+    <Compile Include="Models\IQuestionType.cs" />
+    <Compile Include="Models\ITour.cs" />
+    <Compile Include="Models\ITournament.cs" />
+    <Compile Include="Services\IChGKWebService.cs" />
+    <Compile Include="DbChGKInfo\Dto\ChGKQuestionType.cs" />
+    <Compile Include="DbChGKInfo\Dto\QuestionDto.cs" />
+    <Compile Include="DbChGKInfo\Dto\TournamentDto.cs" />
+    <Compile Include="DbChGKInfo\Dto\RandomPackageDto.cs" />
+    <Compile Include="DbChGKInfo\Dto\LastAddedTournamentsDto.cs" />
+    <Compile Include="ViewModels\LastAddedTournamentsViewModel.cs" />
+    <Compile Include="DbChGKInfo\Serialization.cs" />
+    <Compile Include="NetworkService\IDeserializer.cs" />
+    <Compile Include="DbChGKInfo\Dto\TourDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -56,9 +70,30 @@
     <Reference Include="Cirrious.MvvmCross">
       <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.MvvmCross.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Json">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Json.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Json.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.MvvmCross.Plugins.ResourceLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack-PCL">
+      <HintPath>..\packages\HtmlAgilityPack-PCL.1.4.6\lib\HtmlAgilityPack-PCL.dll</HintPath>
+    </Reference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Protocol\" />
-    <Folder Include="DbChGKInfo\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

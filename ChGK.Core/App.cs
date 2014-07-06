@@ -1,4 +1,8 @@
 using Cirrious.CrossCore.IoC;
+using Cirrious.CrossCore;
+using ChGK.Core.DbChGKInfo;
+using ChGK.Core.NetworkService;
+using Cirrious.MvvmCross.Localization;
 
 namespace ChGK.Core
 {
@@ -10,8 +14,18 @@ namespace ChGK.Core
                 .EndingWith ("Service")
                 .AsInterfaces ()
                 .RegisterAsLazySingleton ();
-				
-			//RegisterAppStart<ViewModels.FirstViewModel> ();
+
+			CreatableTypes ()
+				.EndingWith ("Deserializer")
+				.AsInterfaces ()
+				.RegisterAsLazySingleton ();
+
+//			var builder = new TextProviderBuilder ();
+//			Mvx.RegisterSingleton<IMvxTextProviderBuilder> (builder);
+//			Mvx.RegisterSingleton<IMvxTextProvider> (builder.TextProvider);
+
+			RegisterAppStart<ViewModels.HomeViewModel> ();
+//			RegisterAppStart<ViewModels.LastAddedTournamentsViewModel> ();
 		}
 	}
 }
