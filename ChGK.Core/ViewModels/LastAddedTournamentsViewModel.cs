@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using Cirrious.CrossCore;
+using System.Windows.Input;
+using Cirrious.MvvmCross.ViewModels;
 
 namespace ChGK.Core.ViewModels
 {
@@ -54,6 +56,19 @@ namespace ChGK.Core.ViewModels
 				_isLoading = value; 
 				RaisePropertyChanged (() => IsLoading);
 			}
+		}
+
+		MvxCommand <ITour> onTourCLick;
+
+		public MvxCommand <ITour> OnTourCLick {
+			get {
+				return onTourCLick ?? (onTourCLick = new MvxCommand<ITour> (ClickOnTour));
+			}
+		}
+
+		void ClickOnTour (ITour tour)
+		{
+
 		}
 	}
 }

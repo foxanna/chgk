@@ -13,7 +13,7 @@ namespace ChGK.Core.DbChGKInfo
 	public class ChGKWebService : IChGKWebService
 	{
 		private readonly ISimpleRestService _simpleRestService;
-		private const string host = "http://db.chgk.info/";
+		private const string host = "http://db.chgk.info";
 
 		public ChGKWebService (ISimpleRestService simpleRestService)
 		{

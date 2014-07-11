@@ -9,8 +9,11 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         local:MvxBind="Visibility IsLoading,Converter=Visibility" />
-    <Mvx.MvxListView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        local:MvxBind="ItemsSource Tournaments" />
+
+    <ChGK.Droid.Controls.BindableExpandableListView
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    local:MvxBind="ItemsSource Tournaments; ItemClick OnTourCLick"
+	    local:MvxItemTemplate="@layout/item_tour"
+	    local:GroupItemTemplate="@layout/item_tournament"/>
 </RelativeLayout>

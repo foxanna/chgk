@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ChGK.Core.Services;
 using ChGK.Core.Models;
+using Cirrious.CrossCore;
 
 namespace ChGK.Core.ViewModels
 {
@@ -25,8 +26,8 @@ namespace ChGK.Core.ViewModels
 
 			try {
 				Questions = await _chGKService.GetRandomPackage ();
-			} catch {
-
+			} catch (Exception e) {
+				Mvx.Trace (e.Message);
 			} finally {
 				IsLoading = false;
 			}

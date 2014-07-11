@@ -55,6 +55,7 @@
     <Compile Include="DbChGKInfo\Serialization.cs" />
     <Compile Include="NetworkService\IDeserializer.cs" />
     <Compile Include="DbChGKInfo\Dto\TourDto.cs" />
+    <Compile Include="ViewModels\TourViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

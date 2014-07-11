@@ -23,12 +23,12 @@ namespace ChGK.Core.DbChGKInfo.Dto
 
 					var tournament = new Tournament {
 						FileName = tds [0].FirstChild.Attributes.FirstOrDefault (attr => attr.OriginalName.Equals ("href")).Value,
-						Name = tds [0].FirstChild.InnerText.Trim (),
+						Name = System.Net.WebUtility.HtmlDecode (tds [0].FirstChild.InnerText.Trim ()),
 						PlayedAt = tds [0].LastChild.InnerText.Trim (),
 						AddedAt = tds [2].InnerText.Trim (),
 						Tours = tds [1].Elements ("a").Select (a => new Tour () {
 							FileName = a.Attributes.FirstOrDefault (attr => attr.OriginalName.Equals ("href")).Value,
-							Name = a.InnerText.Trim (),
+							Name = System.Net.WebUtility.HtmlDecode (a.InnerText.Trim ()),
 						}).Cast<ITour> ().ToList (),
 					};
 
