@@ -46,29 +46,13 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		private bool _isLoading;
-
-		public bool IsLoading {
-			get {
-				return _isLoading;
-			}
-			set {
-				_isLoading = value; 
-				RaisePropertyChanged (() => IsLoading);
-			}
-		}
-
 		MvxCommand <ITour> onTourCLick;
 
 		public MvxCommand <ITour> OnTourCLick {
 			get {
-				return onTourCLick ?? (onTourCLick = new MvxCommand<ITour> (ClickOnTour));
+				return onTourCLick ?? (onTourCLick = new MvxCommand<ITour> (
+					tour => ShowViewModel<TourViewModel> (new { name = tour.Name, filename = tour.FileName })));
 			}
-		}
-
-		void ClickOnTour (ITour tour)
-		{
-
 		}
 	}
 }

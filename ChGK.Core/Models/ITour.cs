@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ChGK.Core.Models
 {
@@ -10,7 +11,7 @@ namespace ChGK.Core.Models
 
 		string Editors { get; }
 
-		int QuestionsCount { get; }
+		List<IQuestion> Questions { get; }
 	}
 
 	internal class Tour : ITour
@@ -21,7 +22,7 @@ namespace ChGK.Core.Models
 
 		public string Editors { get; set; }
 
-		public int QuestionsCount { get; set; }
+		public List<IQuestion> Questions { get; set; }
 	}
 }
 

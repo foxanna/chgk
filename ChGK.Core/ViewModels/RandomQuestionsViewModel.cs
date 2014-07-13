@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ChGK.Core.Services;
 using ChGK.Core.Models;
 using Cirrious.CrossCore;
+using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels
 {
@@ -12,7 +13,6 @@ namespace ChGK.Core.ViewModels
 	{
 		public RandomQuestionsViewModel (IChGKWebService service) : base (service)
 		{
-
 		}
 
 		public async override void Start ()
@@ -45,31 +45,7 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		private bool _isLoading;
-
-		public bool IsLoading {
-			get {
-				return _isLoading;
-			}
-			set {
-				_isLoading = value; 
-				RaisePropertyChanged (() => IsLoading);
-			}
-		}
-
-		private int _selectedItemIndex;
-
-		public int SelectedItemIndex {
-			get {
-				return _selectedItemIndex;
-			}
-			set {
-				_selectedItemIndex = value;
-				RaisePropertyChanged (() => SelectedItemIndex);
-			}
-		}
-
-		private MvxCommand <IQuestion> _showQuestionCommand;
+		MvxCommand <IQuestion> _showQuestionCommand;
 
 		public MvxCommand <IQuestion> ShowQuestionCommand {
 			get {
@@ -78,22 +54,11 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		private void updateSelectedIndex (IQuestion question)
-		{
-			SelectedItemIndex = Questions.IndexOf (question);
-		}
-
 		private void ShowQuestion (IQuestion question)
 		{
-			updateSelectedIndex (question);
-
-			ShowViewModel<QuestionViewModel> (new QuestionViewModel.QuestionNav () {
-				Question = question.Text,
-				Answer = question.Answer,
-				Comment = question.Comment,
-				Author = question.Author,
-				Source = question.Source,
-				Index = SelectedItemIndex,
+			ShowViewModel<QuestionsViewModel> (new {
+				questionsJson = JsonConvert.SerializeObject (Questions),
+				index = Questions.IndexOf (question),
 			});
 		}
 	}

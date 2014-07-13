@@ -7,7 +7,7 @@ namespace ChGK.Core.Models
 	{
 		String ID { get; }
 
-		IQuestionType Type { get; }
+		//		IQuestionType Type { get; }
 
 		String Text { get; }
 
@@ -23,8 +23,6 @@ namespace ChGK.Core.Models
 	internal class Question : IQuestion
 	{
 		public string ID { get; set; }
-
-		public IQuestionType Type { get; set; }
 
 		public string Text { get; set; }
 

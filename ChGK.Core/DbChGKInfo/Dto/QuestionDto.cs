@@ -26,6 +26,7 @@ namespace ChGK.Core.DbChGKInfo.Dto
 
 		public IQuestion ToModel ()
 		{
+			// TODO: remove \n from text 
 			return new Question {
 				ID = ID,
 				Text = Text,
@@ -35,8 +36,6 @@ namespace ChGK.Core.DbChGKInfo.Dto
 				Source = Source
 			};
 		}
-		//		[XmlIgnore]
-		//		public IQuestionType Type { get; set; }
 	}
 }
 

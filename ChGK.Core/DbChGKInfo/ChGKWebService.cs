@@ -37,6 +37,14 @@ namespace ChGK.Core.DbChGKInfo
 
 			return lastAddedTournaments.Tournaments;
 		}
+
+		public async Task<ITour> GetTourDetails (string filename)
+		{
+			var tourDto = await _simpleRestService.GetAsync<TourDto> (host, 
+				              string.Format ("{0}/xml", filename), new XmlDeserializer<TourDto> ());
+
+			return tourDto.ToModel ();
+		}
 	}
 }
 

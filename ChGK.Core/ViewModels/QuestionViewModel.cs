@@ -1,41 +1,28 @@
 ﻿using System;
 using Cirrious.MvvmCross.ViewModels;
+using ChGK.Core.Models;
 
 namespace ChGK.Core.ViewModels
 {
 	public class QuestionViewModel : MvxViewModel
 	{
-		public class QuestionNav
+		public QuestionViewModel (IQuestion question, int index)
 		{
-			public String Question { get; set; }
+			Text = question.Text;
+			Answer = question.Answer;
+			Comment = question.Comment;
+			Author = question.Author;
+			Source = question.Source;
+			Index = index;
 
-			public String Answer { get; set; }
-
-			public String Comment { get; set; }
-
-			public String Source { get; set; }
-
-			public String Author { get; set; }
-
-			public int Index  { get; set; }
-		}
-
-		public void Init (QuestionNav navigation)
-		{
-			Text = navigation.Question;
-			Answer = navigation.Answer;
-			Comment = navigation.Comment;
-			Author = navigation.Author;
-			Source = navigation.Source;
-			Index = navigation.Index;
 			HasComments = !string.IsNullOrEmpty (Comment);
 			HasAuthor = !string.IsNullOrEmpty (Author);
 			HasSource = !string.IsNullOrEmpty (Source);
 		}
 
-		private String _text;
+		private string _text;
 
-		public String Text {
+		public string Text {
 			get {
 				return _text;
 			}
@@ -45,9 +32,9 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		private String _answer;
+		private string _answer;
 
-		public String Answer {
+		public string Answer {
 			get {
 				return _answer;
 			}
@@ -57,9 +44,9 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		private String _comment;
+		private string _comment;
 
-		public String Comment {
+		public string Comment {
 			get {
 				return _comment;
 			}
@@ -69,9 +56,9 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		private String _author;
+		private string _author;
 
-		public String Author {
+		public string Author {
 			get {
 				return _author;
 			}
@@ -81,9 +68,9 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		private String _source;
+		private string _source;
 
-		public String Source {
+		public string Source {
 			get {
 				return _source;
 			}

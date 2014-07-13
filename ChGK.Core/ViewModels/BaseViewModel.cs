@@ -8,14 +8,6 @@ namespace ChGK.Core.ViewModels
 	public abstract class BaseViewModel
 		: MvxViewModel
 	{
-		//		public IMvxLanguageBinder TextSource {
-		//			get {
-		//				return new MvxLanguageBinder (
-		//					Constants.GeneralNamespace,
-		//					GetType ().Name);
-		//			}
-		//		}
-
 		protected readonly IChGKWebService _chGKService;
 
 		public BaseViewModel (IChGKWebService service)
@@ -23,6 +15,17 @@ namespace ChGK.Core.ViewModels
 			_chGKService = service;
 		}
 
+		private bool _isLoading;
+
+		public bool IsLoading {
+			get {
+				return _isLoading;
+			}
+			set {
+				_isLoading = value; 
+				RaisePropertyChanged (() => IsLoading);
+			}
+		}
 	}
 }
 
