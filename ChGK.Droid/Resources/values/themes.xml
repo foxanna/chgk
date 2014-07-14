@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+	<style name="ChGK.Theme" parent="@android:style/Theme.Holo.Light">
+		<item name="android:actionBarItemBackground">@drawable/selectable_background_chgk</item>
+		<item name="android:windowBackground">@color/light_light_light</item>
+		<item name="android:actionBarStyle">@style/ActionBar.Chgk</item>
+        <item name="android:listViewStyle">@style/ListView.Chgk</item>
+        <item name="android:expandableListViewStyle">@style/ExpandableListView.Chgk</item>
+        <item name="android:buttonStyle">@style/Button.Chgk</item>
+    	<item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
+		<item name="android:scrollbarThumbVertical">@drawable/fastscroll_thumb</item>
+		<item name="android:progressBarStyleLarge">@style/ProgressBar.ChGK</item>
+		<item name="android:listDivider">@color/light</item>
+	</style>
+
+	<color name="light">#d3e992</color>    
+	<color name="light_light">#e2f0b6</color>
+	<color name="light_light_light">#f8fff8</color>
+
+	<style name="ActionBar.Chgk" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/ab_transparent_chgk</item>
+    </style>
+
+    <style name="ListView.Chgk" parent="@android:style/Widget.Holo.Light.ListView">
+        <item name="android:listSelector">@drawable/selectable_background_chgk</item>
+    	<item name="android:dividerHeight">1dp</item>
+    	<item name="android:fadingEdge">@color/light</item>
+    	<item name="android:cacheColorHint">@color/light_light</item>
+	    <item name="android:fadingEdgeLength">20dp</item>
+	    <item name="android:requiresFadingEdge">vertical</item>
+<!--	    <item name="android:overScrollHeader">@color/light_light</item>-->
+	    <item name="android:overScrollMode">never</item>
+
+    </style>
+
+    <style name="ExpandableListView.Chgk" parent="@android:style/Widget.Holo.Light.ExpandableListView">
+        <item name="android:listSelector">@drawable/selectable_background_chgk</item>
+        <item name="android:childDivider">@color/light</item>
+    	<item name="android:dividerHeight">1dp</item>
+        <item name="android:fadingEdge">@color/light</item>
+    	<item name="android:cacheColorHint">@color/light_light</item>
+	    <item name="android:fadingEdgeLength">20dp</item>
+	    <item name="android:requiresFadingEdge">vertical</item>
+	    <item name="android:groupIndicator">@drawable/expander_group</item>
+	    <item name="android:overScrollMode">never</item>
+    </style>
+
+    <style name="Button.Chgk" parent="android:Widget.Holo.Light.Button">
+<!--	  <item name="android:background">@drawable/btn_chgk</item>-->
+    </style>
+
+    <style name="ProgressBar.ChGK" parent="@android:attr/progressBarStyleLarge">
+    	<item name="android:indeterminateDrawable">@drawable/progress_bar</item>
+    </style>
+</resources>

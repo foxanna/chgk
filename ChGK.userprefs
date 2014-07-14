@@ -1,27 +1,20 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.56.101:5555" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="e:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\LastAddedTournamentsViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ChGK.Droid\Resources\Layout\item_question.axml">
     <Files>
-      <File FileName="e:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\LastAddedTournamentsViewModel.cs" Line="27" Column="1" />
-      <File FileName="ChGK.Core\ViewModels\TourViewModel.cs" Line="27" Column="42" />
-      <File FileName="ChGK.Droid\Resources\Layout\TourView.axml" Line="7" Column="16" />
-      <File FileName="ChGK.Core\DbChGKInfo\ChGKWebService.cs" Line="46" Column="30" />
-      <File FileName="ChGK.Core\DbChGKInfo\Dto\TourDto.cs" Line="34" Column="78" />
-      <File FileName="ChGK.Core\Models\ITour.cs" Line="28" Column="3" />
+      <File FileName="ChGK.Droid\Resources\values\themes.xml" Line="13" Column="13" />
+      <File FileName="ChGK.Droid\Resources\Layout\item_question.axml" Line="67" Column="67" />
+      <File FileName="ChGK.Droid\Resources\Layout\item_tour.axml" Line="66" Column="66" />
+      <File FileName="ChGK.Droid\Resources\Layout\item_tournament.axml" Line="5" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="e:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\QuestionsViewModel.cs" line="61" column="1" />
-      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\QuestionsViewModel.cs" line="77" column="1" />
-      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\RandomQuestionsViewModel.cs" line="30" column="1" />
+      <Breakpoint file="e:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\QuestionsViewModel.cs" line="91" column="1" />
+      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\QuestionsViewModel.cs" line="107" column="1" />
       <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Droid\Controls\ExpandableListView\BindableGroupListAdapter.cs" line="142" column="1" />
       <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Droid\Controls\ExpandableListView\BindableGroupListAdapter.cs" line="147" column="1" />
-      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Droid\Controls\ExpandableListView\BindableGroupListView.cs" line="120" column="1" />
-      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\RandomQuestionsViewModel.cs" line="76" column="1" />
-      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\DbChGKInfo\Dto\TourDto.cs" line="29" column="1" />
-      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\TourViewModel.cs" line="29" column="1" />
-      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\TourViewModel.cs" line="31" column="1" />
+      <Breakpoint file="E:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\TourViewModel.cs" line="30" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

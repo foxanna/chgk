@@ -5,7 +5,7 @@ using ChGK.Core.ViewModels;
 
 namespace ChGK.Droid.Views
 {
-	[Activity ()]		
+	[Activity (Label = "")]		
 	public class TourView : MvxActivity
 	{
 		protected override void OnCreate (Bundle bundle)
@@ -14,6 +14,17 @@ namespace ChGK.Droid.Views
 			SetContentView (Resource.Layout.TourView);
 
 			ActionBar.Title = ((TourViewModel) ViewModel).Name;
+			ActionBar.SetDisplayHomeAsUpEnabled (true);
+		}
+
+		public override bool OnOptionsItemSelected (Android.Views.IMenuItem item)
+		{
+			if (item.ItemId == Android.Resource.Id.Home) {
+				OnBackPressed ();
+				return true;
+			} else {
+				return base.OnOptionsItemSelected (item);
+			}
 		}
 	}
 }

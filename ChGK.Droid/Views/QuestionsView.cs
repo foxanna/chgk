@@ -16,7 +16,7 @@ using Cirrious.MvvmCross.Droid.Fragging;
 
 namespace ChGK.Droid.Views
 {
-	[Android.App.Activity (Label = "")]			
+	[Android.App.Activity (Label = "Вопрос 1")]			
 	public class QuestionsView : MvxFragmentActivity
 	{
 		protected override void OnCreate (Bundle bundle)
@@ -28,6 +28,18 @@ namespace ChGK.Droid.Views
 			viewPager.Adapter = new QuestionsPagerAdapter (SupportFragmentManager, ((QuestionsViewModel) ViewModel).Questions);
 			viewPager.PageSelected += (sender, e) => ActionBar.Title = viewPager.Adapter.GetPageTitle (e.Position);
 			viewPager.CurrentItem = ((QuestionsViewModel) ViewModel).Index;
+
+			ActionBar.SetDisplayHomeAsUpEnabled (true);
+		}
+
+		public override bool OnOptionsItemSelected (Android.Views.IMenuItem item)
+		{
+			if (item.ItemId == Android.Resource.Id.Home) {
+				OnBackPressed ();
+				return true;
+			} else {
+				return base.OnOptionsItemSelected (item);
+			}
 		}
 	}
 
