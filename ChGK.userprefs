@@ -1,11 +1,11 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.56.101:5555" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ChGK.Droid\Resources\Layout\item_question.axml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ChGK.Core\DbChGKInfo\Dto\QuestionDto.cs">
     <Files>
-      <File FileName="ChGK.Droid\Resources\values\themes.xml" Line="13" Column="13" />
-      <File FileName="ChGK.Droid\Resources\Layout\item_question.axml" Line="67" Column="67" />
-      <File FileName="ChGK.Droid\Resources\Layout\item_tour.axml" Line="66" Column="66" />
-      <File FileName="ChGK.Droid\Resources\Layout\item_tournament.axml" Line="5" Column="5" />
+      <File FileName="ChGK.Core\DbChGKInfo\Dto\QuestionDto.cs" Line="1" Column="1" />
+      <File FileName="ChGK.Droid\Resources\values\themes.xml" Line="1" Column="1" />
+      <File FileName="ChGK.Droid\Views\QuestionsView.cs" Line="1" Column="1" />
+      <File FileName="ChGK.Droid\Views\HomeView.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

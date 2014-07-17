@@ -61,6 +61,7 @@ namespace ChGK.Droid.Views
 		public override Fragment GetItem (int position)
 		{
 			var fragment = new QuestionView ();
+			fragment.RetainInstance = true;
 			fragment.ViewModel = _questions [position];
 			return fragment;
 		}

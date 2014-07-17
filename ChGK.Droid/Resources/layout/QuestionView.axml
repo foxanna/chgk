@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="@dimen/default_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:layout_marginBottom="@dimen/default_padding"
+            local:MvxBind="Text Text" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_padding"
+            android:layout_gravity="center_horizontal"
+            android:text="Показать ответ"
+            local:MvxBind="Click ShowAnswerCommand; Visibility IsAnswerShown,Converter=InvertedVisibility" />
+        <LinearLayout
+            local:MvxBind="Visibility IsAnswerShown,Converter=Visibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/default_padding">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/default_text_padding"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                    android:text="Ответ:" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                    local:MvxBind="Text Answer" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                local:MvxBind="Visibility HasComments,Converter=Visibility"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/default_text_padding"
+                    android:text="*" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    local:MvxBind="Text Comment"
+                    android:textAppearance="@android:style/TextAppearance.Holo.Small" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/default_text_padding"
+                    local:MvxBind="Visibility HasSource,Converter=Visibility"
+                    android:text="Источник:" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    local:MvxBind="Text Source; Visibility HasSource,Converter=Visibility" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    local:MvxBind="Visibility HasSource,Converter=InvertedVisibility"
+                    android:text="Источник не указан" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/default_padding"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                local:MvxBind="Visibility HasAuthor,Converter=Visibility"
+                android:layout_marginRight="@dimen/default_text_padding"
+                android:text="Автор:" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                local:MvxBind="Text Author;Visibility HasAuthor,Converter=Visibility" />
+            <TextView
+                local:MvxBind="Visibility HasAuthor,Converter=InvertedVisibility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Автор не указан" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        local:MvxBind="Visibility IsLoading,Converter=Visibility" />
+	<LinearLayout 
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+		local:MvxBind="Visibility IsLoading,Converter=InvertedVisibility" >
+
+	    <LinearLayout 
+		    android:layout_height="wrap_content"
+		    android:layout_width="match_parent"
+	    	android:gravity="right"
+	    	android:padding="@dimen/default_padding"
+	    	android:orientation="vertical">
+		    <TextView
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+	    		android:text="Редакторы: "/>
+		    <TextView
+		    	android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:gravity="right"
+		    	local:MvxBind="Text Editors"/>    	
+			<LinearLayout 
+			    android:layout_height="wrap_content"
+			    android:layout_width="match_parent"
+			    android:gravity="right"
+			    android:orientation="horizontal">
+		    	<TextView
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:text="Количество вопросов: "/>
+			    <TextView
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+		    		local:MvxBind="Text Questions.Count"/>
+		    </LinearLayout>
+		</LinearLayout>
+		<View
+		    android:layout_width="match_parent"
+		    android:layout_height="1dip"
+		    android:background="?android:attr/listDivider" />
+	  	<Mvx.MvxListView
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1"
+	        android:overScrollHeader="@drawable/icon"
+	        local:MvxBind="ItemsSource Questions; ItemClick ShowQuestionCommand"
+	        local:MvxItemTemplate="@layout/item_question" />
+	</LinearLayout>
+</RelativeLayout>

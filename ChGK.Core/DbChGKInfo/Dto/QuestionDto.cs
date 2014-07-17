@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Xml.Serialization;
 using ChGK.Core.Models;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace ChGK.Core.DbChGKInfo.Dto
 {
@@ -27,9 +29,17 @@ namespace ChGK.Core.DbChGKInfo.Dto
 		public IQuestion ToModel ()
 		{
 			// TODO: remove \n from text 
+			var rg = new Regex (@"(,|\)|\(|\[|\]|-|[a-z]|[A-Z])( *?)(\n)( *?)([a-z])");
+			var maches = rg.Matches (Text);
+
+			StringBuilder a = new StringBuilder ();
+			foreach (var r in maches) {
+				a.Append (r.ToString ());
+			}
+
 			return new Question {
 				ID = ID,
-				Text = Text,
+				Text = Text + "\n" + a.ToString (),
 				Answer = Answer,
 				Author = Author,
 				Comment = Comment,
