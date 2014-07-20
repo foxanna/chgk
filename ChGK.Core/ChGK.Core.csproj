@@ -56,6 +56,8 @@
     <Compile Include="DbChGKInfo\Dto\TourDto.cs" />
     <Compile Include="ViewModels\TourViewModel.cs" />
     <Compile Include="ViewModels\QuestionsViewModel.cs" />
+    <Compile Include="Utils\ChGKTimer.cs" />
+    <Compile Include="Utils\TimerValueConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -96,5 +98,6 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
 </Project>

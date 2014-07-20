@@ -1,12 +1,20 @@
 ﻿using System;
 using Cirrious.MvvmCross.ViewModels;
 using ChGK.Core.Models;
+using ChGK.Core.Services;
+using Cirrious.CrossCore;
+using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
 	public class QuestionViewModel : MvxViewModel
 	{
-		public QuestionViewModel (IQuestion question, int index)
+		public QuestionViewModel ()
+		{
+			timer.OneSecond += (sender, e) => Time = e.Seconds;
+		}
+
+		public QuestionViewModel (IQuestion question, int index) : this ()
 		{
 			Text = question.Text;
 			Answer = question.Answer;
@@ -140,14 +148,80 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		private MvxCommand _showAnswerCommand;
+		MvxCommand _showAnswerCommand;
 
 		public MvxCommand ShowAnswerCommand {
 			get {
-				_showAnswerCommand = _showAnswerCommand ??
-				new MvxCommand (() => IsAnswerShown = true);
-				return _showAnswerCommand;
+				return _showAnswerCommand ??
+				(_showAnswerCommand = new MvxCommand (() => {
+					IsAnswerShown = true;
+					PauseTimer ();
+				}));
 			}
 		}
+
+		ChGKTimer timer = new ChGKTimer ();
+
+		MvxCommand _startTimerCommand;
+
+		public MvxCommand StartTimerCommand {
+			get {
+				return _startTimerCommand ?? (_startTimerCommand = 
+					new MvxCommand (StartTimer));
+			}
+		}
+
+		MvxCommand _stopTimerCommand;
+
+		public MvxCommand StopTimerCommand {
+			get {
+				return _stopTimerCommand ?? (_stopTimerCommand = 
+					new MvxCommand (PauseTimer));
+			}
+		}
+
+		TimeSpan _timeSpan;
+
+		public TimeSpan Time {
+			get {
+				return _timeSpan;
+			}
+			set {
+				_timeSpan = value;
+				RaisePropertyChanged (() => Time);
+			}
+		}
+
+		void StartTimer ()
+		{
+			timer.Resume ();
+			IsTimerStarted = true;
+		}
+
+		void PauseTimer ()
+		{
+			timer.Pause ();
+			IsTimerStarted = false;
+		}
+
+		private bool _isTimerStarted;
+
+		public bool IsTimerStarted {
+			get {
+				return _isTimerStarted;
+			}
+			set {
+				_isTimerStarted = value; 
+				RaisePropertyChanged (() => IsTimerStarted);
+				RaisePropertyChanged (() => IsTimerStopped);
+			}
+		}
+
+		public bool IsTimerStopped {
+			get {
+				return !IsTimerStarted;
+			}
+		}
+
 	}
 }

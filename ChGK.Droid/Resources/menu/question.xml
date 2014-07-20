@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item 
+    	android:id="@+id/time"       
+    	android:actionViewClass="android.widget.TextView"
+        android:showAsAction="always"/>  
+    <item 
+		android:id="@+id/start_timer"       
+        android:showAsAction="always"
+        android:title="start"/>  
+    <item 
+		android:id="@+id/stop_timer"       
+        android:showAsAction="always"
+        android:title="stop"/>  
+</menu>

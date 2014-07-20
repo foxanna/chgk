@@ -160,6 +160,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\fastscroll_thumb_pressed.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\fastscroll_thumb_default.png" />
     <AndroidResource Include="Resources\drawable\progress_bar.xml" />
+    <AndroidResource Include="Resources\menu\question.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
@@ -177,6 +178,7 @@
     <Folder Include="Resources\drawable-mdpi\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Resources\menu\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamandroidsupportv4-18">
