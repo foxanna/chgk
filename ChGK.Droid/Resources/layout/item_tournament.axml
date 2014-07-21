@@ -8,9 +8,6 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
     android:paddingRight="?android:attr/expandableListPreferredItemPaddingLeft">
-<!--    
-    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"-->
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

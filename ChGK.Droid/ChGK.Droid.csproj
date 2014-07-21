@@ -141,7 +141,6 @@
     <AndroidResource Include="Resources\Layout\item_tour.axml" />
     <AndroidResource Include="Resources\Layout\TourView.axml" />
     <AndroidResource Include="Resources\Layout\QuestionsView.axml" />
-    <AndroidResource Include="Resources\values\themes.xml" />
     <AndroidResource Include="Resources\drawable\selectable_background_chgk.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\ab_transparent_chgk.9.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ab_transparent_chgk.9.png" />
@@ -180,6 +179,7 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_navigation_refresh.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_navigation_refresh.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_navigation_refresh.png" />
+    <AndroidResource Include="Resources\values\themes.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using ChGK.Core.Models;
 using System.Text.RegularExpressions;
 using System.Text;
+using ChGK.Core.Utils;
 
 namespace ChGK.Core.DbChGKInfo.Dto
 {
@@ -28,21 +29,12 @@ namespace ChGK.Core.DbChGKInfo.Dto
 
 		public IQuestion ToModel ()
 		{
-			// TODO: remove \n from text 
-			var rg = new Regex (@"(,|\)|\(|\[|\]|-|[a-z]|[A-Z])( *?)(\n)( *?)([a-z])");
-			var maches = rg.Matches (Text);
-
-			StringBuilder a = new StringBuilder ();
-			foreach (var r in maches) {
-				a.Append (r.ToString ());
-			}
-
 			return new Question {
 				ID = ID,
-				Text = Text + "\n" + a.ToString (),
+				Text = TextFormatter.FormatQuestion (Text),
 				Answer = Answer,
 				Author = Author,
-				Comment = Comment,
+				Comment = TextFormatter.FormatComments (Comment),
 				Source = Source
 			};
 		}

@@ -36,6 +36,8 @@ namespace ChGK.Core.ViewModels
 		{
 			base.Start ();
 
+//			ShowViewModel<RandomQuestionsViewModel> ();
+
 			ShowViewModel<LastAddedTournamentsViewModel> ();
 		}
 

@@ -3,6 +3,7 @@ using ChGK.Core.Models;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Linq;
+using ChGK.Core.Utils;
 
 namespace ChGK.Core.DbChGKInfo.Dto
 {
@@ -23,11 +24,10 @@ namespace ChGK.Core.DbChGKInfo.Dto
 
 		public ITour ToModel ()
 		{
-			// TODO: remove \n from Editors 
 			return new Tour { 
 				Name = Name, 
 				FileName = FileName, 
-				Editors = Editors, 
+				Editors = TextFormatter.FormatEditors (Editors), 
 				Questions = Questions.Select (question => question.ToModel ()).ToList (),
 			};
 		}
