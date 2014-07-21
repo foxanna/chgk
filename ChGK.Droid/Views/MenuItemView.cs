@@ -9,6 +9,11 @@ namespace ChGK.Droid.Views
 {
 	public abstract class MenuItemView : MvxFragment
 	{
+		public MenuItemView ()
+		{
+			RetainInstance = true;
+		}
+
 		public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			base.OnCreateView (inflater, container, savedInstanceState);
@@ -18,7 +23,7 @@ namespace ChGK.Droid.Views
 		public override void OnViewCreated (View view, Bundle savedInstanceState)
 		{
 			base.OnViewCreated (view, savedInstanceState);
-
+			RetainInstance = true;
 			HasOptionsMenu = true;
 			Activity.Title = (ViewModel as MenuItemViewModel).Title;
 		}
