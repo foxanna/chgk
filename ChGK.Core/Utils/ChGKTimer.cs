@@ -22,15 +22,16 @@ namespace ChGK.Core.Utils
 
 		public void Pause ()
 		{
-			tokenSource.Cancel ();
+			if (tokenSource != null) {
+				tokenSource.Cancel ();
+			}
 		}
 
 		public void Resume ()
 		{
 			tokenSource = new CancellationTokenSource ();
 			Task.Delay (1000, tokenSource.Token).ContinueWith (async (t, s) => {
-				//Task.Delay (50 * 1000, Token).ContinueWith (async (t, s) => {
-				var handler = ((Tuple<Action<int>>) s).Item1;
+				var handler = ((Tuple<Action<int>>)s).Item1;
 				while (true) {
 					if (tokenSource.IsCancellationRequested)
 						break;
@@ -42,20 +43,13 @@ namespace ChGK.Core.Utils
 			}, Tuple.Create<Action<int>> (OnOneSecond), CancellationToken.None,
 				TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnRanToCompletion,
 				TaskScheduler.Default);
-
-//			Task.Delay (60 * 1000, Token).ContinueWith (async (t, s) => {
-//				var handler = ((Tuple<Action>) s).Item1;
-//				if (IsCancellationRequested)
-//					return;
-//				await Task.Run (() => handler ());			
-//			}, Tuple.Create<Action> (OnSixtySeconds), CancellationToken.None,
-//				TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnRanToCompletion,
-//				TaskScheduler.Default);
 		}
 
 		public void Dispose ()
 		{
-			tokenSource.Cancel ();
+			if (tokenSource != null) {
+				tokenSource.Cancel ();
+			}
 		}
 	}
 

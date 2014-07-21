@@ -31,7 +31,6 @@
 	    <item name="android:requiresFadingEdge">vertical</item>
 <!--	    <item name="android:overScrollHeader">@color/light_light</item>-->
 	    <item name="android:overScrollMode">never</item>
-
     </style>
 
     <style name="ExpandableListView.Chgk" parent="@android:style/Widget.Holo.Light.ExpandableListView">

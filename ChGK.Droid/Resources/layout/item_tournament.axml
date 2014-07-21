@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    android:minHeight="?android:attr/listPreferredItemHeight">
-<!--    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-    android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+    android:paddingRight="?android:attr/expandableListPreferredItemPaddingLeft">
+<!--    
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"-->
     <TextView
