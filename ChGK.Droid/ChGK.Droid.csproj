@@ -96,6 +96,18 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.1.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.DownloadCache">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.DownloadCache.3.1.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.DownloadCache.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.DownloadCache.Droid">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.DownloadCache.3.1.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.DownloadCache.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.File.3.1.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File.Droid">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.File.3.1.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.File.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -118,6 +130,8 @@
     <Compile Include="ChGKPresenter.cs" />
     <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
     <Compile Include="Views\MenuItemView.cs" />
+    <Compile Include="Bootstrap\DownloadCachePluginBootstrap.cs" />
+    <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

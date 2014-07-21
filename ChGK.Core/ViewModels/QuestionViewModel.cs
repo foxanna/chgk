@@ -22,119 +22,35 @@ namespace ChGK.Core.ViewModels
 			Author = question.Author;
 			Source = question.Source;
 			Index = index;
+			HasPicture = !string.IsNullOrEmpty (question.Picture);
+			Picture = "http://db.chgk.info/images/db/" + question.Picture;
 
 			HasComments = !string.IsNullOrEmpty (Comment);
 			HasAuthor = !string.IsNullOrEmpty (Author);
 			HasSource = !string.IsNullOrEmpty (Source);
 		}
 
-		private string _text;
+		public string Text { get; set; }
 
-		public string Text {
-			get {
-				return _text;
-			}
-			set {
-				_text = value; 
-				RaisePropertyChanged (() => Text);
-			}
-		}
+		public string Answer { get; set; }
 
-		private string _answer;
+		public string Comment { get; set; }
 
-		public string Answer {
-			get {
-				return _answer;
-			}
-			set {
-				_answer = value; 
-				RaisePropertyChanged (() => Answer);
-			}
-		}
+		public string Author { get; set; }
 
-		private string _comment;
+		public string Source { get; set; }
 
-		public string Comment {
-			get {
-				return _comment;
-			}
-			set {
-				_comment = value; 
-				RaisePropertyChanged (() => Comment);
-			}
-		}
+		public string Picture { get; set; }
 
-		private string _author;
+		public int Index { get; set; }
 
-		public string Author {
-			get {
-				return _author;
-			}
-			set {
-				_author = value; 
-				RaisePropertyChanged (() => Author);
-			}
-		}
+		public bool HasComments { get; set; }
 
-		private string _source;
+		public bool HasAuthor { get; set; }
 
-		public string Source {
-			get {
-				return _source;
-			}
-			set {
-				_source = value; 
-				RaisePropertyChanged (() => Source);
-			}
-		}
+		public bool HasSource { get; set; }
 
-		private int _index;
-
-		public int Index {
-			get {
-				return _index;
-			}
-			set {
-				_index = value; 
-				RaisePropertyChanged (() => Index);
-			}
-		}
-
-		private bool _hasComments;
-
-		public bool HasComments {
-			get {
-				return _hasComments;
-			}
-			set {
-				_hasComments = value; 
-				RaisePropertyChanged (() => HasComments);
-			}
-		}
-
-		private bool _hasAuthor;
-
-		public bool HasAuthor {
-			get {
-				return _hasAuthor;
-			}
-			set {
-				_hasAuthor = value; 
-				RaisePropertyChanged (() => HasAuthor);
-			}
-		}
-
-		private bool _hasSource;
-
-		public bool HasSource {
-			get {
-				return _hasSource;
-			}
-			set {
-				_hasSource = value; 
-				RaisePropertyChanged (() => HasSource);
-			}
-		}
+		public bool HasPicture { get; set; }
 
 		private bool _isAnswerShown;
 

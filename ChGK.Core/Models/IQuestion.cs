@@ -5,19 +5,19 @@ namespace ChGK.Core.Models
 {
 	public interface IQuestion
 	{
-		String ID { get; }
+		string ID { get; }
 
-		//		IQuestionType Type { get; }
+		string Text { get; }
 
-		String Text { get; }
+		string Answer { get; }
 
-		String Answer { get; }
+		string Comment { get; }
 
-		String Comment { get; }
+		string Author { get; }
 
-		String Author { get; }
+		string Source { get; }
 
-		String Source { get; }
+		string Picture { get; }
 	}
 
 	internal class Question : IQuestion
@@ -33,6 +33,8 @@ namespace ChGK.Core.Models
 		public string Author { get; set; }
 
 		public string Source { get; set; }
+
+		public string Picture { get; set; }
 	}
 }
 

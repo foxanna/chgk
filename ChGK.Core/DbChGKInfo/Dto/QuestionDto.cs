@@ -31,11 +31,12 @@ namespace ChGK.Core.DbChGKInfo.Dto
 		{
 			return new Question {
 				ID = ID,
+				Picture = TextFormatter.GetPicture (Text),
 				Text = TextFormatter.FormatQuestion (Text),
 				Answer = Answer,
 				Author = Author,
 				Comment = TextFormatter.FormatComments (Comment),
-				Source = Source
+				Source = Source,
 			};
 		}
 	}
