@@ -19,7 +19,7 @@
             android:layout_height="400dp"
             android:layout_marginBottom="@dimen/default_padding"
             android:scaleType="centerInside"
-            local:MvxBind="ImageUrl Picture;Visibility HasPicture,Converter=Visibility"/>
+            local:MvxBind="ImageUrl Picture;Visibility HasPicture,Converter=Visibility;Click OpenImageCommand"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

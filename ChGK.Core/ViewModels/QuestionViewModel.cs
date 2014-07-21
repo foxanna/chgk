@@ -52,7 +52,7 @@ namespace ChGK.Core.ViewModels
 
 		public bool HasPicture { get; set; }
 
-		private bool _isAnswerShown;
+		bool _isAnswerShown;
 
 		public bool IsAnswerShown {
 			get {
@@ -120,7 +120,7 @@ namespace ChGK.Core.ViewModels
 			IsTimerStarted = false;
 		}
 
-		private bool _isTimerStarted;
+		bool _isTimerStarted;
 
 		public bool IsTimerStarted {
 			get {
@@ -139,5 +139,13 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
+		MvxCommand _openImageCommand;
+
+		public MvxCommand OpenImageCommand {
+			get {
+				return _openImageCommand ?? (_openImageCommand = 
+					new MvxCommand (() => ShowViewModel<FullImageViewModel> (new { image = Picture })));
+			}
+		}
 	}
 }

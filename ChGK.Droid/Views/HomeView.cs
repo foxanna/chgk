@@ -12,7 +12,7 @@ using ChGK.Core.Utils;
 
 namespace ChGK.Droid.Views
 {
-	[Activity (Label = "")]
+	[Activity (Label = "", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	public class HomeView : MvxFragmentActivity
 	{
 		DrawerLayout mDrawerLayout;
