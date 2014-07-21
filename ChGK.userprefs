@@ -1,11 +1,9 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.56.101:5555" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ChGK.Core\ViewModels\QuestionViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../copdrehab_app/CopdRehab.Core/Service/RestService.cs">
     <Files>
-      <File FileName="ChGK.Core\ViewModels\QuestionViewModel.cs" Line="40" Column="40" />
-      <File FileName="ChGK.Droid\Resources\Layout\QuestionView.axml" Line="34" Column="34" />
-      <File FileName="ChGK.Core\Services\Timer.cs" Line="7" Column="7" />
-      <File FileName="ChGK.Droid\Properties\AndroidManifest.xml" Line="12" Column="12" />
+      <File FileName="ChGK.Core/NetworkService/SimpleRestService.cs" Line="70" Column="70" />
+      <File FileName="../copdrehab_app/CopdRehab.Core/Service/RestService.cs" Line="40" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

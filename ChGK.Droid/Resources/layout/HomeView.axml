@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mvx.MvxListView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    local:MvxBind="ItemsSource MenuItems; ItemClick ShowMenuItem" />
+    android:id="@+id/drawer"    
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <Mvx.MvxListView 
+		android:id="@+id/items"
+	    android:layout_width="400dp"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+	    android:layout_height="match_parent"
+		android:background="?android:attr/colorBackground"
+	    local:MvxBind="ItemsSource MenuItems; ItemClick ShowMenuItem" />
+</android.support.v4.widget.DrawerLayout>

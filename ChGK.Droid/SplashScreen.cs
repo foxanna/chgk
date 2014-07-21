@@ -4,18 +4,18 @@ using Cirrious.MvvmCross.Droid.Views;
 
 namespace ChGK.Droid
 {
-    [Activity(
-		Label = "ChGK.Droid"
+	[Activity (
+		Label = "ChGK"
 		, MainLauncher = true
 		, Icon = "@drawable/icon"
 		, Theme = "@style/Theme.Splash"
 		, NoHistory = true
 		, ScreenOrientation = ScreenOrientation.Portrait)]
-    public class SplashScreen : MvxSplashScreenActivity
-    {
-        public SplashScreen()
-            : base(Resource.Layout.SplashScreen)
-        {
-        }
-    }
+	public class SplashScreen : MvxSplashScreenActivity
+	{
+		public SplashScreen ()
+			: base (Resource.Layout.SplashScreen)
+		{
+		}
+	}
 }

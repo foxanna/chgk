@@ -2,6 +2,7 @@ using Android.Content;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.ViewModels;
+using Cirrious.MvvmCross.Droid.Views;
 
 namespace ChGK.Droid
 {
@@ -19,6 +20,11 @@ namespace ChGK.Droid
 		protected override IMvxTrace CreateDebugTrace ()
 		{
 			return new DebugTrace ();
+		}
+
+		protected override IMvxAndroidViewPresenter CreateViewPresenter ()
+		{
+			return new ChGKPresenter ();
 		}
 	}
 }

@@ -1,16 +1,16 @@
-using Android.App;
 using Android.OS;
-using Cirrious.MvvmCross.Droid.Views;
+using Android.Views;
+using Cirrious.MvvmCross.Binding.Droid.BindingContext;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
 namespace ChGK.Droid.Views
 {
-	[Activity (Label = "Случайные вопросы")]
-	public class RandomQuestionsView : MvxActivity
+	public class RandomQuestionsView : MenuItemView
 	{
-		protected override void OnCreate (Bundle bundle)
-		{
-			base.OnCreate (bundle);
-			SetContentView (Resource.Layout.RandomQuestionsView);
+		protected override int LayoutId {
+			get {
+				return Resource.Layout.RandomQuestionsView;
+			}
 		}
 	}
 }

@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels
 {
-	public class TourViewModel : BaseViewModel
+	public class TourViewModel : LoadableViewModel
 	{
 		public TourViewModel (IChGKWebService service) : base (service)
 		{

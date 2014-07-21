@@ -93,6 +93,9 @@
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\Components\xamandroidsupportv4-18-4.18.1\lib\android\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.1.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -112,6 +115,9 @@
     <Compile Include="Controls\ExpandableListView\BindableGroupListView.cs" />
     <Compile Include="Views\TourView.cs" />
     <Compile Include="Views\QuestionsView.cs" />
+    <Compile Include="ChGKPresenter.cs" />
+    <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
+    <Compile Include="Views\MenuItemView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -161,6 +167,19 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\fastscroll_thumb_default.png" />
     <AndroidResource Include="Resources\drawable\progress_bar.xml" />
     <AndroidResource Include="Resources\menu\question.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_navigation_drawer.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_navigation_drawer.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_navigation_drawer.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_navigation_drawer.png" />
+    <AndroidResource Include="Resources\menu\menuitem.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_navigation_refresh3.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_navigation_refresh3.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_navigation_refresh3.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_navigation_refresh3.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_navigation_refresh.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_navigation_refresh.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_navigation_refresh.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_navigation_refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

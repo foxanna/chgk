@@ -4,19 +4,23 @@ using System.Collections.Generic;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using Cirrious.CrossCore;
-using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
 
 namespace ChGK.Core.ViewModels
 {
-	public class LastAddedTournamentsViewModel : BaseViewModel
+	public class LastAddedTournamentsViewModel : MenuItemViewModel
 	{
 		public LastAddedTournamentsViewModel (IChGKWebService service) : base (service)
 		{
-
+			Title = "Последние добавленные";
 		}
 
 		public async override void Start ()
+		{
+			await LoadTournamentsAsync ();
+		}
+
+		protected override async void Refresh ()
 		{
 			await LoadTournamentsAsync ();
 		}

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
@@ -15,23 +16,27 @@ namespace ChGK.Core.ViewModels
 
 			public override string ToString ()
 			{
-				//return string.Format ("[MenuItem: Name={0}, ViewModelType={1}]", Name, ViewModelType);
 				return Name;
 			}
 		}
 
-		//	"Случайные вопросы"
-		//			RandomQuestions,
-		//
-		//			SomeOther
-		//		}
+		readonly IMvxMessenger _messenger;
 
-		public HomeViewModel ()
+		public HomeViewModel (IMvxMessenger messenger)
 		{
+			_messenger = messenger;
+
 			MenuItems = new List<MenuItem> () {
-				new MenuItem { Name = "Случайные вопросы", ViewModelType = typeof(RandomQuestionsViewModel) },
 				new MenuItem { Name = "Последние добавленные",  ViewModelType = typeof(LastAddedTournamentsViewModel) },
+				new MenuItem { Name = "Случайные вопросы", ViewModelType = typeof(RandomQuestionsViewModel) },
 			};
+		}
+
+		public override void Start ()
+		{
+			base.Start ();
+
+			ShowViewModel<LastAddedTournamentsViewModel> ();
 		}
 
 		public List <MenuItem> MenuItems {
@@ -39,7 +44,7 @@ namespace ChGK.Core.ViewModels
 			set;
 		}
 
-		private MvxCommand<MenuItem> _showMenuItem;
+		MvxCommand<MenuItem> _showMenuItem;
 
 		public MvxCommand <MenuItem> ShowMenuItem {
 			get {
@@ -48,8 +53,10 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		private void ShowMenu (MenuItem item)
+		void ShowMenu (MenuItem item)
 		{
+			_messenger.Publish (new CloseDrawerMessage (this));
+
 			ShowViewModel (item.ViewModelType);
 		}
 	}

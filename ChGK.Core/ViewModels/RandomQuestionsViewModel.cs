@@ -9,13 +9,19 @@ using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels
 {
-	public class RandomQuestionsViewModel: BaseViewModel
+	public class RandomQuestionsViewModel : MenuItemViewModel
 	{
 		public RandomQuestionsViewModel (IChGKWebService service) : base (service)
 		{
+			Title = "Случайные вопросы";
 		}
 
 		public async override void Start ()
+		{
+			await LoadQuestionsAsync ();
+		}
+
+		protected override async void Refresh ()
 		{
 			await LoadQuestionsAsync ();
 		}

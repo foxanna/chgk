@@ -13,6 +13,7 @@
 		<item name="android:listDivider">@color/light</item>
 	</style>
 
+	<color name="dark">#98cc00</color>
 	<color name="light">#d3e992</color>    
 	<color name="light_light">#e2f0b6</color>
 	<color name="light_light_light">#f8fff8</color>
