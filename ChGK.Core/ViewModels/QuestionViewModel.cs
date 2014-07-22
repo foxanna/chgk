@@ -18,6 +18,7 @@ namespace ChGK.Core.ViewModels
 		{
 			Text = question.Text;
 			Answer = question.Answer;
+			PassCriteria = question.PassCriteria;
 			Comment = question.Comment;
 			Author = question.Author;
 			Source = question.Source;
@@ -28,11 +29,14 @@ namespace ChGK.Core.ViewModels
 			HasComments = !string.IsNullOrEmpty (Comment);
 			HasAuthor = !string.IsNullOrEmpty (Author);
 			HasSource = !string.IsNullOrEmpty (Source);
+			HasPassCriteria = !string.IsNullOrEmpty (PassCriteria);
 		}
 
 		public string Text { get; set; }
 
 		public string Answer { get; set; }
+
+		public string PassCriteria { get; set; }
 
 		public string Comment { get; set; }
 
@@ -51,6 +55,8 @@ namespace ChGK.Core.ViewModels
 		public bool HasSource { get; set; }
 
 		public bool HasPicture { get; set; }
+
+		public bool HasPassCriteria { get; set; }
 
 		bool _isAnswerShown;
 

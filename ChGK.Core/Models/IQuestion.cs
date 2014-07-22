@@ -18,6 +18,8 @@ namespace ChGK.Core.Models
 		string Source { get; }
 
 		string Picture { get; }
+
+		string PassCriteria { get; }
 	}
 
 	internal class Question : IQuestion
@@ -35,6 +37,8 @@ namespace ChGK.Core.Models
 		public string Source { get; set; }
 
 		public string Picture { get; set; }
+
+		public string PassCriteria { get; set; }
 	}
 }
 

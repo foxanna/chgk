@@ -21,11 +21,15 @@ namespace ChGK.Core.DbChGKInfo.Dto
 		[XmlElement ("Authors")]
 		public string Author { get; set; }
 
+		[XmlElement ("PassCriteria")]
+		public string PassCriteria { get; set; }
+
 		[XmlElement ("Comments")]
 		public string Comment { get; set; }
 
 		[XmlElement ("Sources")]
 		public string Source { get; set; }
+
 
 		public IQuestion ToModel ()
 		{
@@ -34,6 +38,7 @@ namespace ChGK.Core.DbChGKInfo.Dto
 				Picture = TextFormatter.GetPicture (Text),
 				Text = TextFormatter.FormatQuestion (Text),
 				Answer = Answer,
+				PassCriteria = PassCriteria,
 				Author = Author,
 				Comment = TextFormatter.FormatComments (Comment),
 				Source = Source,
