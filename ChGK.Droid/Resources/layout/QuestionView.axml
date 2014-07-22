@@ -82,6 +82,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:autoLink="web"
                     android:layout_height="wrap_content"
                     local:MvxBind="Text Source; Visibility HasSource,Converter=Visibility" />
                 <TextView
