@@ -7,9 +7,11 @@
     <item 
 		android:id="@+id/start_timer"       
         android:showAsAction="always"
-        android:title="start"/>  
+        android:icon="@drawable/ic_av_play"
+        android:title="Старт"/>  
     <item 
 		android:id="@+id/stop_timer"       
         android:showAsAction="always"
-        android:title="stop"/>  
+        android:icon="@drawable/ic_av_pause"
+        android:title="Пауза"/>  
 </menu>

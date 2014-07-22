@@ -24,6 +24,10 @@ namespace ChGK.Droid
 			global::Android.Runtime.ResourceIdManager.UpdateIdValues();
 		}
 		
+		public static void UpdateIdValues()
+		{
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -121,31 +125,37 @@ namespace ChGK.Droid
 			public const int fastscroll_thumb_pressed = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int ic_navigation_collapse = 2130837509;
+			public const int ic_av_pause = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int ic_navigation_drawer = 2130837510;
+			public const int ic_av_play = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int ic_navigation_expand = 2130837511;
+			public const int ic_navigation_collapse = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int ic_navigation_refresh = 2130837512;
+			public const int ic_navigation_drawer = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int ic_navigation_refresh3 = 2130837513;
+			public const int ic_navigation_expand = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int Icon = 2130837514;
+			public const int ic_navigation_refresh = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int progress_bar = 2130837515;
+			public const int ic_navigation_refresh3 = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int selectable_background_chgk = 2130837516;
+			public const int Icon = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int splash = 2130837517;
+			public const int progress_bar = 2130837517;
+			
+			// aapt resource value: 0x7f02000e
+			public const int selectable_background_chgk = 2130837518;
+			
+			// aapt resource value: 0x7f02000f
+			public const int splash = 2130837519;
 			
 			static Drawable()
 			{

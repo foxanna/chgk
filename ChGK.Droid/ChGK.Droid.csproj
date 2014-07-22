@@ -196,6 +196,14 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_navigation_refresh.png" />
     <AndroidResource Include="Resources\values\themes.xml" />
     <AndroidResource Include="Resources\Layout\FullImageView.axml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_av_pause.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_av_play.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_av_pause.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_av_play.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_av_pause.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_av_play.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_av_pause.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_av_play.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
