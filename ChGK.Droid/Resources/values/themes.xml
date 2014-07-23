@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
+	<style name="Theme.Splash" parent="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+	    <item name="android:windowBackground">@color/light_light_light</item>
+	</style>
+
 	<style name="ChGK.Theme" parent="@android:style/Theme.Holo.Light">
 		<item name="android:actionBarItemBackground">@drawable/selectable_background_chgk</item>
 		<item name="android:windowBackground">@color/light_light_light</item>

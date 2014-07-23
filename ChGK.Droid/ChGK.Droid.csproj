@@ -145,7 +145,6 @@
     <AndroidResource Include="Resources\Drawable\splash.png" />
     <AndroidResource Include="Resources\Layout\SplashScreen.axml" />
     <AndroidResource Include="Resources\Values\MvxBindingAttributes.xml" />
-    <AndroidResource Include="Resources\Values\SplashStyle.xml" />
     <AndroidResource Include="Resources\Layout\HomeView.axml" />
     <AndroidResource Include="Resources\Layout\item_question.axml" />
     <AndroidResource Include="Resources\Layout\QuestionView.axml" />
@@ -204,7 +203,6 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_av_play.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_av_pause.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_av_play.png" />
-    <AndroidResource Include="Resources\drawable\splash1.png" />
     <AndroidResource Include="Resources\drawable\divider_gradient.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
