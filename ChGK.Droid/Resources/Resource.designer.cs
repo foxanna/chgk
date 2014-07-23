@@ -74,8 +74,11 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f080002
 			public const int light_light = 2131230722;
 			
+			// aapt resource value: 0x7f080004
+			public const int light_light_light = 2131230724;
+			
 			// aapt resource value: 0x7f080003
-			public const int light_light_light = 2131230723;
+			public const int light_light_transparent = 2131230723;
 			
 			static Color()
 			{
@@ -113,49 +116,52 @@ namespace ChGK.Droid
 			public const int ab_transparent_chgk = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int expander_group = 2130837505;
+			public const int divider_gradient = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int fastscroll_thumb = 2130837506;
+			public const int expander_group = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int fastscroll_thumb_default = 2130837507;
+			public const int fastscroll_thumb = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int fastscroll_thumb_pressed = 2130837508;
+			public const int fastscroll_thumb_default = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int ic_av_pause = 2130837509;
+			public const int fastscroll_thumb_pressed = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int ic_av_play = 2130837510;
+			public const int ic_av_pause = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int ic_navigation_collapse = 2130837511;
+			public const int ic_av_play = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int ic_navigation_drawer = 2130837512;
+			public const int ic_navigation_collapse = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int ic_navigation_expand = 2130837513;
+			public const int ic_navigation_drawer = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int ic_navigation_refresh = 2130837514;
+			public const int ic_navigation_expand = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int ic_navigation_refresh3 = 2130837515;
+			public const int ic_navigation_refresh = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int Icon = 2130837516;
+			public const int ic_navigation_refresh3 = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int progress_bar = 2130837517;
+			public const int Icon = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int selectable_background_chgk = 2130837518;
+			public const int progress_bar = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int splash = 2130837519;
+			public const int selectable_background_chgk = 2130837519;
+			
+			// aapt resource value: 0x7f020010
+			public const int splash = 2130837520;
 			
 			static Drawable()
 			{
@@ -275,11 +281,11 @@ namespace ChGK.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f070001
-			public const int app_name = 2131165185;
+			// aapt resource value: 0x7f060001
+			public const int app_name = 2131099649;
 			
-			// aapt resource value: 0x7f070000
-			public const int hello = 2131165184;
+			// aapt resource value: 0x7f060000
+			public const int hello = 2131099648;
 			
 			static String()
 			{
@@ -294,26 +300,26 @@ namespace ChGK.Droid
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f060002
-			public const int ActionBar_Chgk = 2131099650;
+			// aapt resource value: 0x7f070002
+			public const int ActionBar_Chgk = 2131165186;
 			
-			// aapt resource value: 0x7f060005
-			public const int Button_Chgk = 2131099653;
+			// aapt resource value: 0x7f070005
+			public const int Button_Chgk = 2131165189;
 			
-			// aapt resource value: 0x7f060001
-			public const int ChGK_Theme = 2131099649;
+			// aapt resource value: 0x7f070001
+			public const int ChGK_Theme = 2131165185;
 			
-			// aapt resource value: 0x7f060004
-			public const int ExpandableListView_Chgk = 2131099652;
+			// aapt resource value: 0x7f070004
+			public const int ExpandableListView_Chgk = 2131165188;
 			
-			// aapt resource value: 0x7f060003
-			public const int ListView_Chgk = 2131099651;
+			// aapt resource value: 0x7f070003
+			public const int ListView_Chgk = 2131165187;
 			
-			// aapt resource value: 0x7f060006
-			public const int ProgressBar_ChGK = 2131099654;
+			// aapt resource value: 0x7f070006
+			public const int ProgressBar_ChGK = 2131165190;
 			
-			// aapt resource value: 0x7f060000
-			public const int Theme_Splash = 2131099648;
+			// aapt resource value: 0x7f070000
+			public const int Theme_Splash = 2131165184;
 			
 			static Style()
 			{

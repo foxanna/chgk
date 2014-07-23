@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace ChGK.Core.ViewModels
 {
@@ -15,22 +16,22 @@ namespace ChGK.Core.ViewModels
 		{
 		}
 
+		string _fileName;
+
 		public async void Init (string name, string filename)
 		{
 			Name = name;
+			_fileName = filename;
 
-			IsLoading = true;
+			await LoadItemsAsync ();
+		}
 
-			try {
-				var tour = await _chGKService.GetTourDetails (filename);
+		protected override async Task LoadItemsInternal ()
+		{
+			var tour = await ChGKService.GetTourDetails (_fileName);
 
-				Questions = tour.Questions;
-				Editors = tour.Editors;
-			} catch (Exception e) {
-				Mvx.Trace (e.Message);
-			} finally {
-				IsLoading = false;
-			}
+			Questions = tour.Questions;
+			Editors = tour.Editors;
 		}
 
 		string _name;

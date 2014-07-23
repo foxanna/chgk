@@ -20,11 +20,9 @@ namespace ChGK.Core.ViewModels
 
 		public MvxCommand RefreshCommand {
 			get {
-				return _refreshCommand ?? (_refreshCommand = new MvxCommand (Refresh));
+				return _refreshCommand ?? (_refreshCommand = new MvxCommand (async () => await LoadItemsAsync ()));
 			}
 		}
-
-		protected abstract void Refresh ();
 	}
 }
 

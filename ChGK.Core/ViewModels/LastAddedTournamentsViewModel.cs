@@ -17,28 +17,15 @@ namespace ChGK.Core.ViewModels
 
 		public async override void Start ()
 		{
-			await LoadTournamentsAsync ();
+			await LoadItemsAsync ();
 		}
 
-		protected override async void Refresh ()
+		protected override async Task LoadItemsInternal ()
 		{
-			await LoadTournamentsAsync ();
+			Tournaments = await ChGKService.GetLastAddedTournaments (0);
 		}
 
-		async Task LoadTournamentsAsync ()
-		{
-			IsLoading = true;
-
-			try {
-				Tournaments = await _chGKService.GetLastAddedTournaments (0);
-			} catch (Exception e) {
-				Mvx.Trace (e.Message);
-			} finally {
-				IsLoading = false;
-			}
-		}
-
-		private List<ITournament> _tournaments;
+		List<ITournament> _tournaments;
 
 		public List<ITournament> Tournaments {
 			get {			

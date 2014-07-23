@@ -3,6 +3,10 @@ using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.Droid.Views;
+using Cirrious.CrossCore.Plugins;
+using Cirrious.CrossCore;
+using ChGK.Core.Services;
+using ChGK.Droid.Services;
 
 namespace ChGK.Droid
 {
@@ -25,6 +29,13 @@ namespace ChGK.Droid
 		protected override IMvxAndroidViewPresenter CreateViewPresenter ()
 		{
 			return new ChGKPresenter ();
+		}
+
+		protected override void InitializeApp (IMvxPluginManager pluginManager)
+		{
+			Mvx.RegisterSingleton<IDeviceConnectivityService> (new DeviceConnectivityService ());
+
+			base.InitializeApp (pluginManager);
 		}
 	}
 }

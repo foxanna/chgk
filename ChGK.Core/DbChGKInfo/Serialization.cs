@@ -23,7 +23,7 @@ namespace ChGK.Core.DbChGKInfo
 			return Task.Factory.StartNew<T> (() => {
 				using (System.IO.StringReader read = new StringReader (responseBody)) {
 					using (XmlReader reader = XmlReader.Create (read)) {
-						return  (T) serializer.Deserialize (reader);
+						return  (T)serializer.Deserialize (reader);
 					}
 				}
 			});
@@ -49,7 +49,7 @@ namespace ChGK.Core.DbChGKInfo
 					.Where (node => new T ().RecognitionPattern (node)).FirstOrDefault ();
 
 				if (a == null) {
-					throw new FormatException ("Кажется, изменился формат ответа сервера");
+					throw new FormatException ("Кажется, изменился формат ответа сервера.");
 				}
 
 				return new T ().LoadFrom (a);

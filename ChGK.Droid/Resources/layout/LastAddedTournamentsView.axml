@@ -3,6 +3,13 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    <TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+     	android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+     	local:MvxBind="Visibility HasError,Converter=Visibility; Text Error"/>
+
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="100dp"
@@ -13,7 +20,7 @@
     <ChGK.Droid.Controls.BindableExpandableListView
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    local:MvxBind="ItemsSource Tournaments; ItemClick OnTourCLick; Visibility IsLoading,Converter=InvertedVisibility"
+	    local:MvxBind="ItemsSource Tournaments; ItemClick OnTourCLick; Visibility HasData,Converter=Visibility"
 	    local:MvxItemTemplate="@layout/item_tour"
 	    local:GroupItemTemplate="@layout/item_tournament"/>
 </RelativeLayout>

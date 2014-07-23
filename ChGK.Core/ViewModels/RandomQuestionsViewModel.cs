@@ -18,25 +18,12 @@ namespace ChGK.Core.ViewModels
 
 		public async override void Start ()
 		{
-			await LoadQuestionsAsync ();
+			await LoadItemsAsync ();
 		}
 
-		protected override async void Refresh ()
+		protected override async Task LoadItemsInternal ()
 		{
-			await LoadQuestionsAsync ();
-		}
-
-		async Task LoadQuestionsAsync ()
-		{
-			IsLoading = true;
-
-			try {
-				Questions = await _chGKService.GetRandomPackage ();
-			} catch (Exception e) {
-				Mvx.Trace (e.Message);
-			} finally {
-				IsLoading = false;
-			}
+			Questions = await ChGKService.GetRandomPackage ();
 		}
 
 		private List<IQuestion> _questions;

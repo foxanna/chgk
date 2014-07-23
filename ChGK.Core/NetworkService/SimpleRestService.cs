@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Net;
-using System.Xml;
-using System.IO;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using System.Threading.Tasks;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ChGK.Core.NetworkService
 {
