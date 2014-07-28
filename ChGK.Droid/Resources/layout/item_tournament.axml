@@ -13,26 +13,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         local:MvxBind="Text Name" />
-    <LinearLayout
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Отыгран " />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text PlayedAt" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  Добавлен " />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text AddedAt" />
-    </LinearLayout>
+        local:MvxBind="Text Dates" />
 </LinearLayout>

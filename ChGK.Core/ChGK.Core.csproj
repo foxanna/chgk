@@ -63,6 +63,7 @@
     <Compile Include="ViewModels\FullImageViewModel.cs" />
     <Compile Include="Services\IDeviceConnectivityService.cs" />
     <Compile Include="DbChGKInfo\TextFormatter.cs" />
+    <Compile Include="ViewModels\TournamentViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using Cirrious.MvvmCross.ViewModels;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.ViewModels;
 
 namespace ChGK.Core.ViewModels
 {
@@ -22,12 +21,13 @@ namespace ChGK.Core.ViewModels
 
 		protected override async Task LoadItemsInternal ()
 		{
-			Tournaments = await ChGKService.GetLastAddedTournaments (0);
+			var tournaments = await ChGKService.GetLastAddedTournaments (0);
+			Tournaments = tournaments.Select (tournament => new TournamentViewModel (tournament)).ToList ();
 		}
 
-		List<ITournament> _tournaments;
+		List<TournamentViewModel> _tournaments;
 
-		public List<ITournament> Tournaments {
+		public List<TournamentViewModel> Tournaments {
 			get {			
 				return _tournaments;
 			}
