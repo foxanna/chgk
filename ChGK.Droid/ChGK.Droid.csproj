@@ -134,6 +134,7 @@
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
     <Compile Include="Views\FullImageView.cs" />
     <Compile Include="Services\DeviceConnectivityService.cs" />
+    <Compile Include="Services\AudioPlayerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -224,11 +225,15 @@
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\menu\" />
     <Folder Include="Services\" />
+    <Folder Include="Assets\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamandroidsupportv4-18">
       <Version>4.18.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\long_timer.mp3" />
   </ItemGroup>
 </Project>

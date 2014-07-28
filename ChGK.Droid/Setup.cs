@@ -34,6 +34,7 @@ namespace ChGK.Droid
 		protected override void InitializeApp (IMvxPluginManager pluginManager)
 		{
 			Mvx.RegisterSingleton<IDeviceConnectivityService> (new DeviceConnectivityService ());
+			Mvx.RegisterSingleton<IAudioPlayerService> (new AudioPlayerService ());
 
 			base.InitializeApp (pluginManager);
 		}

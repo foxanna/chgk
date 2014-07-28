@@ -11,7 +11,17 @@ namespace ChGK.Core.ViewModels
 	{
 		public QuestionViewModel ()
 		{
-			timer.OneSecond += (sender, e) => Time = e.Seconds;
+			timer.OneSecond += (sender, e) => {
+				Time = e.Seconds;
+
+				if (e.Seconds == new TimeSpan (0, 0, 50)) {
+					Mvx.Resolve<IAudioPlayerService> ().PlayShort ();
+				} else if (e.Seconds == new TimeSpan (0, 1, 0)) {
+					PauseTimer ();
+
+					Mvx.Resolve<IAudioPlayerService> ().PlayLong ();
+				}
+			};
 		}
 
 		public QuestionViewModel (IQuestion question, int index) : this ()
