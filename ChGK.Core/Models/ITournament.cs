@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace ChGK.Core.Models
 {
-	public interface ITournament : IEnumerable<ITour>
+	public interface ITournament
 	{
 		string FileName { get; }
 
@@ -28,16 +28,6 @@ namespace ChGK.Core.Models
 		public string PlayedAt { get; set; }
 
 		public List<ITour> Tours { get; set; }
-
-		public IEnumerator<ITour> GetEnumerator ()
-		{
-			return Tours.GetEnumerator ();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator ()
-		{
-			return Tours.GetEnumerator ();
-		}
 	}
 }
 
