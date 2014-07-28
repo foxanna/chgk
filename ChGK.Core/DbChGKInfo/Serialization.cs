@@ -42,11 +42,11 @@ namespace ChGK.Core.DbChGKInfo
 		public Task<T> Deserialize (string responseBody)
 		{
 			return Task.Factory.StartNew<T> (() => {
-				var document = new HtmlAgilityPack.HtmlDocument ();
+				var document = new HtmlDocument ();
 				document.LoadHtml (responseBody);
 
 				var a = document.DocumentNode.Descendants ()
-					.Where (node => new T ().RecognitionPattern (node)).FirstOrDefault ();
+					.FirstOrDefault (node => new T ().RecognitionPattern (node));
 
 				if (a == null) {
 					throw new FormatException ("Кажется, изменился формат ответа сервера.");
