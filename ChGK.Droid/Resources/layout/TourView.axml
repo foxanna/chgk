@@ -15,51 +15,11 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         local:MvxBind="Visibility IsLoading,Converter=Visibility" />
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+    <ChGK.Droid.Controls.MvxListViewWithHeader.MvxListViewWithHeader
+		android:id="@+id/data"
+		android:layout_width="match_parent"
         android:layout_height="match_parent"
-        local:MvxBind="Visibility HasData,Converter=Visibility">
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:gravity="right"
-            android:padding="@dimen/default_padding"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Редакторы: " />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                local:MvxBind="Text Editors" />
-            <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:gravity="right"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Количество вопросов: " />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    local:MvxBind="Text Questions.Count" />
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="@drawable/divider_gradient" />
-        <Mvx.MvxListView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:overScrollHeader="@drawable/icon"
-            local:MvxBind="ItemsSource Questions; ItemClick ShowQuestionCommand"
-            local:MvxItemTemplate="@layout/item_question" />
-    </LinearLayout>
+        local:header="@layout/item_tour_header"
+        local:MvxBind="ItemsSource Questions; ItemClick ShowQuestionCommand;Visibility HasData,Converter=Visibility"
+        local:MvxItemTemplate="@layout/item_question" />
 </RelativeLayout>

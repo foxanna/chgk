@@ -1,7 +1,11 @@
 ﻿using Android.App;
 using Android.OS;
-using Cirrious.MvvmCross.Droid.Views;
+using Android.Widget;
 using ChGK.Core.ViewModels;
+using Cirrious.MvvmCross.Binding.BindingContext;
+using Cirrious.MvvmCross.Binding.Droid.BindingContext;
+using Cirrious.MvvmCross.Binding.Droid.Views;
+using Cirrious.MvvmCross.Droid.Views;
 
 namespace ChGK.Droid.Views
 {
@@ -13,7 +17,7 @@ namespace ChGK.Droid.Views
 			base.OnCreate (bundle);
 			SetContentView (Resource.Layout.TourView);
 
-			ActionBar.Title = ((TourViewModel) ViewModel).Name;
+			ActionBar.Title = ((TourViewModel)ViewModel).Name;
 			ActionBar.SetDisplayHomeAsUpEnabled (true);
 		}
 

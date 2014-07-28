@@ -11,6 +11,8 @@
     <attr name="MvxItemTemplate" format="string"/>
     <attr name="GroupItemTemplate" format="string"/>
     <attr name="MvxDropDownItemTemplate" format="string"/>
+    <attr name="header" format="string" />
+   	<attr name="footer" format="string" />
   </declare-styleable>
   <item type="id" name="MvxBindingTagUnique"/>
   <declare-styleable name="MvxImageView">

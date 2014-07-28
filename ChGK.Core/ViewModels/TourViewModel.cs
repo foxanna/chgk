@@ -7,6 +7,7 @@ using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace ChGK.Core.ViewModels
 {
@@ -31,7 +32,15 @@ namespace ChGK.Core.ViewModels
 			var tour = await ChGKService.GetTourDetails (_fileName);
 
 			Questions = tour.Questions;
-			Editors = tour.Editors;
+
+			var infoSB = new StringBuilder ();
+			if (!string.IsNullOrEmpty (tour.Editors)) {
+				infoSB.Append (string.Format ("Редакторы:\n{0}\n", tour.Editors));
+			}
+
+			infoSB.Append (string.Format ("\nКоличество вопросов: {0}\n", Questions.Count));
+
+			Info = infoSB.ToString ();
 		}
 
 		string _name;
@@ -46,15 +55,15 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		string _editors;
+		string _info;
 
-		public string Editors {
+		public string Info {
 			get {
-				return _editors;
+				return _info;
 			}
 			set {
-				_editors = value; 
-				RaisePropertyChanged (() => Editors);
+				_info = value; 
+				RaisePropertyChanged (() => Info);
 			}
 		}
 

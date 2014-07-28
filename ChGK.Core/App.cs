@@ -16,8 +16,6 @@ namespace ChGK.Core
                 .RegisterAsLazySingleton ();
 
 			RegisterAppStart<ViewModels.HomeViewModel> ();
-//			RegisterAppStart<ViewModels.LastAddedTournamentsViewModel> ();
-//			RegisterAppStart<ViewModels.RandomQuestionsViewModel> ();
 		}
 	}
 }

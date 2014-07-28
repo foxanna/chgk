@@ -1,6 +1,7 @@
 ﻿using System;
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Droid;
+using Cirrious.MvvmCross.Binding.Droid.ResourceHelpers;
 
 namespace ChGK.Droid.Controls
 {
@@ -22,6 +23,16 @@ namespace ChGK.Droid.Controls
 					resourceType.GetNestedType ("Styleable")
 						.GetField ("MvxListView_GroupItemTemplate")
 						.GetValue (null);
+				MvxListViewWithHeader_HeaderLayout =
+					(int)
+					resourceType.GetNestedType ("Styleable")
+						.GetField ("MvxListView_header")
+						.GetValue (null);
+				MvxListViewWithHeader_FooterLayout =
+					(int)
+					resourceType.GetNestedType ("Styleable")
+						.GetField ("MvxListView_footer")
+						.GetValue (null);
 			} catch (Exception) {
 				throw new Exception (
 					"Error finding resource ids for MvvmCross.DeapBinding - please make sure ResourcesToCopy are linked into the executable");
@@ -29,6 +40,10 @@ namespace ChGK.Droid.Controls
 		}
 
 		public int BindableListGroupItemTemplateId { get; private set; }
+
+		public int MvxListViewWithHeader_HeaderLayout { get; private set; }
+
+		public int MvxListViewWithHeader_FooterLayout { get; private set; }
 	}
 }
 

@@ -35,7 +35,7 @@ namespace ChGK.Droid.Controls
 			var item = Adapter.GetRawItem (position);
 			if (item == null)
 				return;
-			var flatItem = (BindableGroupListAdapter.FlatItem) item;
+			var flatItem = (BindableGroupListAdapter.FlatItem)item;
 
 			if (flatItem.IsGroup)
 				command = GroupClick;

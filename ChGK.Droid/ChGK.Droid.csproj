@@ -135,6 +135,8 @@
     <Compile Include="Views\FullImageView.cs" />
     <Compile Include="Services\DeviceConnectivityService.cs" />
     <Compile Include="Services\AudioPlayerService.cs" />
+    <Compile Include="Controls\MvxListViewWithHeader\HeaderMvxAdapter.cs" />
+    <Compile Include="Controls\MvxListViewWithHeader\MvxListViewWithHeader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -206,6 +208,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_av_pause.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_av_play.png" />
     <AndroidResource Include="Resources\drawable\divider_gradient.xml" />
+    <AndroidResource Include="Resources\Layout\item_tour_header.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
@@ -226,6 +229,7 @@
     <Folder Include="Resources\menu\" />
     <Folder Include="Services\" />
     <Folder Include="Assets\" />
+    <Folder Include="Controls\MvxListViewWithHeader\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamandroidsupportv4-18">

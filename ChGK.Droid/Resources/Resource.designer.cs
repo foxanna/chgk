@@ -46,11 +46,17 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f010001
 			public const int MvxLang = 2130771969;
 			
-			// aapt resource value: 0x7f010006
-			public const int MvxSource = 2130771974;
+			// aapt resource value: 0x7f010008
+			public const int MvxSource = 2130771976;
 			
 			// aapt resource value: 0x7f010002
 			public const int MvxTemplate = 2130771970;
+			
+			// aapt resource value: 0x7f010007
+			public const int footer = 2130771975;
+			
+			// aapt resource value: 0x7f010006
+			public const int header = 2130771974;
 			
 			static Attribute()
 			{
@@ -182,23 +188,26 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f050002
 			public const int content_frame = 2131034114;
 			
+			// aapt resource value: 0x7f050005
+			public const int data = 2131034117;
+			
 			// aapt resource value: 0x7f050001
 			public const int drawer = 2131034113;
 			
 			// aapt resource value: 0x7f050003
 			public const int items = 2131034115;
 			
-			// aapt resource value: 0x7f050005
-			public const int refresh = 2131034117;
-			
-			// aapt resource value: 0x7f050007
-			public const int start_timer = 2131034119;
+			// aapt resource value: 0x7f050006
+			public const int refresh = 2131034118;
 			
 			// aapt resource value: 0x7f050008
-			public const int stop_timer = 2131034120;
+			public const int start_timer = 2131034120;
 			
-			// aapt resource value: 0x7f050006
-			public const int time = 2131034118;
+			// aapt resource value: 0x7f050009
+			public const int stop_timer = 2131034121;
+			
+			// aapt resource value: 0x7f050007
+			public const int time = 2131034119;
 			
 			// aapt resource value: 0x7f050004
 			public const int viewPager = 2131034116;
@@ -229,25 +238,28 @@ namespace ChGK.Droid
 			public const int item_tour = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int item_tournament = 2130903044;
+			public const int item_tour_header = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int LastAddedTournamentsView = 2130903045;
+			public const int item_tournament = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int QuestionsView = 2130903046;
+			public const int LastAddedTournamentsView = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int QuestionView = 2130903047;
+			public const int QuestionsView = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int RandomQuestionsView = 2130903048;
+			public const int QuestionView = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int SplashScreen = 2130903049;
+			public const int RandomQuestionsView = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int TourView = 2130903050;
+			public const int SplashScreen = 2130903050;
+			
+			// aapt resource value: 0x7f03000b
+			public const int TourView = 2130903051;
 			
 			static Layout()
 			{
@@ -354,7 +366,7 @@ namespace ChGK.Droid
 			
 			public static int[] MvxImageView = new int[]
 			{
-					2130771974};
+					2130771976};
 			
 			// aapt resource value: 0
 			public const int MvxImageView_MvxSource = 0;
@@ -363,7 +375,9 @@ namespace ChGK.Droid
 			{
 					2130771971,
 					2130771972,
-					2130771973};
+					2130771973,
+					2130771974,
+					2130771975};
 			
 			// aapt resource value: 1
 			public const int MvxListView_GroupItemTemplate = 1;
@@ -373,6 +387,12 @@ namespace ChGK.Droid
 			
 			// aapt resource value: 0
 			public const int MvxListView_MvxItemTemplate = 0;
+			
+			// aapt resource value: 4
+			public const int MvxListView_footer = 4;
+			
+			// aapt resource value: 3
+			public const int MvxListView_header = 3;
 			
 			static Styleable()
 			{
