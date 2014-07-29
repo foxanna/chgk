@@ -1,11 +1,9 @@
-﻿using System;
-using Cirrious.MvvmCross.ViewModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ChGK.Core.Services;
-using ChGK.Core.Models;
-using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
+using ChGK.Core.Models;
+using ChGK.Core.Services;
 
 namespace ChGK.Core.ViewModels
 {
@@ -26,7 +24,7 @@ namespace ChGK.Core.ViewModels
 			Questions = await ChGKService.GetRandomPackage ();
 		}
 
-		private List<IQuestion> _questions;
+		List<IQuestion> _questions;
 
 		public List<IQuestion> Questions {
 			get {			
@@ -47,7 +45,7 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		private void ShowQuestion (IQuestion question)
+		void ShowQuestion (IQuestion question)
 		{
 			ShowViewModel<QuestionsViewModel> (new {
 				questionsJson = JsonConvert.SerializeObject (Questions),

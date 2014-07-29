@@ -1,13 +1,10 @@
-﻿using System;
-using Cirrious.MvvmCross.ViewModels;
-using ChGK.Core.Services;
-using ChGK.Core.Models;
-using System.Collections.Generic;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using Newtonsoft.Json;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Cirrious.MvvmCross.ViewModels;
+using Newtonsoft.Json;
+using ChGK.Core.Models;
+using ChGK.Core.Services;
 
 namespace ChGK.Core.ViewModels
 {

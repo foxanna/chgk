@@ -39,7 +39,7 @@ namespace ChGK.Core.DbChGKInfo
 
 			var randomPackage = await _simpleRestService.GetAsync<RandomPackageDto> (host, 
 				                    "xml/random", new XmlDeserializer<RandomPackageDto> ());
-			return randomPackage.questions.Select (dto => dto.ToModel ()).Cast<IQuestion> ().ToList ();
+			return randomPackage.questions.Select (dto => dto.ToModel ()).ToList ();
 		}
 
 		public async Task<List<ITournament>> GetLastAddedTournaments (int? page)

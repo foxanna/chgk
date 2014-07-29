@@ -1,9 +1,10 @@
 ﻿using System;
-using Cirrious.MvvmCross.ViewModels;
-using ChGK.Core.Services;
+using System.Threading;
 using System.Threading.Tasks;
 using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
 using ChGK.Core.DbChGKInfo;
+using ChGK.Core.Services;
 
 namespace ChGK.Core.ViewModels
 {
@@ -11,7 +12,9 @@ namespace ChGK.Core.ViewModels
 	{
 		protected readonly IChGKWebService ChGKService;
 
-		public LoadableViewModel (IChGKWebService chgkWebService)
+		protected CancellationTokenSource tokenSource;
+
+		protected LoadableViewModel (IChGKWebService chgkWebService)
 		{
 			ChGKService = chgkWebService;
 		}
@@ -24,13 +27,29 @@ namespace ChGK.Core.ViewModels
 			}
 			set {
 				_isLoading = value; 
+
 				RaisePropertyChanged (() => IsLoading);
 				RaisePropertyChanged (() => HasData);
 			}
 		}
 
+		void StopIfLoading ()
+		{
+			HasError = false;
+			IsLoading = false;
+
+			if (tokenSource != null) {
+				tokenSource.Cancel ();
+			}
+
+			tokenSource = new CancellationTokenSource ();
+		}
+
+
 		protected async Task LoadItemsAsync ()
 		{
+			StopIfLoading ();
+
 			HasError = false;
 			IsLoading = true;
 
