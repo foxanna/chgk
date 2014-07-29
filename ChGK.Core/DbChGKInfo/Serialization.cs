@@ -9,7 +9,7 @@ using HtmlAgilityPack;
 
 namespace ChGK.Core.DbChGKInfo
 {
-	internal class XmlDeserializer<T> : IDeserializer<T>
+	class XmlDeserializer<T> : IDeserializer<T>
 	{
 		readonly XmlSerializer serializer;
 
@@ -30,14 +30,14 @@ namespace ChGK.Core.DbChGKInfo
 		}
 	}
 
-	internal interface IHtmlDeserializable<T>
+	interface IHtmlDeserializable<T>
 	{
 		bool RecognitionPattern (HtmlNode node);
 
 		T LoadFrom (HtmlNode node);
 	}
 
-	internal class HtmlDeserializer<T> : IDeserializer<T> where T : IHtmlDeserializable<T>, new()
+	class HtmlDeserializer<T> : IDeserializer<T> where T : IHtmlDeserializable<T>, new()
 	{
 		public Task<T> Deserialize (string responseBody)
 		{

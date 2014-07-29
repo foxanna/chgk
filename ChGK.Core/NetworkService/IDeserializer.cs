@@ -1,7 +1,4 @@
-﻿using System;
-using System.Xml;
-using System.Xml.Serialization;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace ChGK.Core.NetworkService
 {

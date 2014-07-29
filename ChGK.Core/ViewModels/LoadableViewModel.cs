@@ -45,7 +45,6 @@ namespace ChGK.Core.ViewModels
 			tokenSource = new CancellationTokenSource ();
 		}
 
-
 		protected async Task LoadItemsAsync ()
 		{
 			StopIfLoading ();
