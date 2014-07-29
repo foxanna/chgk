@@ -6,6 +6,7 @@ using ChGK.Core.DbChGKInfo.Dto;
 using ChGK.Core.Models;
 using ChGK.Core.NetworkService;
 using ChGK.Core.Services;
+using System.Threading;
 
 namespace ChGK.Core.DbChGKInfo
 {
@@ -26,38 +27,40 @@ namespace ChGK.Core.DbChGKInfo
 			_reachabilityService = reachabilityService;
 		}
 
-		void PreLoad ()
+		void PreLoad (CancellationToken cancellationToken)
 		{
+			cancellationToken.ThrowIfCancellationRequested ();
+
 			if (!_reachabilityService.HasInternet ()) {
 				throw new NoConnectionException ();
 			}
 		}
 
-		public async Task<List<IQuestion>> GetRandomPackage ()
+		public async Task<List<IQuestion>> GetRandomPackage (CancellationToken cancellationToken)
 		{
-			PreLoad ();
+			PreLoad (cancellationToken);
 
 			var randomPackage = await _simpleRestService.GetAsync<RandomPackageDto> (host, 
-				                    "xml/random", new XmlDeserializer<RandomPackageDto> ());
+				                    "xml/random", new XmlDeserializer<RandomPackageDto> (), cancellationToken);
 			return randomPackage.questions.Select (dto => dto.ToModel ()).ToList ();
 		}
 
-		public async Task<List<ITournament>> GetLastAddedTournaments (int? page)
+		public async Task<List<ITournament>> GetLastAddedTournaments (int? page, CancellationToken cancellationToken)
 		{
-			PreLoad ();
+			PreLoad (cancellationToken);
 
 			var lastAddedTournaments = await _simpleRestService.GetAsync<LastAddedTournamentsDto> (host, 
-				                           "", new HtmlDeserializer<LastAddedTournamentsDto> ());
+				                           "", new HtmlDeserializer<LastAddedTournamentsDto> (), cancellationToken);
 
 			return lastAddedTournaments.Tournaments;
 		}
 
-		public async Task<ITour> GetTourDetails (string filename)
+		public async Task<ITour> GetTourDetails (string filename, CancellationToken cancellationToken)
 		{
-			PreLoad ();
+			PreLoad (cancellationToken);
 
 			var tourDto = await _simpleRestService.GetAsync<TourDto> (host, 
-				              string.Format ("{0}/xml", filename), new XmlDeserializer<TourDto> ());
+				              string.Format ("{0}/xml", filename), new XmlDeserializer<TourDto> (), cancellationToken);
 
 			return tourDto.ToModel ();
 		}

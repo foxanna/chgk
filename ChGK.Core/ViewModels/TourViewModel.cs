@@ -5,6 +5,7 @@ using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
+using System.Threading;
 
 namespace ChGK.Core.ViewModels
 {
@@ -24,9 +25,9 @@ namespace ChGK.Core.ViewModels
 			await LoadItemsAsync ();
 		}
 
-		protected override async Task LoadItemsInternal ()
+		protected override async Task LoadItemsInternal (CancellationToken token)
 		{
-			var tour = await ChGKService.GetTourDetails (_fileName);
+			var tour = await ChGKService.GetTourDetails (_fileName, token);
 
 			Questions = tour.Questions;
 

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Cirrious.MvvmCross.ViewModels;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
+using System.Threading;
 
 namespace ChGK.Core.ViewModels
 {
@@ -19,9 +20,9 @@ namespace ChGK.Core.ViewModels
 			await LoadItemsAsync ();
 		}
 
-		protected override async Task LoadItemsInternal ()
+		protected override async Task LoadItemsInternal (CancellationToken token)
 		{
-			var tournaments = await ChGKService.GetLastAddedTournaments (0);
+			var tournaments = await ChGKService.GetLastAddedTournaments (0, token);
 			Tournaments = tournaments.Select (tournament => new TournamentViewModel (tournament)).ToList ();
 		}
 

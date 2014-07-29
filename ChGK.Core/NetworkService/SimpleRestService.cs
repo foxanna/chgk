@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace ChGK.Core.NetworkService
 {
@@ -14,10 +15,17 @@ namespace ChGK.Core.NetworkService
 			return await httpClient.GetStringAsync (uri);
 		}
 
-		public async Task<T> GetAsync<T> (string host, string uri, IDeserializer<T> deserializer) where T : class, new()
+		public async Task<T> GetAsync<T> (string host, string uri, IDeserializer<T> deserializer, CancellationToken cancellationToken) where T : class, new()
 		{
+			cancellationToken.ThrowIfCancellationRequested ();
+
 			string response = await Load (host, uri);
+
+			cancellationToken.ThrowIfCancellationRequested ();
+
 			T toReturn = await deserializer.Deserialize (response);
+
+			cancellationToken.ThrowIfCancellationRequested ();
 
 			return toReturn;
 		}

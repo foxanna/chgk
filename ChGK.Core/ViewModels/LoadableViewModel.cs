@@ -35,9 +35,6 @@ namespace ChGK.Core.ViewModels
 
 		void StopIfLoading ()
 		{
-			HasError = false;
-			IsLoading = false;
-
 			if (tokenSource != null) {
 				tokenSource.Cancel ();
 			}
@@ -47,17 +44,19 @@ namespace ChGK.Core.ViewModels
 
 		protected async Task LoadItemsAsync ()
 		{
-			StopIfLoading ();
-
 			HasError = false;
 			IsLoading = true;
 
+			StopIfLoading ();
+
 			try {
-				await LoadItemsInternal ();
+				await LoadItemsInternal (tokenSource.Token);
 			} catch (NoConnectionException e) {
 				HasError = true;
 				Mvx.Trace (e.Message);
 				Error = "Проверьте интернет соединение.";
+			} catch (OperationCanceledException e) {
+				Mvx.Trace (e.Message);
 			} catch (Exception e) {
 				HasError = true;
 				Mvx.Trace (e.Message);
@@ -67,7 +66,7 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		protected abstract Task LoadItemsInternal ();
+		protected abstract Task LoadItemsInternal (CancellationToken token);
 
 		string _error;
 
