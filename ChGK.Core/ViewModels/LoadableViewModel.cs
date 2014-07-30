@@ -35,15 +35,19 @@ namespace ChGK.Core.ViewModels
 
 		void StopIfLoading ()
 		{
-			if (tokenSource != null) {
-				tokenSource.Cancel ();
-			}
+//			if (tokenSource != null) {
+//				tokenSource.Cancel ();
+//			}
 
 			tokenSource = new CancellationTokenSource ();
 		}
 
 		protected async Task LoadItemsAsync ()
 		{
+			if (IsLoading) {
+				return;
+			}
+
 			HasError = false;
 			IsLoading = true;
 
