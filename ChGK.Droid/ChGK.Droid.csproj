@@ -112,10 +112,7 @@
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DebugTrace.cs" />
-    <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Setup.cs" />
-    <Compile Include="SplashScreen.cs" />
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Views\HomeView.cs" />
@@ -127,7 +124,6 @@
     <Compile Include="Controls\ExpandableListView\BindableGroupListView.cs" />
     <Compile Include="Views\TourView.cs" />
     <Compile Include="Views\QuestionsView.cs" />
-    <Compile Include="ChGKPresenter.cs" />
     <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
     <Compile Include="Views\MenuItemView.cs" />
     <Compile Include="Bootstrap\DownloadCachePluginBootstrap.cs" />
@@ -141,6 +137,10 @@
     <Compile Include="Views\AboutView.cs" />
     <Compile Include="Views\MenuItemIndependentView.cs" />
     <Compile Include="Helpers\HtmlToSpannableValueConverter.cs" />
+    <Compile Include="Helpers\SplashScreen.cs" />
+    <Compile Include="Helpers\LinkerPleaseInclude.cs" />
+    <Compile Include="Helpers\ChGKPresenter.cs" />
+    <Compile Include="Helpers\DebugTrace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

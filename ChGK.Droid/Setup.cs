@@ -1,11 +1,12 @@
 using Android.Content;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.Droid.Platform;
-using Cirrious.MvvmCross.ViewModels;
-using Cirrious.MvvmCross.Droid.Views;
-using Cirrious.CrossCore.Plugins;
-using Cirrious.CrossCore;
 using ChGK.Core.Services;
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
+using Cirrious.CrossCore.Plugins;
+using Cirrious.MvvmCross.Droid.Platform;
+using Cirrious.MvvmCross.Droid.Views;
+using Cirrious.MvvmCross.ViewModels;
+using ChGK.Droid.Helpers;
 using ChGK.Droid.Services;
 
 namespace ChGK.Droid

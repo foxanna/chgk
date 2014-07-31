@@ -7,7 +7,7 @@ using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.ViewModels;
 using ChGK.Droid.Views;
 
-namespace ChGK.Droid
+namespace ChGK.Droid.Helpers
 {
 	public class ChGKPresenter : MvxAndroidViewPresenter
 	{
