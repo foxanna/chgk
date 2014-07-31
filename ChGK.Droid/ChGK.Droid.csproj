@@ -230,6 +230,27 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_content_new.png" />
     <AndroidResource Include="Resources\Layout\TeamsView.axml" />
     <AndroidResource Include="Resources\Layout\item_team.axml" />
+    <AndroidResource Include="Resources\drawable\edit_text.xml" />
+    <AndroidResource Include="Resources\drawable\btn_check.xml" />
+    <AndroidResource Include="Resources\drawable\btn_default.xml" />
+    <AndroidResource Include="Resources\drawable\progress_horizontal.xml" />
+    <AndroidResource Include="Resources\drawable\progress_indeterminate_horizontal.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\btn_check_on_disabled_focused.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\btn_check_on_disabled_focused.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\btn_check_on_disabled_focused.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\btn_check_on_disabled_focused.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\btn_default_normal.9.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\btn_default_normal.9.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\btn_default_normal.9.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\btn_default_normal.9.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\btn_default_disabled.9.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\btn_default_disabled.9.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\btn_default_disabled.9.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\btn_default_disabled.9.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\btn_default_pressed.9.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\btn_default_pressed.9.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\btn_default_pressed.9.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\btn_default_pressed.9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

@@ -24,6 +24,10 @@ namespace ChGK.Droid
 			global::Android.Runtime.ResourceIdManager.UpdateIdValues();
 		}
 		
+		public static void UpdateIdValues()
+		{
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -352,6 +356,9 @@ namespace ChGK.Droid
 			
 			// aapt resource value: 0x7f070001
 			public const int ChGK_Theme = 2131165185;
+			
+			// aapt resource value: 0x7f070007
+			public const int Dialog_Chgk = 2131165191;
 			
 			// aapt resource value: 0x7f070004
 			public const int ExpandableListView_Chgk = 2131165188;
