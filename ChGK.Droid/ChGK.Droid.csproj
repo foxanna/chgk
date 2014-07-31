@@ -137,6 +137,8 @@
     <Compile Include="Services\AudioPlayerService.cs" />
     <Compile Include="Controls\MvxListViewWithHeader\HeaderMvxAdapter.cs" />
     <Compile Include="Controls\MvxListViewWithHeader\MvxListViewWithHeader.cs" />
+    <Compile Include="Services\AppInfoProvider.cs" />
+    <Compile Include="Views\AboutView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -209,6 +211,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_av_play.png" />
     <AndroidResource Include="Resources\drawable\divider_gradient.xml" />
     <AndroidResource Include="Resources\Layout\item_tour_header.axml" />
+    <AndroidResource Include="Resources\Layout\AboutView.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

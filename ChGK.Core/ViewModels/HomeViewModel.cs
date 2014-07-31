@@ -29,6 +29,7 @@ namespace ChGK.Core.ViewModels
 			MenuItems = new List<MenuItem> () {
 				new MenuItem { Name = "Последние добавленные",  ViewModelType = typeof(LastAddedTournamentsViewModel) },
 				new MenuItem { Name = "Случайные вопросы", ViewModelType = typeof(RandomQuestionsViewModel) },
+				new MenuItem { Name = "О приложении", ViewModelType = typeof(AboutViewModel) },
 			};
 		}
 
@@ -36,9 +37,9 @@ namespace ChGK.Core.ViewModels
 		{
 			base.Start ();
 
-//			ShowViewModel<RandomQuestionsViewModel> ();
+			ShowViewModel<RandomQuestionsViewModel> ();
 
-			ShowViewModel<LastAddedTournamentsViewModel> ();
+//			ShowViewModel<LastAddedTournamentsViewModel> ();
 		}
 
 		public List <MenuItem> MenuItems {

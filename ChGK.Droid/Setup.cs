@@ -35,7 +35,7 @@ namespace ChGK.Droid
 		{
 			Mvx.RegisterSingleton<IDeviceConnectivityService> (new DeviceConnectivityService ());
 			Mvx.RegisterSingleton<IAudioPlayerService> (new AudioPlayerService ());
-
+			Mvx.RegisterSingleton<IAppInfoProvider> (new AppInfoProvider ());
 			base.InitializeApp (pluginManager);
 		}
 	}

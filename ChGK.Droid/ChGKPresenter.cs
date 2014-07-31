@@ -1,11 +1,11 @@
 ﻿using System;
-using Cirrious.MvvmCross.Droid.Views;
 using System.Collections.Generic;
-using Cirrious.MvvmCross.ViewModels;
 using ChGK.Core.ViewModels;
-using ChGK.Droid.Views;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using Cirrious.MvvmCross.Droid.Views;
+using Cirrious.MvvmCross.ViewModels;
+using ChGK.Droid.Views;
 
 namespace ChGK.Droid
 {
@@ -21,6 +21,9 @@ namespace ChGK.Droid
 				}, {
 					typeof(RandomQuestionsViewModel),
 					request => ReplaceFragment (new RandomQuestionsView (), request)
+				}, {
+					typeof(AboutViewModel),
+					request => ReplaceFragment (new AboutView (), request)
 				}, 
 			};
 		}

@@ -1,5 +1,4 @@
-﻿using System;
-using Android.OS;
+﻿using Android.OS;
 using Android.Views;
 using ChGK.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
@@ -9,7 +8,7 @@ namespace ChGK.Droid.Views
 {
 	public abstract class MenuItemView : MvxFragment
 	{
-		public MenuItemView ()
+		protected MenuItemView ()
 		{
 			RetainInstance = true;
 		}
@@ -23,7 +22,7 @@ namespace ChGK.Droid.Views
 		public override void OnViewCreated (View view, Bundle savedInstanceState)
 		{
 			base.OnViewCreated (view, savedInstanceState);
-			RetainInstance = true;
+
 			HasOptionsMenu = true;
 			Activity.Title = (ViewModel as MenuItemViewModel).Title;
 		}
@@ -43,11 +42,16 @@ namespace ChGK.Droid.Views
 		{
 			switch (item.ItemId) {
 			case Resource.Id.refresh:
-				(ViewModel as MenuItemViewModel).RefreshCommand.Execute (null);
+				Refresh ();
 				return true;
 			default:
 				return base.OnOptionsItemSelected (item);
 			}
+		}
+
+		async void Refresh ()
+		{
+			await (ViewModel as MenuItemViewModel).Refresh ();
 		}
 	}
 }

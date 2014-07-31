@@ -1,33 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace ChGK.Core.ViewModels
 {
-	public class TourViewModel : LoadableViewModel
+	public class TourViewModel : MvxViewModel
 	{
-		public TourViewModel (IChGKWebService service) : base (service)
+		IChGKWebService _service;
+
+		public DataLoader DataLoader { get; set; }
+
+		CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource ();
+
+		public TourViewModel (IChGKWebService service)
 		{
+			_service = service;
+
+			DataLoader = new DataLoader ();
 		}
 
-		string _fileName;
-
-		public async void Init (string name, string filename)
+		async Task LoadItems ()
 		{
-			Name = name;
-			_fileName = filename;
+			Questions = null;
 
-			await LoadItemsAsync ();
-		}
-
-		protected override async Task LoadItemsInternal (CancellationToken token)
-		{
-			var tour = await ChGKService.GetTourDetails (_fileName, token);
+			var tour = await _service.GetTourDetails (_fileName, _cancellationTokenSource.Token);
 
 			Questions = tour.Questions;
 
@@ -41,6 +42,16 @@ namespace ChGK.Core.ViewModels
 			Info = infoSB.ToString ();
 		}
 
+		string _fileName;
+
+		public async void Init (string name, string filename)
+		{
+			Name = name;
+			_fileName = filename;
+	
+			await DataLoader.LoadItemsAsync (LoadItems);
+		}
+
 		string _name;
 
 		public string Name {
@@ -48,7 +59,7 @@ namespace ChGK.Core.ViewModels
 				return _name;
 			}
 			set {
-				_name = value; 
+				_name = value;
 				RaisePropertyChanged (() => Name);
 			}
 		}
@@ -60,7 +71,7 @@ namespace ChGK.Core.ViewModels
 				return _info;
 			}
 			set {
-				_info = value; 
+				_info = value;
 				RaisePropertyChanged (() => Info);
 			}
 		}
@@ -72,7 +83,7 @@ namespace ChGK.Core.ViewModels
 				return _questions;
 			}
 			set {
-				_questions = value; 
+				_questions = value;
 				RaisePropertyChanged (() => Questions);
 			}
 		}
@@ -88,9 +99,9 @@ namespace ChGK.Core.ViewModels
 		void ShowQuestion (IQuestion question)
 		{
 			ShowViewModel<QuestionsViewModel> (new {
-				questionsJson = JsonConvert.SerializeObject (Questions),
-				index = Questions.IndexOf (question),
-			});
+					questionsJson = JsonConvert.SerializeObject (Questions),
+					index = Questions.IndexOf (question),
+				});
 		}
 	}
 }

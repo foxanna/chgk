@@ -5,25 +5,43 @@ using Cirrious.MvvmCross.ViewModels;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using System.Threading;
+using System;
 
 namespace ChGK.Core.ViewModels
 {
 	public class LastAddedTournamentsViewModel : MenuItemViewModel
 	{
-		public LastAddedTournamentsViewModel (IChGKWebService service) : base (service)
+		IChGKWebService _service;
+
+		public DataLoader DataLoader { get; private set; }
+
+		CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource ();
+
+		public LastAddedTournamentsViewModel (IChGKWebService service)
 		{
 			Title = "Последние добавленные";
+
+			_service = service;
+			DataLoader = new DataLoader ();
+		}
+
+		async Task LoadItems ()
+		{
+			Tournaments = null;
+
+			var tournaments = await _service.GetLastAddedTournaments (0, _cancellationTokenSource.Token);
+
+			Tournaments = tournaments.Select (tournament => new TournamentViewModel (tournament)).ToList ();
 		}
 
 		public async override void Start ()
 		{
-			await LoadItemsAsync ();
+			await Refresh ();
 		}
 
-		protected override async Task LoadItemsInternal (CancellationToken token)
+		public async override Task Refresh ()
 		{
-			var tournaments = await ChGKService.GetLastAddedTournaments (0, token);
-			Tournaments = tournaments.Select (tournament => new TournamentViewModel (tournament)).ToList ();
+			await DataLoader.LoadItemsAsync (LoadItems);
 		}
 
 		List<TournamentViewModel> _tournaments;

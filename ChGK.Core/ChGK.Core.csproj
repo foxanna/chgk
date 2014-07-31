@@ -59,12 +59,14 @@
     <Compile Include="Utils\TimerValueConverter.cs" />
     <Compile Include="Utils\CloseDrawerMessage.cs" />
     <Compile Include="ViewModels\MenuItemViewModel.cs" />
-    <Compile Include="ViewModels\LoadableViewModel.cs" />
     <Compile Include="ViewModels\FullImageViewModel.cs" />
     <Compile Include="Services\IDeviceConnectivityService.cs" />
     <Compile Include="DbChGKInfo\TextFormatter.cs" />
     <Compile Include="ViewModels\TournamentViewModel.cs" />
     <Compile Include="Services\IAudioPlayerService.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="Services\IAppInfoProvider.cs" />
+    <Compile Include="ViewModels\DataLoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
