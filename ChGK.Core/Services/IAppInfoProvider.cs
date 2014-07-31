@@ -3,6 +3,8 @@
 	public interface IAppInfoProvider
 	{
 		string AppVersion { get; }
+
+		string AppName { get; }
 	}
 }
 

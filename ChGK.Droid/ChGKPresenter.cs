@@ -21,9 +21,6 @@ namespace ChGK.Droid
 				}, {
 					typeof(RandomQuestionsViewModel),
 					request => ReplaceFragment (new RandomQuestionsView (), request)
-				}, {
-					typeof(AboutViewModel),
-					request => ReplaceFragment (new AboutView (), request)
 				}, 
 			};
 		}

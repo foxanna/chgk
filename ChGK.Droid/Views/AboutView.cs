@@ -1,9 +1,12 @@
-﻿using Android.Views;
-using Android.OS;
+﻿using Android.App;
+using Android.Views;
+using Android.Text.Method;
+using Android.Widget;
 
 namespace ChGK.Droid.Views
 {
-	public class AboutView : MenuItemView
+	[Activity (Label = "", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]			
+	public class AboutView : MenuItemIndependentView
 	{
 		protected override int LayoutId {
 			get {
@@ -11,11 +14,12 @@ namespace ChGK.Droid.Views
 			}
 		}
 
-		public override void OnViewCreated (View view, Bundle savedInstanceState)
+		protected override void OnCreate (Android.OS.Bundle bundle)
 		{
-			base.OnViewCreated (view, savedInstanceState);
+			base.OnCreate (bundle);
 
-			HasOptionsMenu = false;
+			FindViewById<TextView> (Resource.Id.a1).MovementMethod = LinkMovementMethod.Instance;
+			FindViewById<TextView> (Resource.Id.a2).MovementMethod = LinkMovementMethod.Instance;
 		}
 	}
 }

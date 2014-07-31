@@ -6,7 +6,15 @@ namespace ChGK.Droid.Services
 	{
 		public string AppVersion {
 			get {
-				return Android.App.Application.Context.PackageManager.GetPackageInfo (Android.App.Application.Context.PackageName, 0).VersionName;
+				var packageInfo = Android.App.Application.Context.PackageManager.GetPackageInfo (Android.App.Application.Context.PackageName, 0);
+				return packageInfo != null ? packageInfo.VersionName : string.Empty;
+			}
+		}
+
+		public string AppName {
+			get {
+				var appInfo = Android.App.Application.Context.PackageManager.GetApplicationInfo (Android.App.Application.Context.PackageName, 0);
+				return appInfo != null ? Android.App.Application.Context.PackageManager.GetApplicationLabel (appInfo) : string.Empty;
 			}
 		}
 	}

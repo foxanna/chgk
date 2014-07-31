@@ -67,6 +67,7 @@
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="Services\IAppInfoProvider.cs" />
     <Compile Include="ViewModels\DataLoader.cs" />
+    <Compile Include="StringResources.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using ChGK.Core.Services;
+using System.Threading.Tasks;
 
 namespace ChGK.Core.ViewModels
 {
@@ -6,36 +7,25 @@ namespace ChGK.Core.ViewModels
 	{
 		public AboutViewModel (IAppInfoProvider appInfoProvider)
 		{
-			Title = "О приложении";
-			CopyrightUrl = "http://db.chgk.info/copyright";
-			SomeTitle = "База Вопросов Интернет-клуба \"Что? Где? Когда?\" http://db.chgk.info";
+			Title = StringResources.AboutApp;
 
-			Version = "Версия " + appInfoProvider.AppVersion;
+			CopyrightUrl = "<a href=" + StringResources.LicenceAgreementUrl + ">" + StringResources.LicenceAgreement + "</a>";
+
+			SomeTitle = StringResources.QuestionsBase + " <a href=" + StringResources.DataBaseUrl + ">\"Что? Где? Когда?\"</a>";
+
+			Version = string.Format ("{0} {1} {2}", StringResources.Version, appInfoProvider.AppName, appInfoProvider.AppVersion);
 		}
 
-		public string SomeTitle {
-			get;
-			set;
-		}
+		public string SomeTitle { get; private set; }
 
-		public string CopyrightUrl {
-			get;
-			set;
-		}
+		public string CopyrightUrl { get; private set; }
 
-		public string Version {
-			get;
-			set;
-		}
+		public string Version { get; private set; }
 
-		#region implemented abstract members of MenuItemViewModel
-
-		public override System.Threading.Tasks.Task Refresh ()
+		public override Task Refresh ()
 		{
 			throw new System.NotImplementedException ();
 		}
-
-		#endregion
 	}
 }
 

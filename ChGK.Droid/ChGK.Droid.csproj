@@ -139,6 +139,8 @@
     <Compile Include="Controls\MvxListViewWithHeader\MvxListViewWithHeader.cs" />
     <Compile Include="Services\AppInfoProvider.cs" />
     <Compile Include="Views\AboutView.cs" />
+    <Compile Include="Views\MenuItemIndependentView.cs" />
+    <Compile Include="Helpers\HtmlToSpannableValueConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -233,6 +235,7 @@
     <Folder Include="Services\" />
     <Folder Include="Assets\" />
     <Folder Include="Controls\MvxListViewWithHeader\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamandroidsupportv4-18">
