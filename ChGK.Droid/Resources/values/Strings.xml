@@ -2,4 +2,9 @@
 <resources>
 	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">ChGK.Droid</string>
+
+	<string name="refresh">Обновить</string>
+	<string name="start">Старт</string>
+	<string name="stop">Пауза</string>
+	<string name="add">Добавить</string>
 </resources>

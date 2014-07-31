@@ -24,10 +24,6 @@ namespace ChGK.Droid
 			global::Android.Runtime.ResourceIdManager.UpdateIdValues();
 		}
 		
-		public static void UpdateIdValues()
-		{
-		}
-		
 		public partial class Attribute
 		{
 			
@@ -143,31 +139,34 @@ namespace ChGK.Droid
 			public const int ic_av_play = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int ic_navigation_collapse = 2130837512;
+			public const int ic_content_new = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int ic_navigation_drawer = 2130837513;
+			public const int ic_navigation_collapse = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int ic_navigation_expand = 2130837514;
+			public const int ic_navigation_drawer = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int ic_navigation_refresh = 2130837515;
+			public const int ic_navigation_expand = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int ic_navigation_refresh3 = 2130837516;
+			public const int ic_navigation_refresh = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int Icon = 2130837517;
+			public const int ic_navigation_refresh3 = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int progress_bar = 2130837518;
+			public const int Icon = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int selectable_background_chgk = 2130837519;
+			public const int progress_bar = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int splash = 2130837520;
+			public const int selectable_background_chgk = 2130837520;
+			
+			// aapt resource value: 0x7f020011
+			public const int splash = 2130837521;
 			
 			static Drawable()
 			{
@@ -190,6 +189,9 @@ namespace ChGK.Droid
 			
 			// aapt resource value: 0x7f050002
 			public const int a2 = 2131034114;
+			
+			// aapt resource value: 0x7f05000c
+			public const int add_team = 2131034124;
 			
 			// aapt resource value: 0x7f050004
 			public const int content_frame = 2131034116;
@@ -244,31 +246,37 @@ namespace ChGK.Droid
 			public const int item_question = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int item_tour = 2130903044;
+			public const int item_team = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int item_tour_header = 2130903045;
+			public const int item_tour = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int item_tournament = 2130903046;
+			public const int item_tour_header = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int LastAddedTournamentsView = 2130903047;
+			public const int item_tournament = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int QuestionsView = 2130903048;
+			public const int LastAddedTournamentsView = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int QuestionView = 2130903049;
+			public const int QuestionsView = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int RandomQuestionsView = 2130903050;
+			public const int QuestionView = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int SplashScreen = 2130903051;
+			public const int RandomQuestionsView = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int TourView = 2130903052;
+			public const int SplashScreen = 2130903052;
+			
+			// aapt resource value: 0x7f03000d
+			public const int TeamsView = 2130903053;
+			
+			// aapt resource value: 0x7f03000e
+			public const int TourView = 2130903054;
 			
 			static Layout()
 			{
@@ -289,6 +297,9 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f090001
 			public const int question = 2131296257;
 			
+			// aapt resource value: 0x7f090002
+			public const int teamsview = 2131296258;
+			
 			static Menu()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -302,11 +313,23 @@ namespace ChGK.Droid
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f060005
+			public const int add = 2131099653;
+			
 			// aapt resource value: 0x7f060001
 			public const int app_name = 2131099649;
 			
 			// aapt resource value: 0x7f060000
 			public const int hello = 2131099648;
+			
+			// aapt resource value: 0x7f060002
+			public const int refresh = 2131099650;
+			
+			// aapt resource value: 0x7f060003
+			public const int start = 2131099651;
+			
+			// aapt resource value: 0x7f060004
+			public const int stop = 2131099652;
 			
 			static String()
 			{

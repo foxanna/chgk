@@ -8,10 +8,10 @@
 		android:id="@+id/start_timer"       
         android:showAsAction="always"
         android:icon="@drawable/ic_av_play"
-        android:title="Старт"/>  
+        android:title="@string/start"/>  
     <item 
 		android:id="@+id/stop_timer"       
         android:showAsAction="always"
         android:icon="@drawable/ic_av_pause"
-        android:title="Пауза"/>  
+        android:title="@string/stop"/>  
 </menu>

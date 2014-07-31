@@ -108,6 +108,12 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.File.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.File.3.1.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.File.Droid.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Community.Plugins.Sqlite">
+      <HintPath>..\packages\MvvmCross.Community.Plugin.Sqlite.3.1.1\lib\MonoAndroid\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Community.Plugins.Sqlite.Droid">
+      <HintPath>..\packages\MvvmCross.Community.Plugin.Sqlite.3.1.1\lib\MonoAndroid\Cirrious.MvvmCross.Community.Plugins.Sqlite.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -141,6 +147,9 @@
     <Compile Include="Helpers\LinkerPleaseInclude.cs" />
     <Compile Include="Helpers\ChGKPresenter.cs" />
     <Compile Include="Helpers\DebugTrace.cs" />
+    <Compile Include="Bootstrap\CommunitySqlitePluginBootstrap.cs" />
+    <Compile Include="Views\TeamsView.cs" />
+    <Compile Include="Services\DialogManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -214,6 +223,13 @@
     <AndroidResource Include="Resources\drawable\divider_gradient.xml" />
     <AndroidResource Include="Resources\Layout\item_tour_header.axml" />
     <AndroidResource Include="Resources\Layout\AboutView.axml" />
+    <AndroidResource Include="Resources\menu\teamsview.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_content_new.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_content_new.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_content_new.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_content_new.png" />
+    <AndroidResource Include="Resources\Layout\TeamsView.axml" />
+    <AndroidResource Include="Resources\Layout\item_team.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

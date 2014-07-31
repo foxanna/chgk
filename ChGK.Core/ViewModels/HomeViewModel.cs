@@ -27,9 +27,10 @@ namespace ChGK.Core.ViewModels
 			_messenger = messenger;
 
 			MenuItems = new List<MenuItem> () {
-				new MenuItem { Name = "Последние добавленные",  ViewModelType = typeof(LastAddedTournamentsViewModel) },
-				new MenuItem { Name = "Случайные вопросы", ViewModelType = typeof(RandomQuestionsViewModel) },
-				new MenuItem { Name = "О приложении", ViewModelType = typeof(AboutViewModel) },
+				new MenuItem { Name = StringResources.LastAdded,  ViewModelType = typeof(LastAddedTournamentsViewModel) },
+				new MenuItem { Name = StringResources.RandomQuestions, ViewModelType = typeof(RandomQuestionsViewModel) },
+				new MenuItem { Name = StringResources.Teams, ViewModelType = typeof(TeamsViewModel) }, 
+				new MenuItem { Name = StringResources.AboutApp, ViewModelType = typeof(AboutViewModel) },
 			};
 		}
 

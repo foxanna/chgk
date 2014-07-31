@@ -4,6 +4,9 @@ namespace ChGK.Core
 {
 	public static class StringResources
 	{
+		public static string Add = "Добавить";
+		public static string Cancel = "Отмена";
+
 		// AboutView
 
 		public static string DataBaseUrl = "http://db.chgk.info";
@@ -12,6 +15,20 @@ namespace ChGK.Core
 		public static string AboutApp = "О приложении";
 		public static string Version = "Версия";
 		public static string QuestionsBase = "База Вопросов Интернет-клуба";
+
+		// TeamsView
+
+		public static string Teams = "Команды";
+		public static string TeamName = "Название команды";
+		public static string TeamScoreTitle = "Счет";
+
+		// LastAddedView
+
+		public static string LastAdded = "Последние добавленные";
+
+		// RandomQuestionsView
+
+		public static string RandomQuestions = "Случайные вопросы";
 	}
 }
 

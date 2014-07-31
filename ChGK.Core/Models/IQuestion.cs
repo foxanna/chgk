@@ -1,7 +1,4 @@
-﻿using System;
-using Cirrious.MvvmCross.ViewModels;
-
-namespace ChGK.Core.Models
+﻿namespace ChGK.Core.Models
 {
 	public interface IQuestion
 	{
@@ -22,7 +19,7 @@ namespace ChGK.Core.Models
 		string PassCriteria { get; }
 	}
 
-	internal class Question : IQuestion
+	class Question : IQuestion
 	{
 		public string ID { get; set; }
 
@@ -39,6 +36,21 @@ namespace ChGK.Core.Models
 		public string Picture { get; set; }
 
 		public string PassCriteria { get; set; }
+
+		public override bool Equals (object obj)
+		{
+			if (obj == null || !(obj is Question)) {
+				return false;
+			}
+
+			var question = (Question)obj;
+			return ID.Equals (question.ID);
+		}
+
+		public override int GetHashCode ()
+		{
+			return base.GetHashCode ();
+		}
 	}
 }
 
