@@ -25,9 +25,10 @@ namespace ChGK.Droid.Services
 
 		static Dialog AddTeamDialog (ICommand yesAction)
 		{
-			var builder = new AlertDialog.Builder (Mvx.Resolve<IMvxAndroidCurrentTopActivity> ().Activity);
+			var activity = Mvx.Resolve<IMvxAndroidCurrentTopActivity> ().Activity;
+			var builder = new AlertDialog.Builder (activity);
 
-			var editText = new EditText (Application.Context);
+			var editText = new EditText (activity);
 
 			builder.SetView (editText)
 				.SetCancelable (true)

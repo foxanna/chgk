@@ -15,11 +15,17 @@
 		<item name="android:scrollbarThumbVertical">@drawable/fastscroll_thumb</item>
 		<item name="android:progressBarStyleLarge">@style/ProgressBar.ChGK</item>
 		<item name="android:listDivider">@drawable/divider_gradient</item>
-		<item name="android:alertDialogStyle">@style/Dialog.Chgk</item>
-		<item name="android:editTextStyle">@style/EditText.Chgk</item>
+<!--		<item name="android:alertDialogTheme">@style/DialogChgk</item>-->
+<!--		<item name="android:alertDialogStyle">@style/DialogChGKStyle</item>-->
+		<item name="android:editTextStyle">@style/EditTextChgk</item>
 		<item name="android:textColorHighlight">@color/light_transparent</item>
 		<item name="android:checkboxStyle">@style/CheckBox.Chgk</item>
 		<item name="android:progressBarStyleHorizontal">@style/ProgressBar.Chgk</item>
+		<item name="android:editTextBackground">@drawable/edit_text</item>
+	    <item name="android:textSelectHandleLeft">@drawable/text_select_handle_left</item>
+	    <item name="android:textSelectHandleRight">@drawable/text_select_handle_right</item>
+	    <item name="android:textSelectHandle">@drawable/text_select_handle_middle</item>
+	    <item name="android:listChoiceIndicatorMultiple">@drawable/btn_check</item>
 	</style>
 
 	<color name="dark">#98cc00</color>
@@ -61,11 +67,21 @@
     	<item name="android:indeterminateDrawable">@drawable/progress_bar</item>
     </style>
 
-    <style name="Dialog.Chgk" parent="@android:style/Theme.Holo.Light.Dialog">
-	    
+    <style name="DialogChgk" parent="@android:style/Theme.Holo.Light.Dialog">  
+        <item name="android:windowTitleStyle">@style/DialogWindowTitleChgk</item>
 	</style>
 
-    <style name="EditText.Chgk" parent="android:Widget.Holo.Light.EditText">
+	<style name="DialogTitleTextAppearance" parent="@android:style/TextAppearance.DialogWindowTitle">
+		<item name="android:textColor">@color/dark</item>
+    </style>
+
+	<style name="DialogWindowTitleChgk">
+		<item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:textAppearance">@style/DialogTitleTextAppearance</item>
+    </style>
+
+    <style name="EditTextChgk" parent="android:Widget.Holo.Light.EditText">
 	  <item name="android:background">@drawable/edit_text</item>
 	  <item name="android:textColor">#000000</item>
     </style>
@@ -83,7 +99,7 @@
 
 	<style name="ProgressBar.Chgk" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
 		<item name="android:progressDrawable">@drawable/progress_horizontal</item>
-		<item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal</item>
+<!--		<item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal</item>-->
 		<item name="android:minHeight">16dip</item>
 		<item name="android:maxHeight">16dip</item>
 	</style>
