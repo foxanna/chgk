@@ -182,67 +182,70 @@ namespace ChGK.Droid
 			public const int ic_content_new = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int ic_navigation_collapse = 2130837524;
+			public const int ic_content_paste = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int ic_navigation_drawer = 2130837525;
+			public const int ic_navigation_collapse = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int ic_navigation_expand = 2130837526;
+			public const int ic_navigation_drawer = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int ic_navigation_refresh = 2130837527;
+			public const int ic_navigation_expand = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int ic_navigation_refresh3 = 2130837528;
+			public const int ic_navigation_refresh = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int Icon = 2130837529;
+			public const int ic_navigation_refresh3 = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int progress_bar = 2130837530;
+			public const int Icon = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int progress_bg = 2130837531;
+			public const int progress_bar = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int progress_horizontal = 2130837532;
+			public const int progress_bg = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int progress_primary = 2130837533;
+			public const int progress_horizontal = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int progress_secondary = 2130837534;
+			public const int progress_primary = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int selectable_background_chgk = 2130837535;
+			public const int progress_secondary = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int splash = 2130837536;
+			public const int selectable_background_chgk = 2130837536;
 			
 			// aapt resource value: 0x7f020021
-			public const int text_select_handle_left = 2130837537;
+			public const int splash = 2130837537;
 			
 			// aapt resource value: 0x7f020022
-			public const int text_select_handle_middle = 2130837538;
+			public const int text_select_handle_left = 2130837538;
 			
 			// aapt resource value: 0x7f020023
-			public const int text_select_handle_right = 2130837539;
+			public const int text_select_handle_middle = 2130837539;
 			
 			// aapt resource value: 0x7f020024
-			public const int textfield_activated = 2130837540;
+			public const int text_select_handle_right = 2130837540;
 			
 			// aapt resource value: 0x7f020025
-			public const int textfield_default = 2130837541;
+			public const int textfield_activated = 2130837541;
 			
 			// aapt resource value: 0x7f020026
-			public const int textfield_disabled = 2130837542;
+			public const int textfield_default = 2130837542;
 			
 			// aapt resource value: 0x7f020027
-			public const int textfield_disabled_focused = 2130837543;
+			public const int textfield_disabled = 2130837543;
 			
 			// aapt resource value: 0x7f020028
-			public const int textfield_focused = 2130837544;
+			public const int textfield_disabled_focused = 2130837544;
+			
+			// aapt resource value: 0x7f020029
+			public const int textfield_focused = 2130837545;
 			
 			static Drawable()
 			{
@@ -266,8 +269,8 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f050002
 			public const int a2 = 2131034114;
 			
-			// aapt resource value: 0x7f05000c
-			public const int add_team = 2131034124;
+			// aapt resource value: 0x7f05000d
+			public const int add_team = 2131034125;
 			
 			// aapt resource value: 0x7f050004
 			public const int content_frame = 2131034116;
@@ -277,6 +280,9 @@ namespace ChGK.Droid
 			
 			// aapt resource value: 0x7f050003
 			public const int drawer = 2131034115;
+			
+			// aapt resource value: 0x7f05000c
+			public const int enter_results = 2131034124;
 			
 			// aapt resource value: 0x7f050005
 			public const int items = 2131034117;
@@ -313,46 +319,52 @@ namespace ChGK.Droid
 			public const int AboutView = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int FullImageView = 2130903041;
+			public const int EnterResultsView = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int HomeView = 2130903042;
+			public const int FullImageView = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int item_question = 2130903043;
+			public const int HomeView = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int item_team = 2130903044;
+			public const int item_question = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int item_tour = 2130903045;
+			public const int item_result_team = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int item_tour_header = 2130903046;
+			public const int item_team = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int item_tournament = 2130903047;
+			public const int item_tour = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int LastAddedTournamentsView = 2130903048;
+			public const int item_tour_header = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int QuestionsView = 2130903049;
+			public const int item_tournament = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int QuestionView = 2130903050;
+			public const int LastAddedTournamentsView = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int RandomQuestionsView = 2130903051;
+			public const int QuestionsView = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int SplashScreen = 2130903052;
+			public const int QuestionView = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int TeamsView = 2130903053;
+			public const int RandomQuestionsView = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int TourView = 2130903054;
+			public const int SplashScreen = 2130903054;
+			
+			// aapt resource value: 0x7f03000f
+			public const int TeamsView = 2130903055;
+			
+			// aapt resource value: 0x7f030010
+			public const int TourView = 2130903056;
 			
 			static Layout()
 			{
@@ -394,6 +406,9 @@ namespace ChGK.Droid
 			
 			// aapt resource value: 0x7f060001
 			public const int app_name = 2131099649;
+			
+			// aapt resource value: 0x7f060006
+			public const int enter_results = 2131099654;
 			
 			// aapt resource value: 0x7f060000
 			public const int hello = 2131099648;

@@ -37,6 +37,8 @@
 
 	<style name="ActionBar.Chgk" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
         <item name="android:background">@drawable/ab_transparent_chgk</item>
+        <item name="android:showDividers">beginning</item>
+    	<item name="android:divider">@drawable/divider_gradient</item>
     </style>
 
     <style name="ListView.Chgk" parent="@android:style/Widget.Holo.Light.ListView">

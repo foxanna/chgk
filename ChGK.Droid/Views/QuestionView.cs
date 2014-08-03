@@ -1,13 +1,11 @@
-﻿using Android.App;
+﻿using System;
 using Android.OS;
 using Android.Views;
+using Android.Widget;
+using ChGK.Core.ViewModels;
+using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
-using Cirrious.MvvmCross.Droid.Views;
-using Android.Widget;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using ChGK.Core.ViewModels;
-using System;
 
 namespace ChGK.Droid.Views
 {
@@ -42,10 +40,13 @@ namespace ChGK.Droid.Views
 		{
 			switch (item.ItemId) {
 			case Resource.Id.start_timer:
-				(ViewModel as QuestionViewModel).StartTimerCommand.Execute (null);
+				(ViewModel as QuestionViewModel).StartTimer ();
 				return true;
 			case Resource.Id.stop_timer:
-				(ViewModel as QuestionViewModel).StopTimerCommand.Execute (null);
+				(ViewModel as QuestionViewModel).PauseTimer ();
+				return true;
+			case Resource.Id.enter_results:
+				(ViewModel as QuestionViewModel).EnterResults ();
 				return true;
 			default:
 				return base.OnOptionsItemSelected (item);
@@ -55,7 +56,7 @@ namespace ChGK.Droid.Views
 
 	public class MenuItemWrapper
 	{
-		IMenuItem item;
+		readonly IMenuItem item;
 
 		public MenuItemWrapper (IMenuItem item)
 		{

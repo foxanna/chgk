@@ -6,6 +6,7 @@ using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.ViewModels;
 using ChGK.Droid.Views;
+using Cirrious.MvvmCross.Droid.Fragging;
 
 namespace ChGK.Droid.Helpers
 {
@@ -21,7 +22,10 @@ namespace ChGK.Droid.Helpers
 				}, {
 					typeof(RandomQuestionsViewModel),
 					request => ReplaceFragment (new RandomQuestionsView (), request)
-				}, 
+				}, {
+					typeof(EnterResultsViewModel),
+					request => ShowDialog (new EnterResultsView (), request)
+				},
 			};
 		}
 
@@ -37,6 +41,12 @@ namespace ChGK.Droid.Helpers
 		{
 			PrepareFragment (fragment, request);
 			((HomeView)Activity).ShowMenuItem (fragment);
+		}
+
+		protected void ShowDialog (MvxDialogFragment dialog, MvxViewModelRequest request)
+		{
+			PrepareFragment (dialog, request);
+			dialog.Show ((Activity as MvxFragmentActivity).SupportFragmentManager, "tag");
 		}
 
 		public override void Show (MvxViewModelRequest request)

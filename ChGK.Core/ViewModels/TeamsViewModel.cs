@@ -63,5 +63,18 @@ namespace ChGK.Core.ViewModels
 			throw new System.NotImplementedException ();
 		}
 	}
+
+	public class TeamViewModel : MvxViewModel
+	{
+		public TeamViewModel (ITeamsService service, Team team)
+		{
+			Name = team.Name;
+			Score = StringResources.TeamScoreTitle + " " + service.GetTeamScore (team);
+		}
+
+		public string Name { get; private set; }
+
+		public string Score { get; private set; }
+	}
 }
 

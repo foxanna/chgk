@@ -4,11 +4,15 @@ using ChGK.Core.Models;
 using ChGK.Core.Services;
 using Cirrious.CrossCore;
 using ChGK.Core.Utils;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace ChGK.Core.ViewModels
 {
 	public class QuestionViewModel : MvxViewModel
 	{
+		readonly ITeamsService _teamsService;
+
 		public QuestionViewModel ()
 		{
 			timer.OneSecond += (sender, e) => {
@@ -22,10 +26,13 @@ namespace ChGK.Core.ViewModels
 					Mvx.Resolve<IAudioPlayerService> ().PlayLong ();
 				}
 			};
+
+			_teamsService = Mvx.Resolve<ITeamsService> ();
 		}
 
 		public QuestionViewModel (IQuestion question, int index) : this ()
 		{
+			ID = question.ID;
 			Text = question.Text;
 			Answer = question.Answer;
 			PassCriteria = question.PassCriteria;
@@ -41,6 +48,16 @@ namespace ChGK.Core.ViewModels
 			HasSource = !string.IsNullOrEmpty (Source);
 			HasPassCriteria = !string.IsNullOrEmpty (PassCriteria);
 		}
+
+		public async override void Start ()
+		{
+			base.Start ();
+
+			var teams = await Task.Factory.StartNew<List<Team>> (_teamsService.GetAllTeams);
+			//var results = await Task.Factory.StartNew<List<int>> (() =>	_teamsService.GetAllResults (_questionId));
+		}
+
+		public string ID { get; set; }
 
 		public string Text { get; set; }
 
@@ -94,24 +111,6 @@ namespace ChGK.Core.ViewModels
 
 		ChGKTimer timer = new ChGKTimer ();
 
-		MvxCommand _startTimerCommand;
-
-		public MvxCommand StartTimerCommand {
-			get {
-				return _startTimerCommand ?? (_startTimerCommand = 
-					new MvxCommand (StartTimer));
-			}
-		}
-
-		MvxCommand _stopTimerCommand;
-
-		public MvxCommand StopTimerCommand {
-			get {
-				return _stopTimerCommand ?? (_stopTimerCommand = 
-					new MvxCommand (PauseTimer));
-			}
-		}
-
 		TimeSpan _timeSpan;
 
 		public TimeSpan Time {
@@ -124,13 +123,13 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		void StartTimer ()
+		public void StartTimer ()
 		{
 			timer.Resume ();
 			IsTimerStarted = true;
 		}
 
-		void PauseTimer ()
+		public void PauseTimer ()
 		{
 			timer.Pause ();
 			IsTimerStarted = false;
@@ -162,6 +161,11 @@ namespace ChGK.Core.ViewModels
 				return _openImageCommand ?? (_openImageCommand = 
 					new MvxCommand (() => ShowViewModel<FullImageViewModel> (new { image = Picture })));
 			}
+		}
+
+		public void EnterResults ()
+		{
+			ShowViewModel<EnterResultsViewModel> (new {questionId = ID });
 		}
 	}
 }

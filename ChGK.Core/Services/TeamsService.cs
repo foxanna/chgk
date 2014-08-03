@@ -42,17 +42,17 @@ namespace ChGK.Core.Services
 			_connection.Delete (team);
 		}
 
-		public void IncrementScore (IQuestion question, Team team)
+		public void IncrementScore (string questionId, int teamId)
 		{
-			var existingAnswer = _connection.Table<Answer> ().FirstOrDefault (answer => answer.QuestionId == question.ID && answer.TeamID == team.ID);
+			var existingAnswer = _connection.Table<Answer> ().FirstOrDefault (answer => answer.QuestionId.Equals (questionId) && answer.TeamID == teamId);
 			if (existingAnswer == null) {
-				_connection.Insert (new Answer{ QuestionId = question.ID, TeamID = team.ID });
+				_connection.Insert (new Answer{ QuestionId = questionId, TeamID = teamId });
 			}
 		}
 
-		public void DecrementScore (IQuestion question, Team team)
+		public void DecrementScore (string questionId, int teamId)
 		{
-			var answersToDelete = _connection.Table<Answer> ().Where (answer => answer.QuestionId == question.ID && answer.TeamID == team.ID).ToList ();
+			var answersToDelete = _connection.Table<Answer> ().Where (answer => answer.QuestionId.Equals (questionId) && answer.TeamID == teamId).ToList ();
 			foreach (var answer in answersToDelete) {
 				_connection.Delete (answer);
 			}
@@ -73,6 +73,11 @@ namespace ChGK.Core.Services
 		public int GetTeamScore (Team team)
 		{
 			return _connection.Table<Answer> ().Where (answer => answer.TeamID == team.ID).Count ();
+		}
+
+		public List<int> GetAllResults (string questionId)
+		{
+			return _connection.Table<Answer> ().Where (a => a.QuestionId.Equals (questionId)).Select (a => a.TeamID).ToList ();
 		}
 	}
 }

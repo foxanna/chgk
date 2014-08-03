@@ -150,6 +150,7 @@
     <Compile Include="Bootstrap\CommunitySqlitePluginBootstrap.cs" />
     <Compile Include="Views\TeamsView.cs" />
     <Compile Include="Services\DialogManager.cs" />
+    <Compile Include="Views\EnterResultsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -310,6 +311,12 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\text_select_handle_left.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\text_select_handle_middle.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\text_select_handle_right.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_content_paste.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_content_paste.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_content_paste.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_content_paste.png" />
+    <AndroidResource Include="Resources\Layout\item_result_team.axml" />
+    <AndroidResource Include="Resources\Layout\EnterResultsView.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

@@ -5,6 +5,7 @@ namespace ChGK.Core
 	public static class StringResources
 	{
 		public static string Add = "Добавить";
+		public static string Save = "Сохранить";
 		public static string Cancel = "Отмена";
 
 		// AboutView

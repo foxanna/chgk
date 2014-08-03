@@ -7,6 +7,8 @@ namespace ChGK.Core.Services
 	{
 		List<Team> GetAllTeams ();
 
+		List<int> GetAllResults (string questionId);
+
 		void AddTeam (string name);
 
 		void RemoveTeam (Team team);
@@ -15,9 +17,9 @@ namespace ChGK.Core.Services
 
 		void RemoveAllTeams ();
 
-		void IncrementScore (IQuestion question, Team team);
+		void IncrementScore (string questionId, int teamId);
 
-		void DecrementScore (IQuestion question, Team team);
+		void DecrementScore (string questionId, int teamId);
 
 		int GetTeamScore (Team team);
 	}

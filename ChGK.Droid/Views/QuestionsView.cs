@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.Content;
+﻿using System.Collections.Generic;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Cirrious.MvvmCross.Droid.Views;
 using Android.Support.V4.View;
 using Android.Support.V4.App;
 using ChGK.Core.ViewModels;
@@ -25,9 +16,9 @@ namespace ChGK.Droid.Views
 			SetContentView (Resource.Layout.QuestionsView);
 
 			var viewPager = FindViewById<ViewPager> (Resource.Id.viewPager);
-			viewPager.Adapter = new QuestionsPagerAdapter (SupportFragmentManager, ((QuestionsViewModel) ViewModel).Questions);
+			viewPager.Adapter = new QuestionsPagerAdapter (SupportFragmentManager, ((QuestionsViewModel)ViewModel).Questions);
 			viewPager.PageSelected += (sender, e) => ActionBar.Title = viewPager.Adapter.GetPageTitle (e.Position);
-			viewPager.CurrentItem = ((QuestionsViewModel) ViewModel).Index;
+			viewPager.CurrentItem = ((QuestionsViewModel)ViewModel).Index;
 
 			ActionBar.SetDisplayHomeAsUpEnabled (true);
 		}
