@@ -151,6 +151,7 @@
     <Compile Include="Views\TeamsView.cs" />
     <Compile Include="Services\DialogManager.cs" />
     <Compile Include="Views\EnterResultsView.cs" />
+    <Compile Include="Controls\SwipeToDismiss\SwipeDismissListViewTouchListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -339,6 +340,7 @@
     <Folder Include="Assets\" />
     <Folder Include="Controls\MvxListViewWithHeader\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Controls\SwipeToDismiss\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamandroidsupportv4-18">

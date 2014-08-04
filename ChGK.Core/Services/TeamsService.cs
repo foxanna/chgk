@@ -44,9 +44,9 @@ namespace ChGK.Core.Services
 			_messenger.Publish (new TeamsChangedMessage (this));
 		}
 
-		public void RemoveTeam (Team team)
+		public void RemoveTeam (int teamID)
 		{
-			_connection.Delete (team);
+			_connection.Delete <Team> (teamID);
 
 			_messenger.Publish (new TeamsChangedMessage (this));
 		}

@@ -11,7 +11,7 @@ namespace ChGK.Core.Services
 
 		void AddTeam (string name);
 
-		void RemoveTeam (Team team);
+		void RemoveTeam (int teamID);
 
 		void CleanResults ();
 

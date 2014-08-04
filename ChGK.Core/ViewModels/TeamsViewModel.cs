@@ -5,6 +5,8 @@ using ChGK.Core.Models;
 using ChGK.Core.Services;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using ChGK.Core.Messages;
 
 namespace ChGK.Core.ViewModels
 {
@@ -12,9 +14,14 @@ namespace ChGK.Core.ViewModels
 	{
 		readonly ITeamsService _service;
 
-		public TeamsViewModel (ITeamsService service)
+		#pragma warning disable 414
+		readonly MvxSubscriptionToken _teamsChangedToken;
+		#pragma warning restore 414
+
+		public TeamsViewModel (ITeamsService service, IMvxMessenger messenger)
 		{
 			_service = service;
+			_teamsChangedToken = messenger.Subscribe<TeamsChangedMessage> (OnTeamsChanged);
 
 			Title = StringResources.Teams;
 		}
@@ -31,6 +38,11 @@ namespace ChGK.Core.ViewModels
 			Teams = null;
 			var teams = await Task.Factory.StartNew<List<Team>> (_service.GetAllTeams);
 			Teams = teams.Select (team => new TeamViewModel (_service, team)).ToList ();
+		}
+
+		async void OnTeamsChanged (TeamsChangedMessage obj)
+		{
+			await LoadTeams ();
 		}
 
 		List<TeamViewModel> _teams;
@@ -62,15 +74,23 @@ namespace ChGK.Core.ViewModels
 		{
 			throw new System.NotImplementedException ();
 		}
+
+		public void Remove (int[] positions)
+		{
+			_service.RemoveTeam (Teams [positions [0]].ID);
+		}
 	}
 
 	public class TeamViewModel : MvxViewModel
 	{
 		public TeamViewModel (ITeamsService service, Team team)
 		{
+			ID = team.ID;
 			Name = team.Name;
 			Score = StringResources.TeamScoreTitle + " " + service.GetTeamScore (team);
 		}
+
+		public int ID { get; set; }
 
 		public string Name { get; private set; }
 
