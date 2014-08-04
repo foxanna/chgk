@@ -66,6 +66,11 @@ namespace ChGK.Droid.Controls.MvxListViewWithHeader
 		{
 			return _adapter.GetDropDownView (position, convertView, parent);
 		}
+
+		public override bool IsEnabled (int position)
+		{
+			return (position > 0) ? base.IsEnabled (position) : false;
+		}
 	}
 }
 

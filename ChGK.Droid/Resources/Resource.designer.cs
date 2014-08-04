@@ -442,7 +442,7 @@ namespace ChGK.Droid
 			public const int Button_Chgk = 2131165195;
 			
 			// aapt resource value: 0x7f070001
-			public const int ChGK_Theme = 2131165185;
+			public const int ChGKTheme = 2131165185;
 			
 			// aapt resource value: 0x7f07000a
 			public const int CheckBox_Chgk = 2131165194;

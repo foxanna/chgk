@@ -75,6 +75,8 @@
     <Compile Include="ViewModels\TeamsViewModel.cs" />
     <Compile Include="Services\IDialogManager.cs" />
     <Compile Include="ViewModels\EnterResultsViewModel.cs" />
+    <Compile Include="Messages\ResultsChangedMessage.cs" />
+    <Compile Include="Messages\TeamsChangedMessage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -125,5 +127,6 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Utils\" />
+    <Folder Include="Messages\" />
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@
 	    <item name="android:windowBackground">@color/light_light_light</item>
 	</style>
 
-	<style name="ChGK.Theme" parent="@android:style/Theme.Holo.Light">
+	<style name="ChGKTheme" parent="@android:style/Theme.Holo.Light">
 		<item name="android:actionBarItemBackground">@drawable/selectable_background_chgk</item>
 		<item name="android:windowBackground">@color/light_light_light</item>
 		<item name="android:actionBarStyle">@style/ActionBar.Chgk</item>

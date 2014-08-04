@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
+using Newtonsoft.Json;
+using ChGK.Core.Messages;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
-using Cirrious.CrossCore;
 using ChGK.Core.Utils;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace ChGK.Core.ViewModels
 {
@@ -47,14 +51,6 @@ namespace ChGK.Core.ViewModels
 			HasAuthor = !string.IsNullOrEmpty (Author);
 			HasSource = !string.IsNullOrEmpty (Source);
 			HasPassCriteria = !string.IsNullOrEmpty (PassCriteria);
-		}
-
-		public async override void Start ()
-		{
-			base.Start ();
-
-			var teams = await Task.Factory.StartNew<List<Team>> (_teamsService.GetAllTeams);
-			//var results = await Task.Factory.StartNew<List<int>> (() =>	_teamsService.GetAllResults (_questionId));
 		}
 
 		public string ID { get; set; }
@@ -165,7 +161,20 @@ namespace ChGK.Core.ViewModels
 
 		public void EnterResults ()
 		{
-			ShowViewModel<EnterResultsViewModel> (new {questionId = ID });
+			try {	
+				var teams = _teamsService.GetAllTeams ();
+				var results = _teamsService.GetAllResults (ID);
+
+				var _results = teams.Select (team => new ResultsTeamViewModel { 
+					Name = team.Name, 
+					ID = team.ID, 
+					AnsweredCorrectly = results.Contains (team.ID)
+				}).ToList ();
+
+				ShowViewModel<EnterResultsViewModel> (new { questionId = ID, results = JsonConvert.SerializeObject (_results) });
+			} catch (Exception e) {
+				Mvx.Trace (e.Message);
+			}
 		}
 	}
 }
