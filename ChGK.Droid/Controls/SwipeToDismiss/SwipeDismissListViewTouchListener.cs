@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ChGK.Droid.Controls.SwipeToDismiss
 {
-	class PendingDismissData : IComparable
+	class PendingDismissData
 	{
 		public int Position { get; private set; }
 
@@ -20,18 +20,6 @@ namespace ChGK.Droid.Controls.SwipeToDismiss
 		{
 			Position = position;
 			View = view;
-		}
-
-		public int CompareTo (object obj)
-		{
-			if (obj == null)
-				return 1;
-
-			var other = obj as PendingDismissData;
-			if (other != null)
-				return other.Position - this.Position;
-
-			throw new ArgumentException ("Object is not a PendingDismissData");
 		}
 
 		public void ResetViewPresentation (int originalHeight)
