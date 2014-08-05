@@ -6,6 +6,7 @@ using Android.Animation;
 using Android.Graphics;
 using Android.OS;
 using System.Windows.Input;
+using System.Linq;
 
 namespace ChGK.Droid.Controls.SwipeToDismiss
 {
@@ -32,6 +33,15 @@ namespace ChGK.Droid.Controls.SwipeToDismiss
 
 			throw new ArgumentException ("Object is not a PendingDismissData");
 		}
+
+		public void ResetViewPresentation (int originalHeight)
+		{
+			View.Alpha = 1;
+			View.TranslationX = 0;
+			var lp = View.LayoutParameters;
+			lp.Height = originalHeight;
+			View.LayoutParameters = lp;
+		}
 	}
 
 	public class SwipeDismissListViewTouchListener : Java.Lang.Object, View.IOnTouchListener, AbsListView.IOnScrollListener
@@ -39,7 +49,8 @@ namespace ChGK.Droid.Controls.SwipeToDismiss
 		int mSlop;
 		int mMinFlingVelocity;
 		int mMaxFlingVelocity;
-		long mAnimationTime;
+
+		public long AnimationTime { get; set; }
 
 		// Fixed properties
 		readonly ListView _listView;
@@ -53,9 +64,9 @@ namespace ChGK.Droid.Controls.SwipeToDismiss
 		int mDismissAnimationRefCount = 0;
 		float mDownX;
 		float mDownY;
-		bool mSwiping;
+		bool isSwiping;
 		int mSwipingSlop;
-		VelocityTracker mVelocityTracker;
+		VelocityTracker _velocityTracker;
 		int _downPosition;
 		View _downView;
 		bool _paused;
@@ -66,7 +77,8 @@ namespace ChGK.Droid.Controls.SwipeToDismiss
 			mSlop = vc.ScaledTouchSlop;
 			mMinFlingVelocity = vc.ScaledMinimumFlingVelocity * 16;
 			mMaxFlingVelocity = vc.ScaledMaximumFlingVelocity;
-			mAnimationTime = listView.Context.Resources.GetInteger (Android.Resource.Integer.ConfigShortAnimTime);
+
+			AnimationTime = listView.Context.Resources.GetInteger (Android.Resource.Integer.ConfigShortAnimTime);
 
 			_listView = listView;
 			_dismissCommand = dismissCommand;
@@ -78,156 +90,213 @@ namespace ChGK.Droid.Controls.SwipeToDismiss
 			}
 		}
 
-		public bool OnTouch (View view, MotionEvent motionEvent)
+		void SaveWidth ()
 		{
 			if (_viewWidth < 2) {
 				_viewWidth = _listView.Width;
 			}
+		}
+
+		public bool OnTouch (View view, MotionEvent motionEvent)
+		{
+			SaveWidth ();
 
 			switch (motionEvent.ActionMasked) {
 			case MotionEventActions.Down:
-				{
-					if (_paused) {
-						return false;
-					}
-
-					Rect rect = new Rect ();
-					int childCount = _listView.ChildCount;
-					int[] listViewCoords = new int[2];
-					_listView.GetLocationOnScreen (listViewCoords);
-					int x = (int)motionEvent.RawX - listViewCoords [0];
-					int y = (int)motionEvent.RawY - listViewCoords [1];
-					View child;
-					for (int i = 0; i < childCount; i++) {
-						child = _listView.GetChildAt (i);
-						child.GetHitRect (rect);
-						if (rect.Contains (x, y)) {
-							_downView = child;
-							break;
-						}
-					}
-
-					if (_downView != null) {
-						mDownX = motionEvent.RawX;
-						mDownY = motionEvent.RawY;
-						_downPosition = _listView.GetPositionForView (_downView);
-						if (_dismissCommand.CanExecute (_downPosition)) {
-							mVelocityTracker = VelocityTracker.Obtain ();
-							mVelocityTracker.AddMovement (motionEvent);
-						} else {
-							_downView = null;
-						}
-					}
-					return false;
-				}
-
+				return OnDown (motionEvent);
 			case MotionEventActions.Cancel:
-				{
-					if (mVelocityTracker == null) {
-						break;
-					}
-
-					if (_downView != null && mSwiping) {
-						// cancel
-						_downView.Animate ()
-							.TranslationX (0)
-							.Alpha (1)
-							.SetDuration (mAnimationTime)
-							.SetListener (null);
-					}
-					mVelocityTracker.Recycle ();
-					mVelocityTracker = null;
-					mDownX = 0;
-					mDownY = 0;
-					_downView = null;
-					_downPosition = AdapterView.InvalidPosition;
-					mSwiping = false;
-					break;
-				}
-
+				return OnCancel (motionEvent);
 			case MotionEventActions.Up:
-				{
-					if (mVelocityTracker == null) {
-						break;
-					}
-
-					float deltaX = motionEvent.RawX - mDownX;
-					mVelocityTracker.AddMovement (motionEvent);
-					mVelocityTracker.ComputeCurrentVelocity (1000);
-					float velocityX = mVelocityTracker.XVelocity;
-					float absVelocityX = Math.Abs (velocityX);
-					float absVelocityY = Math.Abs (mVelocityTracker.YVelocity);
-					bool dismiss = false;
-					bool dismissRight = false;
-					if (Math.Abs (deltaX) > _viewWidth / 2 && mSwiping) {
-						dismiss = true;
-						dismissRight = deltaX > 0;
-					} else if (mMinFlingVelocity <= absVelocityX && absVelocityX <= mMaxFlingVelocity
-					           && absVelocityY < absVelocityX && mSwiping) {
-						// dismiss only if flinging in the same direction as dragging
-						dismiss = (velocityX < 0) == (deltaX < 0);
-						dismissRight = mVelocityTracker.XVelocity > 0;
-					}
-					if (dismiss && _downPosition != AdapterView.InvalidPosition) {
-						// dismiss
-						View downView = _downView; // mDownView gets null'd before animation ends
-						int downPosition = _downPosition;
-						++mDismissAnimationRefCount;
-						_downView.Animate ()
-							.TranslationX (dismissRight ? _viewWidth : -_viewWidth)
-							.Alpha (0)
-							.SetDuration (mAnimationTime)
-							.SetListener (new SwipeAnimatorListenerAdapter (_ => performDismiss (downView, downPosition)));
-					} else {
-						// cancel
-						_downView.Animate ()
-							.TranslationX (0)
-							.Alpha (1)
-							.SetDuration (mAnimationTime)
-							.SetListener (null);
-					}
-					mVelocityTracker.Recycle ();
-					mVelocityTracker = null;
-					mDownX = 0;
-					mDownY = 0;
-					_downView = null;
-					_downPosition = AdapterView.InvalidPosition;
-					mSwiping = false;
-					break;
-				}
-
+				return OnUp (motionEvent);
 			case MotionEventActions.Move:
-				{
-					if (mVelocityTracker == null || _paused) {
-						break;
-					}
+				return OnMove (motionEvent);
+			default:
+				return false;
+			}
+		}
 
-					mVelocityTracker.AddMovement (motionEvent);
-					float deltaX = motionEvent.RawX - mDownX;
-					float deltaY = motionEvent.RawY - mDownY;
-					if (Math.Abs (deltaX) > mSlop && Math.Abs (deltaY) < Math.Abs (deltaX) / 2) {
-						mSwiping = true;
-						mSwipingSlop = (deltaX > 0 ? mSlop : -mSlop);
-						_listView.RequestDisallowInterceptTouchEvent (true);
+		bool IsSwiping (float deltaX, float deltaY)
+		{
+			return Math.Abs (deltaX) > mSlop && Math.Abs (deltaY) < Math.Abs (deltaX) / 2;
+		}
 
-						// Cancel ListView's touch (un-highlighting the item)
-						var cancelEvent = MotionEvent.Obtain (motionEvent);
-						cancelEvent.Action = MotionEventActions.Cancel |
-						(MotionEventActions)((int)motionEvent.ActionIndex << (int)MotionEventActions.PointerIndexShift);
-						_listView.OnTouchEvent (cancelEvent);
-						cancelEvent.Recycle ();
-					}
+		bool FlingingSameDirectionAsDragging (float absVelocityX, float absVelocityY)
+		{
+			return mMinFlingVelocity <= absVelocityX && absVelocityX <= mMaxFlingVelocity && absVelocityY < absVelocityX && isSwiping;
+		}
 
-					if (mSwiping) {
-						_downView.TranslationX = deltaX - mSwipingSlop;
-						_downView.Alpha = Math.Max (0f, Math.Min (1f, 1f - 2f * Math.Abs (deltaX) / _viewWidth));
-						return true;
-					}
+		protected virtual void AnimateDismissCancel (View view)
+		{
+			Animate (view, 0, 1, null);
+		}
+
+		protected virtual void AnimateDismissStart (View view, bool dismissRight, SwipeAnimatorListenerAdapter animatorListener)
+		{
+			Animate (view, dismissRight ? _viewWidth : -_viewWidth, 0, animatorListener);
+		}
+
+		protected void Animate (View view, int xTranslation, int alpha, SwipeAnimatorListenerAdapter animatorListener)
+		{
+			view.Animate ().TranslationX (xTranslation).Alpha (alpha).SetDuration (AnimationTime).SetListener (animatorListener);
+		}
+
+		#region TouchActionsHandlers
+
+		bool OnDown (MotionEvent motionEvent)
+		{
+			if (_paused) {
+				return false;
+			}
+
+			var rect = new Rect ();
+			int childCount = _listView.ChildCount;
+
+			var listViewCoords = new int[2];
+			_listView.GetLocationOnScreen (listViewCoords);
+
+			int x = (int)motionEvent.RawX - listViewCoords [0];
+			int y = (int)motionEvent.RawY - listViewCoords [1];
+
+			View child;
+
+			for (int i = 0; i < childCount; i++) {
+				child = _listView.GetChildAt (i);
+				child.GetHitRect (rect);
+				if (rect.Contains (x, y)) {
+					_downView = child;
 					break;
 				}
 			}
+
+			if (_downView != null) {
+				mDownX = motionEvent.RawX;
+				mDownY = motionEvent.RawY;
+
+				_downPosition = _listView.GetPositionForView (_downView);
+
+				if (_dismissCommand.CanExecute (_downPosition)) {
+					_velocityTracker = VelocityTracker.Obtain ();
+					_velocityTracker.AddMovement (motionEvent);
+				} else {
+					_downView = null;
+				}
+			}
+
 			return false;
 		}
+
+		bool OnCancel (MotionEvent motionEvent)
+		{
+			if (_velocityTracker == null) {
+				return false;
+			}
+
+			if (_downView != null && isSwiping) {
+				AnimateDismissCancel (_downView);
+			}
+
+			_velocityTracker.Recycle ();
+			_velocityTracker = null;
+
+			mDownX = 0;
+			mDownY = 0;
+
+			_downView = null;
+			_downPosition = AdapterView.InvalidPosition;
+
+			isSwiping = false;
+
+			return false;
+		}
+
+		bool OnUp (MotionEvent motionEvent)
+		{
+			if (_velocityTracker == null) {
+				return false;
+			}
+
+			float deltaX = motionEvent.RawX - mDownX;
+
+			_velocityTracker.AddMovement (motionEvent);
+			_velocityTracker.ComputeCurrentVelocity (1000);
+
+			float velocityX = _velocityTracker.XVelocity;
+			float absVelocityX = Math.Abs (velocityX);
+			float absVelocityY = Math.Abs (_velocityTracker.YVelocity);
+
+			bool dismiss = false;
+			bool dismissRight = false;
+
+			if (Math.Abs (deltaX) > _viewWidth / 2 && isSwiping) {
+				dismiss = true;
+				dismissRight = deltaX > 0;
+			} else if (FlingingSameDirectionAsDragging (absVelocityX, absVelocityY)) {
+				dismiss = (velocityX < 0) == (deltaX < 0);
+				dismissRight = _velocityTracker.XVelocity > 0;
+			}
+
+			if (dismiss && _downPosition != AdapterView.InvalidPosition) {
+				View downView = _downView; 
+				int downPosition = _downPosition;
+
+				++mDismissAnimationRefCount;
+
+				AnimateDismissStart (_downView, dismissRight, new SwipeAnimatorListenerAdapter (_ => AnimateDismissEnd (downView, downPosition)));
+			} else {
+				AnimateDismissCancel (_downView);
+			}
+
+			_velocityTracker.Recycle ();
+			_velocityTracker = null;
+
+			mDownX = 0;
+			mDownY = 0;
+
+			_downView = null;
+			InvalidateDownPosition ();
+
+			isSwiping = false;
+
+			return false;
+		}
+
+		bool OnMove (MotionEvent motionEvent)
+		{
+			if (_velocityTracker == null || _paused) {
+				return false;
+			}
+
+			_velocityTracker.AddMovement (motionEvent);
+
+			float deltaX = motionEvent.RawX - mDownX;
+			float deltaY = motionEvent.RawY - mDownY;
+
+			if (IsSwiping (deltaX, deltaY)) {
+				isSwiping = true;
+
+				mSwipingSlop = (deltaX > 0 ? mSlop : -mSlop);
+
+				_listView.RequestDisallowInterceptTouchEvent (true);
+
+				// Cancel ListView's touch (un-highlighting the item)
+				var cancelEvent = MotionEvent.Obtain (motionEvent);
+				cancelEvent.Action = MotionEventActions.Cancel | (MotionEventActions)((int)motionEvent.ActionIndex << (int)MotionEventActions.PointerIndexShift);
+
+				_listView.OnTouchEvent (cancelEvent);
+				cancelEvent.Recycle ();
+			}
+
+			if (isSwiping) {
+				_downView.TranslationX = deltaX - mSwipingSlop;
+				_downView.Alpha = Math.Max (0f, Math.Min (1f, 1f - 2f * Math.Abs (deltaX) / _viewWidth));
+
+				return true;
+			}
+
+			return false;
+		}
+
+		#endregion
 
 		public void OnScroll (AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
 		{
@@ -238,16 +307,16 @@ namespace ChGK.Droid.Controls.SwipeToDismiss
 			Enabled = scrollState != ScrollState.TouchScroll;
 		}
 
-		void performDismiss (View dismissView, int dismissPosition)
+		void AnimateDismissEnd (View dismissView, int dismissPosition)
 		{
 			ViewGroup.LayoutParams lp = dismissView.LayoutParameters;
 			int originalHeight = dismissView.Height;
 
-			ValueAnimator animator = ValueAnimator.OfInt (originalHeight, 1).SetDuration (mAnimationTime) as ValueAnimator;
+			var animator = ValueAnimator.OfInt (originalHeight, 1).SetDuration (AnimationTime) as ValueAnimator;
 
-			animator.AddListener (new SwipeAnimatorListenerAdapter (_ => onanimationendA (originalHeight)));
+			animator.AddListener (new SwipeAnimatorListenerAdapter (_ => ExecuteDismiss (originalHeight)));
 
-			animator.AddUpdateListener (new SwipeAnimatorUpdateListener ((valueAnimator) => {
+			animator.AddUpdateListener (new SwipeAnimatorUpdateListener (valueAnimator => {
 				lp.Height = (int)valueAnimator.AnimatedValue;
 				dismissView.LayoutParameters = lp;
 			}));
@@ -256,70 +325,75 @@ namespace ChGK.Droid.Controls.SwipeToDismiss
 			animator.Start ();
 		}
 
-		void onanimationendA (int originalHeight)
+		void ExecuteDismiss (int originalHeight)
 		{
 			--mDismissAnimationRefCount;
+
 			if (mDismissAnimationRefCount == 0) {
-				// No active animations, process all pending dismisses.
-				// Sort by descending position
-				mPendingDismisses.Sort ();
-
-				int[] dismissPositions = new int[mPendingDismisses.Count];
-				for (int i = mPendingDismisses.Count - 1; i >= 0; i--) {
-					dismissPositions [i] = mPendingDismisses [i].Position;
-				}
-				_dismissCommand.Execute (dismissPositions);
-
-				// Reset mDownPosition to avoid MotionEvent.ACTION_UP trying to start a dismiss 
-				// animation with a stale position
-				_downPosition = AdapterView.InvalidPosition;
-
-				ViewGroup.LayoutParams lp;
-				foreach (var pendingDismiss in mPendingDismisses) {
-					// Reset view presentation
-					pendingDismiss.View.Alpha = 1;
-					pendingDismiss.View.TranslationX = 0;
-					lp = pendingDismiss.View.LayoutParameters;
-					lp.Height = originalHeight;
-					pendingDismiss.View.LayoutParameters = lp;
-				}
-
-				// Send a cancel event
-				long time = SystemClock.UptimeMillis ();
-				MotionEvent cancelEvent = MotionEvent.Obtain (time, time, MotionEventActions.Cancel, 0, 0, 0);
-				_listView.DispatchTouchEvent (cancelEvent);
-
-				mPendingDismisses.Clear ();
+				CallDismissCommand ();
+				InvalidateDownPosition ();
+				ResetViewPresentation (originalHeight);
+				SendCancelEvent ();
 			}
 		}
 
-		class SwipeAnimatorListenerAdapter : AnimatorListenerAdapter
+		void CallDismissCommand ()
 		{
-			readonly Action<Animator> onAnimationEnd;
+			var dismissPositions = mPendingDismisses.Select (data => data.Position).OrderByDescending (t => t).ToList ();
+
+			_dismissCommand.Execute (dismissPositions.ToArray ());
+		}
+
+		void ResetViewPresentation (int originalHeight)
+		{
+			foreach (var pendingDismiss in mPendingDismisses) {
+				pendingDismiss.ResetViewPresentation (originalHeight);
+			}
+
+			mPendingDismisses.Clear ();
+		}
+
+		void SendCancelEvent ()
+		{
+			long time = SystemClock.UptimeMillis ();
+			var cancelEvent = MotionEvent.Obtain (time, time, MotionEventActions.Cancel, 0, 0, 0);
+			_listView.DispatchTouchEvent (cancelEvent);
+		}
+
+		void InvalidateDownPosition ()
+		{
+			// Reset mDownPosition to avoid MotionEvent.ACTION_UP trying to start a dismiss 
+			// animation with a stale position
+			_downPosition = AdapterView.InvalidPosition;
+		}
+
+		public class SwipeAnimatorListenerAdapter : AnimatorListenerAdapter
+		{
+			readonly Action<Animator> _onAnimationEnd;
 
 			public SwipeAnimatorListenerAdapter (Action<Animator> onAnimationEnd)
 			{
-				this.onAnimationEnd = onAnimationEnd;
+				_onAnimationEnd = onAnimationEnd;
 			}
 
 			public override void OnAnimationEnd (Animator animation)
 			{
-				onAnimationEnd (animation);
+				_onAnimationEnd (animation);
 			}
 		}
 
-		class SwipeAnimatorUpdateListener : Java.Lang.Object,  ValueAnimator.IAnimatorUpdateListener
+		public class SwipeAnimatorUpdateListener : Java.Lang.Object,  ValueAnimator.IAnimatorUpdateListener
 		{
-			readonly Action<ValueAnimator> onAnimationUpdate;
+			readonly Action<ValueAnimator> _onAnimationUpdate;
 
 			public SwipeAnimatorUpdateListener (Action<ValueAnimator> onAnimationUpdate)
 			{
-				this.onAnimationUpdate = onAnimationUpdate;
+				_onAnimationUpdate = onAnimationUpdate;
 			}
 
 			public void OnAnimationUpdate (ValueAnimator animation)
 			{
-				onAnimationUpdate (animation);
+				_onAnimationUpdate (animation);
 			}
 		}
 	}
