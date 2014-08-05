@@ -75,8 +75,17 @@ namespace ChGK.Core.ViewModels
 			throw new System.NotImplementedException ();
 		}
 
-		public void Remove (int[] positions)
+		MvxCommand<object> _removeCommand;
+
+		public MvxCommand<object> RemoveCommand {
+			get {
+				return _removeCommand ?? (_removeCommand = new MvxCommand<object> (Remove, _ => true));
+			}
+		}
+
+		void Remove (object parameter)
 		{
+			var positions = (int[])parameter;
 			_service.RemoveTeam (Teams [positions [0]].ID);
 		}
 	}

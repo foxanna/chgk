@@ -1,11 +1,12 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.56.101:5555" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ChGK.Droid/Views/EnterResultsView.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ChGK.Droid/Views/TeamsView.cs">
     <Files>
-      <File FileName="ChGK.Core/ViewModels/EnterResultsViewModel.cs" Line="47" Column="1" />
-      <File FileName="ChGK.Droid/Views/EnterResultsView.cs" Line="30" Column="5" />
-      <File FileName="ChGK.Core/ViewModels/QuestionViewModel.cs" Line="24" Column="3" />
-      <File FileName="ChGK.Core/Services/TeamsService.cs" Line="4" Column="44" />
+      <File FileName="ChGK.Core/ViewModels/EnterResultsViewModel.cs" Line="1" Column="1" />
+      <File FileName="ChGK.Droid/Views/EnterResultsView.cs" Line="1" Column="1" />
+      <File FileName="ChGK.Core/Services/TeamsService.cs" Line="44" Column="44" />
+      <File FileName="ChGK.Droid/Controls/SwipeToDismiss/SwipeDismissListViewTouchListener.cs" Line="36" Column="36" />
+      <File FileName="ChGK.Droid/Views/TeamsView.cs" Line="3" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
@@ -21,7 +22,7 @@
       <Breakpoint file="/Users/doan/Projects/chgk/ChGK.Core/Services/TeamsService.cs" line="58" column="1" />
       <Breakpoint file="/Users/doan/Projects/chgk/ChGK.Core/Services/TeamsService.cs" line="66" column="1" />
       <Breakpoint file="/Users/doan/Projects/chgk/ChGK.Core/Services/TeamsService.cs" line="68" column="1" />
-      <Breakpoint file="/Users/doan/Projects/chgk/ChGK.Core/ViewModels/EnterResultsViewModel.cs" line="43" column="1" />
+      <Breakpoint file="/Users/doan/Projects/chgk/ChGK.Core/ViewModels/EnterResultsViewModel.cs" line="42" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

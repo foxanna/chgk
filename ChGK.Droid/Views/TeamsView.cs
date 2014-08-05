@@ -1,9 +1,9 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Views;
-using ChGK.Core.ViewModels;
 using Android.Widget;
+using ChGK.Core.ViewModels;
 using ChGK.Droid.Controls.SwipeToDismiss;
-using System;
 
 namespace ChGK.Droid.Views
 {
@@ -29,7 +29,7 @@ namespace ChGK.Droid.Views
 			var listView = FindViewById <ListView> (Resource.Id.teams);
 
 			var touchListener = new SwipeDismissListViewTouchListener (listView, 
-				                    new A (positions => (ViewModel as TeamsViewModel).Remove (positions)));
+				                    (ViewModel as TeamsViewModel).RemoveCommand);
 			listView.SetOnTouchListener (touchListener);
 			listView.SetOnScrollListener (touchListener);
 		}
@@ -43,26 +43,6 @@ namespace ChGK.Droid.Views
 			default:			
 				return base.OnOptionsItemSelected (item);
 			}
-		}
-	}
-
-	class A : IDismissCallbacks
-	{
-		Action<int[] > a;
-
-		public A (Action<int[] > a)
-		{
-			this.a = a;
-		}
-
-		public bool canDismiss (int position)
-		{
-			return true;
-		}
-
-		public void onDismiss (ListView listView, int[] reverseSortedPositions)
-		{
-			a (reverseSortedPositions);
 		}
 	}
 }
