@@ -31,6 +31,7 @@ namespace ChGK.Droid.Views
 			var touchListener = new SwipeDismissListViewTouchListener (listView, 
 				                    new A (positions => (ViewModel as TeamsViewModel).Remove (positions)));
 			listView.SetOnTouchListener (touchListener);
+			listView.SetOnScrollListener (touchListener);
 		}
 
 		public override bool OnOptionsItemSelected (IMenuItem item)
