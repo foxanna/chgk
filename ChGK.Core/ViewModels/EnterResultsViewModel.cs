@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
@@ -39,17 +38,15 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
-		public async void SubmitResults ()
+		public void SubmitResults ()
 		{
 			try {
-				await Task.Factory.StartNew (() => {
-					foreach (var team in Teams.Where (t => t.AnsweredCorrectly)) {
-						_service.IncrementScore (_questionId, team.ID);
-					}
-					foreach (var team in Teams.Where (t => !t.AnsweredCorrectly)) {
-						_service.DecrementScore (_questionId, team.ID);
-					}
-				});
+				foreach (var team in Teams.Where (t => t.AnsweredCorrectly)) {
+					_service.IncrementScore (_questionId, team.ID);
+				}
+				foreach (var team in Teams.Where (t => !t.AnsweredCorrectly)) {
+					_service.DecrementScore (_questionId, team.ID);
+				}
 			} catch (Exception e) {
 				Mvx.Trace (e.Message);
 			}
