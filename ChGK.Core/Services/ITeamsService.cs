@@ -21,7 +21,7 @@ namespace ChGK.Core.Services
 
 		void DecrementScore (string questionId, int teamId);
 
-		int GetTeamScore (Team team);
+		int GetTeamScore (int teamID);
 	}
 }
 

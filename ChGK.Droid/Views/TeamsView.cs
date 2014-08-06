@@ -1,5 +1,4 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Views;
 using Android.Widget;
 using ChGK.Core.ViewModels;
@@ -39,6 +38,9 @@ namespace ChGK.Droid.Views
 			switch (item.ItemId) {
 			case Resource.Id.add_team: 
 				(ViewModel as TeamsViewModel).InitAddTeam ();
+				return true;
+			case Resource.Id.clear_results: 
+				(ViewModel as TeamsViewModel).ClearResults ();
 				return true;
 			default:			
 				return base.OnOptionsItemSelected (item);

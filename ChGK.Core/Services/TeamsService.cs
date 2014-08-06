@@ -89,9 +89,9 @@ namespace ChGK.Core.Services
 			_messenger.Publish (new TeamsChangedMessage (this));
 		}
 
-		public int GetTeamScore (Team team)
+		public int GetTeamScore (int teamID)
 		{
-			return _connection.Table<Answer> ().Where (answer => answer.TeamID == team.ID).Count ();
+			return _connection.Table<Answer> ().Where (answer => answer.TeamID == teamID).Count ();
 		}
 
 		public List<int> GetAllResults (string questionId)

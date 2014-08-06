@@ -15,8 +15,6 @@ namespace ChGK.Core.ViewModels
 {
 	public class QuestionViewModel : MvxViewModel
 	{
-		readonly ITeamsService _teamsService;
-
 		public QuestionViewModel ()
 		{
 			timer.OneSecond += (sender, e) => {
@@ -30,8 +28,6 @@ namespace ChGK.Core.ViewModels
 					Mvx.Resolve<IAudioPlayerService> ().PlayLong ();
 				}
 			};
-
-			_teamsService = Mvx.Resolve<ITeamsService> ();
 		}
 
 		public QuestionViewModel (IQuestion question, int index) : this ()
@@ -161,20 +157,7 @@ namespace ChGK.Core.ViewModels
 
 		public void EnterResults ()
 		{
-			try {	
-				var teams = _teamsService.GetAllTeams ();
-				var results = _teamsService.GetAllResults (ID);
-
-				var _results = teams.Select (team => new ResultsTeamViewModel { 
-					Name = team.Name, 
-					ID = team.ID, 
-					AnsweredCorrectly = results.Contains (team.ID)
-				}).ToList ();
-
-				ShowViewModel<EnterResultsViewModel> (new { questionId = ID, results = JsonConvert.SerializeObject (_results) });
-			} catch (Exception e) {
-				Mvx.Trace (e.Message);
-			}
+			ShowViewModel<EnterResultsViewModel> (new { questionId = ID });
 		}
 	}
 }

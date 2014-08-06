@@ -318,6 +318,10 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_content_paste.png" />
     <AndroidResource Include="Resources\Layout\item_result_team.axml" />
     <AndroidResource Include="Resources\Layout\EnterResultsView.axml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_av_replay.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_av_replay.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_av_replay.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_av_replay.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

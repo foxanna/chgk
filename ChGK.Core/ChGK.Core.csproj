@@ -110,9 +110,6 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.Json">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Json.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Json.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
     </Reference>
@@ -121,6 +118,9 @@
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Community.Plugins.Sqlite">
       <HintPath>..\packages\MvvmCross.Community.Plugin.Sqlite.3.1.1\lib\portable-win+net45+MonoAndroid+MonoTouch+sl5+wp8\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup />

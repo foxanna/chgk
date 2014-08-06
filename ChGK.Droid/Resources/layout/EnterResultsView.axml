@@ -1,8 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Mvx.MvxListView xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    local:MvxBind="ItemsSource Teams"
-    local:MvxItemTemplate="@layout/item_result_team" />
-
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+    android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        local:MvxBind="Visibility DataLoader.IsLoading,Converter=Visibility" />
+    <Mvx.MvxListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        local:MvxBind="ItemsSource Teams"
+        local:MvxItemTemplate="@layout/item_result_team" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        local:MvxBind="Visibility IsEmpty,Converter=Visibility"
+        android:text="@string/no_teams" />
+</LinearLayout>

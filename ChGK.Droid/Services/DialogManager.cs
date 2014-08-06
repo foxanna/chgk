@@ -29,6 +29,7 @@ namespace ChGK.Droid.Services
 			var builder = new AlertDialog.Builder (activity);
 
 			var editText = new EditText (activity);
+			editText.SetSingleLine ();
 
 			builder.SetView (editText)
 				.SetCancelable (true)
