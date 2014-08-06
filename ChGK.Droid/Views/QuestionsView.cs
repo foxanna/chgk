@@ -7,7 +7,7 @@ using Cirrious.MvvmCross.Droid.Fragging;
 
 namespace ChGK.Droid.Views
 {
-	[Android.App.Activity (Label = "Вопрос 1")]			
+	[Android.App.Activity (Label = "Вопрос 1", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]			
 	public class QuestionsView : MvxFragmentActivity
 	{
 		protected override void OnCreate (Bundle bundle)

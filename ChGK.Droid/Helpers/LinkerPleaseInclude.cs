@@ -14,6 +14,11 @@ namespace ChGK.Droid.Helpers
 			button.Click += (s, e) => button.Text = button.Text + "";
 		}
 
+		public void Include (ImageButton button)
+		{
+			button.Click += (s, e) => button.Enabled = true;
+		}
+
 		public void Include (CheckBox checkBox)
 		{
 			checkBox.CheckedChange += (sender, args) => checkBox.Checked = !checkBox.Checked;

@@ -5,6 +5,8 @@ using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using ChGK.Core.Services;
 using System.Threading.Tasks;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using ChGK.Core.Messages;
 
 namespace ChGK.Core.ViewModels
 {
@@ -12,13 +14,22 @@ namespace ChGK.Core.ViewModels
 	{
 		readonly ITeamsService _teamsService;
 
+		#pragma warning disable 414
+		readonly MvxSubscriptionToken _teamsChangedToken;
+		readonly MvxSubscriptionToken _resultsChangedToken;
+		#pragma warning restore 414
+
 		public DataLoader DataLoader { get; set; }
 
 		string _questionId;
 
-		public EnterResultsViewModel (ITeamsService service)
+		public EnterResultsViewModel (ITeamsService service, IMvxMessenger messenger)
 		{
 			_teamsService = service;
+
+			_teamsChangedToken = messenger.Subscribe<TeamsChangedMessage> (OnTeamsChanged);
+			_resultsChangedToken = messenger.Subscribe<ResultsChangedMessage> (OnResultsChanged);
+
 			DataLoader = new DataLoader ();
 		}
 
@@ -42,11 +53,26 @@ namespace ChGK.Core.ViewModels
 			IsEmpty = Teams.Count == 0;
 		}
 
+		async void ReloadResults ()
+		{
+			await DataLoader.LoadItemsAsync (LoadItems);
+		}
+
 		public async void Init (string questionId, string results)
 		{
 			_questionId = questionId;
 
-			await DataLoader.LoadItemsAsync (LoadItems);
+			ReloadResults ();
+		}
+
+		void OnTeamsChanged (TeamsChangedMessage obj)
+		{
+			ReloadResults ();
+		}
+
+		void OnResultsChanged (ResultsChangedMessage obj)
+		{
+			ReloadResults ();
 		}
 
 		bool _isEmpty;
@@ -82,6 +108,27 @@ namespace ChGK.Core.ViewModels
 				}
 			} catch (Exception e) {
 				Mvx.Trace (e.Message);
+			}
+		}
+
+		MvxCommand _clearResultsCommand;
+
+		public MvxCommand ClearResultsCommand {
+			get {
+				return _clearResultsCommand ?? (_clearResultsCommand = new MvxCommand (ClearResults));
+			}
+		}
+
+		void ClearResults ()
+		{
+			_teamsService.CleanResults ();
+		}
+
+		MvxCommand _editTeamsCommand;
+
+		public MvxCommand EditTeamsCommand {
+			get {
+				return _editTeamsCommand ?? (_editTeamsCommand = new MvxCommand (() => ShowViewModel<TeamsViewModel> ()));
 			}
 		}
 	}

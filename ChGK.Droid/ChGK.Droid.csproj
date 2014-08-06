@@ -159,7 +159,6 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <AndroidResource Include="Resources\Drawable\splash.png" />
     <AndroidResource Include="Resources\Layout\SplashScreen.axml" />
@@ -322,6 +321,11 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_action_av_replay.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_action_av_replay.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_av_replay.png" />
+    <AndroidResource Include="Resources\Values\Strings.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_content_edit.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_content_edit.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_content_edit.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_content_edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

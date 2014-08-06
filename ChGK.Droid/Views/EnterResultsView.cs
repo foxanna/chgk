@@ -11,6 +11,11 @@ namespace ChGK.Droid.Views
 {
 	public class EnterResultsView : MvxDialogFragment
 	{
+		public EnterResultsView ()
+		{
+			RetainInstance = true;
+		}
+
 		public override Dialog OnCreateDialog (Bundle savedInstanceState)
 		{
 			var viewModel = ViewModel as EnterResultsViewModel;
