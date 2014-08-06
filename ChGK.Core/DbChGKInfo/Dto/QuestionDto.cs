@@ -39,7 +39,7 @@ namespace ChGK.Core.DbChGKInfo.Dto
 				Text = TextFormatter.FormatQuestion (Text),
 				Answer = Answer,
 				PassCriteria = PassCriteria,
-				Author = Author,
+				Author = TextFormatter.FormatAnswer (Author),
 				Comment = TextFormatter.FormatComments (Comment),
 				Source = Source,
 			};
