@@ -44,6 +44,7 @@ namespace ChGK.Core.ViewModels
 			Teams = null;
 			var teams = await Task.Factory.StartNew<List<Team>> (_service.GetAllTeams);
 			Teams = teams.Select (team => new TeamViewModel (_service, team)).ToList ();
+			HasNoTeams = Teams.Count == 0;
 		}
 
 		async void ReloadTeams ()
@@ -105,6 +106,18 @@ namespace ChGK.Core.ViewModels
 		public void ClearResults ()
 		{
 			_service.CleanResults ();
+		}
+
+		bool _hasNoTeams;
+
+		public bool HasNoTeams {
+			get {
+				return _hasNoTeams;
+			}
+			set {
+				_hasNoTeams = value;
+				RaisePropertyChanged (() => HasNoTeams);
+			}
 		}
 	}
 

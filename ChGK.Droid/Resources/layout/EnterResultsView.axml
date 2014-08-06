@@ -23,13 +23,13 @@
             android:orientation="horizontal"
             local:MvxBind="Visibility IsEmpty,Converter=InvertedVisibility"
             android:gravity="right">
-            <ImageButton
+<!--            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/actionButtonStyle"
                 android:src="@drawable/ic_action_av_replay"
                 android:contentDescription="@string/clear_results"
-                local:MvxBind="Click ClearResultsCommand" />
+                local:MvxBind="Click ClearResultsCommand" />-->
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

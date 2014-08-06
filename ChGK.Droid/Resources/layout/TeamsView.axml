@@ -1,9 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Mvx.MvxListView xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:local="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/teams"
+<RelativeLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:local="http://schemas.android.com/apk/res-auto" 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    local:MvxBind="ItemsSource Teams; ItemClick ShowQuestionCommand"
-    local:MvxItemTemplate="@layout/item_team" />
+    android:layout_height="match_parent">
 
+	<Mvx.MvxListView 
+		android:id="@+id/teams"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    local:MvxBind="ItemsSource Teams"
+	    local:MvxItemTemplate="@layout/item_team" />
+
+    <TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+     	android:layout_centerInParent="true"
+     	android:text="@string/no_teams"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+     	local:MvxBind="Visibility HasNoTeams,Converter=Visibility"/>
+
+</RelativeLayout>
