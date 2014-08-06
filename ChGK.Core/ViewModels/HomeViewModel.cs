@@ -38,9 +38,9 @@ namespace ChGK.Core.ViewModels
 		{
 			base.Start ();
 
-			ShowViewModel<RandomQuestionsViewModel> ();
+//			ShowViewModel<RandomQuestionsViewModel> ();
 
-//			ShowViewModel<LastAddedTournamentsViewModel> ();
+			ShowViewModel<LastAddedTournamentsViewModel> ();
 		}
 
 		public List <MenuItem> MenuItems {
