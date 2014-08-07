@@ -17,13 +17,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         local:MvxBind="Visibility DataLoader.IsLoading,Converter=InvertedVisibility">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            local:MvxBind="Visibility IsEmpty,Converter=InvertedVisibility"
-            android:gravity="right">
-<!--            <ImageButton
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="@dimen/default_padding"
+                local:MvxBind="Visibility IsEmpty,Converter=Visibility"
+                android:text="@string/no_teams" />
+            <View
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+<!--        <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/actionButtonStyle"
@@ -46,23 +55,5 @@
             android:layout_height="wrap_content"
             local:MvxBind="ItemsSource Teams"
             local:MvxItemTemplate="@layout/item_result_team" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            local:MvxBind="Visibility IsEmpty,Converter=Visibility">
-            <TextView
-                android:layout_margin="@dimen/default_padding"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/no_teams" />
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="?android:attr/actionButtonStyle"
-                android:src="@drawable/ic_action_content_edit"
-                local:MvxBind="Click EditTeamsCommand" />
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
