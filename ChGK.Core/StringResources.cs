@@ -22,6 +22,8 @@ namespace ChGK.Core
 		public static string Teams = "Команды";
 		public static string TeamName = "Название команды";
 		public static string TeamScoreTitle = "Счет";
+		public static string ScoreRemoved = "Счет команд удален";
+		public static string TeamRemoved = "Команда удалена";
 
 		// LastAddedView
 
@@ -30,6 +32,7 @@ namespace ChGK.Core
 		// RandomQuestionsView
 
 		public static string RandomQuestions = "Случайные вопросы";
+
 	}
 }
 

@@ -58,7 +58,7 @@ namespace ChGK.Core.ViewModels
 			await DataLoader.LoadItemsAsync (LoadItems);
 		}
 
-		public async void Init (string questionId, string results)
+		public void Init (string questionId, string results)
 		{
 			_questionId = questionId;
 

@@ -24,6 +24,10 @@ namespace ChGK.Droid
 			global::Android.Runtime.ResourceIdManager.UpdateIdValues();
 		}
 		
+		public static void UpdateIdValues()
+		{
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -252,6 +256,9 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f02002c
 			public const int textfield_focused = 2130837548;
 			
+			// aapt resource value: 0x7f02002d
+			public const int undo_bar_bg = 2130837549;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -274,11 +281,11 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f050002
 			public const int a2 = 2131034114;
 			
-			// aapt resource value: 0x7f05000f
-			public const int add_team = 2131034127;
+			// aapt resource value: 0x7f050011
+			public const int add_team = 2131034129;
 			
-			// aapt resource value: 0x7f05000e
-			public const int clear_results = 2131034126;
+			// aapt resource value: 0x7f050010
+			public const int clear_results = 2131034128;
 			
 			// aapt resource value: 0x7f050004
 			public const int content_frame = 2131034116;
@@ -289,26 +296,32 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f050003
 			public const int drawer = 2131034115;
 			
-			// aapt resource value: 0x7f05000d
-			public const int enter_results = 2131034125;
+			// aapt resource value: 0x7f05000f
+			public const int enter_results = 2131034127;
 			
 			// aapt resource value: 0x7f050005
 			public const int items = 2131034117;
 			
-			// aapt resource value: 0x7f050009
-			public const int refresh = 2131034121;
-			
 			// aapt resource value: 0x7f05000b
-			public const int start_timer = 2131034123;
+			public const int refresh = 2131034123;
 			
-			// aapt resource value: 0x7f05000c
-			public const int stop_timer = 2131034124;
+			// aapt resource value: 0x7f05000d
+			public const int start_timer = 2131034125;
+			
+			// aapt resource value: 0x7f05000e
+			public const int stop_timer = 2131034126;
 			
 			// aapt resource value: 0x7f050007
 			public const int teams = 2131034119;
 			
+			// aapt resource value: 0x7f05000c
+			public const int time = 2131034124;
+			
 			// aapt resource value: 0x7f05000a
-			public const int time = 2131034122;
+			public const int undo_button = 2131034122;
+			
+			// aapt resource value: 0x7f050009
+			public const int undo_message = 2131034121;
 			
 			// aapt resource value: 0x7f050006
 			public const int viewPager = 2131034118;
@@ -376,6 +389,9 @@ namespace ChGK.Droid
 			
 			// aapt resource value: 0x7f030010
 			public const int TourView = 2130903056;
+			
+			// aapt resource value: 0x7f030011
+			public const int undo_bar = 2130903057;
 			
 			static Layout()
 			{

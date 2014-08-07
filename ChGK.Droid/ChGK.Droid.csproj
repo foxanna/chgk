@@ -152,6 +152,7 @@
     <Compile Include="Services\DialogManager.cs" />
     <Compile Include="Views\EnterResultsView.cs" />
     <Compile Include="Controls\SwipeToDismiss\SwipeDismissListViewTouchListener.cs" />
+    <Compile Include="Controls\UndoBar\UndoBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -302,10 +303,6 @@
     <AndroidResource Include="Resources\Layout\EnterResultsView.axml" />
     <AndroidResource Include="Resources\Values\Strings.xml" />
     <AndroidResource Include="Resources\Layout\SplashScreen.axml" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_content_undo.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_content_undo.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_content_undo.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_content_undo.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_action_av_play.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_action_av_play.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_action_av_play.png" />
@@ -330,6 +327,12 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_action_content_new.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_content_edit.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_content_new.png" />
+    <AndroidResource Include="Resources\layout\undo_bar.axml" />
+    <AndroidResource Include="Resources\drawable\undo_bar_bg.xml" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_content_undo.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_content_undo.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_content_undo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_content_undo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
@@ -353,6 +356,7 @@
     <Folder Include="Controls\MvxListViewWithHeader\" />
     <Folder Include="Helpers\" />
     <Folder Include="Controls\SwipeToDismiss\" />
+    <Folder Include="Controls\UndoBar\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="xamandroidsupportv4-18">

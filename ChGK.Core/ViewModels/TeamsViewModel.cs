@@ -8,6 +8,7 @@ using Cirrious.MvvmCross.ViewModels;
 using ChGK.Core.Messages;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
+using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
@@ -91,21 +92,37 @@ namespace ChGK.Core.ViewModels
 
 		MvxCommand<object> _removeCommand;
 
-		public MvxCommand<object> RemoveCommand {
+		public MvxCommand<object> RemoveTeamCommand {
 			get {
-				return _removeCommand ?? (_removeCommand = new MvxCommand<object> (Remove, _ => true));
+				return _removeCommand ?? (_removeCommand = new MvxCommand<object> (RemoveTeam, _ => true));
 			}
 		}
 
-		void Remove (object parameter)
+		void RemoveTeam (object parameter)
 		{
-			var positions = (int[])parameter;
-			_service.RemoveTeam (Teams [positions [0]].ID);
+			lock (RemoveTeamActions) {
+				var position = ((int[])parameter) [0];
+				var id = Teams [position].ID;
+
+				UndoBarMetaData = new UndoBarMetadata { Id = TeamRemoved, Text = StringResources.TeamRemoved };
+
+				Teams = Teams.Where ((m, i) => i != position).ToList ();
+
+			
+				RemoveTeamActions.Add (() => _service.RemoveTeam (id));
+			}
 		}
+
+		readonly List<Action> RemoveTeamActions = new List<Action> ();
 
 		public void ClearResults ()
 		{
-			_service.CleanResults ();
+			Teams = Teams.Select (team => {
+				team.ClearScore ();
+				return team;
+			}).ToList ();
+
+			UndoBarMetaData = new UndoBarMetadata { Id = ResultsCleared, Text = StringResources.ScoreRemoved };
 		}
 
 		bool _hasNoTeams;
@@ -117,6 +134,44 @@ namespace ChGK.Core.ViewModels
 			set {
 				_hasNoTeams = value;
 				RaisePropertyChanged (() => HasNoTeams);
+			}
+		}
+
+		UndoBarMetadata _undoBarMetadata;
+
+		public UndoBarMetadata UndoBarMetaData {
+			get {
+				return _undoBarMetadata;
+			}
+			set {
+				_undoBarMetadata = value;
+				RaisePropertyChanged (() => UndoBarMetaData);
+			}
+		}
+
+		const int TeamRemoved = 1;
+		const int ResultsCleared = 2;
+
+		public void SomeThingUndone (int id)
+		{
+			ReloadTeams ();
+		}
+
+		public void SomeThingConfirmed (int id)
+		{
+			switch (id) {
+			case TeamRemoved:
+				if (RemoveTeamActions.Count > 0) {
+					lock (RemoveTeamActions) {
+						var action = RemoveTeamActions [0];
+						action ();
+						RemoveTeamActions.RemoveAt (0);
+					}
+				}
+				break;
+			case ResultsCleared: 
+				_service.CleanResults ();
+				break;
 			}
 		}
 	}
@@ -144,11 +199,7 @@ namespace ChGK.Core.ViewModels
 
 		void OnResultsChanged (ResultsChangedMessage message)
 		{
-			if (message.QuestionID.Equals (ResultsChangedMessage.ResultsCleared)) {
-				_score = 0;
-			} else {
-				_score = _service.GetTeamScore (ID);
-			}
+			_score = message.QuestionID.Equals (ResultsChangedMessage.ResultsCleared) ? 0 : _service.GetTeamScore (ID);
 
 			RaisePropertyChanged (() => Score);
 		}
@@ -157,9 +208,14 @@ namespace ChGK.Core.ViewModels
 
 		public string Name { get; private set; }
 
-
 		public string Score {
 			get { return StringResources.TeamScoreTitle + " " + _score; }
+		}
+
+		public void ClearScore ()
+		{
+			_score = 0;
+			RaisePropertyChanged (() => Score);
 		}
 	}
 }
