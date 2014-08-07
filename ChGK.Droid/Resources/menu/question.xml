@@ -7,16 +7,16 @@
     <item 
 		android:id="@+id/start_timer"       
         android:showAsAction="always"
-        android:icon="@drawable/ic_av_play"
+        android:icon="@drawable/ic_action_av_play"
         android:title="@string/start"/>  
     <item 
 		android:id="@+id/stop_timer"       
         android:showAsAction="always"
-        android:icon="@drawable/ic_av_pause"
+        android:icon="@drawable/ic_action_av_pause"
         android:title="@string/stop"/>  
 	<item 
 		android:id="@+id/enter_results"       
         android:showAsAction="always"
-        android:icon="@drawable/ic_content_paste"
+        android:icon="@drawable/ic_action_content_paste"
         android:title="@string/enter_results"/>  
 </menu>

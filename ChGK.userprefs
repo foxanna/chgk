@@ -1,11 +1,11 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.192.168.56.101:5555" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ChGK.Core/ViewModels/EnterResultsViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ChGK.Droid/Resources/values/themes.xml">
     <Files>
-      <File FileName="ChGK.Droid/Views/EnterResultsView.cs" Line="19" Column="19" />
-      <File FileName="ChGK.Droid/Resources/Layout/EnterResultsView.axml" Line="37" Column="37" />
-      <File FileName="ChGK.Core/ViewModels/EnterResultsViewModel.cs" Line="18" Column="18" />
-      <File FileName="ChGK.Droid/Resources/values/Strings.xml" Line="24" Column="24" />
+      <File FileName="ChGK.Droid/Controls/UndoBar/UndoBarController.cs" Line="5" Column="5" />
+      <File FileName="ChGK.Droid/Views/MenuItemIndependentView.cs" Line="38" Column="38" />
+      <File FileName="ChGK.Droid/Resources/Layout/QuestionsView.axml" Line="37" Column="37" />
+      <File FileName="ChGK.Droid/Resources/values/themes.xml" Line="26" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

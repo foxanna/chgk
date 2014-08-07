@@ -6,15 +6,9 @@
     android:padding="@dimen/default_padding">
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
         android:textSize="38sp"
         android:gravity="center"
-        android:text="Что? Где? Когда?" />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:autoLink="web"
-        android:gravity="right"
-        android:text="База вопросов http://db.chgk.info"/>        
+        android:text="Что? Где? Когда?" />    
 </LinearLayout>

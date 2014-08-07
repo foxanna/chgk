@@ -1,5 +1,4 @@
-﻿using Android.App;
-using Android.OS;
+﻿using Android.OS;
 using Android.Views;
 using ChGK.Core.ViewModels;
 using Cirrious.MvvmCross.Droid.Views;

@@ -1,14 +1,14 @@
 ﻿using Android.App;
+using Android.Content.Res;
 using Android.OS;
+using Android.Support.V4.App;
+using Android.Support.V4.Widget;
+using Android.Views;
+using ChGK.Core.Utils;
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Droid.Fragging;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
-using Android.Support.V4.Widget;
-using Android.Support.V4.App;
-using Android.Views;
-using Android.Content.Res;
 using Cirrious.MvvmCross.Plugins.Messenger;
-using Cirrious.CrossCore;
-using ChGK.Core.Utils;
 
 namespace ChGK.Droid.Views
 {
