@@ -12,211 +12,258 @@ using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
-	public class TeamsViewModel : MenuItemViewModel
-	{
-		readonly ITeamsService _service;
+    class ChGKCommand
+    {
+        public Action OnUndo { get; set; }
 
-		public DataLoader DataLoader { get; set; }
+        public Action OnApply { get; set; }
+    }
 
-		#pragma warning disable 414
-		readonly MvxSubscriptionToken _teamsChangedToken;
-		#pragma warning restore 414
+    public class TeamsViewModel : MenuItemViewModel
+    {
+        readonly ITeamsService _service;
 
-		public TeamsViewModel (ITeamsService service, IMvxMessenger messenger)
-		{
-			_service = service;
+        public DataLoader DataLoader { get; set; }
+        
+        public TeamsViewModel(ITeamsService service, IMvxMessenger messenger)
+        {
+            _service = service;
 
-			_teamsChangedToken = messenger.Subscribe<TeamsChangedMessage> (OnTeamsChanged);
+            Title = StringResources.Teams;
 
-			Title = StringResources.Teams;
+            DataLoader = new DataLoader();
+        }
 
-			DataLoader = new DataLoader ();
-		}
+        public override void Start()
+        {
+            base.Start();
 
-		public override void Start ()
-		{
-			base.Start ();
+            LoadItems();
+        }
 
-			ReloadTeams ();
-		}
+        void LoadItems()
+        {
+            Teams = null;
+            var teams = _service.GetAllTeams();
+            Teams = teams.Select(team => new TeamViewModel(_service, team)).ToList();
+            HasNoTeams = Teams.Count == 0;
+        }
 
-		async Task LoadItems ()
-		{
-			Teams = null;
-			var teams = await Task.Factory.StartNew<List<Team>> (_service.GetAllTeams);
-			Teams = teams.Select (team => new TeamViewModel (_service, team)).ToList ();
-			HasNoTeams = Teams.Count == 0;
-		}
+        List<TeamViewModel> _teams;
 
-		async void ReloadTeams ()
-		{
-			try {
-				await DataLoader.LoadItemsAsync (LoadItems);
-			} catch (Exception e) {
-				Mvx.Trace (e.Message);
-			}
-		}
+        public List<TeamViewModel> Teams
+        {
+            get
+            {
+                return _teams;
+            }
+            set
+            {
+                _teams = value;
+                RaisePropertyChanged(() => Teams);
+            }
+        }
 
-		void OnTeamsChanged (TeamsChangedMessage obj)
-		{
-			ReloadTeams ();
-		}
+        public void InitAddTeam()
+        {
+            Mvx.Resolve<IDialogManager>().ShowDialog(DialogType.AddTeamDialog,
+                new MvxCommand<string>(AddTeam, name => !string.IsNullOrWhiteSpace(name)));
+        }
 
-		List<TeamViewModel> _teams;
+        void AddTeam(string name)
+        {
+            _service.AddTeam(name.Trim());
 
-		public List<TeamViewModel> Teams {
-			get {			
-				return _teams;
-			}
-			set {
-				_teams = value; 
-				RaisePropertyChanged (() => Teams);
-			}
-		}
+            LoadItems();
+        }
 
-		public void InitAddTeam ()
-		{
-			Mvx.Resolve<IDialogManager> ().ShowDialog (DialogType.AddTeamDialog, 
-				new MvxCommand<string> (AddTeam, name => !string.IsNullOrWhiteSpace (name)));
-		}
+        public override Task Refresh()
+        {
+            throw new NotImplementedException();
+        }
 
-		void AddTeam (string name)
-		{
-			_service.AddTeam (name.Trim ());
-		}
+        MvxCommand<object> _removeCommand;
 
-		public override Task Refresh ()
-		{
-			throw new NotImplementedException ();
-		}
+        public MvxCommand<object> RemoveTeamCommand
+        {
+            get
+            {
+                return _removeCommand ?? (_removeCommand = new MvxCommand<object>(RemoveTeam, _ => true));
+            }
+        }
 
-		MvxCommand<object> _removeCommand;
+        void RemoveTeam(object parameter)
+        {
+            lock (UndoActions)
+            {
+                var position = ((int[])parameter)[0];
+                var teamToDelete = Teams[position];
 
-		public MvxCommand<object> RemoveTeamCommand {
-			get {
-				return _removeCommand ?? (_removeCommand = new MvxCommand<object> (RemoveTeam, _ => true));
-			}
-		}
+                UndoActions.Add(
+                    new ChGKCommand
+                    {
+                        OnApply = () =>
+                        {
+                            _service.RemoveTeam(teamToDelete.ID);
+                        },
+                        OnUndo = () =>
+                        {
+                            Teams.Insert(position, teamToDelete);
+                            Teams = Teams.Where(_ => true).ToList();
+                        },
+                    });
 
-		void RemoveTeam (object parameter)
-		{
-			lock (RemoveTeamActions) {
-				var position = ((int[])parameter) [0];
-				var id = Teams [position].ID;
+                Teams = Teams.Where((m, i) => i != position).ToList();
+            }
 
-				UndoBarMetaData = new UndoBarMetadata { Id = TeamRemoved, Text = StringResources.TeamRemoved };
+            UndoBarMetaData = new UndoBarMetadata { Text = StringResources.TeamRemoved };
+        }
 
-				Teams = Teams.Where ((m, i) => i != position).ToList ();
+        readonly List<ChGKCommand> UndoActions = new List<ChGKCommand>();
 
-			
-				RemoveTeamActions.Add (() => _service.RemoveTeam (id));
-			}
-		}
+        public void ClearResults()
+        {
+            lock (UndoActions)
+            {
+                var oldTeamScores = Teams.Select(team => team.Score).ToList();
 
-		readonly List<Action> RemoveTeamActions = new List<Action> ();
+                UndoActions.Add(
+                   new ChGKCommand
+                   {
+                       OnApply = () =>
+                       {
+                           _service.CleanResults();
+                       },
+                       OnUndo = () =>
+                       {
+                           Teams = Teams.Where((team, i) =>
+                           {
+                               try
+                               {
+                                   team.Score = oldTeamScores[i];
+                               } catch  {
 
-		public void ClearResults ()
-		{
-			Teams = Teams.Select (team => {
-				team.ClearScore ();
-				return team;
-			}).ToList ();
+                               };
 
-			UndoBarMetaData = new UndoBarMetadata { Id = ResultsCleared, Text = StringResources.ScoreRemoved };
-		}
+                               return true;
+                           }).ToList();
+                       },
+                   });
 
-		bool _hasNoTeams;
+                Teams = Teams.Where(team =>
+                {
+                    team.Score = 0;
+                    return true;
+                }).ToList();
+            }
 
-		public bool HasNoTeams {
-			get {
-				return _hasNoTeams;
-			}
-			set {
-				_hasNoTeams = value;
-				RaisePropertyChanged (() => HasNoTeams);
-			}
-		}
+            UndoBarMetaData = new UndoBarMetadata { Text = StringResources.ScoreRemoved };
+        }
 
-		UndoBarMetadata _undoBarMetadata;
+        bool _hasNoTeams;
 
-		public UndoBarMetadata UndoBarMetaData {
-			get {
-				return _undoBarMetadata;
-			}
-			set {
-				_undoBarMetadata = value;
-				RaisePropertyChanged (() => UndoBarMetaData);
-			}
-		}
+        public bool HasNoTeams
+        {
+            get
+            {
+                return _hasNoTeams;
+            }
+            set
+            {
+                _hasNoTeams = value;
+                RaisePropertyChanged(() => HasNoTeams);
+            }
+        }
 
-		const int TeamRemoved = 1;
-		const int ResultsCleared = 2;
+        UndoBarMetadata _undoBarMetadata;
 
-		public void SomeThingUndone (int id)
-		{
-			ReloadTeams ();
-		}
+        public UndoBarMetadata UndoBarMetaData
+        {
+            get
+            {
+                return _undoBarMetadata;
+            }
+            set
+            {
+                _undoBarMetadata = value;
+                RaisePropertyChanged(() => UndoBarMetaData);
+            }
+        }
 
-		public void SomeThingConfirmed (int id)
-		{
-			switch (id) {
-			case TeamRemoved:
-				if (RemoveTeamActions.Count > 0) {
-					lock (RemoveTeamActions) {
-						var action = RemoveTeamActions [0];
-						action ();
-						RemoveTeamActions.RemoveAt (0);
-					}
-				}
-				break;
-			case ResultsCleared: 
-				_service.CleanResults ();
-				break;
-			}
-		}
-	}
+        public void UndoableActionUndone()
+        {
+            if (UndoActions.Count > 0)
+            {
+                lock (UndoActions)
+                {
+                    var action = UndoActions[0];
+                    action.OnUndo();
+                    UndoActions.RemoveAt(0);
+                }
+            }
+        }
 
-	public class TeamViewModel : MvxViewModel
-	{
-		#pragma warning disable 414
-		readonly MvxSubscriptionToken _resultsChangedToken;
-		#pragma warning restore 414
+        public void UndoableActionConfirmed()
+        {
+            if (UndoActions.Count > 0)
+            {
+                lock (UndoActions)
+                {
+                    var action = UndoActions[0];
+                    action.OnApply();
+                    UndoActions.RemoveAt(0);
+                }
+            }
+        }
+    }
 
-		readonly ITeamsService _service;
-		int _score;
+    public class TeamViewModel : MvxViewModel
+    {
+#pragma warning disable 414
+        readonly MvxSubscriptionToken _resultsChangedToken;
+#pragma warning restore 414
 
-		public TeamViewModel (ITeamsService service, Team team)
-		{
-			_service = service;
+        readonly ITeamsService _service;
+        int _score;
 
-			_resultsChangedToken = Mvx.Resolve<IMvxMessenger> ().Subscribe<ResultsChangedMessage> (OnResultsChanged);
+        public TeamViewModel(ITeamsService service, Team team)
+        {
+            _service = service;
 
-			ID = team.ID;
-			Name = team.Name;
+            _resultsChangedToken = Mvx.Resolve<IMvxMessenger>().Subscribe<ResultsChangedMessage>(OnResultsChanged);
 
-			_score = _service.GetTeamScore (ID);
-		}
+            ID = team.ID;
+            Name = team.Name;
 
-		void OnResultsChanged (ResultsChangedMessage message)
-		{
-			_score = message.QuestionID.Equals (ResultsChangedMessage.ResultsCleared) ? 0 : _service.GetTeamScore (ID);
+            Score = _service.GetTeamScore(ID);
+        }
 
-			RaisePropertyChanged (() => Score);
-		}
+        void OnResultsChanged(ResultsChangedMessage message)
+        {
+            Score = message.QuestionID.Equals(ResultsChangedMessage.ResultsCleared) ? 0 : _service.GetTeamScore(ID);
+        }
 
-		public int ID { get; set; }
+        public int ID { get; set; }
 
-		public string Name { get; private set; }
+        public string Name { get; private set; }
 
-		public string Score {
-			get { return StringResources.TeamScoreTitle + " " + _score; }
-		}
+        public string TeamScore
+        {
+            get { return StringResources.TeamScoreTitle + " " + Score; }
+        }
 
-		public void ClearScore ()
-		{
-			_score = 0;
-			RaisePropertyChanged (() => Score);
-		}
-	}
+        public int Score
+        {
+            get
+            {
+                return _score;
+            }
+            set
+            {
+                _score = value;
+                RaisePropertyChanged(() => TeamScore);
+            }
+        }
+    }
 }
 

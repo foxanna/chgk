@@ -54,9 +54,9 @@ namespace ChGK.Droid.Views
 					UndoBar.Hide ();
 				}
 
-				UndoBar = new UndoBar (this, value.Id, value.Text, _listView);
-				UndoBar.Undo += (sender, e) => (ViewModel as TeamsViewModel).SomeThingUndone (e.EventID);
-				UndoBar.Discard += (sender, e) => (ViewModel as TeamsViewModel).SomeThingConfirmed (e.EventID);
+				UndoBar = new UndoBar (this, value.Text, _listView);
+				UndoBar.Undo += (sender, e) => (ViewModel as TeamsViewModel).UndoableActionUndone ();
+				UndoBar.Discard += (sender, e) => (ViewModel as TeamsViewModel).UndoableActionConfirmed ();
 
 				UndoBar.Show ();
 			}

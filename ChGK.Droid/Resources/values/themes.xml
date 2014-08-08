@@ -105,4 +105,9 @@
 		<item name="android:minHeight">16dip</item>
 		<item name="android:maxHeight">16dip</item>
 	</style>
+  
+  <style name="popup_fade_animation">
+    <item name="android:windowEnterAnimation">@anim/popup_show</item>
+    <item name="android:windowExitAnimation">@anim/popup_hide</item>
+  </style>
 </resources>

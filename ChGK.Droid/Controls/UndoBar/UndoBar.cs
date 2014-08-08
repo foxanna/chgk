@@ -8,24 +8,11 @@ using System.Threading;
 
 namespace ChGK.Droid.Controls.UndoBar
 {
-	public class UndoEventArgs : EventArgs
-	{
-		public int EventID { get; private set; }
-
-		public UndoEventArgs (int eventID)
-		{
-			EventID = eventID;
-		}
-	}
-
-
 	public class UndoBar
 	{
-		public event EventHandler<UndoEventArgs> Undo;
+		public event EventHandler Undo;
 
-		public event EventHandler<UndoEventArgs> Discard;
-
-		readonly int _id;
+		public event EventHandler Discard;
 
 		readonly PopupWindow _popup;
 
@@ -35,9 +22,8 @@ namespace ChGK.Droid.Controls.UndoBar
 
 		CancellationTokenSource _cancellationTokenSource;
 
-		public UndoBar (Context context, int id, string text, View parentView)
+		public UndoBar (Context context, string text, View parentView)
 		{
-			_id = id;
 			_parentView = parentView;
 
 			var view = (context.GetSystemService (Context.LayoutInflaterService) as LayoutInflater).Inflate (Resource.Layout.undo_bar, null);
@@ -49,6 +35,7 @@ namespace ChGK.Droid.Controls.UndoBar
 			titleTextView.Text = text;
 
 			_popup = new PopupWindow (view, ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent, false);
+            _popup.AnimationStyle = Resource.Style.popup_fade_animation;
 			_popup.DismissEvent += (sender, e) => OnDiscard ();
 		}
 
@@ -77,7 +64,7 @@ namespace ChGK.Droid.Controls.UndoBar
 			
 				var handler = Undo;
 				if (handler != null) {
-					handler (this, new UndoEventArgs (_id));
+					handler (this, EventArgs.Empty);
 				}
 			}
 		}
@@ -92,7 +79,7 @@ namespace ChGK.Droid.Controls.UndoBar
 
 			var handler = Discard;
 			if (handler != null) {
-				handler (this, new UndoEventArgs (_id));
+                handler(this, EventArgs.Empty);
 			}
 		}
 
@@ -116,4 +103,3 @@ namespace ChGK.Droid.Controls.UndoBar
 		}
 	}
 }
-
