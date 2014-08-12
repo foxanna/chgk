@@ -33,6 +33,13 @@ namespace ChGK.Droid.Views
 
 			return builder.Create ();
 		}
+
+        public override void OnDismiss(IDialogInterface dialog)
+        {
+            (ViewModel as EnterResultsViewModel).OnDialogClosed();
+
+            base.OnDismiss(dialog);
+        }
 	}
 }
 

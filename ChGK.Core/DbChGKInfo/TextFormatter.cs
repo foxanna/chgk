@@ -37,6 +37,11 @@ namespace ChGK.Core.DbChGKInfo
 		{
 			return Regex.Replace (text, "\n", " ");
 		}
+
+        public static string FormatPassCriteria(string text)
+        {
+            return Regex.Replace(text, "\n", " ");
+        }
 	}
 }
 

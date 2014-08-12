@@ -125,9 +125,5 @@
     </Reference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Utils\" />
-    <Folder Include="Messages\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

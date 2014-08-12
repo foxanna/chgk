@@ -33,32 +33,26 @@ namespace ChGK.Core.ViewModels
 			DataLoader = new DataLoader ();
 		}
 
-		async Task LoadItems ()
-		{
-			Teams = null;	
+		void LoadItems ()
+		{		
+			var teams = _teamsService.GetAllTeams ();
+			var results = _teamsService.GetAllResults (_questionId);
 
-			Teams = await Task.Factory.StartNew<List<ResultsTeamViewModel>> (() => {
-				var teams = _teamsService.GetAllTeams ();
-				var results = _teamsService.GetAllResults (_questionId);
-
-				var _results = teams.Select (team => new ResultsTeamViewModel { 
-					Name = team.Name, 
-					ID = team.ID, 
-					AnsweredCorrectly = results.Contains (team.ID)
-				}).ToList ();
-
-				return _results;
-			});
+			Teams = teams.Select (team => new ResultsTeamViewModel { 
+				Name = team.Name, 
+				ID = team.ID, 
+				AnsweredCorrectly = results.Contains (team.ID)
+			}).ToList ();
 
 			IsEmpty = Teams.Count == 0;
 		}
 
-		async void ReloadResults ()
+		void ReloadResults ()
 		{
-			await DataLoader.LoadItemsAsync (LoadItems);
+			DataLoader.LoadItems (LoadItems);
 		}
 
-		public void Init (string questionId, string results)
+		public void Init (string questionId)
 		{
 			_questionId = questionId;
 
@@ -72,8 +66,17 @@ namespace ChGK.Core.ViewModels
 
 		void OnResultsChanged (ResultsChangedMessage obj)
 		{
-			ReloadResults ();
+            if (_questionId.Equals(obj.QuestionID))
+            {
+                ReloadResults();
+            }
 		}
+
+        public void OnDialogClosed() {
+            var messenger = Mvx.Resolve<IMvxMessenger>();
+            messenger.Unsubscribe<ResultsChangedMessage>(_resultsChangedToken);
+            messenger.Unsubscribe<TeamsChangedMessage>(_teamsChangedToken);
+        }
 
 		bool _isEmpty;
 

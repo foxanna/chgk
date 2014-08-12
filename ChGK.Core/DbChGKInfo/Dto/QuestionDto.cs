@@ -38,7 +38,7 @@ namespace ChGK.Core.DbChGKInfo.Dto
 				Picture = TextFormatter.GetPicture (Text),
 				Text = TextFormatter.FormatQuestion (Text),
 				Answer = Answer,
-				PassCriteria = PassCriteria,
+                PassCriteria = TextFormatter.FormatPassCriteria(PassCriteria),
 				Author = TextFormatter.FormatAnswer (Author),
 				Comment = TextFormatter.FormatComments (Comment),
 				Source = Source,

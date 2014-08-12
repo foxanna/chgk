@@ -155,6 +155,7 @@
     <Compile Include="Controls\UndoBar\UndoBar.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="packages.config" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -305,7 +306,9 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\text_select_handle_middle.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\text_select_handle_right.png" />
     <AndroidResource Include="Resources\Layout\item_result_team.axml" />
-    <AndroidResource Include="Resources\Layout\EnterResultsView.axml" />
+    <AndroidResource Include="Resources\Layout\EnterResultsView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\Values\Strings.xml" />
     <AndroidResource Include="Resources\Layout\SplashScreen.axml" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_action_av_play.png" />

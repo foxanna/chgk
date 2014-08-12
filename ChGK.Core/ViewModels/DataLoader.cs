@@ -34,6 +34,33 @@ namespace ChGK.Core.ViewModels
 			}
 		}
 
+        public void LoadItems(Action loadDataAction)
+        {
+
+            if (IsLoading)
+            {
+                return;
+            }
+
+            HasError = false;
+            IsLoading = true;
+
+            try
+            {
+                loadDataAction();
+            }
+            catch (Exception e)
+            {
+                HasError = true;
+                Mvx.Trace(e.Message);
+                Error = "Не удалось загрузить данные.\n" + e.Message + "\nПопробуйте еще раз.";
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
 		bool _isLoading;
 
 		public bool IsLoading {
