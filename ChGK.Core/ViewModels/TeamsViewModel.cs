@@ -46,7 +46,6 @@ namespace ChGK.Core.ViewModels
             Teams = null;
             var teams = _service.GetAllTeams();
             Teams = teams.Select(team => new TeamViewModel(_service, team)).ToList();
-            HasNoTeams = Teams.Count == 0;
         }
 
         List<TeamViewModel> _teams;
@@ -61,6 +60,7 @@ namespace ChGK.Core.ViewModels
             {
                 _teams = value;
                 RaisePropertyChanged(() => Teams);
+                RaisePropertyChanged(() => HasNoTeams);
             }
         }
 
@@ -113,7 +113,7 @@ namespace ChGK.Core.ViewModels
                         },
                     });
 
-                Teams = Teams.Where((m, i) => i != position).ToList();
+                Teams = Teams.Where((m, i) => i != position).ToList();                
             }
 
             UndoBarMetaData = new UndoBarMetadata { Text = StringResources.TeamRemoved };
@@ -159,19 +159,12 @@ namespace ChGK.Core.ViewModels
 
             UndoBarMetaData = new UndoBarMetadata { Text = StringResources.ScoreRemoved };
         }
-
-        bool _hasNoTeams;
-
+        
         public bool HasNoTeams
         {
             get
             {
-                return _hasNoTeams;
-            }
-            set
-            {
-                _hasNoTeams = value;
-                RaisePropertyChanged(() => HasNoTeams);
+                return Teams.Count == 0;
             }
         }
 
