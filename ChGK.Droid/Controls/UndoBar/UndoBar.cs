@@ -79,7 +79,7 @@ namespace ChGK.Droid.Controls.UndoBar
             {
                 var ui = TaskScheduler.FromCurrentSynchronizationContext();
                 await Task.Delay(5000, _cancellationTokenSource.Token);
-                await Task.Factory.StartNew(OnPopupTimeOut, _cancellationTokenSource.Token);
+                await Task.Factory.StartNew(OnPopupTimeOut, _cancellationTokenSource.Token, TaskCreationOptions.None, ui);
             }
             catch (OperationCanceledException e)
             {
