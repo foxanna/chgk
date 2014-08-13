@@ -6,6 +6,7 @@ using ChGK.Droid.Controls.SwipeToDismiss;
 using ChGK.Droid.Controls.UndoBar;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using ChGK.Core.Utils;
+using ChGK.Droid.Helpers;
 
 namespace ChGK.Droid.Views
 {
@@ -21,6 +22,15 @@ namespace ChGK.Droid.Views
 		public override bool OnCreateOptionsMenu (IMenu menu)
 		{
 			MenuInflater.Inflate (Resource.Menu.teamsview, menu);
+
+            var removeAllButton = new MenuItemWrapper(menu.FindItem(Resource.Id.clear_teams));
+            var clearResults = new MenuItemWrapper(menu.FindItem(Resource.Id.clear_results));
+
+            var bindingSet = this.CreateBindingSet<TeamsView, TeamsViewModel>();
+            bindingSet.Bind(removeAllButton).For(n => n.Visible).To(vm => vm.CanRemoveTeams);
+            bindingSet.Bind(clearResults).For(n => n.Visible).To(vm => vm.CanClearScore);
+            bindingSet.Apply();
+
 			return true;
 		}
 
@@ -68,12 +78,20 @@ namespace ChGK.Droid.Views
 		public override bool OnOptionsItemSelected (IMenuItem item)
 		{
 			switch (item.ItemId) {
-			case Resource.Id.add_team: 
+			case Resource.Id.add_team:
+                if (UndoBar != null)
+                {
+                    UndoBar.Hide();
+                }
+
 				(ViewModel as TeamsViewModel).InitAddTeam ();
 				return true;
 			case Resource.Id.clear_results: 
 				(ViewModel as TeamsViewModel).ClearResults ();
 				return true;
+            case Resource.Id.clear_teams:
+                (ViewModel as TeamsViewModel).ClearTeams();
+                return true;
 			default:			
 				return base.OnOptionsItemSelected (item);
 			}

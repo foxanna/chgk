@@ -6,6 +6,7 @@ using ChGK.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using ChGK.Droid.Helpers;
 
 namespace ChGK.Droid.Views
 {
@@ -52,29 +53,6 @@ namespace ChGK.Droid.Views
 				return base.OnOptionsItemSelected (item);
 			}
 		}
-	}
-
-	public class MenuItemWrapper
-	{
-		readonly IMenuItem item;
-
-		public MenuItemWrapper (IMenuItem item)
-		{
-			if (item == null) {
-				throw new ArgumentNullException ();
-			}
-
-			this.item = item;
-		}
-
-		public bool Visible {
-			get {
-				return item.IsVisible;
-			}
-			set {
-				item.SetVisible (value);
-			}
-		}
-	}
+	}	
 }
 

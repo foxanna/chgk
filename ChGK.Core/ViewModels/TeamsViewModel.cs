@@ -38,10 +38,10 @@ namespace ChGK.Core.ViewModels
         {
             base.Start();
 
-            LoadItems();
+            LoadTeams();
         }
 
-        void LoadItems()
+        void LoadTeams()
         {
             Teams = null;
             var teams = _service.GetAllTeams();
@@ -61,6 +61,9 @@ namespace ChGK.Core.ViewModels
                 _teams = value;
                 RaisePropertyChanged(() => Teams);
                 RaisePropertyChanged(() => HasNoTeams);
+
+                RaisePropertyChanged(() => CanClearScore);
+                RaisePropertyChanged(() => CanRemoveTeams);
             }
         }
 
@@ -74,7 +77,7 @@ namespace ChGK.Core.ViewModels
         {
             _service.AddTeam(name.Trim());
 
-            LoadItems();
+            LoadTeams();
         }
 
         public override Task Refresh()
@@ -159,12 +162,51 @@ namespace ChGK.Core.ViewModels
 
             UndoBarMetaData = new UndoBarMetadata { Text = StringResources.ScoreRemoved };
         }
+
+        public void ClearTeams()
+        {
+            lock (UndoActions)
+            {
+                UndoActions.Add(
+                   new ChGKCommand
+                   {
+                       OnApply = () =>
+                       {
+                           _service.RemoveAllTeams();
+                       },
+                       OnUndo = () =>
+                       {
+                           LoadTeams();
+                       },
+                   });
+
+                Teams = new List<TeamViewModel>();
+            }
+
+            UndoBarMetaData = new UndoBarMetadata { Text = StringResources.TeamsRemoved };
+        }
         
         public bool HasNoTeams
         {
             get
             {
                 return Teams.Count == 0;
+            }
+        }
+
+        public bool CanClearScore
+        {
+            get
+            {
+                return Teams != null && Teams.FirstOrDefault(team => team.Score > 0) != null;
+            }
+        }
+
+        public bool CanRemoveTeams
+        {
+            get
+            {
+                return !HasNoTeams;
             }
         }
 

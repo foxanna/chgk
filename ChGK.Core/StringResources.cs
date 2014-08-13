@@ -24,6 +24,7 @@ namespace ChGK.Core
 		public static string TeamScoreTitle = "Счет";
 		public static string ScoreRemoved = "Счет команд удален";
 		public static string TeamRemoved = "Команда удалена";
+        public static string TeamsRemoved = "Все команды удалены";
 
 		// LastAddedView
 

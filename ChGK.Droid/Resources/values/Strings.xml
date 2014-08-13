@@ -9,6 +9,7 @@
 	<string name="add">Добавить</string>
 	<string name="cancel">Отменить</string>
 	<string name="clear_results">Обнулить результаты</string>
+  <string name="clear_teams">Удалить все команды</string>
 	<string name="enter_results">Внести результаты</string>
 	<string name="no_teams">Список команд пуст</string>
 </resources>

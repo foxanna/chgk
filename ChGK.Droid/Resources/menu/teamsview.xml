@@ -2,12 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item 
 		android:id="@+id/clear_results"       
-        android:showAsAction="always"
-        android:icon="@drawable/ic_action_av_replay"
-        android:title="@string/clear_results"/>
-	<item 
+    android:showAsAction="always"
+    android:icon="@drawable/ic_action_av_replay"
+    android:title="@string/clear_results"/>
+  <item
+    android:id="@+id/clear_teams"
+    android:showAsAction="always"
+    android:icon="@drawable/ic_action_content_discard"
+    android:title="@string/clear_teams"/>
+  <item 
 		android:id="@+id/add_team"       
-        android:showAsAction="always"
-        android:icon="@drawable/ic_action_content_new"
-        android:title="@string/add"/>
+    android:showAsAction="always"
+    android:icon="@drawable/ic_action_content_new"
+    android:title="@string/add"/>
 </menu> 
