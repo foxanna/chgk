@@ -57,13 +57,37 @@ namespace ChGK.Core.DbChGKInfo
 
 		public async Task<ITour> GetTourDetails (string filename, CancellationToken cancellationToken)
 		{
-			PreLoad (cancellationToken);
+            var tour = ReadTourFromCache(filename);
 
-			var tourDto = await _simpleRestService.GetAsync<TourDto> (host, 
-				              string.Format ("{0}/xml", filename), new XmlDeserializer<TourDto> (), cancellationToken);
+            if (tour == null)
+            {
+                PreLoad(cancellationToken);
 
-			return tourDto.ToModel ();
+                var tourDto = await _simpleRestService.GetAsync<TourDto>(host,
+                                  string.Format("{0}/xml", filename), new XmlDeserializer<TourDto>(), cancellationToken);
+
+                tour = tourDto.ToModel();
+                CacheTour(tour);
+            }
+            
+            return tour;
 		}
+
+        Dictionary<string, ITour> cachedTours = new Dictionary<string, ITour>();
+
+        void CacheTour(ITour tour)
+        {
+            if (!cachedTours.ContainsKey(tour.FileName))
+            {
+                cachedTours.Add(tour.FileName, tour);
+            }
+        }
+
+        ITour ReadTourFromCache(string filename)
+        {
+            var file = filename.StartsWith("tour/") ? filename.Substring(5) : filename;
+            return cachedTours.FirstOrDefault(t => t.Key == file).Value;
+        }
 	}
 }
 
