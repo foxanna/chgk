@@ -502,26 +502,29 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f080002
 			public const int ActionBar_Chgk = 2131230722;
 			
-			// aapt resource value: 0x7f08000b
-			public const int Button_Chgk = 2131230731;
+			// aapt resource value: 0x7f080006
+			public const int BorderlessButton_ChGK = 2131230726;
+			
+			// aapt resource value: 0x7f08000c
+			public const int Button_Chgk = 2131230732;
+			
+			// aapt resource value: 0x7f080007
+			public const int ButtonBar_ChGk = 2131230727;
 			
 			// aapt resource value: 0x7f080001
 			public const int ChGKTheme = 2131230721;
 			
-			// aapt resource value: 0x7f08000a
-			public const int CheckBox_Chgk = 2131230730;
-			
-			// aapt resource value: 0x7f080006
-			public const int DialogChgk = 2131230726;
-			
-			// aapt resource value: 0x7f080007
-			public const int DialogTitleTextAppearance = 2131230727;
-			
-			// aapt resource value: 0x7f080008
-			public const int DialogWindowTitleChgk = 2131230728;
+			// aapt resource value: 0x7f08000b
+			public const int CheckBox_Chgk = 2131230731;
 			
 			// aapt resource value: 0x7f080009
-			public const int EditTextChgk = 2131230729;
+			public const int DialogChGKStyle = 2131230729;
+			
+			// aapt resource value: 0x7f080008
+			public const int DialogChgk = 2131230728;
+			
+			// aapt resource value: 0x7f08000a
+			public const int EditTextChgk = 2131230730;
 			
 			// aapt resource value: 0x7f080004
 			public const int ExpandableListView_Chgk = 2131230724;
@@ -532,14 +535,14 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f080005
 			public const int ProgressBar_ChGK = 2131230725;
 			
-			// aapt resource value: 0x7f08000c
-			public const int ProgressBar_Chgk = 2131230732;
+			// aapt resource value: 0x7f08000d
+			public const int ProgressBar_Chgk = 2131230733;
 			
 			// aapt resource value: 0x7f080000
 			public const int Theme_Splash = 2131230720;
 			
-			// aapt resource value: 0x7f08000d
-			public const int popup_fade_animation = 2131230733;
+			// aapt resource value: 0x7f08000e
+			public const int popup_fade_animation = 2131230734;
 			
 			static Style()
 			{

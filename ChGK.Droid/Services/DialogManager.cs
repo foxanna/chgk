@@ -7,6 +7,7 @@ using ChGK.Core;
 using ChGK.Core.Services;
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Droid.Platform;
+using Android.Views;
 
 namespace ChGK.Droid.Services
 {
@@ -26,7 +27,7 @@ namespace ChGK.Droid.Services
 		static Dialog AddTeamDialog (ICommand yesAction)
 		{
 			var activity = Mvx.Resolve<IMvxAndroidCurrentTopActivity> ().Activity;
-			var builder = new AlertDialog.Builder (activity);
+            var builder = new AlertDialog.Builder(activity);      
 
 			var editText = new EditText (activity);
 			editText.SetSingleLine ();
