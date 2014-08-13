@@ -81,7 +81,7 @@ namespace ChGK.Droid.Controls.UndoBar
                 await Task.Delay(5000, _cancellationTokenSource.Token);
                 await Task.Factory.StartNew(OnPopupTimeOut, _cancellationTokenSource.Token, TaskCreationOptions.None, ui);
             }
-            catch (OperationCanceledException e)
+            catch (OperationCanceledException)
             {
                 Mvx.Trace("Undobar: OperationCanceledException");
             }
