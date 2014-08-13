@@ -5,6 +5,7 @@ using Android.Content;
 using Android.App;
 using System.Threading.Tasks;
 using System.Threading;
+using Cirrious.CrossCore;
 
 namespace ChGK.Droid.Controls.UndoBar
 {
@@ -18,7 +19,7 @@ namespace ChGK.Droid.Controls.UndoBar
 
 		readonly View _parentView;
 
-		readonly object lockObject = new object ();
+        bool _undone;
 
 		CancellationTokenSource _cancellationTokenSource;
 
@@ -35,64 +36,63 @@ namespace ChGK.Droid.Controls.UndoBar
 			titleTextView.Text = text;
 
 			_popup = new PopupWindow (view, ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent, false);
-            _popup.AnimationStyle = Resource.Style.popup_fade_animation;
-			_popup.DismissEvent += (sender, e) => OnDiscard ();
+            _popup.AnimationStyle = Resource.Style.popup_fade_animation;            
 		}
+
+        void Popup_DismissEvent(object sender, EventArgs e)
+        {
+            OnDiscard();
+        }
 
 		public void Show ()
 		{
 			_popup.Width = (int)Math.Min (Application.Context.Resources.DisplayMetrics.Density * 400, _parentView.Width * 0.9f);
+            _popup.DismissEvent += Popup_DismissEvent;
 			_popup.ShowAtLocation (_parentView, GravityFlags.CenterHorizontal | GravityFlags.Bottom, 0, 60);
 
-			_cancellationTokenSource = new CancellationTokenSource ();
-
-			var ui = TaskScheduler.FromCurrentSynchronizationContext ();
-			Task.Delay (5000, _cancellationTokenSource.Token)
-				.ContinueWith (OnPopupTimeOut, _cancellationTokenSource.Token, TaskContinuationOptions.OnlyOnRanToCompletion, ui);
+            SchedulePopupClose();
 		}
 
 		void OnUndoClick (object sender, EventArgs e)
 		{
 			_undone = true;
 
-			lock (lockObject) {
-				_cancellationTokenSource.Cancel ();
-
-				if (_popup.IsShowing) {
-					_popup.Dismiss ();
-				}
-			
-				var handler = Undo;
-				if (handler != null) {
-					handler (this, EventArgs.Empty);
-				}
-			}
+            Hide();
 		}
 
 		void OnDiscard ()
 		{
+            _popup.DismissEvent -= Popup_DismissEvent;
 			_cancellationTokenSource.Cancel ();
 
-			if (_undone) {
-				return;
-			}
+            var handler = _undone ? Undo : Discard;          
 
-			var handler = Discard;
-			if (handler != null) {
-                handler(this, EventArgs.Empty);
-			}
+            if (handler != null)            
+                handler(this, EventArgs.Empty);            
 		}
 
-		bool _undone;
+        async void SchedulePopupClose()
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
 
-		void OnPopupTimeOut (Task t)
+            try
+            {
+                var ui = TaskScheduler.FromCurrentSynchronizationContext();
+                await Task.Delay(5000, _cancellationTokenSource.Token);
+                await Task.Factory.StartNew(OnPopupTimeOut, _cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException e)
+            {
+                Mvx.Trace("Undobar: OperationCanceledException");
+            }
+        }
+		
+		void OnPopupTimeOut ()
 		{
 			if (_cancellationTokenSource.IsCancellationRequested || _undone)
 				return;
 
-			lock (lockObject) {
-				Hide ();
-			}
+            Hide ();
 		}
 
 		public void Hide ()
