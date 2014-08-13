@@ -69,7 +69,7 @@ namespace ChGK.Droid.Controls.MvxListViewWithHeader
 
 		public override bool IsEnabled (int position)
 		{
-			return (position > 0) ? base.IsEnabled (position) : false;
+            return (position > HeadersCount - 1) ? base.IsEnabled(position) : false;
 		}
 	}
 }
