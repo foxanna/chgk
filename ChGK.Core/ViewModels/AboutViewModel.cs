@@ -14,7 +14,7 @@ namespace ChGK.Core.ViewModels
             //HasAds = true;
 
 			CopyrightUrl = "<a href=" + StringResources.LicenceAgreementUrl + ">" + StringResources.LicenceAgreement + "</a>";
-			SomeTitle = StringResources.QuestionsBase + " <a href=" + StringResources.DataBaseUrl + ">\"Что? Где? Когда?\"</a>";
+            SomeTitle = StringResources.QuestionsBase + " <a href=" + StringResources.DataBaseUrl + ">" + StringResources.WhatWhenWhere + "</a>";
 			Version = string.Format ("{0} {1} {2}", StringResources.Version, appInfoProvider.AppName, appInfoProvider.AppVersion);
 		}
 
