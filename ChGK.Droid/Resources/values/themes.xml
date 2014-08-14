@@ -26,7 +26,7 @@
 	  <item name="android:textSelectHandleRight">@drawable/text_select_handle_right</item>
 	  <item name="android:textSelectHandle">@drawable/text_select_handle_middle</item>
 	  <item name="android:listChoiceIndicatorMultiple">@drawable/btn_check</item>
-    <item name="android:divider">@color/dark</item>
+    <item name="android:textColorLink">@color/dark</item>
 	</style>
 
 	<color name="dark">#98cc00</color>

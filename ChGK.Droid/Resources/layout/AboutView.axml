@@ -1,11 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:local="http://schemas.android.com/apk/res-auto"
+	            xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="@dimen/default_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/a1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textColor="?android:attr/textColorLink"
+        local:MvxBind="TextFormatted AdvLink,Converter=HtmlToSpannable;Click OpenAdsCommand;Visibility HasAds,Converter=Visibility" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -15,17 +22,17 @@
         android:layout_marginBottom="@dimen/default_padding"
         local:MvxBind="Text Version" />
     <TextView
-		android:id="@+id/a1"
-        android:layout_width="wrap_content"
+		    android:id="@+id/a1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:gravity="right"
         android:layout_marginBottom="@dimen/default_text_padding"
         local:MvxBind="TextFormatted SomeTitle,Converter=HtmlToSpannable" />
     <TextView
-		android:id="@+id/a2"
-        android:layout_width="wrap_content"
+		    android:id="@+id/a2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:gravity="right"
         local:MvxBind="TextFormatted CopyrightUrl,Converter=HtmlToSpannable" />
 </LinearLayout>
 

@@ -15,7 +15,9 @@ namespace ChGK.Core
 		public static string LicenceAgreement = "Лицензионное соглашение";
 		public static string AboutApp = "О приложении";
 		public static string Version = "Версия";
-		public static string QuestionsBase = "База Вопросов Интернет-клуба";
+        public static string QuestionsBase = "База Вопросов Интернет-клуба";
+        public static string ClickOnAd = "Посмотреть рекламу";
+        public static string HelpDevelopers = "и помочь разработчикам";
 
 		// TeamsView
 
