@@ -8,5 +8,9 @@ namespace ChGK.Core.ViewModels
 {
     class AdvertViewModel : MenuItemViewModel
     {
+        public override Task Refresh()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
