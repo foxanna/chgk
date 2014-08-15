@@ -11,14 +11,7 @@ using System.Text;
 
 namespace ChGK.Droid.Views
 {
-    [Activity(Label = "", 
-        ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation
-        | Android.Content.PM.ConfigChanges.SmallestScreenSize
-        | Android.Content.PM.ConfigChanges.ScreenSize
-        | Android.Content.PM.ConfigChanges.Keyboard 
-        | Android.Content.PM.ConfigChanges.KeyboardHidden 
-        | Android.Content.PM.ConfigChanges.ScreenLayout 
-        | Android.Content.PM.ConfigChanges.UiMode)]
+    [Activity(Label = "")]
     public class AdvertView : MenuItemIndependentView
     {
         protected override int LayoutId
@@ -44,7 +37,7 @@ namespace ChGK.Droid.Views
             {
                 var adView = new AdView(this)
                 {
-                    AdSize = AdSize.Banner,
+                    AdSize = AdSize.SmartBanner,
                     AdUnitId = adId,                    
                 };
 
@@ -53,10 +46,11 @@ namespace ChGK.Droid.Views
                 _banners.Add(adView);
             }
 
-            var adRequest = new AdRequest.Builder().Build();
             foreach (var banner in _banners)
             {
-                banner.LoadAd(adRequest);
+                var adRequestBuilder = new AdRequest.Builder();
+                adRequestBuilder.AddTestDevice(AdRequest.DeviceIdEmulator).AddTestDevice("5A661232CD0BF07771C08512D3BC808A");
+                banner.LoadAd(adRequestBuilder.Build());
             }
         }
 

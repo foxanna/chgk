@@ -2906,7 +2906,7 @@ namespace ChGK.Droid
 					16843055,
 					16843056,
 					16843057,
-					16843754};
+					16843829};
 			
 			// aapt resource value: 4
 			public const int MenuView_android_headerBackground = 4;

@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2" android:versionName="1.0.1" package="ChGK.Droid">
-	<uses-sdk android:minSdkVersion="14" />
-	<application android:theme="@style/ChGKTheme" android:label="ChGK" />
+	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
+    <application android:theme="@style/ChGKTheme" android:label="ChGK" >
+        <activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />        
+    </application>
 	<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
