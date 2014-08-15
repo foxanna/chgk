@@ -7,10 +7,11 @@ using Cirrious.MvvmCross.Plugins.Json;
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Newtonsoft.Json;
+using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
-	public class QuestionsViewModel : MvxViewModel
+    public class QuestionsViewModel : MvxViewModel, IViewLifecycle
 	{
 		public QuestionsViewModel ()
 		{
@@ -37,6 +38,14 @@ namespace ChGK.Core.ViewModels
 		}
 
 		public int Index { get; private set; }
+
+        public void OnViewDestroying()
+        {
+            foreach (var questionViewModel in Questions)
+            {
+                questionViewModel.OnViewDestroying();
+            }
+        }
 	}
 }
 

@@ -4,6 +4,7 @@ using Android.Support.V4.View;
 using Android.Support.V4.App;
 using ChGK.Core.ViewModels;
 using Cirrious.MvvmCross.Droid.Fragging;
+using ChGK.Core.Utils;
 
 namespace ChGK.Droid.Views
 {
@@ -12,7 +13,7 @@ namespace ChGK.Droid.Views
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
-			base.OnCreate (bundle);
+			base.OnCreate (bundle);            
 			SetContentView (Resource.Layout.QuestionsView);
 
 			var viewPager = FindViewById<ViewPager> (Resource.Id.viewPager);
@@ -32,6 +33,16 @@ namespace ChGK.Droid.Views
 				return base.OnOptionsItemSelected (item);
 			}
 		}
+
+        protected override void OnDestroy()
+        {
+            if (ViewModel is IViewLifecycle)
+            {
+                (ViewModel as IViewLifecycle).OnViewDestroying();
+            }
+
+            base.OnDestroy();
+        }
 	}
 
 	class QuestionsPagerAdapter : FragmentStatePagerAdapter

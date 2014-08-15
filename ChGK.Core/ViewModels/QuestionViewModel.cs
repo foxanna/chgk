@@ -13,7 +13,7 @@ using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
-	public class QuestionViewModel : MvxViewModel
+	public class QuestionViewModel : MvxViewModel, IViewLifecycle
 	{
 		public QuestionViewModel ()
 		{
@@ -159,5 +159,10 @@ namespace ChGK.Core.ViewModels
 		{
 			ShowViewModel<EnterResultsViewModel> (new { questionId = ID });
 		}
-	}
+        
+        public void OnViewDestroying()
+        {
+            PauseTimer();
+        }
+    }
 }
