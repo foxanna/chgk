@@ -6,6 +6,7 @@ using ChGK.Core;
 using ChGK.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using ChGK.Core.Utils;
 
 namespace ChGK.Droid.Views
 {
@@ -30,14 +31,17 @@ namespace ChGK.Droid.Views
 			builder.SetCancelable (true);
 			builder.SetPositiveButton (StringResources.Save, new EventHandler<DialogClickEventArgs> ((s, e) => viewModel.SubmitResults ()))
 					.SetNegativeButton (StringResources.Cancel, (EventHandler<DialogClickEventArgs>)null);
-
+            
 			return builder.Create ();
 		}
 
         public override void OnDismiss(IDialogInterface dialog)
         {
-            (ViewModel as EnterResultsViewModel).OnDialogClosed();
+            (ViewModel as IViewLifecycle).OnViewDestroying();
 
+            DataContext = null;
+            BindingContext = null;
+            
             base.OnDismiss(dialog);
         }
 	}

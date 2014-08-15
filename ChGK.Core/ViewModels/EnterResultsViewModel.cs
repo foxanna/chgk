@@ -1,22 +1,23 @@
-﻿using System;
+﻿using ChGK.Core.Messages;
+using ChGK.Core.Services;
+using ChGK.Core.Utils;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using Cirrious.MvvmCross.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.ViewModels;
-using ChGK.Core.Services;
-using System.Threading.Tasks;
-using Cirrious.MvvmCross.Plugins.Messenger;
-using ChGK.Core.Messages;
 
 namespace ChGK.Core.ViewModels
 {
-	public class EnterResultsViewModel : MvxViewModel
+	public class EnterResultsViewModel : MvxViewModel, IViewLifecycle
 	{
 		readonly ITeamsService _teamsService;
+        readonly IMvxMessenger _messenger;
 
 		#pragma warning disable 414
-		readonly MvxSubscriptionToken _teamsChangedToken;
-		readonly MvxSubscriptionToken _resultsChangedToken;
+		MvxSubscriptionToken _teamsChangedToken;
+		MvxSubscriptionToken _resultsChangedToken;
 		#pragma warning restore 414
 
 		public DataLoader DataLoader { get; set; }
@@ -26,6 +27,7 @@ namespace ChGK.Core.ViewModels
 		public EnterResultsViewModel (ITeamsService service, IMvxMessenger messenger)
 		{
 			_teamsService = service;
+            _messenger = messenger;
 
 			_teamsChangedToken = messenger.Subscribe<TeamsChangedMessage> (OnTeamsChanged);
 			_resultsChangedToken = messenger.Subscribe<ResultsChangedMessage> (OnResultsChanged);
@@ -34,7 +36,9 @@ namespace ChGK.Core.ViewModels
 		}
 
 		void LoadItems ()
-		{		
+		{
+            Teams = null;
+
 			var teams = _teamsService.GetAllTeams ();
 			var results = _teamsService.GetAllResults (_questionId);
 
@@ -43,7 +47,7 @@ namespace ChGK.Core.ViewModels
 				ID = team.ID, 
 				AnsweredCorrectly = results.Contains (team.ID)
 			}).ToList ();
-
+            
 			IsEmpty = Teams.Count == 0;
 		}
 
@@ -72,12 +76,6 @@ namespace ChGK.Core.ViewModels
             }
 		}
 
-        public void OnDialogClosed() {
-            var messenger = Mvx.Resolve<IMvxMessenger>();
-            messenger.Unsubscribe<ResultsChangedMessage>(_resultsChangedToken);
-            messenger.Unsubscribe<TeamsChangedMessage>(_teamsChangedToken);
-        }
-
 		bool _isEmpty;
 
 		public bool IsEmpty {
@@ -102,6 +100,8 @@ namespace ChGK.Core.ViewModels
 
 		public void SubmitResults ()
 		{
+            OnViewDestroying();
+
 			try {
 				foreach (var team in Teams.Where (t => t.AnsweredCorrectly)) {
 					_teamsService.IncrementScore (_questionId, team.ID);
@@ -112,6 +112,8 @@ namespace ChGK.Core.ViewModels
 			} catch (Exception e) {
 				Mvx.Trace (e.Message);
 			}
+
+            Close(this);
 		}
 
 		MvxCommand _clearResultsCommand;
@@ -134,7 +136,21 @@ namespace ChGK.Core.ViewModels
 				return _editTeamsCommand ?? (_editTeamsCommand = new MvxCommand (() => ShowViewModel<TeamsViewModel> ()));
 			}
 		}
-	}
+
+        public void OnViewDestroying()
+        {
+            if (_resultsChangedToken != null)
+            {
+                _messenger.Unsubscribe<ResultsChangedMessage>(_resultsChangedToken);
+                _resultsChangedToken = null;
+            }
+            if (_teamsChangedToken != null)
+            {
+                _messenger.Unsubscribe<TeamsChangedMessage>(_teamsChangedToken);
+                _teamsChangedToken = null;
+            }
+        }
+    }
 
 	public class ResultsTeamViewModel : MvxViewModel
 	{

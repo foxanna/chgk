@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using Android.OS;
-using Android.Support.V4.View;
+﻿using Android.OS;
 using Android.Support.V4.App;
+using Android.Support.V4.View;
+using ChGK.Core.Utils;
 using ChGK.Core.ViewModels;
 using Cirrious.MvvmCross.Droid.Fragging;
-using ChGK.Core.Utils;
+using System.Collections.Generic;
 
 namespace ChGK.Droid.Views
 {

@@ -1,12 +1,11 @@
-﻿using System;
-using Android.OS;
+﻿using Android.OS;
 using Android.Views;
 using Android.Widget;
 using ChGK.Core.ViewModels;
+using ChGK.Droid.Helpers;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
-using ChGK.Droid.Helpers;
 
 namespace ChGK.Droid.Views
 {
