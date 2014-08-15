@@ -11,7 +11,7 @@ namespace ChGK.Core.ViewModels
 			Title = StringResources.AboutApp;
 
             AdvLink = string.Format("<u>{0}<br>{1}</u>", StringResources.ClickOnAd, StringResources.HelpDevelopers);
-            //HasAds = true;
+            HasAds = true;
 
 			CopyrightUrl = "<a href=" + StringResources.LicenceAgreementUrl + ">" + StringResources.LicenceAgreement + "</a>";
             SomeTitle = StringResources.QuestionsBase + " <a href=" + StringResources.DataBaseUrl + ">" + StringResources.WhatWhenWhere + "</a>";

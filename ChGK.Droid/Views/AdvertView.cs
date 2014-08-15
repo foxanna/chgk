@@ -11,14 +11,7 @@ using System.Text;
 
 namespace ChGK.Droid.Views
 {
-    [Activity(Label = "", 
-        ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation
-        | Android.Content.PM.ConfigChanges.SmallestScreenSize
-        | Android.Content.PM.ConfigChanges.ScreenSize
-        | Android.Content.PM.ConfigChanges.Keyboard 
-        | Android.Content.PM.ConfigChanges.KeyboardHidden 
-        | Android.Content.PM.ConfigChanges.ScreenLayout 
-        | Android.Content.PM.ConfigChanges.UiMode)]
+    [Activity(Label = "")]
     public class AdvertView : MenuItemIndependentView
     {
         protected override int LayoutId
