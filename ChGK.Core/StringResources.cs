@@ -17,7 +17,7 @@ namespace ChGK.Core
         public static string WhatWhenWhere = "Что?&nbsp;Где?&nbsp;Когда?";
 		public static string Version = "Версия";
         public static string QuestionsBase = "База Вопросов Интернет-клуба";
-        public static string ClickOnAd = "Посмотреть рекламу";
+        public static string ClickOnAd = "Покликать на рекламу";
         public static string HelpDevelopers = "и помочь разработчикам";
 
 		// TeamsView
