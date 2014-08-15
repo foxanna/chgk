@@ -1,6 +1,8 @@
 ﻿using Android.App;
-//using Android.Gms.Ads;
+using Android.Gms.Ads;
+using Android.OS;
 using Android.Widget;
+using ChGK.Core.ViewModels;
 using Cirrious.MvvmCross.Droid.Views;
 using System;
 using System.Collections.Generic;
@@ -27,50 +29,65 @@ namespace ChGK.Droid.Views
             }
         }
 
-        //readonly List<AdView> _banners = new List<AdView>();
+        readonly List<AdView> _banners = new List<AdView>();
 
-        //protected override void OnCreate(Android.OS.Bundle bundle)
-        //{
-        //    base.OnCreate(bundle);
-
-        //    _banners.Add(FindViewById<AdView>(Resource.Id.adView1));
-        //    _banners.Add(FindViewById<AdView>(Resource.Id.adView2));
-
-        //    var adRequest = new AdRequest.Builder().Build();
-        //    foreach (var banner in _banners)
-        //    {
-        //        banner.LoadAd(adRequest);
-        //    }
-        //}
-
-        //protected override void OnResume()
-        //{
-        //    base.OnResume();
-
-        //    foreach (var banner in _banners)
-        //    {
-        //        banner.Resume();
-        //    }
-        //}
-
-        //protected override void OnPause()
-        //{
-        //    foreach (var banner in _banners)
-        //    {
-        //        banner.Pause();
-        //    }
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
             
-        //    base.OnPause();
-        //}
+            var adContainer = FindViewById<LinearLayout>(Resource.Id.ad_container);
 
-        //protected override void OnDestroy()
-        //{
-        //    foreach (var banner in _banners)
-        //    {
-        //        banner.Destroy();
-        //    }
+            var lParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WrapContent, LinearLayout.LayoutParams.WrapContent);
+            lParams.SetMargins(0, 0, 0, Resources.GetDimensionPixelSize(Resource.Dimension.default_text_padding));
 
-        //    base.OnDestroy();
-        //}
+            foreach (var adId in (ViewModel as AdvertViewModel).AsIds)
+            {
+                var adView = new AdView(this)
+                {
+                    AdSize = AdSize.Banner,
+                    AdUnitId = adId,                    
+                };
+
+                adContainer.AddView(adView, lParams);
+
+                _banners.Add(adView);
+            }
+
+            var adRequest = new AdRequest.Builder().Build();
+            foreach (var banner in _banners)
+            {
+                banner.LoadAd(adRequest);
+            }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            foreach (var banner in _banners)
+            {
+                banner.Resume();
+            }
+        }
+
+        protected override void OnPause()
+        {
+            foreach (var banner in _banners)
+            {
+                banner.Pause();
+            }
+
+            base.OnPause();
+        }
+
+        protected override void OnDestroy()
+        {
+            foreach (var banner in _banners)
+            {
+                banner.Destroy();
+            }
+
+            base.OnDestroy();
+        }
     }
 }
