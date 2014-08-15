@@ -14,8 +14,11 @@ namespace ChGK.Core
 		public static string LicenceAgreementUrl = "http://db.chgk.info/copyright";
 		public static string LicenceAgreement = "Лицензионное соглашение";
 		public static string AboutApp = "О приложении";
+        public static string WhatWhenWhere = "Что?&nbsp;Где?&nbsp;Когда?";
 		public static string Version = "Версия";
-		public static string QuestionsBase = "База Вопросов Интернет-клуба";
+        public static string QuestionsBase = "База Вопросов Интернет-клуба";
+        public static string ClickOnAd = "Посмотреть рекламу";
+        public static string HelpDevelopers = "и помочь разработчикам";
 
 		// TeamsView
 

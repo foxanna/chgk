@@ -1,4 +1,5 @@
 ﻿using ChGK.Core.Services;
+using Cirrious.MvvmCross.ViewModels;
 using System.Threading.Tasks;
 
 namespace ChGK.Core.ViewModels
@@ -9,10 +10,11 @@ namespace ChGK.Core.ViewModels
 		{
 			Title = StringResources.AboutApp;
 
+            AdvLink = string.Format("<u>{0}<br>{1}</u>", StringResources.ClickOnAd, StringResources.HelpDevelopers);
+            //HasAds = true;
+
 			CopyrightUrl = "<a href=" + StringResources.LicenceAgreementUrl + ">" + StringResources.LicenceAgreement + "</a>";
-
-			SomeTitle = StringResources.QuestionsBase + " <a href=" + StringResources.DataBaseUrl + ">\"Что? Где? Когда?\"</a>";
-
+            SomeTitle = StringResources.QuestionsBase + " <a href=" + StringResources.DataBaseUrl + ">" + StringResources.WhatWhenWhere + "</a>";
 			Version = string.Format ("{0} {1} {2}", StringResources.Version, appInfoProvider.AppName, appInfoProvider.AppVersion);
 		}
 
@@ -22,10 +24,22 @@ namespace ChGK.Core.ViewModels
 
 		public string Version { get; private set; }
 
+        public string AdvLink { get; private set; }
+
 		public override Task Refresh ()
 		{
 			throw new System.NotImplementedException ();
 		}
+
+        public bool HasAds { get; private set; }
+
+        public MvxCommand OpenAdsCommand
+        {
+            get
+            {
+                return new MvxCommand(() => ShowViewModel<AdvertViewModel>());
+            }
+        }
 	}
 }
 

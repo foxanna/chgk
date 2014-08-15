@@ -36,6 +36,7 @@
     <Compile Include="DbChGKInfo\ChGKWebService.cs" />
     <Compile Include="NetworkService\ISimpleRestService.cs" />
     <Compile Include="NetworkService\SimpleRestService.cs" />
+    <Compile Include="ViewModels\AdvertViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\RandomQuestionsViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
