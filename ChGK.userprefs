@@ -1,12 +1,6 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" PreferredExecutionTarget="Android.192.168.56.101:5555" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ChGK.Droid\Controls\UndoBar\UndoBar.cs">
-    <Files>
-      <File FileName="ChGK.Droid\Views\MenuItemIndependentView.cs" Line="1" Column="1" />
-      <File FileName="ChGK.Droid\Resources\menu\teamsview.xml" Line="1" Column="1" />
-      <File FileName="ChGK.Droid\Controls\UndoBar\UndoBar.cs" Line="1" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="e:\Xamarin Projects\ChGK\ChGK.Core\ViewModels\QuestionsViewModel.cs" line="91" column="1" />
