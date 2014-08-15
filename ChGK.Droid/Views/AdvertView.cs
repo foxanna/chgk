@@ -37,7 +37,7 @@ namespace ChGK.Droid.Views
             {
                 var adView = new AdView(this)
                 {
-                    AdSize = AdSize.Banner,
+                    AdSize = AdSize.SmartBanner,
                     AdUnitId = adId,                    
                 };
 
