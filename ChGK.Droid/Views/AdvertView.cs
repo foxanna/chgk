@@ -46,9 +46,9 @@ namespace ChGK.Droid.Views
                 _banners.Add(adView);
             }
 
-            var adRequest = new AdRequest.Builder().Build();
             foreach (var banner in _banners)
             {
+                var adRequest = new AdRequest.Builder().Build();
                 banner.LoadAd(adRequest);
             }
         }
