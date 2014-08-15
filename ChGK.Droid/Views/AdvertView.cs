@@ -46,10 +46,11 @@ namespace ChGK.Droid.Views
                 _banners.Add(adView);
             }
 
+            var adRequestBuilder = new AdRequest.Builder();
+            adRequestBuilder.AddTestDevice(AdRequest.DeviceIdEmulator).AddTestDevice("5A661232CD0BF07771C08512D3BC808A");
             foreach (var banner in _banners)
             {
-                var adRequest = new AdRequest.Builder().Build();
-                banner.LoadAd(adRequest);
+                banner.LoadAd(adRequestBuilder.Build());
             }
         }
 

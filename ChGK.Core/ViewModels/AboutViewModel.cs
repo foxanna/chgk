@@ -10,12 +10,12 @@ namespace ChGK.Core.ViewModels
 		{
 			Title = StringResources.AboutApp;
 
-            AdvLink = string.Format("<u>{0}<br>{1}</u>", StringResources.ClickOnAd, StringResources.HelpDevelopers);
+            AdvLink = string.Format("<u>{0}</u>", StringResources.ClickOnAd);
             HasAds = true;
 
 			CopyrightUrl = "<a href=" + StringResources.LicenceAgreementUrl + ">" + StringResources.LicenceAgreement + "</a>";
             SomeTitle = StringResources.QuestionsBase + " <a href=" + StringResources.DataBaseUrl + ">" + StringResources.WhatWhenWhere + "</a>";
-			Version = string.Format ("{0} {1} {2}", StringResources.Version, appInfoProvider.AppName, appInfoProvider.AppVersion);
+			Version = string.Format ("{0} v{1}", appInfoProvider.AppName, appInfoProvider.AppVersion);
 		}
 
 		public string SomeTitle { get; private set; }
