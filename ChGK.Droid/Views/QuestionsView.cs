@@ -1,6 +1,7 @@
 ﻿using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
+using Android.Views;
 using ChGK.Core.Utils;
 using ChGK.Core.ViewModels;
 using Cirrious.MvvmCross.Droid.Fragging;
@@ -11,12 +12,14 @@ namespace ChGK.Droid.Views
 	[Android.App.Activity (Label = "Вопрос 1", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]			
 	public class QuestionsView : MvxFragmentActivity
 	{
+        ViewPager viewPager;
+
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);            
 			SetContentView (Resource.Layout.QuestionsView);
 
-			var viewPager = FindViewById<ViewPager> (Resource.Id.viewPager);
+			viewPager = FindViewById<ViewPager> (Resource.Id.viewPager);
 			viewPager.Adapter = new QuestionsPagerAdapter (SupportFragmentManager, ((QuestionsViewModel)ViewModel).Questions);
 			viewPager.PageSelected += (sender, e) => ActionBar.Title = viewPager.Adapter.GetPageTitle (e.Position);
 			viewPager.CurrentItem = ((QuestionsViewModel)ViewModel).Index;
@@ -24,12 +27,26 @@ namespace ChGK.Droid.Views
 			ActionBar.SetDisplayHomeAsUpEnabled (true);
 		}
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.questions, menu);
+            return true;
+        }
+
+
 		public override bool OnOptionsItemSelected (Android.Views.IMenuItem item)
 		{
-			if (item.ItemId == Android.Resource.Id.Home) {
+			switch (item.ItemId) {
+            case Android.Resource.Id.Home: {
 				OnBackPressed ();
 				return true;
-			} else {
+			}
+            case Resource.Id.enter_results: {
+                (ViewModel as QuestionsViewModel).Questions[viewPager.CurrentItem].EnterResults();
+                //(ViewModel as QuestionViewModel).EnterResults();
+                return true;
+            }
+            default:
 				return base.OnOptionsItemSelected (item);
 			}
 		}

@@ -44,10 +44,7 @@ namespace ChGK.Droid.Views
 				return true;
 			case Resource.Id.stop_timer:
 				(ViewModel as QuestionViewModel).PauseTimer ();
-				return true;
-			case Resource.Id.enter_results:
-				(ViewModel as QuestionViewModel).EnterResults ();
-				return true;
+				return true;			
 			default:
 				return base.OnOptionsItemSelected (item);
 			}

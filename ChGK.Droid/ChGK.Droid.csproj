@@ -388,4 +388,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_content_discard.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\questions.xml" />
+  </ItemGroup>
 </Project>
