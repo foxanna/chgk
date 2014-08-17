@@ -30,20 +30,20 @@ namespace ChGK.Core.DbChGKInfo
 
 		public static string FormatComments (string text)
 		{
-            var commentPattern = "( *)(\n)( *)(?=[A-Z]{2,}|[А-Я]{2,}|[0-9]{2,})";
-            return Regex.Replace(text, commentPattern, " ");
+			var commentPattern = "( *)(\n)( *)(?=[A-Z]{2,}|[А-Я]{2,}|[0-9]{2,}|[а-я]|[a-z]-|\\)|\\(|\\[|\\]|\")";
+			return Regex.Replace (text, commentPattern, " ");
 		}
 
 		public static string FormatAnswer (string text)
 		{
-            var answerPattern = "( *)(\n)( *)(?=[A-Z]{2,}|[А-Я]{2,}|[0-9]{2,})";
-            return Regex.Replace(text, answerPattern, " ");
+			var answerPattern = "( *)(\n)( *)(?=[A-Z]{2,}|[А-Я]{2,}|[0-9]{2,}|[а-я]|[a-z]-|\\)|\\(|\\[|\\]|\")";
+			return Regex.Replace (text, answerPattern, " ");
 		}
 
-        public static string FormatPassCriteria(string text)
-        {
-            return Regex.Replace(text, "\n", " ");
-        }
+		public static string FormatPassCriteria (string text)
+		{
+			return Regex.Replace (text, "\n", " ");
+		}
 	}
 }
 
