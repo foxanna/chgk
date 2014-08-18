@@ -8,15 +8,14 @@ namespace ChGK.Core.ViewModels
 {
     public class AdvertViewModel : MenuItemViewModel
     {
+        public AdvertViewModel()
+        {
+            Title = StringResources.Thanks;
+        }
+
         public override Task Refresh()
         {
             throw new NotImplementedException();
         }
-
-        public List<string> AsIds = new List<string>()
-        {
-            "ca-app-pub-6283431932505508/5322449877",
-            "ca-app-pub-6283431932505508/8356641477",
-        };
     }
 }

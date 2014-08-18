@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Gms.Ads;
 using Android.OS;
 using Android.Widget;
@@ -29,11 +30,8 @@ namespace ChGK.Droid.Views
             base.OnCreate(bundle);
             
             var adContainer = FindViewById<LinearLayout>(Resource.Id.ad_container);
-
-            var lParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WrapContent, LinearLayout.LayoutParams.WrapContent);
-            lParams.SetMargins(0, 0, 0, Resources.GetDimensionPixelSize(Resource.Dimension.default_text_padding));
-
-            foreach (var adId in (ViewModel as AdvertViewModel).AsIds)
+            
+            foreach (var adId in Resources.GetStringArray(Resource.Array.ads_ids))
             {
                 var adView = new AdView(this)
                 {
@@ -41,7 +39,7 @@ namespace ChGK.Droid.Views
                     AdUnitId = adId,                    
                 };
 
-                adContainer.AddView(adView, lParams);
+                adContainer.AddView(adView);
 
                 _banners.Add(adView);
             }
@@ -49,7 +47,7 @@ namespace ChGK.Droid.Views
             foreach (var banner in _banners)
             {
                 var adRequestBuilder = new AdRequest.Builder();
-                adRequestBuilder.AddTestDevice(AdRequest.DeviceIdEmulator).AddTestDevice("5A661232CD0BF07771C08512D3BC808A");
+                adRequestBuilder.AddTestDevice(AdRequest.DeviceIdEmulator).AddTestDevice("10FC024FD754F8EA6E8B5E391CDCBE92");
                 banner.LoadAd(adRequestBuilder.Build());
             }
         }

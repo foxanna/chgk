@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:layout_gravity="right"
+        android:padding="@dimen/default_text_padding"
         android:textColor="?android:attr/textColorLink"
         android:clickable="true"
         android:background="@drawable/selectable_background_chgk"

@@ -18,6 +18,10 @@ namespace ChGK.Core
         public static string QuestionsBase = "База Вопросов Интернет-клуба";
         public static string ClickOnAd = "Сказать спасибо";
 
+        // AdvertView
+
+        public static string Thanks = "Благодарность";
+
 		// TeamsView
 
 		public static string Teams = "Команды";

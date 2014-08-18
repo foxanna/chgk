@@ -65,6 +65,22 @@ namespace ChGK.Droid
 			}
 		}
 		
+		public partial class Array
+		{
+			
+			// aapt resource value: 0x7f0c0000
+			public const int ads_ids = 2131492864;
+			
+			static Array()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Array()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -1837,17 +1853,22 @@ namespace ChGK.Droid
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f0c0000
-			public const int menuitem = 2131492864;
+			// aapt resource value: 0x7f0d0000
+			public const int menuitem = 2131558400;
 			
-			// aapt resource value: 0x7f0c0001
-			public const int question = 2131492865;
+			// aapt resource value: 0x7f0d0001
+			public const int question = 2131558401;
 			
+<<<<<<< HEAD
+			// aapt resource value: 0x7f0d0002
+			public const int teamsview = 2131558402;
+=======
 			// aapt resource value: 0x7f0c0002
 			public const int questions = 2131492866;
 			
 			// aapt resource value: 0x7f0c0003
 			public const int teamsview = 2131492867;
+>>>>>>> fdf3f0761e1914390b3da05bb710672120998738
 			
 			static Menu()
 			{
