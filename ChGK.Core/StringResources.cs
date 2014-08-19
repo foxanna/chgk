@@ -17,6 +17,8 @@ namespace ChGK.Core
         public static string WhatWhenWhere = "Что?&nbsp;Где?&nbsp;Когда?";
         public static string QuestionsBase = "База Вопросов Интернет-клуба";
         public static string ClickOnAd = "Сказать спасибо";
+        public static string EmailDeveloper = "Написать разработчикам";
+        public static string Email = "que.ou.quand@gmail.com";
 
         // AdvertView
 
