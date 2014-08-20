@@ -11,17 +11,20 @@ namespace ChGK.Core.ViewModels
 {
 	public class LastAddedTournamentsViewModel : MenuItemViewModel
 	{
-		IChGKWebService _service;
+		readonly IChGKWebService _service;
+        readonly IFirstViewStartInfoProvider _firstViewStartInfoProvider;
 
 		public DataLoader DataLoader { get; private set; }
 
 		CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource ();
 
-		public LastAddedTournamentsViewModel (IChGKWebService service)
+		public LastAddedTournamentsViewModel (IChGKWebService service, IFirstViewStartInfoProvider firstViewStartInfoProvider)
 		{
 			Title = "Последние добавленные";
 
 			_service = service;
+            _firstViewStartInfoProvider = firstViewStartInfoProvider;
+
 			DataLoader = new DataLoader ();
 		}
 
@@ -37,6 +40,12 @@ namespace ChGK.Core.ViewModels
 		public async override void Start ()
 		{
 			await Refresh ();
+
+            if (_firstViewStartInfoProvider.IsSeenForTheFirstTime(this.GetType()))
+            {
+                ShowViewModel<FirstTimeSeenViewModel>(new { type = this.GetType() });
+                _firstViewStartInfoProvider.SetSeen(this.GetType());
+            }
 		}
 
 		public async override Task Refresh ()

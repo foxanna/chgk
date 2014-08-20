@@ -8,6 +8,7 @@ using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Newtonsoft.Json;
 using ChGK.Core.Utils;
+using ChGK.Core.Services;
 
 namespace ChGK.Core.ViewModels
 {
@@ -16,6 +17,18 @@ namespace ChGK.Core.ViewModels
 		public QuestionsViewModel ()
 		{
 		}
+
+        public override void Start()
+        {
+            base.Start();
+
+            var _firstViewStartInfoProvider = Mvx.Resolve<IFirstViewStartInfoProvider>();
+            if (_firstViewStartInfoProvider.IsSeenForTheFirstTime(this.GetType()))
+            {
+                ShowViewModel<FirstTimeSeenViewModel>(new { type = this.GetType() });
+                _firstViewStartInfoProvider.SetSeen(this.GetType());
+            }
+        }
 
 		public void Init (string questionsJson, int index)
 		{

@@ -40,6 +40,7 @@ namespace ChGK.Droid
 			Mvx.RegisterSingleton<IAppInfoProvider> (new AppInfoProvider ());
 			Mvx.RegisterSingleton<IDialogManager> (new DialogManager ());
 			Mvx.RegisterSingleton<IMvxComposeEmailTask> (new MyComposeEmailTask ());
+            Mvx.RegisterSingleton<IFirstViewStartInfoProvider>(new FirstViewStartInfoProvider());
 
 			base.InitializeApp (pluginManager);
 		}

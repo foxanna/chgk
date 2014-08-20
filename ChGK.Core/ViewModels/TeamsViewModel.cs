@@ -22,12 +22,14 @@ namespace ChGK.Core.ViewModels
     public class TeamsViewModel : MenuItemViewModel
     {
         readonly ITeamsService _service;
+        readonly IFirstViewStartInfoProvider _firstViewStartInfoProvider;
 
         public DataLoader DataLoader { get; set; }
-        
-        public TeamsViewModel(ITeamsService service, IMvxMessenger messenger)
+
+        public TeamsViewModel(ITeamsService service, IMvxMessenger messenger, IFirstViewStartInfoProvider firstViewStartInfoProvider)
         {
             _service = service;
+            _firstViewStartInfoProvider = firstViewStartInfoProvider;
 
             Title = StringResources.Teams;
 
@@ -39,6 +41,12 @@ namespace ChGK.Core.ViewModels
             base.Start();
 
             LoadTeams();
+
+            if (_firstViewStartInfoProvider.IsSeenForTheFirstTime(this.GetType()))
+            {
+                ShowViewModel<FirstTimeSeenViewModel>(new { type = this.GetType() });
+                _firstViewStartInfoProvider.SetSeen(this.GetType());
+            }
         }
 
         void LoadTeams()
