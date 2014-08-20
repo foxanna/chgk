@@ -14,7 +14,7 @@ namespace ChGK.Droid.Services
         {
             var settings = Android.App.Application.Context.GetSharedPreferences(PrefsFileName, 0);
             var seen = //settings.GetBoolean("seen_" + type.ToString(), false);
-                false;
+                true;
             return !seen;
         }
 
