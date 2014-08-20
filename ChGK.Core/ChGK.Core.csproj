@@ -37,7 +37,6 @@
     <Compile Include="Services\IFirstViewStartInfoProvider.cs" />
     <Compile Include="Utils\IViewLifecycle.cs" />
     <Compile Include="ViewModels\AdvertViewModel.cs" />
-    <Compile Include="ViewModels\FirstTimeSeenViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\RandomQuestionsViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -80,6 +79,11 @@
     <Compile Include="Messages\ResultsChangedMessage.cs" />
     <Compile Include="Messages\TeamsChangedMessage.cs" />
     <Compile Include="Utils\UndoBarMetadata.cs" />
+    <Compile Include="ViewModels\Tutorials\FirstTimeSeenLastAddedTournamentsViewModel.cs" />
+    <Compile Include="ViewModels\Tutorials\FirstTimeSeenQuestionsViewModel.cs" />
+    <Compile Include="ViewModels\Tutorials\FirstTimeSeenTeamsViewModel.cs" />
+    <Compile Include="ViewModels\Tutorials\FirstTimeSeenViewModelsFactory.cs" />
+    <Compile Include="ViewModels\Tutorials\TutorialViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

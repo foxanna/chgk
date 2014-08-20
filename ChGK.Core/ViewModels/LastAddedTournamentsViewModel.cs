@@ -6,6 +6,7 @@ using ChGK.Core.Models;
 using ChGK.Core.Services;
 using System.Threading;
 using System;
+using ChGK.Core.ViewModels.Tutorials;
 
 namespace ChGK.Core.ViewModels
 {
@@ -43,7 +44,7 @@ namespace ChGK.Core.ViewModels
 
             if (_firstViewStartInfoProvider.IsSeenForTheFirstTime(this.GetType()))
             {
-                ShowViewModel<FirstTimeSeenViewModel>(new { type = this.GetType() });
+                ShowViewModel(new FirstTimeSeenViewModelsFactory().CreateViewModel(this.GetType()));
                 _firstViewStartInfoProvider.SetSeen(this.GetType());
             }
 		}

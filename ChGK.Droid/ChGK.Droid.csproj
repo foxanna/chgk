@@ -139,7 +139,9 @@
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Views\AdvertView.cs" />
-    <Compile Include="Views\FirstTimeSeenView.cs" />
+    <Compile Include="Views\Tutorials\FirstTimeSeenLastAddedTournamentsView.cs" />
+    <Compile Include="Views\Tutorials\FirstTimeSeenTeamsView.cs" />
+    <Compile Include="Views\Tutorials\FirstTimeSeenQuestionsView.cs" />
     <Compile Include="Views\HomeView.cs" />
     <Compile Include="Views\LastAddedTournamentsView.cs" />
     <Compile Include="Views\QuestionView.cs" />
@@ -186,7 +188,13 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\ads.xml" />
-    <AndroidResource Include="Resources\Layout\FirstTimeSeenView.axml">
+    <AndroidResource Include="Resources\Layout\FirstTimeSeenLastAddedTournamentsView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\FirstTimeSeenTeamsView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\FirstTimeSeenQuestionsView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
