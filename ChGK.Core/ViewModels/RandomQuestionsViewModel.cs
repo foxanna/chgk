@@ -10,7 +10,7 @@ namespace ChGK.Core.ViewModels
 {
 	public class RandomQuestionsViewModel : MenuItemViewModel
 	{
-		IChGKWebService _service;
+		readonly IChGKWebService _service;
 
 		public DataLoader DataLoader { get; set; }
 
@@ -18,7 +18,7 @@ namespace ChGK.Core.ViewModels
 
 		public RandomQuestionsViewModel (IChGKWebService service)
 		{
-			Title = "Случайные вопросы";
+			Title = StringResources.RandomQuestions;
 
 			_service = service;
 

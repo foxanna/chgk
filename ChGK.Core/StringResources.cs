@@ -41,6 +41,11 @@ namespace ChGK.Core
 
 		public static string RandomQuestions = "Случайные вопросы";
 
-	}
+        // SearchView
+
+        public static string Search = "Поиск";
+        public static string HasQuestionTitle = "Вопрос";
+        public static string SearchResults = "Результаты поиска";
+    }
 }
 

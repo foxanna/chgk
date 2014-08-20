@@ -29,6 +29,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Models\SearchParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App.cs" />
     <Compile Include="DbChGKInfo\ChGKWebService.cs" />
@@ -54,6 +55,8 @@
     <Compile Include="DbChGKInfo\Serialization.cs" />
     <Compile Include="NetworkService\IDeserializer.cs" />
     <Compile Include="DbChGKInfo\Dto\TourDto.cs" />
+    <Compile Include="ViewModels\Search\SearchResultsViewModel.cs" />
+    <Compile Include="ViewModels\Search\SearchParamsViewModel.cs" />
     <Compile Include="ViewModels\TourViewModel.cs" />
     <Compile Include="ViewModels\QuestionsViewModel.cs" />
     <Compile Include="Utils\ChGKTimer.cs" />

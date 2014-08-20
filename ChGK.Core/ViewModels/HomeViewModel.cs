@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using ChGK.Core.Utils;
+using ChGK.Core.ViewModels.Search;
 
 namespace ChGK.Core.ViewModels
 {
@@ -29,6 +30,7 @@ namespace ChGK.Core.ViewModels
 			MenuItems = new List<MenuItem> () {
 				new MenuItem { Name = StringResources.LastAdded,  ViewModelType = typeof(LastAddedTournamentsViewModel) },
 				new MenuItem { Name = StringResources.RandomQuestions, ViewModelType = typeof(RandomQuestionsViewModel) },
+                new MenuItem { Name = StringResources.Search, ViewModelType = typeof(SearchParamsViewModel) },
 				new MenuItem { Name = StringResources.Teams, ViewModelType = typeof(TeamsViewModel) }, 
 				new MenuItem { Name = StringResources.AboutApp, ViewModelType = typeof(AboutViewModel) },
 			};

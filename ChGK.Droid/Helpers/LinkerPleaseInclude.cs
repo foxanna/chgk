@@ -21,6 +21,8 @@ namespace ChGK.Droid.Helpers
 
 		public void Include (CheckBox checkBox)
 		{
+            checkBox.Text = string.Empty;
+            checkBox.Checked = false;
 			checkBox.CheckedChange += (sender, args) => checkBox.Checked = !checkBox.Checked;
 		}
 

@@ -7,6 +7,8 @@ using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.ViewModels;
 using ChGK.Droid.Views;
 using Cirrious.MvvmCross.Droid.Fragging;
+using ChGK.Core.ViewModels.Search;
+using ChGK.Droid.Views.Search;
 
 namespace ChGK.Droid.Helpers
 {
@@ -25,6 +27,9 @@ namespace ChGK.Droid.Helpers
 				}, {
 					typeof(EnterResultsViewModel),
 					request => ShowDialog (new EnterResultsView (), request)
+				}, {
+					typeof(SearchParamsViewModel),
+					request => ReplaceFragment (new SearchParamsView (), request)
 				},
 			};
 		}

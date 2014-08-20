@@ -139,6 +139,8 @@
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Views\AdvertView.cs" />
+    <Compile Include="Views\Search\SearchParamsView.cs" />
+    <Compile Include="Views\Search\SearchResultsView.cs" />
     <Compile Include="Views\Tutorials\FirstTimeSeenLastAddedTournamentsView.cs" />
     <Compile Include="Views\Tutorials\FirstTimeSeenTeamsView.cs" />
     <Compile Include="Views\Tutorials\FirstTimeSeenQuestionsView.cs" />
@@ -195,6 +197,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\FirstTimeSeenQuestionsView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\SearchParamsView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\SearchResultsView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
