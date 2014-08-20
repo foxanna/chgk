@@ -49,7 +49,7 @@ namespace ChGK.Core.ViewModels
             {
                 return new MvxCommand(() =>
                     Mvx.Resolve<IMvxComposeEmailTask>().ComposeEmail(StringResources.Email,
-                    string.Empty,
+                    string.Empty,                    
                     string.Empty,
                     string.Empty,
                     false));

@@ -8,6 +8,7 @@ using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.ViewModels;
 using ChGK.Droid.Helpers;
 using ChGK.Droid.Services;
+using Cirrious.MvvmCross.Plugins.Email;
 
 namespace ChGK.Droid
 {
@@ -38,6 +39,7 @@ namespace ChGK.Droid
 			Mvx.RegisterSingleton<IAudioPlayerService> (new AudioPlayerService ());
 			Mvx.RegisterSingleton<IAppInfoProvider> (new AppInfoProvider ());
 			Mvx.RegisterSingleton<IDialogManager> (new DialogManager ());
+			Mvx.RegisterSingleton<IMvxComposeEmailTask> (new MyComposeEmailTask ());
 
 			base.InitializeApp (pluginManager);
 		}
