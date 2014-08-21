@@ -22,6 +22,14 @@ namespace ChGK.Core.ViewModels.Search
             SearchParams = new SearchParams();
 
             HasQuestionTitle = StringResources.HasQuestionTitle;
+            HasAnswerTitle = StringResources.HasAnswerTitle;
+            HasPassCriteriaTitle  = StringResources.HasPassCriteriaTitle;
+            HasCommentTitle  = StringResources.HasCommentTitle;
+            HasSourseTitle  = StringResources.HasSourseTitle;
+            HasAuthorsTitle  = StringResources.HasAuthorsTitle;
+
+            AnyWordTitle  = StringResources.AnyWordTitle;
+            AllWordsTitle = StringResources.AllWordsTitle;
 		}
 
         ICommand _searchCommand;
@@ -36,5 +44,13 @@ namespace ChGK.Core.ViewModels.Search
         }
 
         public string HasQuestionTitle { get; set; }
+        public string HasAnswerTitle { get; set; }
+        public string HasPassCriteriaTitle { get; set; }
+        public string HasCommentTitle { get; set; }
+        public string HasSourseTitle { get; set; }
+        public string HasAuthorsTitle { get; set; }
+
+        public string AnyWordTitle { get; set; }
+        public string AllWordsTitle { get; set; }
     }
 }

@@ -8,6 +8,17 @@ namespace ChGK.Core.Models
 {
     public class SearchParams
     {
+        public SearchParams()
+        {
+            HasQuestion = true;
+            HasAnswer = true;
+            HasPassCriteria = true;
+            HasComment = true;
+            AllWords = true;
+        }
+
+        public string SearchQuery { get; set; }
+
         public bool HasQuestion { get; set; }
 
         public bool HasAnswer { get; set; }

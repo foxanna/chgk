@@ -8,10 +8,10 @@
 		<item name="android:actionBarItemBackground">@drawable/selectable_background_chgk</item>
 		<item name="android:windowBackground">@color/light_light_light</item>
 		<item name="android:actionBarStyle">@style/ActionBar.Chgk</item>
-    <item name="android:listViewStyle">@style/ListView.Chgk</item>
-    <item name="android:expandableListViewStyle">@style/ExpandableListView.Chgk</item>
-    <item name="android:buttonStyle">@style/Button.Chgk</item>
-    <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
+        <item name="android:listViewStyle">@style/ListView.Chgk</item>
+        <item name="android:expandableListViewStyle">@style/ExpandableListView.Chgk</item>
+        <item name="android:buttonStyle">@style/Button.Chgk</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
 		<item name="android:scrollbarThumbVertical">@drawable/fastscroll_thumb</item>
 		<item name="android:progressBarStyleLarge">@style/ProgressBar.ChGK</item>
 		<item name="android:listDivider">@drawable/divider_gradient</item>
@@ -22,11 +22,12 @@
 		<item name="android:checkboxStyle">@style/CheckBox.Chgk</item>
 		<item name="android:progressBarStyleHorizontal">@style/ProgressBar.Chgk</item>
 		<item name="android:editTextBackground">@drawable/edit_text</item>
-	  <item name="android:textSelectHandleLeft">@drawable/text_select_handle_left</item>
-	  <item name="android:textSelectHandleRight">@drawable/text_select_handle_right</item>
-	  <item name="android:textSelectHandle">@drawable/text_select_handle_middle</item>
-	  <item name="android:listChoiceIndicatorMultiple">@drawable/btn_check</item>
-    <item name="android:textColorLink">@color/dark</item>
+	    <item name="android:textSelectHandleLeft">@drawable/text_select_handle_left</item>
+	    <item name="android:textSelectHandleRight">@drawable/text_select_handle_right</item>
+	    <item name="android:textSelectHandle">@drawable/text_select_handle_middle</item>
+	    <item name="android:listChoiceIndicatorMultiple">@drawable/btn_check</item>
+        <item name="android:textColorLink">@color/dark</item>
+        <item name="android:radioButtonStyle">@style/RadioButtonChgk</item>
 	</style>
 
 	<color name="dark">#98cc00</color>
@@ -37,69 +38,73 @@
 	<color name="light_light_light">#f8fff8</color>
 
 	<style name="ActionBar.Chgk" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
-    <item name="android:background">@drawable/ab_transparent_chgk</item>
-    <item name="android:showDividers">beginning</item>
-    <item name="android:divider">@drawable/divider_gradient</item>
-  </style>
+        <item name="android:background">@drawable/ab_transparent_chgk</item>
+        <item name="android:showDividers">beginning</item>
+        <item name="android:divider">@drawable/divider_gradient</item>
+    </style>
 
-  <style name="ListView.Chgk" parent="@android:style/Widget.Holo.Light.ListView">
-    <item name="android:listSelector">@drawable/selectable_background_chgk</item>
-    <item name="android:dividerHeight">1dp</item>
-    <item name="android:fadingEdge">@color/light</item>
-    <item name="android:cacheColorHint">@color/light_light</item>
-	  <item name="android:fadingEdgeLength">20dp</item>
-	  <item name="android:requiresFadingEdge">vertical</item>
+    <style name="ListView.Chgk" parent="@android:style/Widget.Holo.Light.ListView">
+        <item name="android:listSelector">@drawable/selectable_background_chgk</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:fadingEdge">@color/light</item>
+        <item name="android:cacheColorHint">@color/light_light</item>
+	    <item name="android:fadingEdgeLength">20dp</item>
+	    <item name="android:requiresFadingEdge">vertical</item>
 		<item name="android:listDivider">@drawable/divider_gradient</item>
-	  <item name="android:overScrollMode">never</item>
-  </style>
+	    <item name="android:overScrollMode">never</item>
+    </style>
 
-  <style name="ExpandableListView.Chgk" parent="@android:style/Widget.Holo.Light.ExpandableListView">
-    <item name="android:listSelector">@drawable/selectable_background_chgk</item>
-    <item name="android:childDivider">@drawable/divider_gradient</item>
-  	<item name="android:dividerHeight">1dp</item>
-    <item name="android:fadingEdge">@color/light</item>
-    <item name="android:cacheColorHint">@color/light_light</item>
-	  <item name="android:fadingEdgeLength">20dp</item>
-	  <item name="android:requiresFadingEdge">vertical</item>
-	  <item name="android:groupIndicator">@drawable/expander_group</item>
-	  <item name="android:overScrollMode">never</item>
+    <style name="ExpandableListView.Chgk" parent="@android:style/Widget.Holo.Light.ExpandableListView">
+        <item name="android:listSelector">@drawable/selectable_background_chgk</item>
+        <item name="android:childDivider">@drawable/divider_gradient</item>
+  	    <item name="android:dividerHeight">1dp</item>
+        <item name="android:fadingEdge">@color/light</item>
+        <item name="android:cacheColorHint">@color/light_light</item>
+	    <item name="android:fadingEdgeLength">20dp</item>
+	    <item name="android:requiresFadingEdge">vertical</item>
+	    <item name="android:groupIndicator">@drawable/expander_group</item>
+	    <item name="android:overScrollMode">never</item>
 		<item name="android:listDivider">@drawable/divider_gradient</item>
-  </style>
+    </style>
 
-  <style name="ProgressBar.ChGK" parent="@android:attr/progressBarStyleLarge">
-    <item name="android:indeterminateDrawable">@drawable/progress_bar</item>
-  </style>
+    <style name="RadioButtonChgk" parent="android:Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/chgk_btn_radio_holo_light</item>
+    </style>
 
-  <style name="BorderlessButton.ChGK" parent="@android:style/Widget.Holo.Light.Button.Borderless.Small">
-    <item name="android:background">@drawable/selectable_background_chgk</item>
-  </style>
+    <style name="ProgressBar.ChGK" parent="@android:attr/progressBarStyleLarge">
+        <item name="android:indeterminateDrawable">@drawable/progress_bar</item>
+    </style>
 
-  <style name="ButtonBar.ChGk" parent="@android:style/Holo.Light.ButtonBar.AlertDialog">
+    <style name="BorderlessButton.ChGK" parent="@android:style/Widget.Holo.Light.Button.Borderless.Small">
+        <item name="android:background">@drawable/selectable_background_chgk</item>
+    </style>
+
+    <style name="ButtonBar.ChGk" parent="@android:style/Holo.Light.ButtonBar.AlertDialog">
     <!--<item name="android:divider">@drawable/divider_gradient</item>
     <item name="android:dividerHorizontal">@drawable/divider_gradient</item>
     <item name="android:dividerVertical">@drawable/divider_gradient</item>
     <item name="android:showDividers">beginning|middle|end</item>-->
-  </style>
+    </style>
 
-  <style name="DialogChgk" parent="@android:style/Theme.Holo.Light.Dialog">  
-    <item name="android:textColor">@color/dark</item>
-    <item name="android:buttonBarButtonStyle">@style/BorderlessButton.ChGK</item>
-    <item name="android:buttonBarStyle">@style/ButtonBar.ChGk</item>
-    <item name="android:windowBackground">@android:color/transparent</item>
+    <style name="DialogChgk" parent="@android:style/Theme.Holo.Light.Dialog">  
+        <item name="android:textColor">@color/dark</item>
+        <item name="android:buttonBarButtonStyle">@style/BorderlessButton.ChGK</item>
+        <item name="android:buttonBarStyle">@style/ButtonBar.ChGk</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
 	</style>
 
-  <style name="DialogChGKStyle">
-    <item name="android:fullDark">@android:color/transparent</item>
-    <item name="android:topDark">@android:color/transparent</item>
-    <item name="android:centerDark">@android:color/transparent</item>
-    <item name="android:bottomDark">@android:color/transparent</item>
-    <item name="android:fullBright">@android:color/transparent</item>
-    <item name="android:topBright">@android:color/transparent</item>
-    <item name="android:centerBright">@android:color/transparent</item>
-    <item name="android:bottomBright">@android:color/transparent</item>
-    <item name="android:bottomMedium">@android:color/transparent</item>
-    <item name="android:centerMedium">@android:color/transparent</item>
-  </style>
+    <style name="DialogChGKStyle">
+        <item name="android:fullDark">@android:color/transparent</item>
+        <item name="android:topDark">@android:color/transparent</item>
+        <item name="android:centerDark">@android:color/transparent</item>
+        <item name="android:bottomDark">@android:color/transparent</item>
+        <item name="android:fullBright">@android:color/transparent</item>
+        <item name="android:topBright">@android:color/transparent</item>
+        <item name="android:centerBright">@android:color/transparent</item>
+        <item name="android:bottomBright">@android:color/transparent</item>
+        <item name="android:bottomMedium">@android:color/transparent</item>
+        <item name="android:centerMedium">@android:color/transparent</item>
+    </style>
   
   <style name="EditTextChgk" parent="android:Widget.Holo.Light.EditText">
 	  <item name="android:background">@drawable/edit_text</item>

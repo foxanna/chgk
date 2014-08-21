@@ -26,6 +26,13 @@ namespace ChGK.Droid.Helpers
 			checkBox.CheckedChange += (sender, args) => checkBox.Checked = !checkBox.Checked;
 		}
 
+        public void Include(RadioButton radioButton)
+        {
+            radioButton.Text = string.Empty;
+            radioButton.Checked = false;
+            radioButton.CheckedChange += (sender, args) => radioButton.Checked = !radioButton.Checked;
+        }
+
 		public void Include (View view)
 		{
 			view.Click += (s, e) => view.ContentDescription = view.ContentDescription + "";

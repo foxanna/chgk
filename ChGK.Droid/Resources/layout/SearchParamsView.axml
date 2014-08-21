@@ -3,16 +3,81 @@
               xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:padding="@dimen/default_padding">
 
-    <CheckBox
+    <EditText 
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        local:MvxBind="Text HasQuestionTitle;Checked SearchParams.HasQuestion"/>
+        android:layout_width="fill_parent"
+        local:MvxBind="Text SearchParams.SearchQuery"
+        android:layout_marginBottom="@dimen/default_padding" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout 
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="@dimen/default_text_padding"
+                local:MvxBind="Text HasQuestionTitle;Checked SearchParams.HasQuestion"/>
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="@dimen/default_text_padding"
+                local:MvxBind="Text HasAnswerTitle;Checked SearchParams.HasAnswer"/>
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="@dimen/default_text_padding"
+                local:MvxBind="Text HasPassCriteriaTitle;Checked SearchParams.HasPassCriteria"/>
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="@dimen/default_text_padding"
+                local:MvxBind="Text HasCommentTitle;Checked SearchParams.HasComment"/>
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="@dimen/default_text_padding"
+                local:MvxBind="Text HasSourseTitle;Checked SearchParams.HasSourse"/>
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="@dimen/default_text_padding"
+                local:MvxBind="Text HasAuthorsTitle;Checked SearchParams.HasAuthors"/>
+        </LinearLayout>
+
+        <RadioGroup            
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+	        android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/any_word_button"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="@dimen/default_text_padding"
+                local:MvxBind="Text AnyWordTitle;Checked SearchParams.AnyWord"/>
+            <RadioButton
+                android:id="@+id/all_word_button"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="@dimen/default_text_padding"
+                local:MvxBind="Text AllWordsTitle;Checked SearchParams.AllWords"/>  
+        </RadioGroup>
+    </LinearLayout>
   
     <Button 
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="@dimen/default_padding"
         local:MvxBind="Text Title;Click SearchCommand"/>
 
 </LinearLayout>

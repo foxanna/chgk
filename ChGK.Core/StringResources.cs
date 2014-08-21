@@ -46,6 +46,14 @@ namespace ChGK.Core
         public static string Search = "Поиск";
         public static string HasQuestionTitle = "Вопрос";
         public static string SearchResults = "Результаты поиска";
+        public static string HasAnswerTitle = "Ответ";
+        public static string HasPassCriteriaTitle = "Зачет";
+        public static string HasCommentTitle = "Комментарий";
+        public static string HasSourseTitle = "Источник";
+        public static string HasAuthorsTitle = "Автор";
+
+        public static string AnyWordTitle = "Любое слово";
+        public static string AllWordsTitle = "Все слова";
     }
 }
 

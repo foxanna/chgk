@@ -21,7 +21,7 @@ namespace ChGK.Core.ViewModels
 
 		public LastAddedTournamentsViewModel (IChGKWebService service, IFirstViewStartInfoProvider firstViewStartInfoProvider)
 		{
-			Title = "Последние добавленные";
+            Title = StringResources.LastAdded;
 
 			_service = service;
             _firstViewStartInfoProvider = firstViewStartInfoProvider;
