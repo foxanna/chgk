@@ -27,31 +27,9 @@ namespace ChGK.Droid.Views
 			Activity.Title = (ViewModel as MenuItemViewModel).Title;
 		}
 
-		protected abstract int LayoutId {
+		protected abstract int LayoutId 
+        {
 			get;
-		}
-
-		public override void OnCreateOptionsMenu (IMenu menu, MenuInflater inflater)
-		{
-			base.OnCreateOptionsMenu (menu, inflater);
-
-			inflater.Inflate (Resource.Menu.menuitem, menu);
-		}
-
-		public override bool OnOptionsItemSelected (IMenuItem item)
-		{
-			switch (item.ItemId) {
-			case Resource.Id.refresh:
-				Refresh ();
-				return true;
-			default:
-				return base.OnOptionsItemSelected (item);
-			}
-		}
-
-		async void Refresh ()
-		{
-			await (ViewModel as MenuItemViewModel).Refresh ();
 		}
 	}
 }

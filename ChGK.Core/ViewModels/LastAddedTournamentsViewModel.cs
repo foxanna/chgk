@@ -49,7 +49,7 @@ namespace ChGK.Core.ViewModels
             }
 		}
 
-		public async override Task Refresh ()
+		public async Task Refresh ()
 		{
 			await DataLoader.LoadItemsAsync (LoadItems);
 		}

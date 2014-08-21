@@ -29,9 +29,5 @@ namespace ChGK.Core.ViewModels.Search
             _searchParams.Page = 0;
         }
 
-        public override Task Refresh()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

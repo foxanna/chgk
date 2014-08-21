@@ -30,11 +30,6 @@ namespace ChGK.Core.ViewModels
 
         public string EmailDeveloperLink { get; private set; }
 
-		public override Task Refresh ()
-		{
-			throw new System.NotImplementedException ();
-		}
-
         public MvxCommand OpenAdsCommand
         {
             get

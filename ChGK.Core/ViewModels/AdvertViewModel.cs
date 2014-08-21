@@ -12,10 +12,5 @@ namespace ChGK.Core.ViewModels
         {
             Title = StringResources.Thanks;
         }
-
-        public override Task Refresh()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

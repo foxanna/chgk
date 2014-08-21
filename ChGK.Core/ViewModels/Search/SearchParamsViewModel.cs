@@ -35,11 +35,6 @@ namespace ChGK.Core.ViewModels.Search
             }
         }
 
-        public override Task Refresh()
-        {
-            throw new NotImplementedException();
-        }
-
         public string HasQuestionTitle { get; set; }
     }
 }

@@ -89,11 +89,6 @@ namespace ChGK.Core.ViewModels
             LoadTeams();
         }
 
-        public override Task Refresh()
-        {
-            throw new NotImplementedException();
-        }
-
         MvxCommand<object> _removeCommand;
 
         public MvxCommand<object> RemoveTeamCommand

@@ -37,7 +37,7 @@ namespace ChGK.Core.ViewModels
 			Questions = await _service.GetRandomPackage (_cancellationTokenSource.Token);
 		}
 
-		public override Task Refresh ()
+		public Task Refresh ()
 		{
 			return DataLoader.LoadItemsAsync (LoadItems);
 		}
