@@ -11,7 +11,7 @@ namespace ChGK.Core.NetworkService
 		{
 			var httpClient = new HttpClient  { BaseAddress = new Uri (host) };
 			httpClient.DefaultRequestHeaders.Add ("Accept", "application/xml");
-
+            
 			return await httpClient.GetStringAsync (uri);
 		}
 

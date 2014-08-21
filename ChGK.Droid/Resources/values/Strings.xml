@@ -9,7 +9,10 @@
 	<string name="add">Добавить</string>
 	<string name="cancel">Отменить</string>
 	<string name="clear_results">Обнулить результаты</string>
-  <string name="clear_teams">Удалить все команды</string>
+    <string name="clear_teams">Удалить все команды</string>
 	<string name="enter_results">Внести результаты</string>
 	<string name="no_teams">Список команд пуст</string>
+    <string name="search_among">Искать среди</string>
+    <string name="empty_search_error">Не забудьте указать слова для поиска</string>
+    <string name="empty_search_params_error">Не забудьте указать среди каких полей вопроса производить поиск</string>
 </resources>

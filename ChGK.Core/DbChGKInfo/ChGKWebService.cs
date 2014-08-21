@@ -7,6 +7,8 @@ using ChGK.Core.Models;
 using ChGK.Core.NetworkService;
 using ChGK.Core.Services;
 using System.Threading;
+using System.Net;
+using System.Globalization;
 
 namespace ChGK.Core.DbChGKInfo
 {
@@ -87,6 +89,43 @@ namespace ChGK.Core.DbChGKInfo
         {
             var file = filename.StartsWith("tour/") ? filename.Substring(5) : filename;
             return cachedTours.FirstOrDefault(t => t.Key == file).Value;
+        }
+
+        Tuple<SearchParams, List<ISearchResult>> cachedSearch;
+
+        public async Task<List<ISearchResult>> SearchQuestions(SearchParams searchParams, CancellationToken cancellationToken)
+        {
+            if (cachedSearch != null && cachedSearch.Item1.Equals(searchParams) && cachedSearch.Item1.Page <= searchParams.Page)
+            {
+                return cachedSearch.Item2.GetRange(searchParams.Page * cachedSearch.Item1.Limit, cachedSearch.Item1.Limit);
+            }
+
+            PreLoad(cancellationToken);
+
+            var searchResults = await _simpleRestService.GetAsync<SearchResultsDto>(host,
+                                    "xml/search/questions/" 
+                                    + Uri.EscapeUriString(searchParams.SearchQuery) + "/"
+                                    + (searchParams.AnyWord ? "any_word/" : "")
+                                    + searchParams.Type + "/"
+                                    + (searchParams.HasQuestion ? "Q" : "") + (searchParams.HasAnswer ? "A" : "") + (searchParams.HasPassCriteria ? "Z" : "") + (searchParams.HasComment ? "C" : "") + (searchParams.HasSourse ? "S" : "") + (searchParams.HasAuthors ? "U" : "") + "/"
+                                    + "from_" + searchParams.StartDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "/"
+                                    + "to_" + searchParams.EndDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "/"
+                                    + "limit" + searchParams.Limit
+                                    + "?page=" + searchParams.Page, 
+                                    new XmlDeserializer<SearchResultsDto>(), cancellationToken);
+
+            var questions = searchResults.questions.Select(dto => dto.ToModel()).ToList();
+
+            if (cachedSearch != null && cachedSearch.Item1.Equals(searchParams))
+            {
+                cachedSearch.Item2.AddRange(questions);
+            }
+            else
+            {
+                cachedSearch = Tuple.Create<SearchParams, List<ISearchResult>>(new SearchParams(searchParams), new List<ISearchResult>(questions));
+            }
+
+            return questions;
         }
 	}
 }

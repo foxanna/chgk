@@ -44,13 +44,13 @@ namespace ChGK.Core
         // SearchView
 
         public static string Search = "Поиск";
-        public static string HasQuestionTitle = "Вопрос";
         public static string SearchResults = "Результаты поиска";
-        public static string HasAnswerTitle = "Ответ";
-        public static string HasPassCriteriaTitle = "Зачет";
-        public static string HasCommentTitle = "Комментарий";
-        public static string HasSourseTitle = "Источник";
-        public static string HasAuthorsTitle = "Автор";
+        public static string HasQuestionTitle = "вопросов";
+        public static string HasAnswerTitle = "ответов";
+        public static string HasPassCriteriaTitle = "зачетов";
+        public static string HasCommentTitle = "комментариев";
+        public static string HasSourseTitle = "источников";
+        public static string HasAuthorsTitle = "авторов";
 
         public static string AnyWordTitle = "Любое слово";
         public static string AllWordsTitle = "Все слова";

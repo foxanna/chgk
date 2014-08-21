@@ -38,9 +38,27 @@ namespace ChGK.Core.ViewModels.Search
         {
             get
             {
-                return _searchCommand ?? (_searchCommand = new MvxCommand(() => ShowViewModel<SearchResultsViewModel>(
-                    new { searchParams = JsonConvert.SerializeObject(SearchParams) })));
+                return _searchCommand ?? (_searchCommand = new MvxCommand(DoSearch));
+            }        
+        }
+
+        void DoSearch()
+        {
+            if (CanSearch())
+            {
+                ShowViewModel<SearchQuestionsResultsViewModel>(
+                new { searchParams = JsonConvert.SerializeObject(SearchParams) });
             }
+        }
+
+        public bool CanSearchWithThisParams()
+        {
+             return (SearchParams.HasAnswer || SearchParams.HasAuthors || SearchParams.HasComment || SearchParams.HasPassCriteria || SearchParams.HasQuestion || SearchParams.HasSourse);
+        }
+
+        bool CanSearch()
+        {
+            return !string.IsNullOrEmpty(SearchParams.SearchQuery) && CanSearchWithThisParams();               
         }
 
         public string HasQuestionTitle { get; set; }
@@ -51,6 +69,6 @@ namespace ChGK.Core.ViewModels.Search
         public string HasAuthorsTitle { get; set; }
 
         public string AnyWordTitle { get; set; }
-        public string AllWordsTitle { get; set; }
+        public string AllWordsTitle { get; set; }       
     }
 }

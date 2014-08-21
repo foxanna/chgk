@@ -22,13 +22,13 @@ namespace ChGK.Core.ViewModels
 			} catch (NoConnectionException e) {
 				HasError = true;
 				Mvx.Trace (e.Message);
-				Error = "Проверьте интернет соединение.";
+				Error = "Проверьте интернет соединение";
 			} catch (OperationCanceledException e) {
 				Mvx.Trace (e.Message);
 			} catch (Exception e) {
 				HasError = true;
 				Mvx.Trace (e.Message);
-				Error = "Не удалось загрузить данные.\n" + e.Message + "\nПопробуйте еще раз.";
+				Error = "Не удалось загрузить данные\n" + e.Message + "\nПопробуйте еще раз";
 			} finally {
 				IsLoading = false;
 			}
@@ -53,7 +53,7 @@ namespace ChGK.Core.ViewModels
             {
                 HasError = true;
                 Mvx.Trace(e.Message);
-                Error = "Не удалось загрузить данные.\n" + e.Message + "\nПопробуйте еще раз.";
+                Error = "Не удалось загрузить данные\n" + e.Message + "\nПопробуйте еще раз";
             }
             finally
             {

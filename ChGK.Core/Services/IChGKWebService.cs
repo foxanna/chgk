@@ -12,6 +12,8 @@ namespace ChGK.Core.Services
 		Task<List<ITournament>> GetLastAddedTournaments (int? page, CancellationToken token);
 
 		Task<ITour> GetTourDetails (string filename, CancellationToken token);
+
+        Task<List<ISearchResult>> SearchQuestions(SearchParams searchParams, CancellationToken token);
 	}
 }
 
