@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:state_pressed="true" android:state_enabled="true"
+          android:drawable="@drawable/tab_selected_focused_chgk" />
+    <item android:state_checked="false" android:state_pressed="true" android:state_enabled="true"
+          android:drawable="@drawable/tab_unselected_focused_chgk" />
+
+    <item android:state_checked="false" android:state_enabled="true"
+          android:drawable="@drawable/tab_unselected_chgk" />
+    <item android:state_checked="true" android:state_enabled="true"
+          android:drawable="@drawable/tab_selected_chgk" />
+</selector>

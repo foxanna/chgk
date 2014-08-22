@@ -18,6 +18,7 @@ namespace ChGK.Core.Models
             AllWords = true;
             Limit = 50;
             Type = "types1";
+            SearchAmongQuestions = true;
             EndDate = DateTime.Today;
             StartDate = new DateTime(1990, 1, 1);
         }
@@ -37,28 +38,24 @@ namespace ChGK.Core.Models
             Type = copy.Type;
             EndDate = copy.EndDate;
             StartDate = copy.StartDate;
+            SearchAmongQuestions = copy.SearchAmongQuestions;
+            SearchAmongTours = copy.SearchAmongTours;
+            SearchAmongUnsorted = copy.SearchAmongUnsorted;
         }
 
         public string SearchQuery { get; set; }
 
         public bool HasQuestion { get; set; }
-
         public bool HasAnswer { get; set; }
-
         public bool HasPassCriteria { get; set; }
-
         public bool HasComment { get; set; }
-
         public bool HasSourse { get; set; }
-
         public bool HasAuthors { get; set; }
 
         public bool AnyWord { get; set; }
-
         public bool AllWords { get; set; }
 
         public DateTime StartDate { get; set; }
-
         public DateTime EndDate { get; set; }
 
         public int Limit { get; set; }
@@ -66,6 +63,10 @@ namespace ChGK.Core.Models
         public int Page { get; set; }
 
         public string Type { get; set; }
+
+        public bool SearchAmongQuestions { get; set; }
+        public bool SearchAmongTours { get; set; }
+        public bool SearchAmongUnsorted { get; set; }
 
         public bool Equals(SearchParams other)
         {
@@ -82,7 +83,12 @@ namespace ChGK.Core.Models
                 && HasSourse == other.HasSourse
                 && HasAuthors == other.HasAuthors
                 && AnyWord == other.AnyWord
-                && AllWords == other.AllWords;
+                && AllWords == other.AllWords
+                && SearchAmongQuestions == other.SearchAmongQuestions
+                && SearchAmongTours == other.SearchAmongTours
+                && SearchAmongUnsorted == other.SearchAmongUnsorted
+                && DateTime.Equals(StartDate, other.StartDate)
+                && DateTime.Equals(EndDate, other.EndDate);
         }
 
         public override bool Equals(object obj)

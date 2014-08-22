@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChGK.Core.Models
 {
-    public interface ISearchResult
+    public interface ISearchQuestionsResult
     {
         string ID { get; }
 
@@ -35,7 +35,7 @@ namespace ChGK.Core.Models
         string TournamentFileName { get; }
     }
 
-    class SearchResult : ISearchResult
+    class SearchQuestionsResult : ISearchQuestionsResult
     {
         public string ID { get; set; }
 

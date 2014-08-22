@@ -13,23 +13,13 @@ namespace ChGK.Core.ViewModels.Search
 {
     public class SearchParamsViewModel : MenuItemViewModel
     {
-        public SearchParams SearchParams { get; set; }
+        SearchParams SearchParams { get; set; }
 
         public SearchParamsViewModel()
 		{
             Title = StringResources.Search;
 
             SearchParams = new SearchParams();
-
-            HasQuestionTitle = StringResources.HasQuestionTitle;
-            HasAnswerTitle = StringResources.HasAnswerTitle;
-            HasPassCriteriaTitle  = StringResources.HasPassCriteriaTitle;
-            HasCommentTitle  = StringResources.HasCommentTitle;
-            HasSourseTitle  = StringResources.HasSourseTitle;
-            HasAuthorsTitle  = StringResources.HasAuthorsTitle;
-
-            AnyWordTitle  = StringResources.AnyWordTitle;
-            AllWordsTitle = StringResources.AllWordsTitle;
 		}
 
         ICommand _searchCommand;
@@ -44,10 +34,13 @@ namespace ChGK.Core.ViewModels.Search
 
         void DoSearch()
         {
-            if (CanSearch())
+            if (SearchAmongQuestions)
             {
-                ShowViewModel<SearchQuestionsResultsViewModel>(
-                new { searchParams = JsonConvert.SerializeObject(SearchParams) });
+                if (CanSearch())
+                {
+                    ShowViewModel<SearchQuestionsResultsViewModel>(
+                    new { searchParams = JsonConvert.SerializeObject(SearchParams) });
+                }
             }
         }
 
@@ -61,14 +54,210 @@ namespace ChGK.Core.ViewModels.Search
             return !string.IsNullOrEmpty(SearchParams.SearchQuery) && CanSearchWithThisParams();               
         }
 
-        public string HasQuestionTitle { get; set; }
-        public string HasAnswerTitle { get; set; }
-        public string HasPassCriteriaTitle { get; set; }
-        public string HasCommentTitle { get; set; }
-        public string HasSourseTitle { get; set; }
-        public string HasAuthorsTitle { get; set; }
+        public bool SearchAmongQuestions
+        {
+            get
+            {
+                return SearchParams.SearchAmongQuestions; 
+            }
+            set
+            {
+                SearchParams.SearchAmongQuestions = value;
+                if (value)
+                {
+                    SearchAmongTours = false;
+                    SearchAmongUnsorted = false;
+                }
+                RaisePropertyChanged(() => SearchAmongQuestions);
+            }
+        }
 
-        public string AnyWordTitle { get; set; }
-        public string AllWordsTitle { get; set; }       
+        public bool SearchAmongTours
+        {
+            get
+            {
+                 return SearchParams.SearchAmongTours; 
+            }
+            set
+            {
+                SearchParams.SearchAmongTours = value;
+                if (value)
+                {
+                    SearchAmongQuestions = false;
+                    SearchAmongUnsorted = false;
+                }
+                RaisePropertyChanged(() => SearchAmongTours);
+            }
+        }
+
+        public bool SearchAmongUnsorted
+        {
+            get
+            {
+                return SearchParams.SearchAmongUnsorted; 
+            }
+            set
+            {
+                SearchParams.SearchAmongUnsorted = value;
+                if (value)
+                {
+                    SearchAmongQuestions = false;
+                    SearchAmongTours = false;
+                }
+                RaisePropertyChanged(() => SearchAmongUnsorted);
+            }
+        }
+
+        public string SearchQuery
+        { 
+            get 
+            { 
+                return SearchParams.SearchQuery; 
+            } 
+            set 
+            { 
+                SearchParams.SearchQuery = value;
+                RaisePropertyChanged(() => SearchQuery);
+            }
+        }
+
+        public bool HasQuestion
+        {
+            get
+            {
+                return SearchParams.HasQuestion;
+            }
+            set
+            {
+                SearchParams.HasQuestion = value;
+                RaisePropertyChanged(() => HasQuestion);
+            }
+        }
+
+        public bool HasAnswer
+        {
+            get
+            {
+                return SearchParams.HasAnswer;
+            }
+            set
+            {
+                SearchParams.HasAnswer = value;
+                RaisePropertyChanged(() => HasAnswer);
+            }
+        }
+
+        public bool HasPassCriteria
+        {
+            get
+            {
+                return SearchParams.HasPassCriteria;
+            }
+            set
+            {
+                SearchParams.HasPassCriteria = value;
+                RaisePropertyChanged(() => HasPassCriteria);
+            }
+        }
+
+        public bool HasComment 
+        {
+            get
+            {
+                return SearchParams.HasComment;
+            }
+            set
+            {
+                SearchParams.HasComment = value;
+                RaisePropertyChanged(() => HasComment);
+            }
+        }
+
+        public bool HasSourse
+        {
+            get
+            {
+                return SearchParams.HasSourse;
+            }
+            set
+            {
+                SearchParams.HasSourse = value;
+                RaisePropertyChanged(() => HasSourse);
+            }
+        }
+
+        public bool HasAuthors
+        {
+            get
+            {
+                return SearchParams.HasAuthors;
+            }
+            set
+            {
+                SearchParams.HasAuthors = value;
+                RaisePropertyChanged(() => HasAuthors);
+            }
+        }
+
+        public DateTime StartDate
+        {
+            get
+            {
+                return SearchParams.StartDate;
+            }
+            set
+            {
+                SearchParams.StartDate = value;
+                RaisePropertyChanged(() => StartDate);
+            }
+        }
+
+        public DateTime EndDate
+        {
+            get
+            {
+                return SearchParams.EndDate;
+            }
+            set
+            {
+                SearchParams.EndDate = value;
+                RaisePropertyChanged(() => EndDate);
+            }
+        }
+
+        public bool AnyWord
+        {
+            get
+            {
+                return SearchParams.AnyWord;
+            }
+            set
+            {
+                SearchParams.AnyWord = value;
+                if (value)
+                {
+                    AllWords = false;
+                }
+                RaisePropertyChanged(() => AnyWord);
+            }
+        }
+
+
+        public bool AllWords
+        {
+            get
+            {
+                return SearchParams.AllWords;
+            }
+            set
+            {
+                SearchParams.AllWords = value;
+                if (value)
+                {
+                    AnyWord = false;
+                }
+                RaisePropertyChanged(() => AllWords);
+            }
+        }
     }
 }

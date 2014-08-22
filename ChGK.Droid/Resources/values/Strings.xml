@@ -15,4 +15,16 @@
     <string name="search_among">Искать среди</string>
     <string name="empty_search_error">Не забудьте указать слова для поиска</string>
     <string name="empty_search_params_error">Не забудьте указать среди каких полей вопроса производить поиск</string>
+    <string name="search_any_word">любое слово</string>
+    <string name="search_all_words">все слова</string>
+    <string name="search_questions">Вопросы</string>
+    <string name="search_tours">Туры</string>
+    <string name="search_unsorted">Новое</string>
+
+    <string name="search_among_q">вопросов</string>
+    <string name="search_among_a">ответов</string>
+    <string name="search_among_p">зачетов</string>
+    <string name="search_among_c">комментариев</string>
+    <string name="search_among_s">источников</string>
+    <string name="search_among_u">авторов</string>
 </resources>

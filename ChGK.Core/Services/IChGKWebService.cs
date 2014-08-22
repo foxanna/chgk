@@ -13,7 +13,7 @@ namespace ChGK.Core.Services
 
 		Task<ITour> GetTourDetails (string filename, CancellationToken token);
 
-        Task<List<ISearchResult>> SearchQuestions(SearchParams searchParams, CancellationToken token);
+        Task<List<ISearchQuestionsResult>> SearchQuestions(SearchParams searchParams, CancellationToken token);
 	}
 }
 

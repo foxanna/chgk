@@ -46,9 +46,9 @@ namespace ChGK.Core.DbChGKInfo.Dto
         [XmlElement("tournamentFileName")]
         public string TournamentFileName { get; set; }
 
-        public ISearchResult ToModel()
+        public ISearchQuestionsResult ToModel()
         {
-            return new SearchResult
+            return new SearchQuestionsResult
             {
                 ID = ID,
                 Number = Number,

@@ -91,38 +91,64 @@ namespace ChGK.Core.DbChGKInfo
             return cachedTours.FirstOrDefault(t => t.Key == file).Value;
         }
 
-        Tuple<SearchParams, List<ISearchResult>> cachedSearch;
+        Tuple<SearchParams, List<ISearchQuestionsResult>> cashedSearch;
 
-        public async Task<List<ISearchResult>> SearchQuestions(SearchParams searchParams, CancellationToken cancellationToken)
+        public async Task<List<ISearchQuestionsResult>> SearchQuestions(SearchParams searchParams, CancellationToken cancellationToken)
         {
-            if (cachedSearch != null && cachedSearch.Item1.Equals(searchParams) && cachedSearch.Item1.Page <= searchParams.Page)
+            if (cashedSearch != null && cashedSearch.Item1.Equals(searchParams) && cashedSearch.Item1.Page <= searchParams.Page)
             {
-                return cachedSearch.Item2.GetRange(searchParams.Page * cachedSearch.Item1.Limit, cachedSearch.Item1.Limit);
+				return cashedSearch.Item2.GetRange(searchParams.Page * cashedSearch.Item1.Limit, 
+					Math.Min(cashedSearch.Item1.Limit, cashedSearch.Item2.Count - searchParams.Page * cashedSearch.Item1.Limit));
             }
 
             PreLoad(cancellationToken);
 
-            var searchResults = await _simpleRestService.GetAsync<SearchResultsDto>(host,
-                                    "xml/search/questions/" 
-                                    + Uri.EscapeUriString(searchParams.SearchQuery) + "/"
-                                    + (searchParams.AnyWord ? "any_word/" : "")
-                                    + searchParams.Type + "/"
-                                    + (searchParams.HasQuestion ? "Q" : "") + (searchParams.HasAnswer ? "A" : "") + (searchParams.HasPassCriteria ? "Z" : "") + (searchParams.HasComment ? "C" : "") + (searchParams.HasSourse ? "S" : "") + (searchParams.HasAuthors ? "U" : "") + "/"
-                                    + "from_" + searchParams.StartDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "/"
-                                    + "to_" + searchParams.EndDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "/"
-                                    + "limit" + searchParams.Limit
-                                    + "?page=" + searchParams.Page, 
+            string url = "xml/search/";
+
+            //if (searchParams.SearchAmongQuestions)
+            //{
+                url += "questions/"
+                    + Uri.EscapeUriString(searchParams.SearchQuery) + "/"
+                    + (searchParams.AnyWord ? "any_word/" : "")
+                    + searchParams.Type + "/"
+                    + (searchParams.HasQuestion ? "Q" : "") + (searchParams.HasAnswer ? "A" : "") + (searchParams.HasPassCriteria ? "Z" : "") + (searchParams.HasComment ? "C" : "") + (searchParams.HasSourse ? "S" : "") + (searchParams.HasAuthors ? "U" : "") + "/"
+                    + "from_" + searchParams.StartDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "/"
+                    + "to_" + searchParams.EndDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "/"
+                    + "limit" + searchParams.Limit
+                    + "?page=" + searchParams.Page;
+            //}
+            //else if (searchParams.SearchAmongTours)
+            //{
+            //    url += "tours/"
+            //        + Uri.EscapeUriString(searchParams.SearchQuery) + "/"
+            //        + "from_" + searchParams.StartDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "/"
+            //        + "to_" + searchParams.EndDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) 
+            //        + "?page=" + searchParams.Page;
+            //}
+            //else if (searchParams.SearchAmongUnsorted)
+            //{
+            //    url += "unsorted/"
+            //        + Uri.EscapeUriString(searchParams.SearchQuery)
+            //        + "?page=" + searchParams.Page;
+            //}
+            //else
+            //{
+            //    throw new ArgumentException();
+            //}
+
+
+            var searchResults = await _simpleRestService.GetAsync<SearchResultsDto>(host, url,
                                     new XmlDeserializer<SearchResultsDto>(), cancellationToken);
 
             var questions = searchResults.questions.Select(dto => dto.ToModel()).ToList();
 
-            if (cachedSearch != null && cachedSearch.Item1.Equals(searchParams))
+            if (cashedSearch != null && cashedSearch.Item1.Equals(searchParams))
             {
-                cachedSearch.Item2.AddRange(questions);
+                cashedSearch.Item2.AddRange(questions);
             }
             else
             {
-                cachedSearch = Tuple.Create<SearchParams, List<ISearchResult>>(new SearchParams(searchParams), new List<ISearchResult>(questions));
+                cashedSearch = Tuple.Create<SearchParams, List<ISearchQuestionsResult>>(new SearchParams(searchParams), new List<ISearchQuestionsResult>(questions));
             }
 
             return questions;

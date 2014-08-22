@@ -1,91 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="@dimen/default_padding">
-
-    <EditText 
-        android:id="@+id/searchQueryEditText"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        local:MvxBind="Text SearchParams.SearchQuery"
-        android:layout_marginBottom="@dimen/default_padding" />
-
+    android:layout_height="fill_parent">
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout 
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="@dimen/default_text_padding"
-                android:text="@string/search_among"/>
-
-            <CheckBox
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="@dimen/default_text_padding"
-                local:MvxBind="Text HasQuestionTitle;Checked SearchParams.HasQuestion"/>
-            <CheckBox
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="@dimen/default_text_padding"
-                local:MvxBind="Text HasAnswerTitle;Checked SearchParams.HasAnswer"/>
-            <CheckBox
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="@dimen/default_text_padding"
-                local:MvxBind="Text HasPassCriteriaTitle;Checked SearchParams.HasPassCriteria"/>
-            <CheckBox
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="@dimen/default_text_padding"
-                local:MvxBind="Text HasCommentTitle;Checked SearchParams.HasComment"/>
-            <CheckBox
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="@dimen/default_text_padding"
-                local:MvxBind="Text HasSourseTitle;Checked SearchParams.HasSourse"/>
-            <CheckBox
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="@dimen/default_text_padding"
-                local:MvxBind="Text HasAuthorsTitle;Checked SearchParams.HasAuthors"/>
-        </LinearLayout>
-
-        <RadioGroup            
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-	        android:orientation="vertical">
-            <RadioButton
-                android:id="@+id/any_word_button"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:padding="@dimen/default_text_padding"
-                local:MvxBind="Text AnyWordTitle;Checked SearchParams.AnyWord"/>
-            <RadioButton
-                android:id="@+id/all_word_button"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:padding="@dimen/default_text_padding"
-                local:MvxBind="Text AllWordsTitle;Checked SearchParams.AllWords"/>  
-        </RadioGroup>
-    </LinearLayout>
-  
-    <Button 
-        android:id="@+id/searchButton"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_marginTop="@dimen/default_padding"
-        local:MvxBind="Text Title;Click SearchCommand"/>
-
-</LinearLayout>
+        android:padding="@dimen/default_padding">
+        <EditText
+            android:id="@+id/searchQueryEditText"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:singleLine="true"
+            local:MvxBind="Text SearchQuery"
+            android:layout_marginBottom="@dimen/default_padding" />
+    <!--<RadioGroup
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+	        android:orientation="horizontal">
+            <RadioButton
+                style="@style/tabs_style"
+                android:text="@string/search_questions"
+                local:MvxBind="Checked SearchAmongQuestions"/>
+            <RadioButton
+                style="@style/tabs_style"
+                android:text="@string/search_tours"
+                local:MvxBind="Checked SearchAmongTours"/>
+            <RadioButton
+                style="@style/tabs_style"
+                android:text="@string/search_unsorted"
+                local:MvxBind="Checked SearchAmongUnsorted"/>
+        </RadioGroup>-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            local:MvxBind="Visibility SearchAmongQuestions,Converter=Visibility">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/default_text_padding"
+                        android:text="@string/search_among" />
+                    <CheckBox
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/default_text_padding"
+                        android:text="@string/search_among_q"
+                        local:MvxBind="Checked HasQuestion" />
+                    <CheckBox
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/default_text_padding"
+                        android:text="@string/search_among_a"
+                        local:MvxBind="Checked HasAnswer" />
+                    <CheckBox
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/default_text_padding"
+                        android:text="@string/search_among_p"
+                        local:MvxBind="Checked HasPassCriteria" />
+                    <CheckBox
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/default_text_padding"
+                        android:text="@string/search_among_c"
+                        local:MvxBind="Checked HasComment" />
+                    <CheckBox
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/default_text_padding"
+                        android:text="@string/search_among_s"
+                        local:MvxBind="Checked HasSourse" />
+                    <CheckBox
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/default_text_padding"
+                        android:text="@string/search_among_u"
+                        local:MvxBind="Checked HasAuthors" />
+                </LinearLayout>
+                <RadioGroup
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical">
+                    <RadioButton
+                        android:id="@+id/any_word_button"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:padding="@dimen/default_text_padding"
+                        android:text="@string/search_any_word"
+                        local:MvxBind="Checked AnyWord" />
+                    <RadioButton
+                        android:id="@+id/all_word_button"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:padding="@dimen/default_text_padding"
+                        android:text="@string/search_all_words"
+                        local:MvxBind="Checked AllWords" />
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/default_padding"
+            local:MvxBind="Visibility SearchAmongUnsorted,Converter=InvertedVisibility">
+            <Button
+                android:id="@+id/start_date_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textfield_focused"
+                local:MvxBind="Text StartDate,Converter=Date" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="-"
+                android:gravity="center"
+                android:layout_margin="@dimen/default_text_padding" />
+            <Button
+                android:id="@+id/end_date_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textfield_focused"
+                local:MvxBind="Text EndDate,Converter=Date" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="@dimen/default_padding"
+            local:MvxBind="Text Title;Click SearchCommand" />
+    </LinearLayout>
+</ScrollView>

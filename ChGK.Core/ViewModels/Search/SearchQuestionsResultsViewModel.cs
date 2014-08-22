@@ -51,9 +51,9 @@ namespace ChGK.Core.ViewModels.Search
             _searchParams.Page++;
         }
 
-        List<ISearchResult> _questions;
+        List<ISearchQuestionsResult> _questions;
 
-        public List<ISearchResult> Questions
+        public List<ISearchQuestionsResult> Questions
         {
             get
             {
