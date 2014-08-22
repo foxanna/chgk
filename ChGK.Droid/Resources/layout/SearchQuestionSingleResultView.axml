@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <LinearLayout
+            android:orientation="vertical"
+            android:padding="@dimen/default_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:layout_marginBottom="@dimen/default_padding"
+            local:MvxBind="Text Question.Text" />
+        
+        <Mvx.MvxImageView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginBottom="@dimen/default_padding"
+            android:scaleType="centerInside"
+            local:MvxBind="ImageUrl Picture;Visibility HasPicture,Converter=Visibility;Click OpenImageCommand"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/default_padding">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_text_padding"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:text="Ответ:" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                local:MvxBind="Text Question.Answer" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            local:MvxBind="Visibility HasPassCriteria,Converter=Visibility"
+            android:layout_marginBottom="@dimen/default_padding">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_text_padding"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:text="Зачет:" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                local:MvxBind="Text Question.PassCriteria" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            local:MvxBind="Visibility HasComments,Converter=Visibility"
+            android:layout_marginBottom="@dimen/default_padding"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_text_padding"
+                android:text="*" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                local:MvxBind="Text Question.Comment"
+                android:textAppearance="@android:style/TextAppearance.Holo.Small" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/default_padding"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_text_padding"
+                local:MvxBind="Visibility HasSource,Converter=Visibility"
+                android:text="Источник:" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:autoLink="web"
+                android:layout_height="wrap_content"
+                local:MvxBind="Text Question.Source; Visibility HasSource,Converter=Visibility" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                local:MvxBind="Visibility HasSource,Converter=InvertedVisibility"
+                android:text="Источник не указан" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/default_padding"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                local:MvxBind="Visibility HasAuthor,Converter=Visibility"
+                android:layout_marginRight="@dimen/default_text_padding"
+                android:text="Автор:" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                local:MvxBind="Text Question.Author;Visibility HasAuthor,Converter=Visibility" />
+            <TextView
+                local:MvxBind="Visibility HasAuthor,Converter=InvertedVisibility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Автор не указан" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_gravity="right"
+            android:padding="@dimen/default_text_padding"
+            android:textColor="?android:attr/textColorLink"
+            android:clickable="true"
+            android:background="@drawable/selectable_background_chgk"
+            local:MvxBind="TextFormatted TourName,Converter=HtmlToSpannable;Click OpenTourCommand" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_gravity="right"
+            android:padding="@dimen/default_text_padding"
+            android:textColor="?android:attr/textColorLink"
+            android:clickable="true"
+            android:background="@drawable/selectable_background_chgk"
+            local:MvxBind="TextFormatted TournamentName,Converter=HtmlToSpannable;Click OpenTournamentCommand" />
+    </LinearLayout>
+
+</ScrollView>

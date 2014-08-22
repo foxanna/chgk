@@ -47,6 +47,11 @@ namespace ChGK.Core.ViewModels
 		public async void Init (string name, string filename)
 		{
 			Name = name;
+            if (!filename.StartsWith("tour/"))
+            {
+                filename = "tour/" + filename;
+            }
+
 			_fileName = filename;
 	
 			await DataLoader.LoadItemsAsync (LoadItems);

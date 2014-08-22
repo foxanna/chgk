@@ -1892,22 +1892,25 @@ namespace ChGK.Droid
 			public const int SearchParamsView = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int SearchQuestionsResultsView = 2130903086;
+			public const int SearchQuestionSingleResultView = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int SplashScreen = 2130903087;
+			public const int SearchQuestionsResultsView = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int support_simple_spinner_dropdown_item = 2130903088;
+			public const int SplashScreen = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int TeamsView = 2130903089;
+			public const int support_simple_spinner_dropdown_item = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int TourView = 2130903090;
+			public const int TeamsView = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int undo_bar = 2130903091;
+			public const int TourView = 2130903091;
+			
+			// aapt resource value: 0x7f030034
+			public const int undo_bar = 2130903092;
 			
 			static Layout()
 			{

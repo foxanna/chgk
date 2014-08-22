@@ -65,5 +65,21 @@ namespace ChGK.Core.ViewModels.Search
                 RaisePropertyChanged(() => Questions);
             }
         }
+
+        MvxCommand<ISearchQuestionsResult> _showQuestionCommand;
+
+        public MvxCommand<ISearchQuestionsResult> ShowQuestionCommand
+        {
+            get
+            {
+                _showQuestionCommand = _showQuestionCommand ?? new MvxCommand<ISearchQuestionsResult>(ShowQuestion);
+                return _showQuestionCommand;
+            }
+        }
+
+        void ShowQuestion(ISearchQuestionsResult question)
+        {
+            ShowViewModel<SearchQuestionSingleResultViewModel>(new { json = JsonConvert.SerializeObject(question)});        
+        }
     }
 }

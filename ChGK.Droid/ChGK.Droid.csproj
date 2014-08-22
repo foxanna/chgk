@@ -141,6 +141,7 @@
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Views\AdvertView.cs" />
     <Compile Include="Views\Search\SearchParamsView.cs" />
+    <Compile Include="Views\Search\SearchQuestionSingleResultView.cs" />
     <Compile Include="Views\Search\SearchQuestionsResultsView.cs" />
     <Compile Include="Views\Tutorials\FirstTimeSeenLastAddedTournamentsView.cs" />
     <Compile Include="Views\Tutorials\FirstTimeSeenTeamsView.cs" />
@@ -204,6 +205,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\SearchQuestionsResultsView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\SearchQuestionSingleResultView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

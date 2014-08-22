@@ -59,6 +59,7 @@
     <Compile Include="DbChGKInfo\Serialization.cs" />
     <Compile Include="NetworkService\IDeserializer.cs" />
     <Compile Include="DbChGKInfo\Dto\TourDto.cs" />
+    <Compile Include="ViewModels\Search\SearchQuestionSingleResultViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchQuestionsResultsViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchParamsViewModel.cs" />
     <Compile Include="ViewModels\TourViewModel.cs" />
