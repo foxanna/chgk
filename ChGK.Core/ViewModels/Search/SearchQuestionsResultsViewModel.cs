@@ -42,8 +42,6 @@ namespace ChGK.Core.ViewModels.Search
             Questions = null;
 
             Questions = await _service.SearchQuestions(_searchParams, _cancellationTokenSource.Token);
-
-			RaisePropertyChanged(() => HasNoResults);
         }
 
         public async Task LoadMore()
@@ -65,6 +63,7 @@ namespace ChGK.Core.ViewModels.Search
             {
                 _questions = value;
                 RaisePropertyChanged(() => Questions);
+				RaisePropertyChanged(() => HasNoResults);
             }
         }
         
@@ -72,7 +71,7 @@ namespace ChGK.Core.ViewModels.Search
         {
             get
             {
-                return Questions.Count == 0;
+				return Questions != null && Questions.Count == 0;
             }
         }        
 
