@@ -1,14 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+              xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
     <TextView
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-     	android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-     	local:MvxBind="Visibility DataLoader.HasError,Converter=Visibility; Text DataLoader.Error"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            local:MvxBind="Visibility DataLoader.HasError,Converter=Visibility; Text DataLoader.Error"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
@@ -18,6 +18,7 @@
         local:MvxBind="Visibility DataLoader.IsLoading,Converter=Visibility" />
 
     <ChGK.Droid.Controls.BindableExpandableListView
+        android:id="@+id/tournamentsList"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    local:MvxBind="ItemsSource Tournaments; ItemClick OnTourCLick; Visibility DataLoader.HasData,Converter=Visibility"

@@ -91,6 +91,25 @@ namespace ChGK.Core.DbChGKInfo
             return cachedTours.FirstOrDefault(t => t.Key == file).Value;
         }
 
+        Dictionary<string, ITournament> cachedTournaments = new Dictionary<string, ITournament>();
+
+        void CacheTournament(ITournament tournament)
+        {
+            if (!cachedTournaments.ContainsKey(tournament.FileName))
+            {
+                cachedTournaments.Add(tournament.FileName, tournament);
+            }
+        }
+
+        ITournament ReadTournamentFromCache(string filename)
+        {
+            var file = filename.StartsWith("tour/") ? filename.Substring(5) : filename;
+            if (!filename.EndsWith(".txt")) {
+                file += ".txt";
+            }
+            return cachedTournaments.FirstOrDefault(t => t.Key == file).Value;
+        }
+
         Tuple<SearchParams, List<ISearchQuestionsResult>> cashedSearch;
 
         public async Task<List<ISearchQuestionsResult>> SearchQuestions(SearchParams searchParams, CancellationToken cancellationToken)
@@ -152,6 +171,24 @@ namespace ChGK.Core.DbChGKInfo
             }
 
             return questions;
+        }
+
+        public async Task<ITournament> GetTournament(string filename, CancellationToken cancellationToken)
+        {
+            var tournament = ReadTournamentFromCache(filename);
+
+            if (tournament == null)
+            {
+                PreLoad(cancellationToken);
+
+                var tournamentDto = await _simpleRestService.GetAsync<TournamentDto>(host,
+                                  string.Format("{0}/xml", filename), new XmlDeserializer<TournamentDto>(), cancellationToken);
+                
+                tournament = tournamentDto.ToModel();
+                CacheTournament(tournament);
+            }
+
+            return tournament;
         }
 	}
 }

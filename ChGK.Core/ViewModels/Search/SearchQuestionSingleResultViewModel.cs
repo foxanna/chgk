@@ -72,7 +72,7 @@ namespace ChGK.Core.ViewModels.Search
        {
            get
             {
-                return _openTournamentCommand ?? (_openTournamentCommand = new MvxCommand(() => { }));
+                return _openTournamentCommand ?? (_openTournamentCommand = new MvxCommand(() => ShowViewModel<SingleTournamentViewModel>(new { filename = Question.TournamentFileName })));
             }
        }
     }

@@ -8,6 +8,7 @@ namespace ChGK.Core
 		public static string Save = "Сохранить";
 		public static string Cancel = "Отмена";
         public static string Question = "Вопрос";
+        public static string Tournament = "Турнир";
 
 		// AboutView
 

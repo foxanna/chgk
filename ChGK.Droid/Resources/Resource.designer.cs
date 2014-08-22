@@ -1442,8 +1442,8 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f070051
 			public const int ad_container = 2131165265;
 			
-			// aapt resource value: 0x7f07006c
-			public const int add_team = 2131165292;
+			// aapt resource value: 0x7f07006d
+			public const int add_team = 2131165293;
 			
 			// aapt resource value: 0x7f07005d
 			public const int all_word_button = 2131165277;
@@ -1475,11 +1475,11 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f070029
 			public const int classic = 2131165225;
 			
-			// aapt resource value: 0x7f07006a
-			public const int clear_results = 2131165290;
-			
 			// aapt resource value: 0x7f07006b
-			public const int clear_teams = 2131165291;
+			public const int clear_results = 2131165291;
+			
+			// aapt resource value: 0x7f07006c
+			public const int clear_teams = 2131165292;
 			
 			// aapt resource value: 0x7f07000d
 			public const int collapseActionView = 2131165197;
@@ -1487,8 +1487,8 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f070053
 			public const int content_frame = 2131165267;
 			
-			// aapt resource value: 0x7f070062
-			public const int data = 2131165282;
+			// aapt resource value: 0x7f070063
+			public const int data = 2131165283;
 			
 			// aapt resource value: 0x7f07003b
 			public const int default_activity_button = 2131165243;
@@ -1514,8 +1514,8 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f07005f
 			public const int end_date_button = 2131165279;
 			
-			// aapt resource value: 0x7f070069
-			public const int enter_results = 2131165289;
+			// aapt resource value: 0x7f07006a
+			public const int enter_results = 2131165290;
 			
 			// aapt resource value: 0x7f070039
 			public const int expand_activities_button = 2131165241;
@@ -1604,8 +1604,8 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f070042
 			public const int radio = 2131165250;
 			
-			// aapt resource value: 0x7f070065
-			public const int refresh = 2131165285;
+			// aapt resource value: 0x7f070066
+			public const int refresh = 2131165286;
 			
 			// aapt resource value: 0x7f070020
 			public const int sandbox = 2131165216;
@@ -1670,11 +1670,11 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f07005e
 			public const int start_date_button = 2131165278;
 			
-			// aapt resource value: 0x7f070067
-			public const int start_timer = 2131165287;
-			
 			// aapt resource value: 0x7f070068
-			public const int stop_timer = 2131165288;
+			public const int start_timer = 2131165288;
+			
+			// aapt resource value: 0x7f070069
+			public const int stop_timer = 2131165289;
 			
 			// aapt resource value: 0x7f070021
 			public const int strict_sandbox = 2131165217;
@@ -1685,14 +1685,14 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f070002
 			public const int tabMode = 2131165186;
 			
-			// aapt resource value: 0x7f070061
-			public const int teams = 2131165281;
+			// aapt resource value: 0x7f070062
+			public const int teams = 2131165282;
 			
 			// aapt resource value: 0x7f07001b
 			public const int terrain = 2131165211;
 			
-			// aapt resource value: 0x7f070066
-			public const int time = 2131165286;
+			// aapt resource value: 0x7f070067
+			public const int time = 2131165287;
 			
 			// aapt resource value: 0x7f07003e
 			public const int title = 2131165246;
@@ -1700,11 +1700,14 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f070033
 			public const int top_action_bar = 2131165235;
 			
-			// aapt resource value: 0x7f070064
-			public const int undo_button = 2131165284;
+			// aapt resource value: 0x7f070061
+			public const int tournamentsList = 2131165281;
 			
-			// aapt resource value: 0x7f070063
-			public const int undo_message = 2131165283;
+			// aapt resource value: 0x7f070065
+			public const int undo_button = 2131165285;
+			
+			// aapt resource value: 0x7f070064
+			public const int undo_message = 2131165284;
 			
 			// aapt resource value: 0x7f070034
 			public const int up = 2131165236;
@@ -1898,19 +1901,22 @@ namespace ChGK.Droid
 			public const int SearchQuestionsResultsView = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int SplashScreen = 2130903088;
+			public const int SingleTournamentView = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int support_simple_spinner_dropdown_item = 2130903089;
+			public const int SplashScreen = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int TeamsView = 2130903090;
+			public const int support_simple_spinner_dropdown_item = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int TourView = 2130903091;
+			public const int TeamsView = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int undo_bar = 2130903092;
+			public const int TourView = 2130903092;
+			
+			// aapt resource value: 0x7f030035
+			public const int undo_bar = 2130903093;
 			
 			static Layout()
 			{

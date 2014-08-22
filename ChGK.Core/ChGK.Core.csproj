@@ -62,6 +62,8 @@
     <Compile Include="ViewModels\Search\SearchQuestionSingleResultViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchQuestionsResultsViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchParamsViewModel.cs" />
+    <Compile Include="ViewModels\SingleTournamentViewModel.cs" />
+    <Compile Include="ViewModels\TournamentsViewModel.cs" />
     <Compile Include="ViewModels\TourViewModel.cs" />
     <Compile Include="ViewModels\QuestionsViewModel.cs" />
     <Compile Include="Utils\ChGKTimer.cs" />
