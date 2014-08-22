@@ -12,16 +12,17 @@ namespace ChGK.Droid.Services
 
         public bool IsSeenForTheFirstTime(Type type)
         {
-            var settings = Android.App.Application.Context.GetSharedPreferences(PrefsFileName, 0);
-            var seen = //settings.GetBoolean("seen_" + type.ToString(), false);
-                true;
-            return !seen;
+            //var settings = Android.App.Application.Context.GetSharedPreferences(PrefsFileName, 0);
+            //var seen = settings.GetBoolean("seen_" + type.ToString(), false);
+            //return !seen;
+
+            return false;
         }
 
         public void SetSeen(Type type)
         {
-            var settings = Android.App.Application.Context.GetSharedPreferences(PrefsFileName, 0).Edit();
-            var seen = settings.PutBoolean("seen_" + type.ToString(), true).Commit();
+            //var settings = Android.App.Application.Context.GetSharedPreferences(PrefsFileName, 0).Edit();
+            //var seen = settings.PutBoolean("seen_" + type.ToString(), true).Commit();
         }
     }
 }
