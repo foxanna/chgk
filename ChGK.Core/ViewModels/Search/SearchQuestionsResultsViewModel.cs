@@ -63,8 +63,17 @@ namespace ChGK.Core.ViewModels.Search
             {
                 _questions = value;
                 RaisePropertyChanged(() => Questions);
+                RaisePropertyChanged(() => HasNoResults);
             }
         }
+        
+        public bool HasNoResults
+        {
+            get
+            {
+                return Questions.Count == 0;
+            }
+        }        
 
         MvxCommand<ISearchQuestionsResult> _showQuestionCommand;
 
