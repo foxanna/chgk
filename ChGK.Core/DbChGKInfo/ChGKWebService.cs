@@ -114,19 +114,14 @@ namespace ChGK.Core.DbChGKInfo
 
         public async Task<List<ISearchQuestionsResult>> SearchQuestions(SearchParams searchParams, CancellationToken cancellationToken)
         {
-            if (cashedSearch != null && cashedSearch.Item1.Equals(searchParams) && cashedSearch.Item1.Page <= searchParams.Page)
+            if (cashedSearch != null && cashedSearch.Item1.Equals(searchParams) && cashedSearch.Item1.Page >= searchParams.Page)
             {
-				return cashedSearch.Item2.GetRange(searchParams.Page * cashedSearch.Item1.Limit, 
-					Math.Min(cashedSearch.Item1.Limit, cashedSearch.Item2.Count - searchParams.Page * cashedSearch.Item1.Limit));
+				return cashedSearch.Item2;
             }
 
             PreLoad(cancellationToken);
 
-            string url = "xml/search/";
-
-            //if (searchParams.SearchAmongQuestions)
-            //{
-                url += "questions/"
+            string url = "xml/search/questions/"
                     + Uri.EscapeUriString(searchParams.SearchQuery) + "/"
                     + (searchParams.AnyWord ? "any_word/" : "")
                     + searchParams.Type + "/"
@@ -135,27 +130,7 @@ namespace ChGK.Core.DbChGKInfo
                     + "to_" + searchParams.EndDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "/"
                     + "limit" + searchParams.Limit
                     + "?page=" + searchParams.Page;
-            //}
-            //else if (searchParams.SearchAmongTours)
-            //{
-            //    url += "tours/"
-            //        + Uri.EscapeUriString(searchParams.SearchQuery) + "/"
-            //        + "from_" + searchParams.StartDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "/"
-            //        + "to_" + searchParams.EndDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) 
-            //        + "?page=" + searchParams.Page;
-            //}
-            //else if (searchParams.SearchAmongUnsorted)
-            //{
-            //    url += "unsorted/"
-            //        + Uri.EscapeUriString(searchParams.SearchQuery)
-            //        + "?page=" + searchParams.Page;
-            //}
-            //else
-            //{
-            //    throw new ArgumentException();
-            //}
-
-
+           
             var searchResults = await _simpleRestService.GetAsync<SearchResultsDto>(host, url,
                                     new XmlDeserializer<SearchResultsDto>(), cancellationToken);
 
@@ -163,7 +138,9 @@ namespace ChGK.Core.DbChGKInfo
 
             if (cashedSearch != null && cashedSearch.Item1.Equals(searchParams))
             {
+                cashedSearch.Item1.Page = searchParams.Page;
                 cashedSearch.Item2.AddRange(questions);
+                questions = cashedSearch.Item2;
             }
             else
             {

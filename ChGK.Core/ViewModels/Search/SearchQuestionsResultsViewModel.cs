@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ChGK.Core.ViewModels.Search
 {
@@ -34,23 +35,37 @@ namespace ChGK.Core.ViewModels.Search
         {
             _searchParams = JsonConvert.DeserializeObject<SearchParams>(searchParams);
 
-            await LoadMore();
+            await DataLoader.LoadItemsAsync(LoadItems);
         }
 
         async Task LoadItems()
         {
-            Questions = null;
+            int oldCount = Questions != null ? Questions.Count : 0;
 
-            Questions = await _service.SearchQuestions(_searchParams, _cancellationTokenSource.Token);
+          // Questions = null;
+
+            var questions = await _service.SearchQuestions(_searchParams, _cancellationTokenSource.Token);
+
+            CanLoadMore = questions.Count > oldCount && questions.Count % _searchParams.Limit == 0;
+
+            Questions = questions;
         }
+        
+        ICommand _loadMoreCommand;
 
-        public async Task LoadMore()
+        public ICommand LoadMoreCommand
         {
-            await DataLoader.LoadItemsAsync(LoadItems);
-
-            _searchParams.Page++;
+            get
+            {
+                return _loadMoreCommand ?? (_loadMoreCommand = new MvxCommand<int>(async (currentAmount) => {
+                    _searchParams.Page++;
+                    await DataLoader.LoadItemsAsync(LoadItems);
+                }, (currentAmount) => CanLoadMore && !DataLoader.IsLoading));
+            }
         }
 
+        bool CanLoadMore;
+        
         List<ISearchQuestionsResult> _questions;
 
         public List<ISearchQuestionsResult> Questions
@@ -71,7 +86,7 @@ namespace ChGK.Core.ViewModels.Search
         {
             get
             {
-				return Questions != null && Questions.Count == 0;
+				return DataLoader.HasData && Questions != null && Questions.Count == 0;
             }
         }        
 

@@ -11,12 +11,13 @@ namespace ChGK.Core.Models
     {
         public SearchParams()
         {
+            //SearchQuery = "Пушкин";
             HasQuestion = true;
             HasAnswer = true;
             HasPassCriteria = true;
             HasComment = true;
             AllWords = true;
-            Limit = 50;
+            Limit = 20;
             Type = "types1";
             SearchAmongQuestions = true;
             EndDate = DateTime.Today;
