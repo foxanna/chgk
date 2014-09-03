@@ -23,16 +23,11 @@ namespace ChGK.Droid.Views
             switch (item.ItemId)
             {
                 case Resource.Id.refresh:
-                    Refresh();
+                    (ViewModel as LastAddedTournamentsViewModel).RefreshCommand.Execute(null);
                     return true;
                 default:
                     return base.OnOptionsItemSelected(item);
             }
-        }
-
-        async void Refresh()
-        {
-            await (ViewModel as LastAddedTournamentsViewModel).Refresh();
         }
 	}
 }

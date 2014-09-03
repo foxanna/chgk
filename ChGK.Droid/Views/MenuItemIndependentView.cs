@@ -1,7 +1,9 @@
 ﻿using Android.OS;
 using Android.Views;
+using ChGK.Core.Services;
 using ChGK.Core.ViewModels;
 using ChGK.Droid.Helpers;
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Droid.Fragging;
 
 namespace ChGK.Droid.Views
@@ -20,8 +22,8 @@ namespace ChGK.Droid.Views
         protected override void OnStart()
         {
             base.OnStart();
-            
-            GoogleAnalyticsManager.SendScreen(this.GetType().FullName);         
+
+            Mvx.Resolve<IGAService>().ReportScreenEnter(this.GetType().FullName);         
         }
 
 		public override bool OnMenuItemSelected (int featureId, IMenuItem item)

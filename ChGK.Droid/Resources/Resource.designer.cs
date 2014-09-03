@@ -1232,34 +1232,34 @@ namespace ChGK.Droid
 			public const int ic_content_undo = 2130837646;
 			
 			// aapt resource value: 0x7f02008f
-			public const int ic_navigation_collapse = 2130837647;
+			public const int ic_launcher = 2130837647;
 			
 			// aapt resource value: 0x7f020090
-			public const int ic_navigation_drawer = 2130837648;
+			public const int ic_navigation_collapse = 2130837648;
 			
 			// aapt resource value: 0x7f020091
-			public const int ic_navigation_expand = 2130837649;
+			public const int ic_navigation_drawer = 2130837649;
 			
 			// aapt resource value: 0x7f020092
-			public const int ic_navigation_refresh = 2130837650;
+			public const int ic_navigation_expand = 2130837650;
 			
 			// aapt resource value: 0x7f020093
-			public const int ic_navigation_refresh3 = 2130837651;
+			public const int ic_navigation_refresh = 2130837651;
 			
 			// aapt resource value: 0x7f020094
-			public const int ic_plusone_medium_off_client = 2130837652;
+			public const int ic_navigation_refresh3 = 2130837652;
 			
 			// aapt resource value: 0x7f020095
-			public const int ic_plusone_small_off_client = 2130837653;
+			public const int ic_plusone_medium_off_client = 2130837653;
 			
 			// aapt resource value: 0x7f020096
-			public const int ic_plusone_standard_off_client = 2130837654;
+			public const int ic_plusone_small_off_client = 2130837654;
 			
 			// aapt resource value: 0x7f020097
-			public const int ic_plusone_tall_off_client = 2130837655;
+			public const int ic_plusone_standard_off_client = 2130837655;
 			
 			// aapt resource value: 0x7f020098
-			public const int Icon = 2130837656;
+			public const int ic_plusone_tall_off_client = 2130837656;
 			
 			// aapt resource value: 0x7f020099
 			public const int mr_ic_audio_vol = 2130837657;
@@ -1995,20 +1995,20 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f050011
 			public const int abc_shareactionprovider_share_with_application = 2131034129;
 			
-			// aapt resource value: 0x7f050032
-			public const int add = 2131034162;
+			// aapt resource value: 0x7f050031
+			public const int add = 2131034161;
 			
-			// aapt resource value: 0x7f05002e
-			public const int app_name = 2131034158;
+			// aapt resource value: 0x7f05002d
+			public const int app_name = 2131034157;
+			
+			// aapt resource value: 0x7f050032
+			public const int cancel = 2131034162;
 			
 			// aapt resource value: 0x7f050033
-			public const int cancel = 2131034163;
+			public const int clear_results = 2131034163;
 			
 			// aapt resource value: 0x7f050034
-			public const int clear_results = 2131034164;
-			
-			// aapt resource value: 0x7f050035
-			public const int clear_teams = 2131034165;
+			public const int clear_teams = 2131034164;
 			
 			// aapt resource value: 0x7f05001e
 			public const int common_google_play_services_enable_button = 2131034142;
@@ -2085,17 +2085,14 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f05002b
 			public const int common_signin_button_text_long = 2131034155;
 			
+			// aapt resource value: 0x7f050038
+			public const int empty_search_error = 2131034168;
+			
 			// aapt resource value: 0x7f050039
-			public const int empty_search_error = 2131034169;
+			public const int empty_search_params_error = 2131034169;
 			
-			// aapt resource value: 0x7f05003a
-			public const int empty_search_params_error = 2131034170;
-			
-			// aapt resource value: 0x7f050036
-			public const int enter_results = 2131034166;
-			
-			// aapt resource value: 0x7f05002d
-			public const int hello = 2131034157;
+			// aapt resource value: 0x7f050035
+			public const int enter_results = 2131034165;
 			
 			// aapt resource value: 0x7f050002
 			public const int mr_media_route_button_content_description = 2131034114;
@@ -2115,56 +2112,56 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f050001
 			public const int mr_user_route_category_name = 2131034113;
 			
-			// aapt resource value: 0x7f050037
-			public const int no_teams = 2131034167;
+			// aapt resource value: 0x7f050036
+			public const int no_teams = 2131034166;
 			
-			// aapt resource value: 0x7f05002f
-			public const int refresh = 2131034159;
-			
-			// aapt resource value: 0x7f05003c
-			public const int search_all_words = 2131034172;
-			
-			// aapt resource value: 0x7f050038
-			public const int search_among = 2131034168;
-			
-			// aapt resource value: 0x7f050042
-			public const int search_among_a = 2131034178;
-			
-			// aapt resource value: 0x7f050044
-			public const int search_among_c = 2131034180;
-			
-			// aapt resource value: 0x7f050043
-			public const int search_among_p = 2131034179;
-			
-			// aapt resource value: 0x7f050041
-			public const int search_among_q = 2131034177;
-			
-			// aapt resource value: 0x7f050045
-			public const int search_among_s = 2131034181;
-			
-			// aapt resource value: 0x7f050046
-			public const int search_among_u = 2131034182;
+			// aapt resource value: 0x7f05002e
+			public const int refresh = 2131034158;
 			
 			// aapt resource value: 0x7f05003b
-			public const int search_any_word = 2131034171;
+			public const int search_all_words = 2131034171;
+			
+			// aapt resource value: 0x7f050037
+			public const int search_among = 2131034167;
+			
+			// aapt resource value: 0x7f050041
+			public const int search_among_a = 2131034177;
+			
+			// aapt resource value: 0x7f050043
+			public const int search_among_c = 2131034179;
+			
+			// aapt resource value: 0x7f050042
+			public const int search_among_p = 2131034178;
 			
 			// aapt resource value: 0x7f050040
-			public const int search_no_results = 2131034176;
+			public const int search_among_q = 2131034176;
 			
-			// aapt resource value: 0x7f05003d
-			public const int search_questions = 2131034173;
+			// aapt resource value: 0x7f050044
+			public const int search_among_s = 2131034180;
 			
-			// aapt resource value: 0x7f05003e
-			public const int search_tours = 2131034174;
+			// aapt resource value: 0x7f050045
+			public const int search_among_u = 2131034181;
+			
+			// aapt resource value: 0x7f05003a
+			public const int search_any_word = 2131034170;
 			
 			// aapt resource value: 0x7f05003f
-			public const int search_unsorted = 2131034175;
+			public const int search_no_results = 2131034175;
+			
+			// aapt resource value: 0x7f05003c
+			public const int search_questions = 2131034172;
+			
+			// aapt resource value: 0x7f05003d
+			public const int search_tours = 2131034173;
+			
+			// aapt resource value: 0x7f05003e
+			public const int search_unsorted = 2131034174;
+			
+			// aapt resource value: 0x7f05002f
+			public const int start = 2131034159;
 			
 			// aapt resource value: 0x7f050030
-			public const int start = 2131034160;
-			
-			// aapt resource value: 0x7f050031
-			public const int stop = 2131034161;
+			public const int stop = 2131034160;
 			
 			// aapt resource value: 0x7f05002c
 			public const int wallet_buy_button_place_holder = 2131034156;

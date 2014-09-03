@@ -14,6 +14,7 @@ namespace ChGK.Core.ViewModels
 	{
 		readonly ITeamsService _teamsService;
         readonly IMvxMessenger _messenger;
+        readonly IGAService _gaService;
 
 		#pragma warning disable 414
 		MvxSubscriptionToken _teamsChangedToken;
@@ -24,10 +25,11 @@ namespace ChGK.Core.ViewModels
 
 		string _questionId;
 
-		public EnterResultsViewModel (ITeamsService service, IMvxMessenger messenger)
+        public EnterResultsViewModel(ITeamsService service, IMvxMessenger messenger, IGAService gaService)
 		{
 			_teamsService = service;
             _messenger = messenger;
+            _gaService = gaService;
 
 			_teamsChangedToken = messenger.Subscribe<TeamsChangedMessage> (OnTeamsChanged);
 			_resultsChangedToken = messenger.Subscribe<ResultsChangedMessage> (OnResultsChanged);
@@ -113,6 +115,8 @@ namespace ChGK.Core.ViewModels
 				Mvx.Trace (e.Message);
 			}
 
+            _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Click, "results submitted");
+
             Close(this);
 		}
 
@@ -133,7 +137,11 @@ namespace ChGK.Core.ViewModels
 
 		public MvxCommand EditTeamsCommand {
 			get {
-				return _editTeamsCommand ?? (_editTeamsCommand = new MvxCommand (() => ShowViewModel<TeamsViewModel> ()));
+                return _editTeamsCommand ?? (_editTeamsCommand = new MvxCommand(() =>
+                {
+                    _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Open, "edit teams from enter results screen");
+                    ShowViewModel<TeamsViewModel>();
+                }));
 			}
 		}
 

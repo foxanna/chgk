@@ -13,10 +13,11 @@ using ChGK.Core.ViewModels.Tutorials;
 
 namespace ChGK.Core.ViewModels
 {
-    public class QuestionsViewModel : MvxViewModel, IViewLifecycle
+    public class QuestionsViewModel : MenuItemViewModel, IViewLifecycle
 	{
 		public QuestionsViewModel ()
 		{
+            Title = "Вопрос 1";
 		}
 
         public override void Start()

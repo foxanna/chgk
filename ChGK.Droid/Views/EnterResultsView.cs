@@ -8,6 +8,8 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 using ChGK.Core.Utils;
 using ChGK.Droid.Helpers;
+using Cirrious.CrossCore;
+using ChGK.Core.Services;
 
 namespace ChGK.Droid.Views
 {
@@ -40,7 +42,7 @@ namespace ChGK.Droid.Views
         {
             base.OnStart();
 
-            GoogleAnalyticsManager.SendScreen(this.GetType().FullName);
+            Mvx.Resolve<IGAService>().ReportScreenEnter(this.GetType().FullName);
         }            
 
         public override void OnDismiss(IDialogInterface dialog)

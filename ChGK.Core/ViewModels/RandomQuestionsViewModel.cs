@@ -5,29 +5,32 @@ using Newtonsoft.Json;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using System.Threading;
+using System.Windows.Input;
 
 namespace ChGK.Core.ViewModels
 {
 	public class RandomQuestionsViewModel : MenuItemViewModel
 	{
-		readonly IChGKWebService _service;
+        readonly IChGKWebService _service;
+        readonly IGAService _gaService;
 
 		public DataLoader DataLoader { get; set; }
 
 		CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource ();
 
-		public RandomQuestionsViewModel (IChGKWebService service)
+        public RandomQuestionsViewModel(IChGKWebService service, IGAService gaService)
 		{
 			Title = StringResources.RandomQuestions;
 
-			_service = service;
+            _service = service;
+            _gaService = gaService;
 
 			DataLoader = new DataLoader ();
 		}
 
 		public async override void Start ()
 		{
-			await Refresh ();
+            await DataLoader.LoadItemsAsync(LoadItems);
 		}
 
 		async Task LoadItems ()
@@ -35,11 +38,6 @@ namespace ChGK.Core.ViewModels
 			Questions = null;	
 
 			Questions = await _service.GetRandomPackage (_cancellationTokenSource.Token);
-		}
-
-		public Task Refresh ()
-		{
-			return DataLoader.LoadItemsAsync (LoadItems);
 		}
 
 		List<IQuestion> _questions;
@@ -70,6 +68,20 @@ namespace ChGK.Core.ViewModels
 					index = Questions.IndexOf (question),
 				});
 		}
+
+        ICommand _refreshCommand;
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return _refreshCommand ?? (_refreshCommand = new MvxCommand(async () =>
+                {
+                    _gaService.ReportEvent(GACategory.QuestionsList, GAAction.Click, "refresh");
+                    await DataLoader.LoadItemsAsync(LoadItems);
+                }));
+            }
+        }
 	}
 }
 

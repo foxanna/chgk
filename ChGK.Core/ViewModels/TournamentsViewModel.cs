@@ -36,7 +36,7 @@ namespace ChGK.Core.ViewModels
             }
         }
         
-        public async Task Refresh()
+        public virtual async Task Refresh()
         {
             await DataLoader.LoadItemsAsync(LoadItems);
         }

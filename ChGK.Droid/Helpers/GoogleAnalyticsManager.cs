@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Gms.Analytics;
+using ChGK.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,18 @@ using System.Text;
 
 namespace ChGK.Droid.Helpers
 {
-    public enum TrackerType {
-        AppTracker,
-        GlobalTracker,
-        EcommerceTracker,
-    }
-
-    public static class GoogleAnalyticsManager
+    public class GAService : IGAService
     {
-        static Dictionary<TrackerType, Tracker> _trackers = new Dictionary<TrackerType,Tracker>();
+        enum TrackerType
+        {
+            AppTracker,
+            GlobalTracker,
+            EcommerceTracker,
+        }
 
-        static Tracker GetTracker(TrackerType trackerType)
+        Dictionary<TrackerType, Tracker> _trackers = new Dictionary<TrackerType,Tracker>();
+
+        Tracker GetTracker(TrackerType trackerType)
         {
             if (!_trackers.ContainsKey(trackerType))
             {
@@ -38,16 +40,22 @@ namespace ChGK.Droid.Helpers
             return _trackers[trackerType];
         }
 
-        public static Tracker GetTracker()
+        Tracker GetTracker()
         {
             return GetTracker(TrackerType.AppTracker);
         }
 
-        public static void SendScreen(string name)
+        public void ReportScreenEnter(string name)
         {
-            var tracker = GoogleAnalyticsManager.GetTracker();
+            var tracker = GetTracker();
             tracker.SetScreenName(name);
             tracker.Send(new HitBuilders.AppViewBuilder().Build());
+        }
+
+        public void ReportEvent(ChGK.Core.Services.GACategory category, ChGK.Core.Services.GAAction action, string label)
+        {
+            var tracker = GetTracker();
+            tracker.Send(new HitBuilders.EventBuilder().SetCategory(category.ToString()).SetAction(action.ToString()).SetLabel(label).Build());
         }
     }
 }

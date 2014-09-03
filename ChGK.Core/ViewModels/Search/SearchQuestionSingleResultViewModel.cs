@@ -1,4 +1,5 @@
 ﻿using ChGK.Core.Models;
+using ChGK.Core.Services;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using System;
@@ -11,6 +12,13 @@ namespace ChGK.Core.ViewModels.Search
 {
     public class SearchQuestionSingleResultViewModel : MenuItemViewModel
     {
+        readonly IGAService _gaService;
+
+        public SearchQuestionSingleResultViewModel(IGAService gaService)
+        {
+            _gaService = gaService;
+        }
+
         public ISearchQuestionsResult Question { get; set; }
 
         public void Init(string json)

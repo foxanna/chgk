@@ -39,6 +39,7 @@
     <Compile Include="NetworkService\ISimpleRestService.cs" />
     <Compile Include="NetworkService\SimpleRestService.cs" />
     <Compile Include="Services\IFirstViewStartInfoProvider.cs" />
+    <Compile Include="Services\IGAService.cs" />
     <Compile Include="Utils\DateValueConverter.cs" />
     <Compile Include="Utils\IViewLifecycle.cs" />
     <Compile Include="ViewModels\AdvertViewModel.cs" />

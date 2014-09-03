@@ -15,6 +15,8 @@ namespace ChGK.Core.ViewModels
 {
 	public class QuestionViewModel : MvxViewModel, IViewLifecycle
 	{
+        readonly IGAService _gaService;
+
 		public QuestionViewModel ()
 		{
 			timer.OneSecond += (sender, e) => {
@@ -28,6 +30,8 @@ namespace ChGK.Core.ViewModels
 					Mvx.Resolve<IAudioPlayerService> ().PlayLong ();
 				}
 			};
+
+            _gaService = Mvx.Resolve<IGAService>();
 		}
 
 		public QuestionViewModel (IQuestion question, int index) : this ()
@@ -97,6 +101,8 @@ namespace ChGK.Core.ViewModels
 				(_showAnswerCommand = new MvxCommand (() => {
 					IsAnswerShown = true;
 					PauseTimer ();
+
+                    _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Click, "answer shown");
 				}));
 			}
 		}
@@ -119,12 +125,16 @@ namespace ChGK.Core.ViewModels
 		{
 			timer.Resume ();
 			IsTimerStarted = true;
+
+            _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Timer, "start");
 		}
 
 		public void PauseTimer ()
 		{
 			timer.Pause ();
 			IsTimerStarted = false;
+
+            _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Timer, "start");
 		}
 
 		bool _isTimerStarted;
@@ -157,6 +167,8 @@ namespace ChGK.Core.ViewModels
 
 		public void EnterResults ()
 		{
+            _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Click, "enter results dialog opened");
+
 			ShowViewModel<EnterResultsViewModel> (new { questionId = ID });
 		}
         

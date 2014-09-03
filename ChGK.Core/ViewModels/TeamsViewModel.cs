@@ -24,13 +24,15 @@ namespace ChGK.Core.ViewModels
     {
         readonly ITeamsService _service;
         readonly IFirstViewStartInfoProvider _firstViewStartInfoProvider;
+        readonly IGAService _gaService;
 
         public DataLoader DataLoader { get; set; }
 
-        public TeamsViewModel(ITeamsService service, IMvxMessenger messenger, IFirstViewStartInfoProvider firstViewStartInfoProvider)
+        public TeamsViewModel(ITeamsService service, IMvxMessenger messenger, IFirstViewStartInfoProvider firstViewStartInfoProvider, IGAService gaService)
         {
             _service = service;
             _firstViewStartInfoProvider = firstViewStartInfoProvider;
+            _gaService = gaService;
 
             Title = StringResources.Teams;
 
@@ -86,6 +88,8 @@ namespace ChGK.Core.ViewModels
         {
             _service.AddTeam(name.Trim());
 
+            _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Click, "team added");
+            
             LoadTeams();
         }
 
@@ -112,6 +116,8 @@ namespace ChGK.Core.ViewModels
                         OnApply = () =>
                         {
                             _service.RemoveTeam(teamToDelete.ID);
+
+                            _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Click, "team removed");
                         },
                         OnUndo = () =>
                         {
@@ -140,6 +146,8 @@ namespace ChGK.Core.ViewModels
                        OnApply = () =>
                        {
                            _service.CleanResults();
+
+                           _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Click, "results cleaned");
                        },
                        OnUndo = () =>
                        {
@@ -177,6 +185,8 @@ namespace ChGK.Core.ViewModels
                        OnApply = () =>
                        {
                            _service.RemoveAllTeams();
+
+                           _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Click, "all teams removed");
                        },
                        OnUndo = () =>
                        {

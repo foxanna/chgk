@@ -7,6 +7,7 @@ using ChGK.Core.Services;
 using System.Threading;
 using System;
 using ChGK.Core.ViewModels.Tutorials;
+using System.Windows.Input;
 
 namespace ChGK.Core.ViewModels
 {
@@ -14,15 +15,17 @@ namespace ChGK.Core.ViewModels
 	{
 		readonly IChGKWebService _service;
         readonly IFirstViewStartInfoProvider _firstViewStartInfoProvider;
+        readonly IGAService _gaService;
         
 		CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource ();
 
-		public LastAddedTournamentsViewModel (IChGKWebService service, IFirstViewStartInfoProvider firstViewStartInfoProvider)
+		public LastAddedTournamentsViewModel (IChGKWebService service, IFirstViewStartInfoProvider firstViewStartInfoProvider, IGAService gaService)
 		{
             Title = StringResources.LastAdded;
 
 			_service = service;
             _firstViewStartInfoProvider = firstViewStartInfoProvider;
+            _gaService = gaService;
 
 			DataLoader = new DataLoader ();
 		}
@@ -46,6 +49,19 @@ namespace ChGK.Core.ViewModels
                 _firstViewStartInfoProvider.SetSeen(this.GetType());
             }
 		}
+
+        ICommand _refreshCommand;
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return _refreshCommand ?? (_refreshCommand = new MvxCommand(async () => {
+                    _gaService.ReportEvent(GACategory.QuestionsList, GAAction.Click, "refresh"); 
+                    await Refresh();
+                }));
+            }
+        }
 	}
 }
 

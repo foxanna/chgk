@@ -5,9 +5,9 @@ using Cirrious.MvvmCross.Droid.Views;
 namespace ChGK.Droid.Helpers
 {
 	[Activity (
-		Label = "ChGK"
+		Label = "@string/app_name"
 		, MainLauncher = true
-		, Icon = "@drawable/icon"
+		, Icon = "@drawable/ic_launcher"
 		, Theme = "@style/Theme.Splash"
 		, NoHistory = true
 		, ScreenOrientation = ScreenOrientation.Portrait)]
