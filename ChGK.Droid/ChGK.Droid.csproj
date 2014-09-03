@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\DatePickerFragment.cs" />
+    <Compile Include="Helpers\GoogleAnalyticsManager.cs" />
     <Compile Include="Helpers\MenuItemWrapper.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

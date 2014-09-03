@@ -7,6 +7,7 @@ using ChGK.Core.ViewModels;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 using ChGK.Core.Utils;
+using ChGK.Droid.Helpers;
 
 namespace ChGK.Droid.Views
 {
@@ -34,6 +35,13 @@ namespace ChGK.Droid.Views
             
 			return builder.Create ();
 		}
+
+        public override void OnStart()
+        {
+            base.OnStart();
+
+            GoogleAnalyticsManager.SendScreen(this.GetType().FullName);
+        }            
 
         public override void OnDismiss(IDialogInterface dialog)
         {

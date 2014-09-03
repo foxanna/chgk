@@ -1,6 +1,8 @@
-﻿using Android.OS;
+﻿using Android.Gms.Analytics;
+using Android.OS;
 using Android.Views;
 using ChGK.Core.ViewModels;
+using ChGK.Droid.Helpers;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
@@ -12,6 +14,13 @@ namespace ChGK.Droid.Views
 		{
 			RetainInstance = true;
 		}
+
+        public override void OnStart()
+        {
+ 	         base.OnStart();
+    
+             GoogleAnalyticsManager.SendScreen(this.GetType().FullName);            
+        }
 
 		public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{

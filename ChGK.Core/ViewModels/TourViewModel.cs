@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ChGK.Core.ViewModels
 {
-	public class TourViewModel : MvxViewModel
+    public class TourViewModel : MenuItemViewModel
 	{
 		IChGKWebService _service;
 
@@ -46,7 +46,7 @@ namespace ChGK.Core.ViewModels
 
 		public async void Init (string name, string filename)
 		{
-			Name = name;
+			Title = name;
             if (!filename.StartsWith("tour/"))
             {
                 filename = "tour/" + filename;
@@ -56,19 +56,7 @@ namespace ChGK.Core.ViewModels
 	
 			await DataLoader.LoadItemsAsync (LoadItems);
 		}
-
-		string _name;
-
-		public string Name {
-			get {
-				return _name;
-			}
-			set {
-				_name = value;
-				RaisePropertyChanged (() => Name);
-			}
-		}
-
+        
 		string _info;
 
 		public string Info {

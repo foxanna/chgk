@@ -1,14 +1,10 @@
-﻿using Android.App;
-using Android.OS;
+﻿using Android.OS;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
 using ChGK.Core.ViewModels.Search;
 using ChGK.Droid.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ChGK.Droid.Views.Search
 {

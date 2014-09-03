@@ -1,14 +1,8 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.Gms.Ads;
 using Android.OS;
 using Android.Widget;
-using ChGK.Core.ViewModels;
-using Cirrious.MvvmCross.Droid.Views;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ChGK.Droid.Views
 {

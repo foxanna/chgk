@@ -4,27 +4,30 @@ using Android.Support.V4.View;
 using Android.Views;
 using ChGK.Core.Utils;
 using ChGK.Core.ViewModels;
+using ChGK.Droid.Helpers;
 using Cirrious.MvvmCross.Droid.Fragging;
 using System.Collections.Generic;
 
 namespace ChGK.Droid.Views
 {
-	[Android.App.Activity (Label = "Вопрос 1", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]			
-	public class QuestionsView : MvxFragmentActivity
+	[Android.App.Activity (Label = "Вопрос 1", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    public class QuestionsView : MenuItemIndependentView
 	{
         ViewPager viewPager;
 
+        protected override int LayoutId
+        {
+            get { return Resource.Layout.QuestionsView; }
+        }
+
 		protected override void OnCreate (Bundle bundle)
 		{
-			base.OnCreate (bundle);            
-			SetContentView (Resource.Layout.QuestionsView);
+			base.OnCreate (bundle);             
 
 			viewPager = FindViewById<ViewPager> (Resource.Id.viewPager);
 			viewPager.Adapter = new QuestionsPagerAdapter (SupportFragmentManager, ((QuestionsViewModel)ViewModel).Questions);
 			viewPager.PageSelected += (sender, e) => ActionBar.Title = viewPager.Adapter.GetPageTitle (e.Position);
 			viewPager.CurrentItem = ((QuestionsViewModel)ViewModel).Index;
-
-			ActionBar.SetDisplayHomeAsUpEnabled (true);
 		}
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -37,13 +40,8 @@ namespace ChGK.Droid.Views
 		public override bool OnOptionsItemSelected (Android.Views.IMenuItem item)
 		{
 			switch (item.ItemId) {
-            case Android.Resource.Id.Home: {
-				OnBackPressed ();
-				return true;
-			}
             case Resource.Id.enter_results: {
                 (ViewModel as QuestionsViewModel).Questions[viewPager.CurrentItem].EnterResults();
-                //(ViewModel as QuestionViewModel).EnterResults();
                 return true;
             }
             default:

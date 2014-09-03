@@ -9,27 +9,16 @@ using Cirrious.MvvmCross.Droid.Views;
 
 namespace ChGK.Droid.Views
 {
-	[Activity (Label = "")]		
-	public class TourView : MvxActivity
+	[Activity (Label = "")]
+    public class TourView : MenuItemIndependentView
 	{
-		protected override void OnCreate (Bundle bundle)
-		{
-			base.OnCreate (bundle);
-			SetContentView (Resource.Layout.TourView);
-
-			ActionBar.Title = ((TourViewModel)ViewModel).Name;
-			ActionBar.SetDisplayHomeAsUpEnabled (true);
-		}
-
-		public override bool OnOptionsItemSelected (Android.Views.IMenuItem item)
-		{
-			if (item.ItemId == Android.Resource.Id.Home) {
-				OnBackPressed ();
-				return true;
-			} else {
-				return base.OnOptionsItemSelected (item);
-			}
-		}
+        protected override int LayoutId
+        {
+            get 
+            {
+                return Resource.Layout.TourView; 
+            }
+        }        
 	}
 }
 
