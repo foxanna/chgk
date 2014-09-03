@@ -8,6 +8,13 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/click_on_ad"
+        android:padding="@dimen/default_text_padding"
+        android:textColor="@color/dark"/>
     <LinearLayout
         android:id="@+id/ad_container"
         android:orientation="vertical"
