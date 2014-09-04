@@ -62,6 +62,13 @@ namespace ChGK.Core.ViewModels
                 }));
             }
         }
+
+        public override void OnViewDestroying()
+        {
+            _cancellationTokenSource.Cancel();
+
+            base.OnViewDestroying();
+        }
 	}
 }
 

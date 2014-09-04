@@ -47,17 +47,7 @@ namespace ChGK.Droid.Views
             default:
 				return base.OnOptionsItemSelected (item);
 			}
-		}
-
-        protected override void OnDestroy()
-        {
-            if (ViewModel is IViewLifecycle)
-            {
-                (ViewModel as IViewLifecycle).OnViewDestroying();
-            }
-
-            base.OnDestroy();
-        }
+		}        
 	}
 
 	class QuestionsPagerAdapter : FragmentStatePagerAdapter

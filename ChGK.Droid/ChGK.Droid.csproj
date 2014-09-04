@@ -207,7 +207,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\SearchQuestionsResultsView.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\SearchQuestionSingleResultView.axml">
       <SubType>AndroidResource</SubType>
@@ -216,6 +216,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Drawable\ic_launcher.jpg" />
+    <AndroidResource Include="Resources\Layout\item_search_result.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\splash.png" />

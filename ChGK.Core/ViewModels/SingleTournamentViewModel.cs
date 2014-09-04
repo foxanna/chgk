@@ -50,5 +50,12 @@ namespace ChGK.Core.ViewModels
 
             await Refresh();
         }
+
+        public override void OnViewDestroying()
+        {
+            _cancellationTokenSource.Cancel();
+
+            base.OnViewDestroying();
+        }
     }
 }

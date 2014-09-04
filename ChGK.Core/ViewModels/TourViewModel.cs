@@ -96,6 +96,13 @@ namespace ChGK.Core.ViewModels
 					index = Questions.IndexOf (question),
 				});
 		}
+
+        public override void OnViewDestroying()
+        {
+            _cancellationTokenSource.Cancel();
+
+            base.OnViewDestroying();
+        }
 	}
 }
 

@@ -11,7 +11,7 @@ namespace ChGK.Core.Models
     {
         public SearchParams()
         {
-            //SearchQuery = "Пушкин";
+            SearchQuery = "Гималаи";
             HasQuestion = true;
             HasAnswer = true;
             HasPassCriteria = true;

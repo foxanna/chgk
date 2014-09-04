@@ -8,7 +8,7 @@ namespace ChGK.Core.ViewModels
 {
 	public class DataLoader : MvxNotifyPropertyChanged
 	{
-		public async Task LoadItemsAsync (Func<Task> loadDataTaskFactory)
+		public async Task LoadItemsAsync (Func<Task> loadDataTaskFactory, Action AfterLoad = null)
 		{
 			if (IsLoading) {
 				return;
@@ -32,6 +32,11 @@ namespace ChGK.Core.ViewModels
 			} finally {
 				IsLoading = false;
 			}
+
+            if (AfterLoad != null)
+            {
+                AfterLoad();
+            }
 		}
 
         public void LoadItems(Action loadDataAction)

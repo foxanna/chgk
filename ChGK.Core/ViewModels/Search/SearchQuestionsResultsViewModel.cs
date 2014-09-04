@@ -5,10 +5,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace ChGK.Core.ViewModels.Search
 {
@@ -35,40 +33,53 @@ namespace ChGK.Core.ViewModels.Search
         {
             _searchParams = JsonConvert.DeserializeObject<SearchParams>(searchParams);
 
-            await DataLoader.LoadItemsAsync(LoadItems);
+            await LoadItemsAsync();
         }
+
+        Task LoadItemsAsync()
+        {
+            return DataLoader.LoadItemsAsync(LoadItems, () =>
+            {
+                RaisePropertyChanged(() => HasNoResults);
+                RaisePropertyChanged(() => IsLoading);
+            });
+        }
+
+        int LoadBefore = 5;
 
         async Task LoadItems()
         {
             int oldCount = Questions != null ? Questions.Count : 0;
 
-          // Questions = null;
-
+            RaisePropertyChanged(() => IsLoading);
+            
             var questions = await _service.SearchQuestions(_searchParams, _cancellationTokenSource.Token);
 
             CanLoadMore = questions.Count > oldCount && questions.Count % _searchParams.Limit == 0;
+            _searchParams.Page = questions.Count / (_searchParams.Limit + 1);
 
-            Questions = questions;
-        }
-        
-        ICommand _loadMoreCommand;
+            Questions = questions.Select(t => new LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>() { Item = t }).ToList();
 
-        public ICommand LoadMoreCommand
-        {
-            get
+            if (Questions.Count > 0)
             {
-                return _loadMoreCommand ?? (_loadMoreCommand = new MvxCommand<int>(async (currentAmount) => {
-                    _searchParams.Page++;
-                    await DataLoader.LoadItemsAsync(LoadItems);
-                }, (currentAmount) => CanLoadMore && !DataLoader.IsLoading));
+                Questions[(Questions.Count - LoadBefore - 1 > 0 ? Questions.Count - LoadBefore - 1 : Questions.Count - 1)].ShowingForTheFirstTime += SearchQuestionsResultsViewModel_Showing;
+            }
+        }
+
+        async void SearchQuestionsResultsViewModel_Showing(object sender, EventArgs e)
+        {
+            if (CanLoadMore && !DataLoader.IsLoading)
+            {
+                _searchParams.Page++;
+                await LoadItemsAsync();
             }
         }
 
         bool CanLoadMore;
-        
-        List<ISearchQuestionsResult> _questions;
 
-        public List<ISearchQuestionsResult> Questions
+        List<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> _questions;
+
+        public List<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> Questions
         {
             get
             {
@@ -78,7 +89,6 @@ namespace ChGK.Core.ViewModels.Search
             {
                 _questions = value;
                 RaisePropertyChanged(() => Questions);
-				RaisePropertyChanged(() => HasNoResults);
             }
         }
         
@@ -86,24 +96,39 @@ namespace ChGK.Core.ViewModels.Search
         {
             get
             {
-				return DataLoader.HasData && Questions != null && Questions.Count == 0;
+                return DataLoader.HasData && Questions != null && Questions.Count == 0;
             }
         }        
 
-        MvxCommand<ISearchQuestionsResult> _showQuestionCommand;
+        MvxCommand<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> _showQuestionCommand;
 
-        public MvxCommand<ISearchQuestionsResult> ShowQuestionCommand
+        public MvxCommand<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> ShowQuestionCommand
         {
             get
             {
-                _showQuestionCommand = _showQuestionCommand ?? new MvxCommand<ISearchQuestionsResult>(ShowQuestion);
+                _showQuestionCommand = _showQuestionCommand ?? new MvxCommand<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>>(ShowQuestion);
                 return _showQuestionCommand;
             }
         }
 
-        void ShowQuestion(ISearchQuestionsResult question)
+        void ShowQuestion(LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult> question)
         {
-            ShowViewModel<SearchQuestionSingleResultViewModel>(new { json = JsonConvert.SerializeObject(question)});        
+            ShowViewModel<SearchQuestionSingleResultViewModel>(new { json = JsonConvert.SerializeObject(question.Item)});        
+        }
+
+        public bool IsLoading
+        {
+            get
+            {
+                return DataLoader.IsLoading && _searchParams.Page == 0;
+            }
+        }
+
+        public override void OnViewDestroying()
+        {
+            _cancellationTokenSource.Cancel();
+
+            base.OnViewDestroying();
         }
     }
 }

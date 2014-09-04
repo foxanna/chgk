@@ -13,7 +13,7 @@ using ChGK.Core.ViewModels.Tutorials;
 
 namespace ChGK.Core.ViewModels
 {
-    public class QuestionsViewModel : MenuItemViewModel, IViewLifecycle
+    public class QuestionsViewModel : MenuItemViewModel
 	{
 		public QuestionsViewModel ()
 		{

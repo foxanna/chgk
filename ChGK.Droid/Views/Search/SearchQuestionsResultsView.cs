@@ -1,12 +1,12 @@
 ﻿using Android.App;
 using Android.Widget;
 using ChGK.Core.ViewModels.Search;
+using Cirrious.MvvmCross.ViewModels;
 
 namespace ChGK.Droid.Views.Search
 {
     [Activity(Label = "", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]	
     public class SearchQuestionsResultsView : MenuItemIndependentView
-        //, AbsListView.IOnScrollListener
     {
         protected override int LayoutId
         {
@@ -16,40 +16,29 @@ namespace ChGK.Droid.Views.Search
             }
         }
 
-        //protected override void OnCreate(Android.OS.Bundle bundle)
-        //{
-        //    base.OnCreate(bundle);
+        ListView listView;
 
-        //    var list = FindViewById<ListView>(Resource.Id.items);
-        //    list.SetOnScrollListener(this);
-        //}
+        protected override void OnCreate(Android.OS.Bundle bundle)
+        {
+            base.OnCreate(bundle);
 
-        //public void OnScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-        //{
-        //    var loadMore = firstVisibleItem + visibleItemCount >= totalItemCount - 5;
+            listView = FindViewById<ListView>(Resource.Id.items);
+            listView.Scroll += list_Scroll;
+        }
 
-        //    if (totalItemCount > 0 && loadMore)// && currentScrollState != ScrollState.Idle)
-        //    {
-        //        try
-        //        {
-        //            var viewModel = ViewModel as SearchQuestionsResultsViewModel;
-        //            if (viewModel.LoadMoreCommand.CanExecute(totalItemCount))
-        //            {
-        //                viewModel.LoadMoreCommand.Execute(totalItemCount);
-        //            }
-        //        }
-        //        finally
-        //        {
+        protected override void OnDestroy()
+        {
+            listView.Scroll -= list_Scroll;
 
-        //        }
-        //    }            
-        //}
+            base.OnDestroy();
+        }
 
-        //ScrollState currentScrollState;
-
-        //public void OnScrollStateChanged(AbsListView view, ScrollState scrollState)
-        //{
-        //    currentScrollState = scrollState;
-        //}
+        void list_Scroll(object sender, AbsListView.ScrollEventArgs e)
+        {
+            for (int i = e.FirstVisibleItem; i < e.FirstVisibleItem + e.VisibleItemCount; i++)
+            {
+                (ViewModel as SearchQuestionsResultsViewModel).Questions[i].OnShowing();
+            }
+        }
     }
 }

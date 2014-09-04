@@ -1,6 +1,7 @@
 ﻿using Android.OS;
 using Android.Views;
 using ChGK.Core.Services;
+using ChGK.Core.Utils;
 using ChGK.Core.ViewModels;
 using ChGK.Droid.Helpers;
 using Cirrious.CrossCore;
@@ -40,5 +41,15 @@ namespace ChGK.Droid.Views
 		protected abstract int LayoutId {
 			get;
 		}
+
+        protected override void OnDestroy()
+        {
+            if (ViewModel is IViewLifecycle)
+            {
+                (ViewModel as IViewLifecycle).OnViewDestroying();
+            }
+
+            base.OnDestroy();
+        }
 	}
 }

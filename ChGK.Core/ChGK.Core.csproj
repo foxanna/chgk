@@ -43,6 +43,7 @@
     <Compile Include="Utils\DateValueConverter.cs" />
     <Compile Include="Utils\IViewLifecycle.cs" />
     <Compile Include="ViewModels\AdvertViewModel.cs" />
+    <Compile Include="ViewModels\LoadMoreOnScrollListViewItemViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\RandomQuestionsViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />

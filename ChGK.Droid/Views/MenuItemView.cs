@@ -1,9 +1,8 @@
-﻿using Android.Gms.Analytics;
-using Android.OS;
+﻿using Android.OS;
 using Android.Views;
 using ChGK.Core.Services;
+using ChGK.Core.Utils;
 using ChGK.Core.ViewModels;
-using ChGK.Droid.Helpers;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
@@ -42,6 +41,16 @@ namespace ChGK.Droid.Views
         {
 			get;
 		}
+
+        public override void OnDestroy()
+        {
+            if (ViewModel is IViewLifecycle)
+            {
+                (ViewModel as IViewLifecycle).OnViewDestroying();
+            }
+
+            base.OnDestroy();
+        }
 	}
 }
 

@@ -35,7 +35,7 @@ namespace ChGK.Core.ViewModels
 
 		async Task LoadItems ()
 		{
-			Questions = null;	
+			Questions = null;
 
 			Questions = await _service.GetRandomPackage (_cancellationTokenSource.Token);
 		}
@@ -81,6 +81,13 @@ namespace ChGK.Core.ViewModels
                     await DataLoader.LoadItemsAsync(LoadItems);
                 }));
             }
+        }
+
+        public override void OnViewDestroying()
+        {
+            _cancellationTokenSource.Cancel();
+
+            base.OnViewDestroying();
         }
 	}
 }
