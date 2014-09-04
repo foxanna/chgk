@@ -13,7 +13,7 @@ namespace ChGK.Core.ViewModels
 		{
 			Name = tournament.Name;
 			FileName = tournament.FileName;
-			Dates = string.Format ("Отыгран {0}  Добавлен {1}", tournament.PlayedAt, tournament.AddedAt);
+            Dates = string.Format("Отыгран&nbsp;{0}  Добавлен&nbsp;{1}", tournament.PlayedAt.Replace(" ", "&nbsp;"), tournament.AddedAt);
 			Tours = tournament.Tours;
 		}
 
