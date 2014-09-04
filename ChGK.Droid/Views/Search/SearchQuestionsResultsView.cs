@@ -17,13 +17,16 @@ namespace ChGK.Droid.Views.Search
         }
 
         ListView listView;
+        HeaderViewListAdapter adapter;
 
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            listView = FindViewById<ListView>(Resource.Id.items);
+            listView = FindViewById<ListView>(Resource.Id.items);            
             listView.Scroll += list_Scroll;
+
+            adapter = ((HeaderViewListAdapter)listView.Adapter);
         }
 
         protected override void OnDestroy()
@@ -35,7 +38,6 @@ namespace ChGK.Droid.Views.Search
 
         void list_Scroll(object sender, AbsListView.ScrollEventArgs e)
         {
-            var adapter = ((HeaderViewListAdapter)listView.Adapter);
             for (int i = e.FirstVisibleItem - adapter.HeadersCount; i < e.FirstVisibleItem + e.VisibleItemCount - adapter.FootersCount; i++)
             {
                 (ViewModel as SearchQuestionsResultsViewModel).Questions[i].OnShowing();
