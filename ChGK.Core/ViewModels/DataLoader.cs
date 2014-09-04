@@ -8,7 +8,7 @@ namespace ChGK.Core.ViewModels
 {
 	public class DataLoader : MvxNotifyPropertyChanged
 	{
-		public async Task LoadItemsAsync (Func<Task> loadDataTaskFactory, Action AfterLoad = null)
+		public async Task LoadItemsAsync (Func<Task> loadDataTaskFactory,  Action BeforeLoad = null, Action AfterLoad = null)
 		{
 			if (IsLoading) {
 				return;
@@ -18,25 +18,28 @@ namespace ChGK.Core.ViewModels
 			IsLoading = true;
 
 			try {
+                if (BeforeLoad != null)
+                {
+                    BeforeLoad();
+                }
+
 				await loadDataTaskFactory ();
 			} catch (NoConnectionException e) {
-				HasError = true;
 				Mvx.Trace (e.Message);
 				Error = "Проверьте интернет соединение";
 			} catch (OperationCanceledException e) {
 				Mvx.Trace (e.Message);
 			} catch (Exception e) {
-				HasError = true;
 				Mvx.Trace (e.Message);
 				Error = "Не удалось загрузить данные\n" + e.Message + "\nПопробуйте еще раз";
 			} finally {
-				IsLoading = false;
+                IsLoading = false;
+                
+                if (AfterLoad != null)
+                {
+                    AfterLoad();
+                } 
 			}
-
-            if (AfterLoad != null)
-            {
-                AfterLoad();
-            }
 		}
 
         public void LoadItems(Action loadDataAction)
@@ -56,7 +59,6 @@ namespace ChGK.Core.ViewModels
             }
             catch (Exception e)
             {
-                HasError = true;
                 Mvx.Trace(e.Message);
                 Error = "Не удалось загрузить данные\n" + e.Message + "\nПопробуйте еще раз";
             }
@@ -89,6 +91,10 @@ namespace ChGK.Core.ViewModels
 			set {
 				_error = value;
 				RaisePropertyChanged (() => Error);
+                if (!string.IsNullOrEmpty(value))
+                {
+                    HasError = true;
+                }
 			}
 		}
 

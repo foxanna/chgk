@@ -10,13 +10,12 @@
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
      	local:MvxBind="Visibility DataLoader.HasError,Converter=Visibility; Text DataLoader.Error"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
-        android:text="@string/search_no_results"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        local:MvxBind="Visibility HasNoResults,Converter=Visibility"/>
+        local:MvxBind="Visibility IsLoadingForTheFirstTime,Converter=Visibility" />
 
     <Mvx.MvxListView
         android:id="@+id/items"
@@ -24,12 +23,4 @@
         android:layout_height="fill_parent"
         local:MvxBind="ItemsSource Questions; ItemClick ShowQuestionCommand"
         local:MvxItemTemplate="@layout/item_search_result" />
-    <!--; Visibility DataLoader.HasData,Converter=Visibility"-->
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        local:MvxBind="Visibility IsLoading,Converter=Visibility" />
 </RelativeLayout>

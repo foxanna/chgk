@@ -38,32 +38,58 @@ namespace ChGK.Core.ViewModels.Search
 
         Task LoadItemsAsync()
         {
-            return DataLoader.LoadItemsAsync(LoadItems, () =>
-            {
-                RaisePropertyChanged(() => HasNoResults);
-                RaisePropertyChanged(() => IsLoading);
-            });
+            return DataLoader.LoadItemsAsync(LoadItems,
+                BeforeLoad: () => {
+                    RaisePropertyChanged(() => IsLoadingForTheFirstTime); 
+                    RaisePropertyChanged(() => IsLoadingMoreData); 
+                }, 
+                AfterLoad: () =>
+                {
+                    RaisePropertyChanged(() => IsLoadingForTheFirstTime);
+                    RaisePropertyChanged(() => IsLoadingMoreData); 
+                });
         }
 
         int LoadBefore = 5;
 
         async Task LoadItems()
-        {
-            int oldCount = Questions != null ? Questions.Count : 0;
-
-            RaisePropertyChanged(() => IsLoading);
-            
+        {   
             var questions = await _service.SearchQuestions(_searchParams, _cancellationTokenSource.Token);
 
-            CanLoadMore = questions.Count > oldCount && questions.Count % _searchParams.Limit == 0;
-            _searchParams.Page = questions.Count / (_searchParams.Limit + 1);
+            CheckIfThereIsMoreDataToLoad(questions.Count, Questions != null ? Questions.Count : 0);
+            UpdatePageAccordingToNewdata(questions.Count);
 
             Questions = questions.Select(t => new LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>() { Item = t }).ToList();
 
+            CheckIfThereIsDataToDisplay();
+            SubscribeOnDisplayOneOfLastItems();            
+        }
+
+        void SubscribeOnDisplayOneOfLastItems()
+        {
             if (Questions.Count > 0)
             {
-                Questions[(Questions.Count - LoadBefore - 1 > 0 ? Questions.Count - LoadBefore - 1 : Questions.Count - 1)].ShowingForTheFirstTime += SearchQuestionsResultsViewModel_Showing;
+                Questions[(Questions.Count - LoadBefore - 1 > 0 ? Questions.Count - LoadBefore - 1 : Questions.Count - 1)].ShowingForTheFirstTime
+                    += SearchQuestionsResultsViewModel_Showing;
             }
+        }
+
+        void CheckIfThereIsDataToDisplay()
+        {
+            if (Questions.Count == 0)
+            {
+                DataLoader.Error = StringResources.NothingFound;
+            }
+        }
+
+        void CheckIfThereIsMoreDataToLoad(int newCount, int oldCount)
+        {
+            CanLoadMore = newCount > oldCount && newCount % _searchParams.Limit == 0;
+        }
+
+        void UpdatePageAccordingToNewdata(int newCount)
+        {
+            _searchParams.Page = newCount / (_searchParams.Limit + 1);
         }
 
         async void SearchQuestionsResultsViewModel_Showing(object sender, EventArgs e)
@@ -91,14 +117,6 @@ namespace ChGK.Core.ViewModels.Search
                 RaisePropertyChanged(() => Questions);
             }
         }
-        
-        public bool HasNoResults
-        {
-            get
-            {
-                return DataLoader.HasData && Questions != null && Questions.Count == 0;
-            }
-        }        
 
         MvxCommand<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> _showQuestionCommand;
 
@@ -106,8 +124,7 @@ namespace ChGK.Core.ViewModels.Search
         {
             get
             {
-                _showQuestionCommand = _showQuestionCommand ?? new MvxCommand<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>>(ShowQuestion);
-                return _showQuestionCommand;
+                return _showQuestionCommand ?? (_showQuestionCommand = new MvxCommand<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>>(ShowQuestion));
             }
         }
 
@@ -116,11 +133,19 @@ namespace ChGK.Core.ViewModels.Search
             ShowViewModel<SearchQuestionSingleResultViewModel>(new { json = JsonConvert.SerializeObject(question.Item)});        
         }
 
-        public bool IsLoading
+        public bool IsLoadingForTheFirstTime
         {
             get
             {
                 return DataLoader.IsLoading && _searchParams.Page == 0;
+            }
+        }
+
+        public bool IsLoadingMoreData
+        {
+            get
+            {
+                return DataLoader.IsLoading && _searchParams.Page != 0;
             }
         }
 

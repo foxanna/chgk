@@ -47,6 +47,7 @@ namespace ChGK.Core
 
         public static string Search = "Поиск";
         public static string SearchResults = "Результаты поиска";
+        public static string NothingFound = "Ничего не найдено по вашему запросу";
     }
 }
 
