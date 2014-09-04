@@ -1862,64 +1862,67 @@ namespace ChGK.Droid
 			public const int item_search_result = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int item_team = 2130903075;
+			public const int item_search_result_footer = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int item_tour = 2130903076;
+			public const int item_team = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int item_tour_header = 2130903077;
+			public const int item_tour = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public const int item_tournament = 2130903078;
+			public const int item_tour_header = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public const int LastAddedTournamentsView = 2130903079;
+			public const int item_tournament = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int mr_media_route_chooser_dialog = 2130903080;
+			public const int LastAddedTournamentsView = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int mr_media_route_controller_dialog = 2130903081;
+			public const int mr_media_route_chooser_dialog = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int mr_media_route_list_item = 2130903082;
+			public const int mr_media_route_controller_dialog = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int QuestionsView = 2130903083;
+			public const int mr_media_route_list_item = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int QuestionView = 2130903084;
+			public const int QuestionsView = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int RandomQuestionsView = 2130903085;
+			public const int QuestionView = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int SearchParamsView = 2130903086;
+			public const int RandomQuestionsView = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int SearchQuestionSingleResultView = 2130903087;
+			public const int SearchParamsView = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int SearchQuestionsResultsView = 2130903088;
+			public const int SearchQuestionSingleResultView = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int SingleTournamentView = 2130903089;
+			public const int SearchQuestionsResultsView = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int SplashScreen = 2130903090;
+			public const int SingleTournamentView = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int support_simple_spinner_dropdown_item = 2130903091;
+			public const int SplashScreen = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int TeamsView = 2130903092;
+			public const int support_simple_spinner_dropdown_item = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int TourView = 2130903093;
+			public const int TeamsView = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int undo_bar = 2130903094;
+			public const int TourView = 2130903094;
+			
+			// aapt resource value: 0x7f030037
+			public const int undo_bar = 2130903095;
 			
 			static Layout()
 			{

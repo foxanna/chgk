@@ -17,10 +17,11 @@
         android:layout_centerInParent="true"
         local:MvxBind="Visibility IsLoadingForTheFirstTime,Converter=Visibility" />
 
-    <Mvx.MvxListView
+    <ChGK.Droid.Controls.MvxListViewWithHeader.MvxListViewWithHeader
         android:id="@+id/items"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        local:footer="@layout/item_search_result_footer"
         local:MvxBind="ItemsSource Questions; ItemClick ShowQuestionCommand"
         local:MvxItemTemplate="@layout/item_search_result" />
 </RelativeLayout>

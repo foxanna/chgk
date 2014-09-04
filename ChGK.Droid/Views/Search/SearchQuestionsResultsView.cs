@@ -35,7 +35,8 @@ namespace ChGK.Droid.Views.Search
 
         void list_Scroll(object sender, AbsListView.ScrollEventArgs e)
         {
-            for (int i = e.FirstVisibleItem; i < e.FirstVisibleItem + e.VisibleItemCount; i++)
+            var adapter = ((HeaderViewListAdapter)listView.Adapter);
+            for (int i = e.FirstVisibleItem - adapter.HeadersCount; i < e.FirstVisibleItem + e.VisibleItemCount - adapter.FootersCount; i++)
             {
                 (ViewModel as SearchQuestionsResultsViewModel).Questions[i].OnShowing();
             }
