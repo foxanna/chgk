@@ -1,6 +1,8 @@
 ﻿using Android.Views;
 using Android.Widget;
 using ChGK.Core.ViewModels;
+using ChGK.Droid.Helpers;
+using Cirrious.MvvmCross.Binding.BindingContext;
 
 namespace ChGK.Droid.Views
 {
@@ -11,12 +13,27 @@ namespace ChGK.Droid.Views
 				return Resource.Layout.LastAddedTournamentsView;
 			}
 		}
-        
+
+        MenuItemWrapper refreshButton;
+
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             base.OnCreateOptionsMenu(menu, inflater);
 
             inflater.Inflate(Resource.Menu.menuitem, menu);
+
+            refreshButton = new MenuItemWrapper(menu.FindItem(Resource.Id.refresh));
+
+            var bindingSet = this.CreateBindingSet<LastAddedTournamentsView, LastAddedTournamentsViewModel>();
+            bindingSet.Bind(refreshButton).For(n => n.Visible).To(vm => vm.DataLoader.HasError);
+            bindingSet.Apply();            
+        }
+
+        public override void OnDestroyOptionsMenu()
+        {
+            BindingContext.ClearAllBindings();
+
+            base.OnDestroyOptionsMenu();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

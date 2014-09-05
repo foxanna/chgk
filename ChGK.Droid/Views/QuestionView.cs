@@ -20,14 +20,17 @@ namespace ChGK.Droid.Views
 			return this.BindingInflate (Resource.Layout.QuestionView, null);
 		}
 
+        MenuItemWrapper startButton, stopButton;
+        TextView timeText;
+
 		public override void OnCreateOptionsMenu (IMenu menu, MenuInflater inflater)
 		{
 			base.OnCreateOptionsMenu (menu, inflater);
 			inflater.Inflate (Resource.Menu.question, menu);
 
-			var timeText = menu.FindItem (Resource.Id.time).ActionView as TextView;
-			var startButton = new MenuItemWrapper (menu.FindItem (Resource.Id.start_timer));
-			var stopButton = new MenuItemWrapper (menu.FindItem (Resource.Id.stop_timer));
+			timeText = menu.FindItem (Resource.Id.time).ActionView as TextView;
+			startButton = new MenuItemWrapper (menu.FindItem (Resource.Id.start_timer));
+			stopButton = new MenuItemWrapper (menu.FindItem (Resource.Id.stop_timer));
 
 			var bindingSet = this.CreateBindingSet<QuestionView, QuestionViewModel> ();
 			bindingSet.Bind (timeText).For (n => n.Text).To (vm => vm.Time).WithConversion ("Timer");
@@ -35,6 +38,13 @@ namespace ChGK.Droid.Views
 			bindingSet.Bind (stopButton).For (n => n.Visible).To (vm => vm.IsTimerStarted);
 			bindingSet.Apply ();
 		}
+
+        public override void OnDestroyOptionsMenu()
+        {
+            BindingContext.ClearAllBindings();
+
+            base.OnDestroyOptionsMenu();
+        }
 
 		public override bool OnOptionsItemSelected (IMenuItem item)
 		{

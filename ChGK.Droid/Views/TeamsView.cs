@@ -19,12 +19,14 @@ namespace ChGK.Droid.Views
 			}
 		}
 
+        MenuItemWrapper removeAllButton, clearResults;
+
 		public override bool OnCreateOptionsMenu (IMenu menu)
 		{
 			MenuInflater.Inflate (Resource.Menu.teamsview, menu);
 
-            var removeAllButton = new MenuItemWrapper(menu.FindItem(Resource.Id.clear_teams));
-            var clearResults = new MenuItemWrapper(menu.FindItem(Resource.Id.clear_results));
+            removeAllButton = new MenuItemWrapper(menu.FindItem(Resource.Id.clear_teams));
+            clearResults = new MenuItemWrapper(menu.FindItem(Resource.Id.clear_results));
 
             var bindingSet = this.CreateBindingSet<TeamsView, TeamsViewModel>();
             bindingSet.Bind(removeAllButton).For(n => n.Visible).To(vm => vm.CanRemoveTeams);
