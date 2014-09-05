@@ -18,8 +18,9 @@
         local:MvxBind="Visibility DataLoader.IsLoading,Converter=Visibility" />
 
     <ChGK.Droid.Controls.BindableExpandableListView
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+        local:footer="@layout/item_search_result_footer"
 	    local:MvxBind="ItemsSource Tournaments; ItemClick OnTourCLick; Visibility DataLoader.HasData,Converter=Visibility"
 	    local:MvxItemTemplate="@layout/item_tour"
 	    local:GroupItemTemplate="@layout/item_tournament"/>

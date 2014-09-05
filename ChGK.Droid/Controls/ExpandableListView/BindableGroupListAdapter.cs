@@ -130,7 +130,7 @@ namespace ChGK.Droid.Controls
 			if (newObservable != null)
 				newObservable.CollectionChanged += OnItemsSourceCollectionChanged;
 
-			base.SetItemsSource (value);
+            base.SetItemsSource(_itemsSource);
 		}
 
 		public int GroupCount {

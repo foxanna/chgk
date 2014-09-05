@@ -1,5 +1,4 @@
-﻿using System;
-using Android.Widget;
+﻿using Android.Widget;
 using Android.Content;
 using Android.Util;
 using Cirrious.MvvmCross.Binding.Attributes;
@@ -7,6 +6,7 @@ using System.Collections;
 using System.Windows.Input;
 using Cirrious.MvvmCross.Binding.Droid.Views;
 using Cirrious.MvvmCross.Binding.Droid.ResourceHelpers;
+using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 
 namespace ChGK.Droid.Controls
 {
@@ -53,31 +53,60 @@ namespace ChGK.Droid.Controls
 	public class BindableExpandableListView : ExpandableListView
 	{
 		public BindableExpandableListView (Context context, IAttributeSet attrs)
-			: this (context, attrs, new BindableExpandableListAdapter (context))
-		{
-		}
-
-		public BindableExpandableListView (Context context, IAttributeSet attrs, BindableExpandableListAdapter adapter)
 			: base (context, attrs)
 		{
-			var groupTemplateId = MvxAttributeHelpers.ReadAttributeValue (context, attrs,
+            var expandableAdapter = new BindableExpandableListAdapter(context);
+			
+            var groupTemplateId = MvxAttributeHelpers.ReadAttributeValue (context, attrs,
 				                      MvxAndroidBindingResource.Instance
 				.ListViewStylableGroupId,
 				                      AndroidBindingResource.Instance
 				.BindableListGroupItemTemplateId);
 
 			var itemTemplateId = MvxAttributeHelpers.ReadListItemTemplateId (context, attrs);
-			SetAdapter (adapter);
-			adapter.GroupTemplateId = groupTemplateId;
-			adapter.ItemTemplateId = itemTemplateId;
+            
+            expandableAdapter.GroupTemplateId = groupTemplateId;
+            expandableAdapter.ItemTemplateId = itemTemplateId;
+
+            SetAdapter(expandableAdapter);
+
+            InitHeaders(context, attrs);
+            InitFooters(context, attrs);            
 		}
+
+        void InitFooters(Context context, IAttributeSet attrs)
+        {
+            var footerId = MvxAttributeHelpers.ReadAttributeValue(context, attrs, MvxAndroidBindingResource.Instance.ListViewStylableGroupId,
+                            AndroidBindingResource.Instance.MvxListViewWithHeader_FooterLayout);
+
+            if (footerId != 0)
+            {
+                var bindingContext = MvxAndroidBindingContextHelpers.Current();
+                var view = bindingContext.BindingInflate(footerId, null);
+
+                AddFooterView(view, null, false);
+            }
+        }
+
+        void InitHeaders(Context context, IAttributeSet attrs)
+        {
+            var headerId = MvxAttributeHelpers.ReadAttributeValue(context, attrs, MvxAndroidBindingResource.Instance.ListViewStylableGroupId,
+                AndroidBindingResource.Instance.MvxListViewWithHeader_HeaderLayout);
+
+            if (headerId != 0)
+            {
+                var bindingContext = MvxAndroidBindingContextHelpers.Current();
+                var view = bindingContext.BindingInflate(headerId, null);
+
+                AddHeaderView(view, null, false);
+            }
+        }
 
 		// An expandableListView has ExpandableListAdapter as propertyname, but Adapter still exists but is always null.
-		protected BindableExpandableListAdapter ThisAdapter {
-			get { return ExpandableListAdapter as BindableExpandableListAdapter; }
+        protected BindableExpandableListAdapter ThisAdapter
+        {
+            get { return ExpandableListAdapter as BindableExpandableListAdapter; }
 		}
-
-		//		private IEnumerable _itemsSource;
 
 		[MvxSetToNullAfterBinding]
 		public virtual IEnumerable ItemsSource {
