@@ -61,13 +61,27 @@ namespace ChGK.Core.DbChGKInfo
                 return _lastTournamentsCache.Item2;
             }
 
-            PreLoad (cancellationToken);
+            try
+            {
+                PreLoad(cancellationToken);            
 
-            var lastAddedTournaments = await LoadNewLastAddedTournaments(cancellationToken, page);
-            _lastTournamentsCache = Tuple.Create(page, _lastTournamentsCache.Item2);
-            _lastTournamentsCache.Item2.AddRange(lastAddedTournaments.Tournaments);
+                var lastAddedTournaments = await LoadNewLastAddedTournaments(cancellationToken, page);
+                _lastTournamentsCache = Tuple.Create(page, _lastTournamentsCache.Item2);
+                _lastTournamentsCache.Item2.AddRange(lastAddedTournaments.Tournaments);
 
-            return _lastTournamentsCache.Item2;
+                return _lastTournamentsCache.Item2; 
+            }
+            catch (Exception e)
+            {
+                if (_lastTournamentsCache.Item2.Count > 0)
+                {
+                    return _lastTournamentsCache.Item2;
+                }
+                else
+                {
+                    throw;
+                }
+            }
 		}
 
         Task<LastAddedTournamentsDto> LoadNewLastAddedTournaments(CancellationToken cancellationToken, int page = 0)
