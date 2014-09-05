@@ -1,5 +1,6 @@
 ﻿using ChGK.Core.Models;
 using ChGK.Core.Services;
+using ChGK.Core.Utils;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using System;
@@ -18,6 +19,8 @@ namespace ChGK.Core.ViewModels.Search
 
         public DataLoader DataLoader { get; private set; }
 
+        LoadMoreHelper<ISearchQuestionsResult> _loadMoreHelper;
+
         CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         public SearchQuestionsResultsViewModel(IChGKWebService service)
@@ -27,31 +30,17 @@ namespace ChGK.Core.ViewModels.Search
             _service = service;
 
             DataLoader = new DataLoader();
+            _loadMoreHelper = new LoadMoreHelper<ISearchQuestionsResult>() { OnLastItemShown = SearchQuestionsResultsViewModel_Showing };
         }
 
         public async void Init(string searchParams)
         {
             _searchParams = JsonConvert.DeserializeObject<SearchParams>(searchParams);
 
-            await LoadItemsAsync();
+            DataLoader.IsLoadingForTheFirstTime = true;
+            await DataLoader.LoadItemsAsync(LoadItems);
         }
-
-        Task LoadItemsAsync()
-        {
-            return DataLoader.LoadItemsAsync(LoadItems,
-                BeforeLoad: () => {
-                    RaisePropertyChanged(() => IsLoadingForTheFirstTime); 
-                    RaisePropertyChanged(() => IsLoadingMoreData); 
-                }, 
-                AfterLoad: () =>
-                {
-                    RaisePropertyChanged(() => IsLoadingForTheFirstTime);
-                    RaisePropertyChanged(() => IsLoadingMoreData); 
-                });
-        }
-
-        int LoadBefore = 5;
-
+        
         async Task LoadItems()
         {   
             var questions = await _service.SearchQuestions(_searchParams, _cancellationTokenSource.Token);
@@ -61,20 +50,11 @@ namespace ChGK.Core.ViewModels.Search
 
             Questions = questions.Select(t => new LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>() { Item = t }).ToList();
 
-            CheckIfThereIsDataToDisplay();
-            SubscribeOnDisplayOneOfLastItems();            
+            DisplayErrorIfNoData();
+            _loadMoreHelper.Subscribe(Questions);         
         }
-
-        void SubscribeOnDisplayOneOfLastItems()
-        {
-            if (Questions.Count > 0)
-            {
-                Questions[(Questions.Count - LoadBefore - 1 > 0 ? Questions.Count - LoadBefore - 1 : Questions.Count - 1)].ShowingForTheFirstTime
-                    += SearchQuestionsResultsViewModel_Showing;
-            }
-        }
-
-        void CheckIfThereIsDataToDisplay()
+        
+        void DisplayErrorIfNoData()
         {
             if (Questions.Count == 0)
             {
@@ -92,12 +72,16 @@ namespace ChGK.Core.ViewModels.Search
             _searchParams.Page = newCount / (_searchParams.Limit + 1);
         }
 
-        async void SearchQuestionsResultsViewModel_Showing(object sender, EventArgs e)
+        async void SearchQuestionsResultsViewModel_Showing()
         {
             if (CanLoadMore && !DataLoader.IsLoading)
             {
                 _searchParams.Page++;
-                await LoadItemsAsync();
+
+                DataLoader.IsLoadingForTheFirstTime = false;
+                DataLoader.IsLoadingMoreData = true;
+                
+                await DataLoader.LoadItemsAsync(LoadItems);
             }
         }
 
@@ -131,22 +115,6 @@ namespace ChGK.Core.ViewModels.Search
         void ShowQuestion(LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult> question)
         {
             ShowViewModel<SearchQuestionSingleResultViewModel>(new { json = JsonConvert.SerializeObject(question.Item)});        
-        }
-
-        public bool IsLoadingForTheFirstTime
-        {
-            get
-            {
-                return DataLoader.IsLoading && _searchParams.Page == 0;
-            }
-        }
-
-        public bool IsLoadingMoreData
-        {
-            get
-            {
-                return DataLoader.IsLoading && _searchParams.Page != 0;
-            }
         }
 
         public override void OnViewDestroying()

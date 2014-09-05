@@ -8,7 +8,14 @@ namespace ChGK.Core.ViewModels
 {
 	public class DataLoader : MvxNotifyPropertyChanged
 	{
-		public async Task LoadItemsAsync (Func<Task> loadDataTaskFactory,  Action BeforeLoad = null, Action AfterLoad = null)
+        public Tuple<bool, bool> Params { get; set; }
+
+        public DataLoader()
+        {
+            Params = Tuple.Create(false, false);
+        }
+
+		public async Task LoadItemsAsync (Func<Task> loadDataTaskFactory)
 		{
 			if (IsLoading) {
 				return;
@@ -18,11 +25,6 @@ namespace ChGK.Core.ViewModels
 			IsLoading = true;
 
 			try {
-                if (BeforeLoad != null)
-                {
-                    BeforeLoad();
-                }
-
 				await loadDataTaskFactory ();
 			} catch (NoConnectionException e) {
 				Mvx.Trace (e.Message);
@@ -34,11 +36,6 @@ namespace ChGK.Core.ViewModels
 				Error = "Не удалось загрузить данные\n" + e.Message + "\nПопробуйте еще раз";
 			} finally {
                 IsLoading = false;
-                
-                if (AfterLoad != null)
-                {
-                    AfterLoad();
-                } 
 			}
 		}
 
@@ -75,9 +72,10 @@ namespace ChGK.Core.ViewModels
 				return _isLoading;
 			}
 			set {
-				_isLoading = value; 
+				_isLoading = value;
 
-				RaisePropertyChanged (() => IsLoading);
+                RaisePropertyChanged(() => IsLoadingForTheFirstTime);
+                RaisePropertyChanged(() => IsLoadingMoreData);
 				RaisePropertyChanged (() => HasData);
 			}
 		}
@@ -114,6 +112,34 @@ namespace ChGK.Core.ViewModels
 				return !HasError && !IsLoading; 
 			}
 		}
+
+        bool _isLoadingForTheFirstTime;
+
+        public bool IsLoadingForTheFirstTime
+        {
+            set
+            {
+                _isLoadingForTheFirstTime = value;
+            }
+            get
+            {
+                return IsLoading && _isLoadingForTheFirstTime;
+            }
+        }
+
+        bool _isLoadingMoreData;
+
+        public bool IsLoadingMoreData
+        {
+            set
+            {
+                _isLoadingMoreData = value;
+            }
+            get
+            {
+                return IsLoading && _isLoadingMoreData;
+            }
+        }
 	}
 }
 

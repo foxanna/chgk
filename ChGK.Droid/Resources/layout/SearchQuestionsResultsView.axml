@@ -15,7 +15,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerInParent="true"
-        local:MvxBind="Visibility IsLoadingForTheFirstTime,Converter=Visibility" />
+        local:MvxBind="Visibility DataLoader.IsLoadingForTheFirstTime,Converter=Visibility" />
 
     <ChGK.Droid.Controls.MvxListViewWithHeader.MvxListViewWithHeader
         android:id="@+id/items"

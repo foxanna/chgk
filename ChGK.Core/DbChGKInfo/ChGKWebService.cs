@@ -38,7 +38,9 @@ namespace ChGK.Core.DbChGKInfo
 			}
 		}
 
-		public async Task<List<IQuestion>> GetRandomPackage (CancellationToken cancellationToken)
+        #region Random package
+
+        public async Task<List<IQuestion>> GetRandomPackage (CancellationToken cancellationToken)
 		{
 			PreLoad (cancellationToken);
 
@@ -47,17 +49,37 @@ namespace ChGK.Core.DbChGKInfo
 			return randomPackage.questions.Select (dto => dto.ToModel ()).ToList ();
 		}
 
+        #endregion // Random package
+
+        #region Last added tournaments
+
+        Tuple<int, List<ITournament>> _lastTournamentsCache = Tuple.Create(-1, new List<ITournament>());
+
         public async Task<List<ITournament>> GetLastAddedTournaments(CancellationToken cancellationToken, int page = 0)
 		{
 			PreLoad (cancellationToken);
 
-			var lastAddedTournaments = await _simpleRestService.GetAsync<LastAddedTournamentsDto> (host, 
-				                           "last?page=" + page, new HtmlDeserializer<LastAddedTournamentsDto> (), cancellationToken);
+            if (page <= _lastTournamentsCache.Item1)
+            {
+                return _lastTournamentsCache.Item2;
+            }
 
-			return lastAddedTournaments.Tournaments;
+            var lastAddedTournaments = await LoadNewLastAddedTournaments(cancellationToken, page);
+            _lastTournamentsCache = Tuple.Create(page, _lastTournamentsCache.Item2);
+            _lastTournamentsCache.Item2.AddRange(lastAddedTournaments.Tournaments);
+
+            return _lastTournamentsCache.Item2;
 		}
 
-		public async Task<ITour> GetTourDetails (string filename, CancellationToken cancellationToken)
+        Task<LastAddedTournamentsDto> LoadNewLastAddedTournaments(CancellationToken cancellationToken, int page = 0)
+        {
+            return _simpleRestService.GetAsync<LastAddedTournamentsDto>(host,
+                                           "last?page=" + page, new HtmlDeserializer<LastAddedTournamentsDto>(), cancellationToken);
+        }
+
+        #endregion // Last added tournaments
+
+        public async Task<ITour> GetTourDetails (string filename, CancellationToken cancellationToken)
 		{
             var tour = ReadTourFromCache(filename);
 
@@ -130,7 +152,7 @@ namespace ChGK.Core.DbChGKInfo
                     + "to_" + searchParams.EndDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + "/"
                     + "limit" + searchParams.Limit
                     + "?page=" + searchParams.Page;
-           
+            
             var searchResults = await _simpleRestService.GetAsync<SearchResultsDto>(host, url,
                                     new XmlDeserializer<SearchResultsDto>(), cancellationToken);
 
