@@ -80,7 +80,7 @@
     <Compile Include="Services\IAudioPlayerService.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="Services\IAppInfoProvider.cs" />
-    <Compile Include="ViewModels\DataLoader.cs" />
+    <Compile Include="Utils\DataLoader.cs" />
     <Compile Include="StringResources.cs" />
     <Compile Include="Services\ITeamsService.cs" />
     <Compile Include="Models\Team.cs" />

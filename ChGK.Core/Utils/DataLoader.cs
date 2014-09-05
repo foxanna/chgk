@@ -4,7 +4,7 @@ using Cirrious.CrossCore;
 using ChGK.Core.DbChGKInfo;
 using Cirrious.MvvmCross.ViewModels;
 
-namespace ChGK.Core.ViewModels
+namespace ChGK.Core.Utils
 {
 	public class DataLoader : MvxNotifyPropertyChanged
 	{
@@ -74,6 +74,7 @@ namespace ChGK.Core.ViewModels
 			set {
 				_isLoading = value;
 
+                RaisePropertyChanged(() => IsLoading);
                 RaisePropertyChanged(() => IsLoadingForTheFirstTime);
                 RaisePropertyChanged(() => IsLoadingMoreData);
 				RaisePropertyChanged (() => HasData);

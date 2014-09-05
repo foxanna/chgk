@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using System.Threading.Tasks;
+using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {

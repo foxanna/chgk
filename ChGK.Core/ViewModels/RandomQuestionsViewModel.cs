@@ -6,6 +6,7 @@ using ChGK.Core.Models;
 using ChGK.Core.Services;
 using System.Threading;
 using System.Windows.Input;
+using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
