@@ -22,7 +22,7 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
         local:footer="@layout/item_search_result_footer"
-	    local:MvxBind="ItemsSource Tournaments; ItemClick OnTourCLick;"
+	    local:MvxBind="ItemsSource Tournaments; ItemClick OnTourCLick; Visibility DataLoader.HasError,Converter=InvertedVisibility"
 	    local:MvxItemTemplate="@layout/item_tour"
 	    local:GroupItemTemplate="@layout/item_tournament"/>
 </RelativeLayout>
