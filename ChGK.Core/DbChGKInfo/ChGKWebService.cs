@@ -7,7 +7,6 @@ using ChGK.Core.Models;
 using ChGK.Core.NetworkService;
 using ChGK.Core.Services;
 using System.Threading;
-using System.Net;
 using System.Globalization;
 
 namespace ChGK.Core.DbChGKInfo
@@ -57,12 +56,12 @@ namespace ChGK.Core.DbChGKInfo
 
         public async Task<List<ITournament>> GetLastAddedTournaments(CancellationToken cancellationToken, int page = 0)
 		{
-			PreLoad (cancellationToken);
-
             if (page <= _lastTournamentsCache.Item1)
             {
                 return _lastTournamentsCache.Item2;
             }
+
+            PreLoad (cancellationToken);
 
             var lastAddedTournaments = await LoadNewLastAddedTournaments(cancellationToken, page);
             _lastTournamentsCache = Tuple.Create(page, _lastTournamentsCache.Item2);
@@ -78,6 +77,8 @@ namespace ChGK.Core.DbChGKInfo
         }
 
         #endregion // Last added tournaments
+
+        #region Tours
 
         public async Task<ITour> GetTourDetails (string filename, CancellationToken cancellationToken)
 		{
@@ -113,6 +114,10 @@ namespace ChGK.Core.DbChGKInfo
             return cachedTours.FirstOrDefault(t => t.Key == file).Value;
         }
 
+        #endregion // Tours
+
+        #region Tournaments
+
         Dictionary<string, ITournament> cachedTournaments = new Dictionary<string, ITournament>();
 
         void CacheTournament(ITournament tournament)
@@ -131,6 +136,28 @@ namespace ChGK.Core.DbChGKInfo
             }
             return cachedTournaments.FirstOrDefault(t => t.Key == file).Value;
         }
+
+        public async Task<ITournament> GetTournament(string filename, CancellationToken cancellationToken)
+        {
+            var tournament = ReadTournamentFromCache(filename);
+
+            if (tournament == null)
+            {
+                PreLoad(cancellationToken);
+
+                var tournamentDto = await _simpleRestService.GetAsync<TournamentDto>(host,
+                                  string.Format("{0}/xml", filename), new XmlDeserializer<TournamentDto>(), cancellationToken);
+
+                tournament = tournamentDto.ToModel();
+                CacheTournament(tournament);
+            }
+
+            return tournament;
+        }
+
+        #endregion // Tournaments
+
+        #region Search
 
         Tuple<SearchParams, List<ISearchQuestionsResult>> cashedSearch;
 
@@ -172,23 +199,6 @@ namespace ChGK.Core.DbChGKInfo
             return questions;
         }
 
-        public async Task<ITournament> GetTournament(string filename, CancellationToken cancellationToken)
-        {
-            var tournament = ReadTournamentFromCache(filename);
-
-            if (tournament == null)
-            {
-                PreLoad(cancellationToken);
-
-                var tournamentDto = await _simpleRestService.GetAsync<TournamentDto>(host,
-                                  string.Format("{0}/xml", filename), new XmlDeserializer<TournamentDto>(), cancellationToken);
-                
-                tournament = tournamentDto.ToModel();
-                CacheTournament(tournament);
-            }
-
-            return tournament;
-        }
-	}
+        #endregion // Search
+    }
 }
-
