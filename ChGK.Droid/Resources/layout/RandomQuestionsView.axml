@@ -16,6 +16,7 @@
         android:layout_centerInParent="true"
         local:MvxBind="Visibility DataLoader.IsLoading,Converter=Visibility" />
     <Mvx.MvxListView
+        android:id="@+id/items"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         local:MvxBind="ItemsSource Questions; ItemClick ShowQuestionCommand; Visibility DataLoader.HasData,Converter=Visibility"
