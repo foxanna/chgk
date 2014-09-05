@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Android.Content;
+﻿using Android.Content;
 using Android.Util;
+using Cirrious.MvvmCross.Binding.Droid.Views;
+using Cirrious.MvvmCross.Binding.Droid.ResourceHelpers;
+using System.Collections.Generic;
 using Android.Views;
 using Android.Widget;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Binding.Droid.Views;
-using Cirrious.CrossCore.Core;
-using Cirrious.MvvmCross.Binding.Droid.ResourceHelpers;
 
 namespace ChGK.Droid.Controls.MvxListViewWithHeader
 {
@@ -15,69 +13,50 @@ namespace ChGK.Droid.Controls.MvxListViewWithHeader
 	{
 		public MvxListViewWithHeader (Context context, IAttributeSet attrs) : base (context, attrs, null)
 		{
-			ApplyAttributes (context, attrs);
+            var headerId = MvxAttributeHelpers.ReadAttributeValue(context, attrs, MvxAndroidBindingResource.Instance.ListViewStylableGroupId,
+                AndroidBindingResource.Instance.MvxListViewWithHeader_HeaderLayout);
+            var footerId = MvxAttributeHelpers.ReadAttributeValue(context, attrs, MvxAndroidBindingResource.Instance.ListViewStylableGroupId,
+                AndroidBindingResource.Instance.MvxListViewWithHeader_FooterLayout);
+            
+            var headers = GetFixedViewInfos(headerId);
+            var footers = GetFixedViewInfos(footerId);
 
-			var headers = GetHeaders ();
-			var footers = GetFooters ();
+            var adapter = new MvxAdapter(context);
+            adapter.ItemTemplateId = MvxAttributeHelpers.ReadListItemTemplateId(context, attrs);
 
-			IMvxAdapter adapter = new MvxAdapter (context);
-
-			var itemTemplateId = MvxAttributeHelpers.ReadListItemTemplateId (context, attrs);
-			adapter.ItemTemplateId = itemTemplateId;
-
-			IMvxAdapter headerAdapter = new HeaderMvxAdapter (headers, footers, adapter);
-
-			Adapter = headerAdapter;
+            var headerAdapter = new HeaderMvxAdapter(headers, footers, adapter);
+            Adapter = headerAdapter;
 		}
 
-		int _headerId, _footerId;
+        IList<ListView.FixedViewInfo> GetFixedViewInfos(int id)
+        {
+            var viewInfos = new List<ListView.FixedViewInfo>();
 
-		void ApplyAttributes (Context c, IAttributeSet attrs)
-		{
-			_headerId = MvxAttributeHelpers.ReadAttributeValue (c, attrs, MvxAndroidBindingResource.Instance.ListViewStylableGroupId, 
-				AndroidBindingResource.Instance.MvxListViewWithHeader_HeaderLayout);
-			_footerId = MvxAttributeHelpers.ReadAttributeValue (c, attrs, MvxAndroidBindingResource.Instance.ListViewStylableGroupId, 
-				AndroidBindingResource.Instance.MvxListViewWithHeader_FooterLayout);
-		}
+            var view = GetBoundView(id);
 
-		View GetBoundView (int id)
-		{
-			if (id == 0)
-				return null;
+            if (view != null)
+            {
+                var info = new ListView.FixedViewInfo(this)
+                {
+                    Data = null,
+                    IsSelectable = true,
+                    View = view,
+                };
+                viewInfos.Add(info);
+            }
 
-			IMvxAndroidBindingContext bindingContext = MvxAndroidBindingContextHelpers.Current ();
-			var view = bindingContext.BindingInflate (id, null);
+            return viewInfos;
+        }
 
-			return view;
-		}
+        static View GetBoundView(int id)
+        {
+            if (id == 0)
+                return null;
 
-		IList<ListView.FixedViewInfo> GetFixedViewInfos (int id)
-		{
-			var viewInfos = new List<ListView.FixedViewInfo> ();
+            var bindingContext = MvxAndroidBindingContextHelpers.Current();
+            var view = bindingContext.BindingInflate(id, null);
 
-			View view = GetBoundView (id);
-
-			if (view != null) {
-				var info = new ListView.FixedViewInfo (this) {
-					Data = null,
-					IsSelectable = true,
-					View = view,
-				};
-				viewInfos.Add (info);
-			}
-
-			return viewInfos;
-		}
-
-		IList<ListView.FixedViewInfo> GetFooters ()
-		{
-			return GetFixedViewInfos (_footerId);
-		}
-
-		IList<ListView.FixedViewInfo> GetHeaders ()
-		{
-			return GetFixedViewInfos (_headerId);
-		}
+            return view;
+        }
 	}
 }
-
