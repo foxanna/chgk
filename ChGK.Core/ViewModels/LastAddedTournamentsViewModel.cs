@@ -34,7 +34,7 @@ namespace ChGK.Core.ViewModels
 		{
 			Tournaments = null;
 
-			var tournaments = await _service.GetLastAddedTournaments (0, _cancellationTokenSource.Token);
+			var tournaments = await _service.GetLastAddedTournaments (_cancellationTokenSource.Token, 0);
 
 			Tournaments = tournaments.Select (tournament => new TournamentViewModel (tournament)).ToList ();
 		}

@@ -9,7 +9,7 @@ namespace ChGK.Core.Services
 	{
 		Task<List<IQuestion>> GetRandomPackage (CancellationToken token);
 
-		Task<List<ITournament>> GetLastAddedTournaments (int? page, CancellationToken token);
+        Task<List<ITournament>> GetLastAddedTournaments(CancellationToken token, int page);
 
         Task<ITournament> GetTournament(string filename, CancellationToken token);
 

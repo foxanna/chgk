@@ -47,12 +47,12 @@ namespace ChGK.Core.DbChGKInfo
 			return randomPackage.questions.Select (dto => dto.ToModel ()).ToList ();
 		}
 
-		public async Task<List<ITournament>> GetLastAddedTournaments (int? page, CancellationToken cancellationToken)
+        public async Task<List<ITournament>> GetLastAddedTournaments(CancellationToken cancellationToken, int page = 0)
 		{
 			PreLoad (cancellationToken);
 
 			var lastAddedTournaments = await _simpleRestService.GetAsync<LastAddedTournamentsDto> (host, 
-				                           "", new HtmlDeserializer<LastAddedTournamentsDto> (), cancellationToken);
+				                           "last?page=" + page, new HtmlDeserializer<LastAddedTournamentsDto> (), cancellationToken);
 
 			return lastAddedTournaments.Tournaments;
 		}
