@@ -7,7 +7,7 @@ namespace ChGK.Droid.Services
 		public string AppVersion {
 			get {
 				var packageInfo = Android.App.Application.Context.PackageManager.GetPackageInfo (Android.App.Application.Context.PackageName, 0);
-				return packageInfo != null ? packageInfo.VersionName : string.Empty;
+				return packageInfo != null ? packageInfo.VersionName + "." + packageInfo.VersionCode : string.Empty;
 			}
 		}
 

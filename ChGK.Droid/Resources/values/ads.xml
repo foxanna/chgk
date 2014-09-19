@@ -2,4 +2,11 @@
 <resources>
     <string-array name="ads_ids">
     </string-array>
+
+    <string-array name="billing_key">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
 </resources>

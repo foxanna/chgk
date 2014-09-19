@@ -120,6 +120,7 @@
 		<item name="android:minHeight">48dip</item>
 		<item name="android:minWidth">64dip</item>
 		<item name="android:textColor">#000000</item>
+        <item name="android:padding">@dimen/default_text_padding</item>
     </style>
 
 	<style name="ProgressBar.Chgk" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
