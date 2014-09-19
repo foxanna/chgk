@@ -21,6 +21,7 @@ namespace ChGK.Core
         public static string ClickOnAd = "Сказать спасибо";
         public static string EmailDeveloper = "Написать разработчикам";
         public static string Email = "que.ou.quand@gmail.com";
+        public static string RateApp = "Оценить на Google Play";
 
         // AdvertView
 

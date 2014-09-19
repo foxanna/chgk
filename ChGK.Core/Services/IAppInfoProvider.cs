@@ -5,6 +5,8 @@
 		string AppVersion { get; }
 
 		string AppName { get; }
+
+        void RateAppOnMarket();
 	}
 }
 

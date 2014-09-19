@@ -1,4 +1,6 @@
-﻿using ChGK.Core.Services;
+﻿using Android.Content;
+using Android.Net;
+using ChGK.Core.Services;
 
 namespace ChGK.Droid.Services
 {
@@ -17,6 +19,13 @@ namespace ChGK.Droid.Services
 				return appInfo != null ? Android.App.Application.Context.PackageManager.GetApplicationLabel (appInfo) : string.Empty;
 			}
 		}
-	}
+        
+        public void RateAppOnMarket()
+        {
+            var intent = new Intent(Intent.ActionView);
+            intent.SetData(Uri.Parse("market://details?id=" + Android.App.Application.Context.PackageName));
+            Android.App.Application.Context.StartActivity(intent.SetFlags(ActivityFlags.NewTask));
+        }
+    }
 }
 

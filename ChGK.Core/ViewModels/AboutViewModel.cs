@@ -8,12 +8,17 @@ namespace ChGK.Core.ViewModels
 {
 	public class AboutViewModel : MenuItemViewModel
 	{
+        readonly IAppInfoProvider _appInfoProvider;
+
 		public AboutViewModel (IAppInfoProvider appInfoProvider)
 		{
+            _appInfoProvider = appInfoProvider;
+
 			Title = StringResources.AboutApp;
 
             AdvLink = string.Format("<u>{0}</u>", StringResources.ClickOnAd);
             EmailDeveloperLink = string.Format("<u>{0}</u>", StringResources.EmailDeveloper);
+            RateUs = string.Format("<u>{0}</u>", StringResources.RateApp);
 
 			CopyrightUrl = "<a href=" + StringResources.LicenceAgreementUrl + ">" + StringResources.LicenceAgreement + "</a>";
             SomeTitle = StringResources.QuestionsBase + " <a href=" + StringResources.DataBaseUrl + ">" + StringResources.WhatWhenWhere + "</a>";
@@ -27,6 +32,8 @@ namespace ChGK.Core.ViewModels
 		public string Version { get; private set; }
 
         public string AdvLink { get; private set; }
+
+        public string RateUs { get; private set; }
 
         public string EmailDeveloperLink { get; private set; }
 
@@ -48,6 +55,14 @@ namespace ChGK.Core.ViewModels
                     string.Empty,
                     string.Empty,
                     false));
+            }
+        }
+
+        public MvxCommand RateAppCommand
+        {
+            get
+            {
+                return new MvxCommand(_appInfoProvider.RateAppOnMarket);
             }
         }
 	}

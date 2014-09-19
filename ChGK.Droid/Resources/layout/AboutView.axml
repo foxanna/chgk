@@ -16,7 +16,7 @@
         android:clickable="true"
         android:background="@drawable/selectable_background_chgk"
         local:MvxBind="TextFormatted AdvLink,Converter=HtmlToSpannable;Click OpenAdsCommand" />
-  <TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="right"
@@ -26,13 +26,28 @@
         android:clickable="true"
         android:background="@drawable/selectable_background_chgk"
         local:MvxBind="TextFormatted EmailDeveloperLink,Converter=HtmlToSpannable;Click EmailDeveloperCommand" />
-    <TextView
+
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"       
-        local:MvxBind="Text Version" />
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"       
+            local:MvxBind="Text Version" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textColor="?android:attr/textColorLink"
+            android:clickable="true"
+            android:padding="@dimen/default_text_padding"
+            android:background="@drawable/selectable_background_chgk"
+            local:MvxBind="TextFormatted RateUs,Converter=HtmlToSpannable;Click RateAppCommand" />
+    </LinearLayout>
     <TextView
 		android:id="@+id/a1"
         android:layout_width="match_parent"
