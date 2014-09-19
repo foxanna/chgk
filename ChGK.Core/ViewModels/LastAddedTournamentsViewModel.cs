@@ -4,7 +4,6 @@ using Cirrious.MvvmCross.ViewModels;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using System.Threading;
-using ChGK.Core.ViewModels.Tutorials;
 using System.Windows.Input;
 using ChGK.Core.Utils;
 
@@ -36,12 +35,6 @@ namespace ChGK.Core.ViewModels
 		{
             DataLoader.IsLoadingForTheFirstTime = true;
             await DataLoader.LoadItemsAsync(LoadItems);
-
-            if (_firstViewStartInfoProvider.IsSeenForTheFirstTime(this.GetType()))
-            {
-                ShowViewModel(new FirstTimeSeenViewModelsFactory().CreateViewModel(this.GetType()));
-                _firstViewStartInfoProvider.SetSeen(this.GetType());
-            }
 		}
 
         int _page;
