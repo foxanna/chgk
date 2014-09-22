@@ -2013,9 +2013,6 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f050034
 			public const int clear_teams = 2131034164;
 			
-			// aapt resource value: 0x7f050042
-			public const int click_on_ad = 2131034178;
-			
 			// aapt resource value: 0x7f05001e
 			public const int common_google_play_services_enable_button = 2131034142;
 			
@@ -2092,13 +2089,7 @@ namespace ChGK.Droid
 			public const int common_signin_button_text_long = 2131034155;
 			
 			// aapt resource value: 0x7f05003f
-			public const int donate = 2131034175;
-			
-			// aapt resource value: 0x7f050041
-			public const int donate_no_thanks = 2131034177;
-			
-			// aapt resource value: 0x7f050040
-			public const int donate_thanks = 2131034176;
+			public const int donate_thanks = 2131034175;
 			
 			// aapt resource value: 0x7f050038
 			public const int empty_search_error = 2131034168;
@@ -2139,29 +2130,29 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f050037
 			public const int search_among = 2131034167;
 			
-			// aapt resource value: 0x7f050045
-			public const int search_among_a = 2131034181;
-			
-			// aapt resource value: 0x7f050047
-			public const int search_among_c = 2131034183;
-			
-			// aapt resource value: 0x7f050046
-			public const int search_among_p = 2131034182;
+			// aapt resource value: 0x7f050042
+			public const int search_among_a = 2131034178;
 			
 			// aapt resource value: 0x7f050044
-			public const int search_among_q = 2131034180;
+			public const int search_among_c = 2131034180;
 			
-			// aapt resource value: 0x7f050048
-			public const int search_among_s = 2131034184;
+			// aapt resource value: 0x7f050043
+			public const int search_among_p = 2131034179;
 			
-			// aapt resource value: 0x7f050049
-			public const int search_among_u = 2131034185;
+			// aapt resource value: 0x7f050041
+			public const int search_among_q = 2131034177;
+			
+			// aapt resource value: 0x7f050045
+			public const int search_among_s = 2131034181;
+			
+			// aapt resource value: 0x7f050046
+			public const int search_among_u = 2131034182;
 			
 			// aapt resource value: 0x7f05003a
 			public const int search_any_word = 2131034170;
 			
-			// aapt resource value: 0x7f050043
-			public const int search_no_results = 2131034179;
+			// aapt resource value: 0x7f050040
+			public const int search_no_results = 2131034176;
 			
 			// aapt resource value: 0x7f05003c
 			public const int search_questions = 2131034172;
