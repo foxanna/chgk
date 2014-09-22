@@ -1,6 +1,6 @@
 With Google Play services, your app can take advantage of the latest, Google-powered features such as Maps, Google+, and more, with automatic platform updates distributed as an APK through the Google Play store. This makes it faster for your users to receive updates and easier for you to integrate the newest that Google has to offer.
 
-This component is only for Xamarin.Android applications that target Android 4.0 (API level 14) and higher. 
+This component is only for Xamarin.Android applications that target Android 4.1.x (API level 16) and higher. 
 
 #### Google Technology
 * Google Play services provides you with easy access to Google services and is tightly integrated with the Android OS. Easy-to-use client libraries are provided for each service that let you implement the functionality you want easier and faster.
@@ -9,7 +9,7 @@ This component is only for Xamarin.Android applications that target Android 4.0 
 * All products in Google Play services share a common authorization API that leverages the existing Google accounts on the device. You and your users have a consistent and safe way to grant and receive OAuth2 access tokens to Google services.
 
 #### Automatic Updates
-* Devices running Android 2.23and newer and that have the Google Play Store app automatically receive updates to Google Play services. Enhance your app with the most recent version of Google Play services without worrying about your users' Android version.
+* Devices running Android 2.23 and newer and that have the Google Play Store app automatically receive updates to Google Play services. Enhance your app with the most recent version of Google Play services without worrying about your users' Android version.
 
 Showing a Map
 =============

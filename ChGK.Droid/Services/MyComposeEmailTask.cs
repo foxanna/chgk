@@ -5,7 +5,7 @@ using Cirrious.CrossCore.Droid.Platform;
 using Android.Content;
 using ChGK.Core;
 
-namespace ChGK.Droid
+namespace ChGK.Droid.Services
 {
 	public class MyComposeEmailTask : IMvxComposeEmailTask
 	{

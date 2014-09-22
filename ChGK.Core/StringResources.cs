@@ -23,10 +23,6 @@ namespace ChGK.Core
         public static string Email = "que.ou.quand@gmail.com";
         public static string RateApp = "Оценить на Google Play";
 
-        // AdvertView
-
-        public static string Thanks = "Благодарность";
-
 		// TeamsView
 
 		public static string Teams = "Команды";

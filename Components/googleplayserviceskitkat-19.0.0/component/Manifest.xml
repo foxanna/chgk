@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<component format="1" id="googleplayservices">
-  <name>Google Play Services (ICS)</name>
+<component format="1" id="googleplayserviceskitkat">
+  <name>Google Play Services (KitKat)</name>
   <publisher>Xamarin Inc.</publisher>
   <publisher-url>http://xamarin.com</publisher-url>
   <version>19.0.0</version>

@@ -7,6 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/donate"
+        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="right"
@@ -15,7 +17,7 @@
         android:textColor="?android:attr/textColorLink"
         android:clickable="true"
         android:background="@drawable/selectable_background_chgk"
-        local:MvxBind="TextFormatted AdvLink,Converter=HtmlToSpannable;Click OpenAdsCommand" />
+        local:MvxBind="TextFormatted AdvLink,Converter=HtmlToSpannable" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

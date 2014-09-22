@@ -1,18 +1,12 @@
 Requirements
 ============
-This component is only for applications that will target Android 4.0 (API level 14) or higher.
+This component is only for applications that will target Android 4.1.x (API level 16) or higher.
 
 It is not necessary to manually manage the version of the Google Play Services client libary via the Android SDK manager. The Google Play Services component embeds metadata to identify what version of the Google Services client library it is bound to. When you add the component to your application, the correct version of the Google Play Services client library is downloaded and the component automatically binds to that, instead of the version that is installed by the Android SDK Manager.
 
-This component also references and includes the following assemblies:
-
-*  [Xamarin.Android.Support.v4 (revision 20)](http://components.xamarin.com/view/xamandroidsupportv4-18) assembly. This is an updated version of `Mono.Android.Support.v4` and is not compatible with the old one. Applications can no longer reference or use `Mono.Android.Support.v4`.
-*  [Xamarin.Android.Support.v7.AppCompat](https://components.xamarin.com/view/xamandroidsupportv7appcompat) assembly
-*  Xamarin.Android.Support.v7.MediaRouter assembly
-
 To **test** your app when using the **Google Play services SDK**, you must use either:
 
-* A compatible Android device that runs Android 4.0 or higher and includes Google Play Store.
+* A compatible Android device that runs Android 4.1 or higher and includes Google Play Store.
 * The **Android emulator** with an AVD that runs the **Google APIs** platform based on **API level 19**.
 
 Ideally, you should develop and test your app on a variety of devices, including both phones and tablets.

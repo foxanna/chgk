@@ -37,14 +37,6 @@ namespace ChGK.Core.ViewModels
 
         public string EmailDeveloperLink { get; private set; }
 
-        public MvxCommand OpenAdsCommand
-        {
-            get
-            {
-                return new MvxCommand(() => ShowViewModel<AdvertViewModel>());
-            }
-        }
-
         public MvxCommand EmailDeveloperCommand
         {
             get
