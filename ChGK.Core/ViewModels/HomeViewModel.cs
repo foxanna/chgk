@@ -40,8 +40,6 @@ namespace ChGK.Core.ViewModels
 		{
 			base.Start ();
 
-            //ShowViewModel<SearchParamsViewModel>();
-
             ShowViewModel<LastAddedTournamentsViewModel> ();
 		}
 
