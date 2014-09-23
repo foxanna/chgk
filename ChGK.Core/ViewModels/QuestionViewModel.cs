@@ -19,20 +19,24 @@ namespace ChGK.Core.ViewModels
 
 		public QuestionViewModel ()
 		{
-			timer.OneSecond += (sender, e) => {
-				Time = e.Seconds;
-
-				if (e.Seconds == new TimeSpan (0, 0, 50)) {
-					Mvx.Resolve<IAudioPlayerService> ().PlayShort ();
-				} else if (e.Seconds == new TimeSpan (0, 1, 0)) {
-					PauseTimer ();
-
-					Mvx.Resolve<IAudioPlayerService> ().PlayLong ();
-				}
-			};
-
             _gaService = Mvx.Resolve<IGAService>();
 		}
+
+        void OnTimerOneSecond(object sender, TimerEventArgs e)
+        {
+            Time = e.Seconds;
+
+            if (e.Seconds == new TimeSpan(0, 0, 50))
+            {
+                Mvx.Resolve<IAudioPlayerService>().PlayShort();
+            }
+            else if (e.Seconds == new TimeSpan(0, 1, 0))
+            {
+                PauseTimer();
+
+                Mvx.Resolve<IAudioPlayerService>().PlayLong();
+            }
+        }
 
 		public QuestionViewModel (IQuestion question, int index) : this ()
 		{
@@ -123,6 +127,8 @@ namespace ChGK.Core.ViewModels
 
 		public void StartTimer ()
 		{
+            timer.OneSecond += OnTimerOneSecond;
+
 			timer.Resume ();
 			IsTimerStarted = true;
 
@@ -131,10 +137,13 @@ namespace ChGK.Core.ViewModels
 
 		public void PauseTimer ()
 		{
-			timer.Pause ();
-			IsTimerStarted = false;
+            timer.Pause ();
+            
+            timer.OneSecond -= OnTimerOneSecond;
+			
+            IsTimerStarted = false;
 
-            _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Timer, "start");
+            _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Timer, "stop");
 		}
 
 		bool _isTimerStarted;

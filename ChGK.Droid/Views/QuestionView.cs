@@ -20,28 +20,30 @@ namespace ChGK.Droid.Views
 			return this.BindingInflate (Resource.Layout.QuestionView, null);
 		}
 
-        MenuItemWrapper startButton, stopButton;
-        TextView timeText;
+        MenuItemWrapper _startButton, _stopButton;
+        TextView _timeText;
 
 		public override void OnCreateOptionsMenu (IMenu menu, MenuInflater inflater)
 		{
 			base.OnCreateOptionsMenu (menu, inflater);
 			inflater.Inflate (Resource.Menu.question, menu);
 
-			timeText = menu.FindItem (Resource.Id.time).ActionView as TextView;
-			startButton = new MenuItemWrapper (menu.FindItem (Resource.Id.start_timer));
-			stopButton = new MenuItemWrapper (menu.FindItem (Resource.Id.stop_timer));
+			_timeText = menu.FindItem (Resource.Id.time).ActionView as TextView;
+			_startButton = new MenuItemWrapper (menu.FindItem (Resource.Id.start_timer));
+			_stopButton = new MenuItemWrapper (menu.FindItem (Resource.Id.stop_timer));
 
 			var bindingSet = this.CreateBindingSet<QuestionView, QuestionViewModel> ();
-			bindingSet.Bind (timeText).For (n => n.Text).To (vm => vm.Time).WithConversion ("Timer");
-			bindingSet.Bind (startButton).For (n => n.Visible).To (vm => vm.IsTimerStopped);
-			bindingSet.Bind (stopButton).For (n => n.Visible).To (vm => vm.IsTimerStarted);
+			bindingSet.Bind (_timeText).For (n => n.Text).To (vm => vm.Time).WithConversion ("Timer");
+			bindingSet.Bind (_startButton).For (n => n.Visible).To (vm => vm.IsTimerStopped);
+			bindingSet.Bind (_stopButton).For (n => n.Visible).To (vm => vm.IsTimerStarted);
 			bindingSet.Apply ();
 		}
 
         public override void OnDestroyOptionsMenu()
         {
-            BindingContext.ClearAllBindings();
+            this.ClearBindings(_timeText);
+            this.ClearBindings(_startButton);
+            this.ClearBindings(_stopButton);
 
             base.OnDestroyOptionsMenu();
         }

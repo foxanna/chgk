@@ -54,7 +54,7 @@ namespace ChGK.Core.ViewModels
 
 		public int Index { get; private set; }
 
-        public void OnViewDestroying()
+        public override void OnViewDestroying()
         {
             foreach (var questionViewModel in Questions)
             {
