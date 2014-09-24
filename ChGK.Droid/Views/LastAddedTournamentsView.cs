@@ -1,4 +1,5 @@
-﻿using Android.Views;
+﻿using Android.Util;
+using Android.Views;
 using Android.Widget;
 using ChGK.Core.ViewModels;
 using ChGK.Droid.Helpers;
@@ -49,7 +50,6 @@ namespace ChGK.Droid.Views
         }
 
         ListView listView;
-        HeaderViewListAdapter adapter;
 
         public override void OnViewCreated(View view, Android.OS.Bundle savedInstanceState)
         {
@@ -57,10 +57,8 @@ namespace ChGK.Droid.Views
 
             listView = view.FindViewById<ListView>(Resource.Id.items);
             listView.Scroll += list_Scroll;
-
-            adapter = ((HeaderViewListAdapter)listView.Adapter);
         }
-
+        
         public override void OnDestroyView()
         {
             listView.Scroll -= list_Scroll;
@@ -71,7 +69,8 @@ namespace ChGK.Droid.Views
         void list_Scroll(object sender, AbsListView.ScrollEventArgs e)
         {
             var tournaments = (ViewModel as LastAddedTournamentsViewModel).Tournaments;
-            for (int i = e.FirstVisibleItem - adapter.HeadersCount; i < e.FirstVisibleItem + e.VisibleItemCount - adapter.FootersCount && i < tournaments.Count; i++)
+            for (int i = e.FirstVisibleItem - listView.HeaderViewsCount; 
+                i < e.FirstVisibleItem + e.VisibleItemCount - listView.FooterViewsCount && i < tournaments.Count; i++)
             {
                 tournaments[i].OnShowing();
             }
