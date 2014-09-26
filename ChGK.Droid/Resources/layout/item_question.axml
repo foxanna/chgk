@@ -7,4 +7,6 @@
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
     android:paddingLeft="?android:attr/listPreferredItemPaddingRight"
     android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+    android:paddingTop="@dimen/default_text_padding"
+    android:paddingBottom="@dimen/default_text_padding"
     local:MvxBind="Text Text" />
