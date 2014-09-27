@@ -134,7 +134,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\DatePickerFragment.cs" />
-    <Compile Include="Helpers\GoogleAnalyticsManager.cs" />
     <Compile Include="Helpers\MenuItemWrapper.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,6 +182,7 @@
     <Compile Include="Controls\SwipeToDismiss\SwipeDismissListViewTouchListener.cs" />
     <Compile Include="Controls\UndoBar\UndoBar.cs" />
     <Compile Include="Bootstrap\EmailPluginBootstrap.cs" />
+    <Compile Include="Services\GoogleAnalyticsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -418,8 +418,8 @@
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="googleplayserviceskitkat">
-      <Visible>False</Visible>
       <Version>19.0.0</Version>
+      <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="xamarin.inappbilling">
       <Version>1.5</Version>
