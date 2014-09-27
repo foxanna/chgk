@@ -17,11 +17,11 @@ namespace ChGK.Droid.Views
 			}
 		}
 
-        InAppBillingServiceConnection _serviceConnection;
+		InAppBillingServiceConnection _serviceConnection;
 
-        Product _selectedProduct;
+		Product _selectedProduct;
 
-        View _donateButton;
+		View _donateButton;
 
 		protected override void OnCreate (Android.OS.Bundle bundle)
 		{
@@ -30,74 +30,75 @@ namespace ChGK.Droid.Views
 			FindViewById<TextView> (Resource.Id.a1).MovementMethod = LinkMovementMethod.Instance;
 			FindViewById<TextView> (Resource.Id.a2).MovementMethod = LinkMovementMethod.Instance;
 
-            _donateButton = FindViewById(Resource.Id.donate); 
+			_donateButton = FindViewById (Resource.Id.donate); 
+			_donateButton.Click += (e, s) => BuyProduct (_selectedProduct);
             
-            ConnectInAppBilling();
+			ConnectInAppBilling ();
 		}
 
-        void ConnectInAppBilling()
-        {
-            string value = Security.Unify(Resources.GetStringArray(Resource.Array.billing_key), new int[] { 0, 1, 2, 3 });
+		void ConnectInAppBilling ()
+		{
+			string value = Security.Unify (Resources.GetStringArray (Resource.Array.billing_key), new int[] { 0, 1, 2, 3 });
 
-            _serviceConnection = new InAppBillingServiceConnection(this, value);
-            _serviceConnection.OnConnected += connected;
-            _serviceConnection.Connect();
-        }
-        
-        void ShowToast(string message)
-        {
-            var toast = Toast.MakeText(this, message, ToastLength.Short);
-            toast.View.SetBackgroundResource(Resource.Drawable.undo_bar_bg);
-            toast.Show();
-        }
+			_serviceConnection = new InAppBillingServiceConnection (this, value);
+			if (_serviceConnection != null) {
+				_serviceConnection.OnConnected += connected;
+				_serviceConnection.Connect ();
+			}
+		}
 
-        protected override void OnActivityResult(int requestCode, Result resultCode, Android.Content.Intent data)
-        {
-            base.OnActivityResult(requestCode, resultCode, data);
+		void ShowToast (string message)
+		{
+			var toast = Toast.MakeText (this, message, ToastLength.Short);
+			toast.View.SetBackgroundResource (Resource.Drawable.undo_bar_bg);
+			toast.Show ();
+		}
 
-            _serviceConnection.BillingHandler.HandleActivityResult(requestCode, resultCode, data);
-        }
+		protected override void OnActivityResult (int requestCode, Result resultCode, Android.Content.Intent data)
+		{
+			base.OnActivityResult (requestCode, resultCode, data);
 
-        async void connected()
-        {
-            _serviceConnection.BillingHandler.OnProductPurchaseCompleted += BillingHandler_OnProductPurchaseCompleted;
-            var products = await _serviceConnection.BillingHandler.QueryInventoryAsync(new List<string> { "donate" }, ItemType.Product);
+			if (_serviceConnection != null) {
+				_serviceConnection.BillingHandler.HandleActivityResult (requestCode, resultCode, data);
+			}
+		}
 
-            if (products != null && products.Count > 0)
-            {
-                _donateButton.Visibility = ViewStates.Visible;
-                _selectedProduct = products[0];
+		async void connected ()
+		{
+			var products = await _serviceConnection.BillingHandler.QueryInventoryAsync (new List<string> { "donate" }, ItemType.Product);
 
-                _donateButton.Click += (e, s) => BuyProduct(_selectedProduct);
-            }
-        }
+			if (products != null && products.Count > 0) {
+				_serviceConnection.BillingHandler.OnProductPurchaseCompleted += BillingHandler_OnProductPurchaseCompleted;
 
-        void BuyProduct(Product product)
-        {
-            if (product == null)
-            {
-                return;
-            }
+				_donateButton.Visibility = ViewStates.Visible;
+				_selectedProduct = products [0];
+			}
+		}
 
-            _serviceConnection.BillingHandler.BuyProduct(product);
-        }
+		void BuyProduct (Product product)
+		{
+			if (product == null) {
+				return;
+			}
+
+			_serviceConnection.BillingHandler.BuyProduct (product);
+		}
 
 
-        void BillingHandler_OnProductPurchaseCompleted(int response, Purchase purchase)
-        {
-            bool result = _serviceConnection.BillingHandler.ConsumePurchase(purchase);
-            ShowToast(GetString(Resource.String.donate_thanks));
-        }
-        
-        protected override void OnDestroy()
-        {
-            if (_serviceConnection != null)
-            {
-                _serviceConnection.Disconnect();
-            }
+		void BillingHandler_OnProductPurchaseCompleted (int response, Purchase purchase)
+		{
+			bool result = _serviceConnection.BillingHandler.ConsumePurchase (purchase);
+			ShowToast (GetString (Resource.String.donate_thanks));
+		}
 
-            base.OnDestroy();
-        }
+		protected override void OnDestroy ()
+		{
+			if (_serviceConnection != null) {
+				_serviceConnection.Disconnect ();
+			}
+
+			base.OnDestroy ();
+		}
 	}
 }
 
