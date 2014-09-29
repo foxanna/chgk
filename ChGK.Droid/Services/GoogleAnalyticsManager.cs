@@ -17,11 +17,12 @@ namespace ChGK.Droid.Services
 		{
 			var analytics = GoogleAnalytics.GetInstance (Application.Context);
 
-			_tracker = analytics.NewTracker ("UA-54114842-2");
-			_tracker.EnableExceptionReporting (true);
+#if (DEBUG)
+            analytics.SetDryRun(true);
+#endif
 
-//			Thread.DefaultUncaughtExceptionHandler = new ExceptionReporter (
-//				_tracker, Thread.DefaultUncaughtExceptionHandler, Application.Context);     
+            _tracker = analytics.NewTracker ("UA-54114842-2");
+			_tracker.EnableExceptionReporting (true);
 		}
 
 		public void ReportScreenEnter (string name)
