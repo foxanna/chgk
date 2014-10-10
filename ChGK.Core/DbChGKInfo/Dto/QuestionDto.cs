@@ -1,9 +1,5 @@
-﻿using System;
+﻿using ChGK.Core.Models;
 using System.Xml.Serialization;
-using ChGK.Core.Models;
-using System.Text.RegularExpressions;
-using System.Text;
-using ChGK.Core.Utils;
 
 namespace ChGK.Core.DbChGKInfo.Dto
 {
@@ -29,13 +25,13 @@ namespace ChGK.Core.DbChGKInfo.Dto
 
 		[XmlElement ("Sources")]
 		public string Source { get; set; }
-
-
+        
 		public IQuestion ToModel ()
 		{
 			return new Question {
 				ID = ID,
 				Picture = TextFormatter.GetPicture (Text),
+                Gearbox = TextFormatter.GetGearbox(Text),
 				Text = TextFormatter.FormatQuestion (Text),
 				Answer = Answer,
                 PassCriteria = TextFormatter.FormatPassCriteria(PassCriteria),

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Linq;
-using Cirrious.MvvmCross.ViewModels;
+﻿using System.Linq;
 using ChGK.Core.Models;
 using System.Collections.Generic;
-using Cirrious.MvvmCross.Plugins.Json;
 using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
 using Newtonsoft.Json;
-using ChGK.Core.Utils;
 using ChGK.Core.Services;
 using ChGK.Core.ViewModels.Tutorials;
 

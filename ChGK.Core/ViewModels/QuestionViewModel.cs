@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
-using Newtonsoft.Json;
-using ChGK.Core.Messages;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using ChGK.Core.Utils;
@@ -50,11 +44,13 @@ namespace ChGK.Core.ViewModels
 			Index = index;
 			HasPicture = !string.IsNullOrEmpty (question.Picture);
 			Picture = "http://db.chgk.info/images/db/" + question.Picture;
+            Gearbox = question.Gearbox;
 
 			HasComments = !string.IsNullOrEmpty (Comment);
 			HasAuthor = !string.IsNullOrEmpty (Author);
 			HasSource = !string.IsNullOrEmpty (Source);
 			HasPassCriteria = !string.IsNullOrEmpty (PassCriteria);
+            HasGearbox = !string.IsNullOrEmpty(Gearbox);
 		}
 
 		public string ID { get; set; }
@@ -68,6 +64,8 @@ namespace ChGK.Core.ViewModels
 		public string Comment { get; set; }
 
 		public string Author { get; set; }
+        
+        public string Gearbox { get; set; }
 
 		public string Source { get; set; }
 
@@ -84,6 +82,8 @@ namespace ChGK.Core.ViewModels
 		public bool HasPicture { get; set; }
 
 		public bool HasPassCriteria { get; set; }
+
+        public bool HasGearbox { get; set; }
 
 		bool _isAnswerShown;
 

@@ -17,6 +17,8 @@
 		string Picture { get; }
 
 		string PassCriteria { get; }
+
+        string Gearbox { get; }
 	}
 
 	class Question : IQuestion
@@ -35,7 +37,9 @@
 
 		public string Picture { get; set; }
 
-		public string PassCriteria { get; set; }
+        public string PassCriteria { get; set; }
+
+        public string Gearbox { get; set; }
 
 		public override bool Equals (object obj)
 		{
