@@ -222,6 +222,9 @@
     <AndroidResource Include="Resources\Layout\item_search_result_footer.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\SplashScreen.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\splash.png" />
@@ -371,7 +374,6 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Values\Strings.xml" />
-    <AndroidResource Include="Resources\Layout\SplashScreen.axml" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_action_av_play.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_action_av_play.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_action_av_play.png" />
@@ -581,5 +583,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_launcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\_512_512.png" />
   </ItemGroup>
 </Project>
