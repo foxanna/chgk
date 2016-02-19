@@ -1,18 +1,19 @@
 ﻿using ChGK.Core.Models;
 using ChGK.Core.Services;
-using Cirrious.MvvmCross.ViewModels;
+using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChGK.Core.ViewModels.Search
 {
     public class SearchQuestionSingleResultViewModel : MenuItemViewModel
     {
-        readonly IGAService _gaService;
+        private readonly IGAService _gaService;
+
+        private MvxCommand _openImageCommand;
+
+        private MvxCommand _openTourCommand;
+
+        private MvxCommand _openTournamentCommand;
 
         public SearchQuestionSingleResultViewModel(IGAService gaService)
         {
@@ -20,6 +21,56 @@ namespace ChGK.Core.ViewModels.Search
         }
 
         public ISearchQuestionsResult Question { get; set; }
+
+        public string Picture { get; set; }
+
+        public string TourName { get; set; }
+
+        public string TournamentName { get; set; }
+
+        public bool HasComments { get; set; }
+
+        public bool HasAuthor { get; set; }
+
+        public bool HasSource { get; set; }
+
+        public bool HasPicture { get; set; }
+
+        public bool HasPassCriteria { get; set; }
+
+        public MvxCommand OpenImageCommand
+        {
+            get
+            {
+                return _openImageCommand ?? (_openImageCommand =
+                    new MvxCommand(() => ShowViewModel<FullImageViewModel>(new {image = Picture})));
+            }
+        }
+
+        public MvxCommand OpenTourCommand
+        {
+            get
+            {
+                return _openTourCommand ??
+                       (_openTourCommand =
+                           new MvxCommand(
+                               () =>
+                                   ShowViewModel<TourViewModel>(
+                                       new {name = Question.TourName, filename = Question.TourFileName})));
+            }
+        }
+
+        public MvxCommand OpenTournamentCommand
+        {
+            get
+            {
+                return _openTournamentCommand ??
+                       (_openTournamentCommand =
+                           new MvxCommand(
+                               () =>
+                                   ShowViewModel<SingleTournamentViewModel>(new {filename = Question.TournamentFileName})));
+            }
+        }
 
         public void Init(string json)
         {
@@ -38,50 +89,5 @@ namespace ChGK.Core.ViewModels.Search
 
             Title = StringResources.Question + " " + Question.Number;
         }
-        
-        public string Picture { get; set; }
-
-        public string TourName{ get; set; }
-
-        public string TournamentName { get; set; }
-
-        public bool HasComments { get; set; }
-
-        public bool HasAuthor { get; set; }
-
-        public bool HasSource { get; set; }
-
-        public bool HasPicture { get; set; }
-
-        public bool HasPassCriteria { get; set; }
-
-        MvxCommand _openImageCommand;
-
-        public MvxCommand OpenImageCommand
-        {
-            get
-            {
-                return _openImageCommand ?? (_openImageCommand =
-                    new MvxCommand(() => ShowViewModel<FullImageViewModel>(new { image = Picture })));
-            }
-        }
-
-       MvxCommand _openTourCommand;
-       public MvxCommand  OpenTourCommand
-        {
-            get
-            {
-                return _openTourCommand ?? (_openTourCommand = new MvxCommand(() => ShowViewModel<TourViewModel>(new { name = Question.TourName, filename = Question.TourFileName })));
-            }
-        }
-
-       MvxCommand _openTournamentCommand;
-       public MvxCommand OpenTournamentCommand
-       {
-           get
-            {
-                return _openTournamentCommand ?? (_openTournamentCommand = new MvxCommand(() => ShowViewModel<SingleTournamentViewModel>(new { filename = Question.TournamentFileName })));
-            }
-       }
     }
 }

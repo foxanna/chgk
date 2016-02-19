@@ -1,65 +1,32 @@
-﻿using ChGK.Core.Models;
-using ChGK.Core.Services;
-using Cirrious.MvvmCross.ViewModels;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Input;
+using ChGK.Core.Models;
+using MvvmCross.Core.ViewModels;
+using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels.Search
 {
     public class SearchParamsViewModel : MenuItemViewModel
     {
-        SearchParams SearchParams { get; set; }
+        private ICommand _searchCommand;
 
         public SearchParamsViewModel()
-		{
+        {
             Title = StringResources.Search;
 
             SearchParams = new SearchParams();
-		}
+        }
 
-        ICommand _searchCommand;
+        private SearchParams SearchParams { get; }
 
         public ICommand SearchCommand
         {
-            get
-            {
-                return _searchCommand ?? (_searchCommand = new MvxCommand(DoSearch));
-            }        
-        }
-
-        void DoSearch()
-        {
-            if (SearchAmongQuestions)
-            {
-                if (CanSearch())
-                {
-                    ShowViewModel<SearchQuestionsResultsViewModel>(
-                    new { searchParams = JsonConvert.SerializeObject(SearchParams) });
-                }
-            }
-        }
-
-        public bool CanSearchWithThisParams()
-        {
-             return (SearchParams.HasAnswer || SearchParams.HasAuthors || SearchParams.HasComment || SearchParams.HasPassCriteria || SearchParams.HasQuestion || SearchParams.HasSourse);
-        }
-
-        bool CanSearch()
-        {
-            return !string.IsNullOrEmpty(SearchParams.SearchQuery) && CanSearchWithThisParams();               
+            get { return _searchCommand ?? (_searchCommand = new MvxCommand(DoSearch)); }
         }
 
         public bool SearchAmongQuestions
         {
-            get
-            {
-                return SearchParams.SearchAmongQuestions; 
-            }
+            get { return SearchParams.SearchAmongQuestions; }
             set
             {
                 SearchParams.SearchAmongQuestions = value;
@@ -74,10 +41,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public bool SearchAmongTours
         {
-            get
-            {
-                 return SearchParams.SearchAmongTours; 
-            }
+            get { return SearchParams.SearchAmongTours; }
             set
             {
                 SearchParams.SearchAmongTours = value;
@@ -92,10 +56,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public bool SearchAmongUnsorted
         {
-            get
-            {
-                return SearchParams.SearchAmongUnsorted; 
-            }
+            get { return SearchParams.SearchAmongUnsorted; }
             set
             {
                 SearchParams.SearchAmongUnsorted = value;
@@ -109,13 +70,10 @@ namespace ChGK.Core.ViewModels.Search
         }
 
         public string SearchQuery
-        { 
-            get 
-            { 
-                return SearchParams.SearchQuery; 
-            } 
-            set 
-            { 
+        {
+            get { return SearchParams.SearchQuery; }
+            set
+            {
                 SearchParams.SearchQuery = value;
                 RaisePropertyChanged(() => SearchQuery);
             }
@@ -123,10 +81,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public bool HasQuestion
         {
-            get
-            {
-                return SearchParams.HasQuestion;
-            }
+            get { return SearchParams.HasQuestion; }
             set
             {
                 SearchParams.HasQuestion = value;
@@ -136,10 +91,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public bool HasAnswer
         {
-            get
-            {
-                return SearchParams.HasAnswer;
-            }
+            get { return SearchParams.HasAnswer; }
             set
             {
                 SearchParams.HasAnswer = value;
@@ -149,10 +101,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public bool HasPassCriteria
         {
-            get
-            {
-                return SearchParams.HasPassCriteria;
-            }
+            get { return SearchParams.HasPassCriteria; }
             set
             {
                 SearchParams.HasPassCriteria = value;
@@ -160,12 +109,9 @@ namespace ChGK.Core.ViewModels.Search
             }
         }
 
-        public bool HasComment 
+        public bool HasComment
         {
-            get
-            {
-                return SearchParams.HasComment;
-            }
+            get { return SearchParams.HasComment; }
             set
             {
                 SearchParams.HasComment = value;
@@ -175,10 +121,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public bool HasSourse
         {
-            get
-            {
-                return SearchParams.HasSourse;
-            }
+            get { return SearchParams.HasSourse; }
             set
             {
                 SearchParams.HasSourse = value;
@@ -188,10 +131,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public bool HasAuthors
         {
-            get
-            {
-                return SearchParams.HasAuthors;
-            }
+            get { return SearchParams.HasAuthors; }
             set
             {
                 SearchParams.HasAuthors = value;
@@ -201,10 +141,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public DateTime StartDate
         {
-            get
-            {
-                return SearchParams.StartDate;
-            }
+            get { return SearchParams.StartDate; }
             set
             {
                 SearchParams.StartDate = value;
@@ -214,10 +151,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public DateTime EndDate
         {
-            get
-            {
-                return SearchParams.EndDate;
-            }
+            get { return SearchParams.EndDate; }
             set
             {
                 SearchParams.EndDate = value;
@@ -227,10 +161,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public bool AnyWord
         {
-            get
-            {
-                return SearchParams.AnyWord;
-            }
+            get { return SearchParams.AnyWord; }
             set
             {
                 SearchParams.AnyWord = value;
@@ -245,10 +176,7 @@ namespace ChGK.Core.ViewModels.Search
 
         public bool AllWords
         {
-            get
-            {
-                return SearchParams.AllWords;
-            }
+            get { return SearchParams.AllWords; }
             set
             {
                 SearchParams.AllWords = value;
@@ -258,6 +186,29 @@ namespace ChGK.Core.ViewModels.Search
                 }
                 RaisePropertyChanged(() => AllWords);
             }
+        }
+
+        private void DoSearch()
+        {
+            if (SearchAmongQuestions)
+            {
+                if (CanSearch())
+                {
+                    ShowViewModel<SearchQuestionsResultsViewModel>(
+                        new {searchParams = JsonConvert.SerializeObject(SearchParams)});
+                }
+            }
+        }
+
+        public bool CanSearchWithThisParams()
+        {
+            return (SearchParams.HasAnswer || SearchParams.HasAuthors || SearchParams.HasComment ||
+                    SearchParams.HasPassCriteria || SearchParams.HasQuestion || SearchParams.HasSourse);
+        }
+
+        private bool CanSearch()
+        {
+            return !string.IsNullOrEmpty(SearchParams.SearchQuery) && CanSearchWithThisParams();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Android.App;
 using Android.OS;
-using Cirrious.MvvmCross.Droid.Views;
+using MvvmCross.Droid.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
 ﻿using System;
-using Cirrious.CrossCore.Converters;
 using Android.Text;
+using MvvmCross.Platform.Converters;
 
 namespace ChGK.Droid.Helpers
 {

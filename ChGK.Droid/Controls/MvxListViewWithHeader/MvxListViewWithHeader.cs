@@ -1,11 +1,11 @@
 ﻿using Android.Content;
 using Android.Util;
-using Cirrious.MvvmCross.Binding.Droid.Views;
-using Cirrious.MvvmCross.Binding.Droid.ResourceHelpers;
+using MvvmCross.Binding.Droid.ResourceHelpers;
 using System.Collections.Generic;
 using Android.Views;
 using Android.Widget;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Binding.Droid.Views;
 
 namespace ChGK.Droid.Controls.MvxListViewWithHeader
 {

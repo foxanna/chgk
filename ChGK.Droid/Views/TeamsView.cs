@@ -4,7 +4,7 @@ using Android.Widget;
 using ChGK.Core.ViewModels;
 using ChGK.Droid.Controls.SwipeToDismiss;
 using ChGK.Droid.Controls.UndoBar;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.BindingContext;
 using ChGK.Core.Utils;
 using ChGK.Droid.Helpers;
 

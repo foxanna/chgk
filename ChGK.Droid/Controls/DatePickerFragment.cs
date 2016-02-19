@@ -1,25 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
 using Android.Widget;
-using Java.Util;
 
 namespace ChGK.Droid.Controls
 {
-    public class DatePickerFragment : Android.Support.V4.App.DialogFragment, DatePickerDialog.IOnDateSetListener
+    public class DatePickerFragment : DialogFragment, DatePickerDialog.IOnDateSetListener
     {
-        Action<int, int, int> _onDateSet;
-        int _year, _monthOfYear, _dayOfMonth;
-        
-        public static DatePickerFragment NewInstance(Action<int, int, int> OnDateSet, int year, int monthOfYear, int dayOfMonth)
+        private Action<int, int, int> _onDateSet;
+        private int _year, _monthOfYear, _dayOfMonth;
+
+        public static DatePickerFragment NewInstance(Action<int, int, int> OnDateSet, int year, int monthOfYear,
+            int dayOfMonth)
         {
             var fragment = new DatePickerFragment();
             fragment._onDateSet = OnDateSet;
@@ -51,7 +43,7 @@ namespace ChGK.Droid.Controls
         {
             return new DatePickerDialog(Activity, this, _year, _monthOfYear, _dayOfMonth);
         }
-        
+
         void DatePickerDialog.IOnDateSetListener.OnDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
         {
             _onDateSet(year, monthOfYear + 1, dayOfMonth);

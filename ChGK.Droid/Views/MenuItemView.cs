@@ -3,9 +3,8 @@ using Android.Views;
 using ChGK.Core.Services;
 using ChGK.Core.Utils;
 using ChGK.Core.ViewModels;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Droid.FullFragging.Fragments;
 
 namespace ChGK.Droid.Views
 {
@@ -19,8 +18,8 @@ namespace ChGK.Droid.Views
         public override void OnStart()
         {
  	         base.OnStart();
-    
-             Mvx.Resolve<IGAService>().ReportScreenEnter(this.GetType().FullName);            
+
+            MvvmCross.Platform.Mvx.Resolve<IGAService>().ReportScreenEnter(this.GetType().FullName);            
         }
 
 		public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -33,7 +32,7 @@ namespace ChGK.Droid.Views
 		{
 			base.OnViewCreated (view, savedInstanceState);
 
-			HasOptionsMenu = true;
+		    SetHasOptionsMenu(true);
 			Activity.Title = (ViewModel as MenuItemViewModel).Title;
 		}
 

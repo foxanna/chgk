@@ -1,49 +1,57 @@
+using System;
+using System.IO;
 using Android.Content;
+using ChGK.Core;
 using ChGK.Core.Services;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using Cirrious.CrossCore.Plugins;
-using Cirrious.MvvmCross.Droid.Platform;
-using Cirrious.MvvmCross.Droid.Views;
-using Cirrious.MvvmCross.ViewModels;
 using ChGK.Droid.Helpers;
 using ChGK.Droid.Services;
-using Cirrious.MvvmCross.Plugins.Email;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Droid.Platform;
+using MvvmCross.Droid.Views;
+using MvvmCross.Platform;
+using MvvmCross.Platform.Platform;
+using MvvmCross.Platform.Plugins;
+using MvvmCross.Plugins.Email;
+using SQLite.Net;
+using SQLite.Net.Platform.XamarinAndroid;
 
 namespace ChGK.Droid
 {
-	public class Setup : MvxAndroidSetup
-	{
-		public Setup (Context applicationContext) : base (applicationContext)
-		{
-		}
+    public class Setup : MvxAndroidSetup
+    {
+        public Setup(Context applicationContext) : base(applicationContext)
+        {
+        }
 
-		protected override IMvxApplication CreateApp ()
-		{
-			return new Core.App ();
-		}
+        protected override IMvxApplication CreateApp()
+        {
+            return new App();
+        }
 
-		protected override IMvxTrace CreateDebugTrace ()
-		{
-			return new DebugTrace ();
-		}
+        protected override IMvxTrace CreateDebugTrace()
+        {
+            return new DebugTrace();
+        }
 
-		protected override IMvxAndroidViewPresenter CreateViewPresenter ()
-		{
-			return new ChGKPresenter ();
-		}
+        protected override IMvxAndroidViewPresenter CreateViewPresenter()
+        {
+            return new ChGKPresenter();
+        }
 
-		protected override void InitializeApp (IMvxPluginManager pluginManager)
-		{
-			Mvx.RegisterSingleton<IDeviceConnectivityService> (new DeviceConnectivityService ());
-			Mvx.RegisterSingleton<IAudioPlayerService> (new AudioPlayerService ());
-			Mvx.RegisterSingleton<IAppInfoProvider> (new AppInfoProvider ());
-			Mvx.RegisterSingleton<IDialogManager> (new DialogManager ());
-			Mvx.RegisterSingleton<IMvxComposeEmailTask> (new MyComposeEmailTask ());
+        protected override void InitializeApp(IMvxPluginManager pluginManager)
+        {
+            Mvx.RegisterSingleton<IDeviceConnectivityService>(new DeviceConnectivityService());
+            Mvx.RegisterSingleton<IAudioPlayerService>(new AudioPlayerService());
+            Mvx.RegisterSingleton<IAppInfoProvider>(new AppInfoProvider());
+            Mvx.RegisterSingleton<IDialogManager>(new DialogManager());
+            Mvx.RegisterSingleton<IMvxComposeEmailTask>(new MyComposeEmailTask());
             Mvx.RegisterSingleton<IFirstViewStartInfoProvider>(new FirstViewStartInfoProvider());
             Mvx.RegisterSingleton<IGAService>(new GAService());
 
-			base.InitializeApp (pluginManager);
-		}
-	}
+            Mvx.RegisterType(() => new SQLiteConnection(new SQLitePlatformAndroid(),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "chgk.db")));
+
+            base.InitializeApp(pluginManager);
+        }
+    }
 }

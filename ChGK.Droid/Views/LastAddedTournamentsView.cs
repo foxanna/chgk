@@ -3,7 +3,7 @@ using Android.Views;
 using Android.Widget;
 using ChGK.Core.ViewModels;
 using ChGK.Droid.Helpers;
-using Cirrious.MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.BindingContext;
 
 namespace ChGK.Droid.Views
 {

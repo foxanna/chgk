@@ -1,12 +1,11 @@
-﻿using Cirrious.MvvmCross.Plugins.Messenger;
+﻿using MvvmCross.Plugins.Messenger;
 
 namespace ChGK.Core.Utils
 {
-	public class CloseDrawerMessage : MvxMessage
-	{
-		public CloseDrawerMessage (object sender) : base (sender)
-		{
-
-		}
-	}
+    public class CloseDrawerMessage : MvxMessage
+    {
+        public CloseDrawerMessage(object sender) : base(sender)
+        {
+        }
+    }
 }

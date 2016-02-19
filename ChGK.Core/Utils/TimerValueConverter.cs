@@ -1,14 +1,14 @@
 ﻿using System;
-using Cirrious.CrossCore.Converters;
+using System.Globalization;
+using MvvmCross.Platform.Converters;
 
 namespace ChGK.Core.Utils
 {
-	public class TimerValueConverter : MvxValueConverter<TimeSpan, string>
-	{
-		protected override string Convert (TimeSpan value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-		{
-			return value.ToString ("m\\:ss");
-		}
-	}
+    public class TimerValueConverter : MvxValueConverter<TimeSpan, string>
+    {
+        protected override string Convert(TimeSpan value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value.ToString("m\\:ss");
+        }
+    }
 }
-

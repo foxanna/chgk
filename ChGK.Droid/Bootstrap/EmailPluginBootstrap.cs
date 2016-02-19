@@ -1,9 +1,9 @@
-using Cirrious.CrossCore.Plugins;
+using MvvmCross.Platform.Plugins;
 
 namespace ChGK.Droid.Bootstrap
 {
     public class EmailPluginBootstrap
-        : MvxPluginBootstrapAction<Cirrious.MvvmCross.Plugins.Email.PluginLoader>
+        : MvxPluginBootstrapAction<MvvmCross.Plugins.Email.PluginLoader>
     {
     }
 }

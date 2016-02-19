@@ -1,9 +1,4 @@
-﻿using Cirrious.MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace ChGK.Core.Models
 {
@@ -76,20 +71,20 @@ namespace ChGK.Core.Models
             if (ReferenceEquals(this, other))
                 return true;
             return string.Equals(SearchQuery, other.SearchQuery)
-                && string.Equals(Type, other.Type)
-                && HasQuestion == other.HasQuestion
-                && HasAnswer == other.HasAnswer
-                && HasPassCriteria == other.HasPassCriteria
-                && HasComment == other.HasComment
-                && HasSourse == other.HasSourse
-                && HasAuthors == other.HasAuthors
-                && AnyWord == other.AnyWord
-                && AllWords == other.AllWords
-                && SearchAmongQuestions == other.SearchAmongQuestions
-                && SearchAmongTours == other.SearchAmongTours
-                && SearchAmongUnsorted == other.SearchAmongUnsorted
-                && DateTime.Equals(StartDate, other.StartDate)
-                && DateTime.Equals(EndDate, other.EndDate);
+                   && string.Equals(Type, other.Type)
+                   && HasQuestion == other.HasQuestion
+                   && HasAnswer == other.HasAnswer
+                   && HasPassCriteria == other.HasPassCriteria
+                   && HasComment == other.HasComment
+                   && HasSourse == other.HasSourse
+                   && HasAuthors == other.HasAuthors
+                   && AnyWord == other.AnyWord
+                   && AllWords == other.AllWords
+                   && SearchAmongQuestions == other.SearchAmongQuestions
+                   && SearchAmongTours == other.SearchAmongTours
+                   && SearchAmongUnsorted == other.SearchAmongUnsorted
+                   && DateTime.Equals(StartDate, other.StartDate)
+                   && DateTime.Equals(EndDate, other.EndDate);
         }
 
         public override bool Equals(object obj)
@@ -98,16 +93,17 @@ namespace ChGK.Core.Models
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            if (obj.GetType() != this.GetType())
+            if (obj.GetType() != GetType())
                 return false;
-            return Equals((SearchParams)obj);
+            return Equals((SearchParams) obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return ((SearchQuery != null ? SearchQuery.GetHashCode() : 0) * 397) ^ (Type != null ? Type.GetHashCode() : 0);
+                return ((SearchQuery != null ? SearchQuery.GetHashCode() : 0)*397) ^
+                       (Type != null ? Type.GetHashCode() : 0);
             }
         }
     }

@@ -1,102 +1,102 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using Cirrious.MvvmCross.ViewModels;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
-using System.Threading.Tasks;
 using ChGK.Core.Utils;
+using MvvmCross.Core.ViewModels;
+using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels
 {
     public class TourViewModel : MenuItemViewModel
-	{
-		IChGKWebService _service;
+    {
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
-		public DataLoader DataLoader { get; set; }
+        private string _fileName;
 
-		CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource ();
+        private string _info;
 
-		public TourViewModel (IChGKWebService service)
-		{
-			_service = service;
+        private List<IQuestion> _questions;
+        private readonly IChGKWebService _service;
 
-			DataLoader = new DataLoader ();
-		}
+        private MvxCommand<IQuestion> _showQuestionCommand;
 
-		async Task LoadItems ()
-		{
-			Questions = null;
+        public TourViewModel(IChGKWebService service)
+        {
+            _service = service;
 
-			var tour = await _service.GetTourDetails (_fileName, _cancellationTokenSource.Token);
+            DataLoader = new DataLoader();
+        }
 
-			Questions = tour.Questions;
+        public DataLoader DataLoader { get; set; }
 
-			var infoSB = new StringBuilder ();
-			if (!string.IsNullOrEmpty (tour.Editors)) {
-				infoSB.Append (string.Format ("Редакторы:\n{0}\n", tour.Editors));
-			}
+        public string Info
+        {
+            get { return _info; }
+            set
+            {
+                _info = value;
+                RaisePropertyChanged(() => Info);
+            }
+        }
 
-			infoSB.Append (string.Format ("\nКоличество вопросов: {0}\n", Questions.Count));
+        public List<IQuestion> Questions
+        {
+            get { return _questions; }
+            set
+            {
+                _questions = value;
+                RaisePropertyChanged(() => Questions);
+            }
+        }
 
-			Info = infoSB.ToString ();
-		}
+        public MvxCommand<IQuestion> ShowQuestionCommand
+        {
+            get { return _showQuestionCommand ?? (_showQuestionCommand = new MvxCommand<IQuestion>(ShowQuestion)); }
+        }
 
-		string _fileName;
+        private async Task LoadItems()
+        {
+            Questions = null;
 
-		public async void Init (string name, string filename)
-		{
-			Title = name;
+            var tour = await _service.GetTourDetails(_fileName, _cancellationTokenSource.Token);
+
+            Questions = tour.Questions;
+
+            var infoSB = new StringBuilder();
+            if (!string.IsNullOrEmpty(tour.Editors))
+            {
+                infoSB.Append(string.Format("Редакторы:\n{0}\n", tour.Editors));
+            }
+
+            infoSB.Append(string.Format("\nКоличество вопросов: {0}\n", Questions.Count));
+
+            Info = infoSB.ToString();
+        }
+
+        public async void Init(string name, string filename)
+        {
+            Title = name;
             if (!filename.StartsWith("tour/"))
             {
                 filename = "tour/" + filename;
             }
 
-			_fileName = filename;
-	
-			await DataLoader.LoadItemsAsync (LoadItems);
-		}
-        
-		string _info;
+            _fileName = filename;
 
-		public string Info {
-			get {
-				return _info;
-			}
-			set {
-				_info = value;
-				RaisePropertyChanged (() => Info);
-			}
-		}
+            await DataLoader.LoadItemsAsync(LoadItems);
+        }
 
-		List<IQuestion> _questions;
-
-		public List<IQuestion> Questions {
-			get {
-				return _questions;
-			}
-			set {
-				_questions = value;
-				RaisePropertyChanged (() => Questions);
-			}
-		}
-
-		MvxCommand <IQuestion> _showQuestionCommand;
-
-		public MvxCommand <IQuestion> ShowQuestionCommand {
-			get {
-				return _showQuestionCommand ?? (_showQuestionCommand = new MvxCommand<IQuestion> (ShowQuestion));
-			}
-		}
-
-		void ShowQuestion (IQuestion question)
-		{
-			ShowViewModel<QuestionsViewModel> (new {
-					questionsJson = JsonConvert.SerializeObject (Questions),
-					index = Questions.IndexOf (question),
-				});
-		}
+        private void ShowQuestion(IQuestion question)
+        {
+            ShowViewModel<QuestionsViewModel>(new
+            {
+                questionsJson = JsonConvert.SerializeObject(Questions),
+                index = Questions.IndexOf(question)
+            });
+        }
 
         public override void OnViewDestroying()
         {
@@ -104,6 +104,5 @@ namespace ChGK.Core.ViewModels
 
             base.OnViewDestroying();
         }
-	}
+    }
 }
-

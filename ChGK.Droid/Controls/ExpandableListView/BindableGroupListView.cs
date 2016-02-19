@@ -1,12 +1,12 @@
 ﻿using Android.Widget;
 using Android.Content;
 using Android.Util;
-using Cirrious.MvvmCross.Binding.Attributes;
 using System.Collections;
 using System.Windows.Input;
-using Cirrious.MvvmCross.Binding.Droid.Views;
-using Cirrious.MvvmCross.Binding.Droid.ResourceHelpers;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Binding.Droid.Views;
+using MvvmCross.Binding.Droid.ResourceHelpers;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Binding.Attributes;
 
 namespace ChGK.Droid.Controls
 {

@@ -1,5 +1,4 @@
-﻿using Cirrious.MvvmCross.ViewModels;
-using System;
+﻿using System;
 
 namespace ChGK.Core.ViewModels
 {

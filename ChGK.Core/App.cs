@@ -1,8 +1,11 @@
-using Cirrious.CrossCore.IoC;
+// ReSharper disable once RedundantUsingDirective
+using ChGK.Core.ViewModels;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform.IoC;
 
 namespace ChGK.Core
 {
-    public class App : Cirrious.MvvmCross.ViewModels.MvxApplication
+    public class App : MvxApplication
     {
         public override void Initialize()
         {
@@ -11,7 +14,7 @@ namespace ChGK.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            RegisterAppStart<ViewModels.HomeViewModel>();
+            RegisterAppStart<HomeViewModel>();
         }
     }
 }

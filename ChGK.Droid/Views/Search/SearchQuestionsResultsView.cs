@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Widget;
 using ChGK.Core.ViewModels.Search;
-using Cirrious.MvvmCross.ViewModels;
 
 namespace ChGK.Droid.Views.Search
 {

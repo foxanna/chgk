@@ -5,7 +5,6 @@ using Android.Content;
 using Android.App;
 using System.Threading.Tasks;
 using System.Threading;
-using Cirrious.CrossCore;
 
 namespace ChGK.Droid.Controls.UndoBar
 {
@@ -83,7 +82,7 @@ namespace ChGK.Droid.Controls.UndoBar
             }
             catch (OperationCanceledException)
             {
-                Mvx.Trace("Undobar: OperationCanceledException");
+                MvvmCross.Platform.Mvx.Trace("Undobar: OperationCanceledException");
             }
         }
 		

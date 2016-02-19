@@ -1,7 +1,6 @@
 ﻿using System;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Droid;
-using Cirrious.MvvmCross.Binding.Droid.ResourceHelpers;
+using MvvmCross.Binding.Droid.ResourceHelpers;
+using MvvmCross.Platform.Droid;
 
 namespace ChGK.Droid.Controls
 {
@@ -12,7 +11,7 @@ namespace ChGK.Droid.Controls
 
 		private AndroidBindingResource ()
 		{
-			var setup = Mvx.Resolve<IMvxAndroidGlobals> ();
+			var setup = MvvmCross.Platform.Mvx.Resolve<IMvxAndroidGlobals> ();
 			var resourceTypeName = setup.ExecutableNamespace + ".Resource";
 			Type resourceType = setup.ExecutableAssembly.GetType (resourceTypeName);
 			if (resourceType == null)
@@ -45,5 +44,9 @@ namespace ChGK.Droid.Controls
 
 		public int MvxListViewWithHeader_FooterLayout { get; private set; }
 	}
+
+    internal static class Mvx
+    {
+    }
 }
 

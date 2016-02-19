@@ -6,8 +6,7 @@ using System.Linq;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Binding.Droid.Views;
+using MvvmCross.Binding.Droid.Views;
 
 namespace ChGK.Droid.Controls
 {
@@ -117,7 +116,7 @@ namespace ChGK.Droid.Controls
 
 		protected override void SetItemsSource (System.Collections.IEnumerable value)
 		{
-			Mvx.Trace ("Setting itemssource");
+            MvvmCross.Platform.Mvx.Trace ("Setting itemssource");
 			if (_itemsSource == value)
 				return;
 			var existingObservable = _itemsSource as INotifyCollectionChanged;

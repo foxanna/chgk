@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Android.Widget;
-using Cirrious.MvvmCross.Binding.Droid.Views;
+using MvvmCross.Binding.Droid.Views;
 
 namespace ChGK.Droid.Controls.MvxListViewWithHeader
 {

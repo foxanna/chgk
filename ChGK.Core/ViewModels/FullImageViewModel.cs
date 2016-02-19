@@ -1,25 +1,24 @@
-﻿using System;
-using Cirrious.MvvmCross.ViewModels;
+﻿using MvvmCross.Core.ViewModels;
 
 namespace ChGK.Core.ViewModels
 {
-	public class FullImageViewModel : MvxViewModel
-	{
-		public string Picture { get; set; }
+    public class FullImageViewModel : MvxViewModel
+    {
+        private MvxCommand _closeCommand;
+        public string Picture { get; set; }
 
-		public void Init (string image)
-		{
-			Picture = image;
-		}
+        public MvxCommand CloseCommand
+        {
+            get
+            {
+                return _closeCommand ?? (_closeCommand =
+                    new MvxCommand(() => Close(this)));
+            }
+        }
 
-		MvxCommand _closeCommand;
-
-		public MvxCommand CloseCommand {
-			get {
-				return _closeCommand ?? (_closeCommand = 
-					new MvxCommand (() => Close (this)));
-			}
-		}
-	}
+        public void Init(string image)
+        {
+            Picture = image;
+        }
+    }
 }
-
