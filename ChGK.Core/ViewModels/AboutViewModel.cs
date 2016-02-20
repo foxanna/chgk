@@ -1,20 +1,20 @@
 ﻿using System.Windows.Input;
 using ChGK.Core.Services;
+using ChGK.Core.Services.Email;
 using ChGK.Core.Utils;
-using MvvmCross.Plugins.Email;
 
 namespace ChGK.Core.ViewModels
 {
     public class AboutViewModel : MenuItemViewModel
     {
         private readonly IAppInfoProvider _appInfoProvider;
-        private readonly IMvxComposeEmailTask _composeEmailTask;
+        private readonly IEmailsService _emailsService;
 
         public AboutViewModel(IAppInfoProvider appInfoProvider,
-            IMvxComposeEmailTask composeEmailTask)
+            IEmailsService emailsService)
         {
             _appInfoProvider = appInfoProvider;
-            _composeEmailTask = composeEmailTask;
+            _emailsService = emailsService;
 
             Title = StringResources.AboutApp;
 
@@ -42,8 +42,7 @@ namespace ChGK.Core.ViewModels
         public string EmailDeveloperLink { get; private set; }
 
         public ICommand EmailDeveloperCommand => new Command(() =>
-            _composeEmailTask.ComposeEmail(StringResources.Email,
-                string.Empty, string.Empty, string.Empty));
+            _emailsService.SendEmail(StringResources.Email, string.Empty, string.Empty));
 
         public ICommand RateAppCommand => new Command(_appInfoProvider.RateAppOnMarket);
     }

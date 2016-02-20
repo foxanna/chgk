@@ -11,7 +11,6 @@ using MvvmCross.Droid.Views;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Platform;
 using MvvmCross.Platform.Plugins;
-using MvvmCross.Plugins.Email;
 using SQLite.Net;
 using SQLite.Net.Platform.XamarinAndroid;
 
@@ -44,7 +43,6 @@ namespace ChGK.Droid
             Mvx.RegisterSingleton<IAudioPlayerService>(new AudioPlayerService());
             Mvx.RegisterSingleton<IAppInfoProvider>(new AppInfoProvider());
             Mvx.RegisterSingleton<IDialogManager>(new DialogManager());
-            Mvx.RegisterSingleton<IMvxComposeEmailTask>(new MyComposeEmailTask());
             Mvx.RegisterSingleton<IGAService>(new GAService());
 
             Mvx.RegisterType(() => new SQLiteConnection(new SQLitePlatformAndroid(),
