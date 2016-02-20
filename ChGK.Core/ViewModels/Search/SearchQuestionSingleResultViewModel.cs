@@ -1,6 +1,7 @@
-﻿using ChGK.Core.Models;
+﻿using System.Windows.Input;
+using ChGK.Core.Models;
 using ChGK.Core.Services;
-using MvvmCross.Core.ViewModels;
+using ChGK.Core.Utils;
 using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels.Search
@@ -9,11 +10,7 @@ namespace ChGK.Core.ViewModels.Search
     {
         private readonly IGAService _gaService;
 
-        private MvxCommand _openImageCommand;
-
-        private MvxCommand _openTourCommand;
-
-        private MvxCommand _openTournamentCommand;
+        private Command _openImageCommand, _openTourCommand, _openTournamentCommand;
 
         public SearchQuestionSingleResultViewModel(IGAService gaService)
         {
@@ -38,39 +35,14 @@ namespace ChGK.Core.ViewModels.Search
 
         public bool HasPassCriteria { get; set; }
 
-        public MvxCommand OpenImageCommand
-        {
-            get
-            {
-                return _openImageCommand ?? (_openImageCommand =
-                    new MvxCommand(() => ShowViewModel<FullImageViewModel>(new {image = Picture})));
-            }
-        }
+        public ICommand OpenImageCommand => _openImageCommand ?? (_openImageCommand =
+            new Command(() => ShowViewModel<FullImageViewModel>(new {image = Picture})));
 
-        public MvxCommand OpenTourCommand
-        {
-            get
-            {
-                return _openTourCommand ??
-                       (_openTourCommand =
-                           new MvxCommand(
-                               () =>
-                                   ShowViewModel<TourViewModel>(
-                                       new {name = Question.TourName, filename = Question.TourFileName})));
-            }
-        }
+        public ICommand OpenTourCommand => _openTourCommand ?? (_openTourCommand = new Command(
+            () => ShowViewModel<TourViewModel>(new {name = Question.TourName, filename = Question.TourFileName})));
 
-        public MvxCommand OpenTournamentCommand
-        {
-            get
-            {
-                return _openTournamentCommand ??
-                       (_openTournamentCommand =
-                           new MvxCommand(
-                               () =>
-                                   ShowViewModel<SingleTournamentViewModel>(new {filename = Question.TournamentFileName})));
-            }
-        }
+        public ICommand OpenTournamentCommand => _openTournamentCommand ?? (_openTournamentCommand =
+            new Command(() => ShowViewModel<SingleTournamentViewModel>(new {filename = Question.TournamentFileName})));
 
         public void Init(string json)
         {
@@ -84,8 +56,8 @@ namespace ChGK.Core.ViewModels.Search
             HasSource = !string.IsNullOrEmpty(Question.Source);
             HasPassCriteria = !string.IsNullOrEmpty(Question.PassCriteria);
 
-            TourName = string.Format("<u>{0}</u>", Question.TourName);
-            TournamentName = string.Format("<u>{0}</u>", Question.TournamentName);
+            TourName = $"<u>{Question.TourName}</u>";
+            TournamentName = $"<u>{Question.TournamentName}</u>";
 
             Title = StringResources.Question + " " + Question.Number;
         }

@@ -5,11 +5,10 @@ using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Widget;
 using Android.Views;
-using ChGK.Core.Utils;
+using ChGK.Core.Services.Messenger;
 using MvvmCross.Droid.FullFragging.Fragments;
 using MvvmCross.Droid.FullFragging.Views;
 using MvvmCross.Platform;
-using MvvmCross.Plugins.Messenger;
 
 namespace ChGK.Droid.Views
 {
@@ -17,7 +16,7 @@ namespace ChGK.Droid.Views
     public class HomeView : MvxActivity
     {
 #pragma warning disable 414
-        private MvxSubscriptionToken _closeDrawerToken;
+        private object _closeDrawerToken;
 #pragma warning restore 414
         private DrawerLayout mDrawerLayout;
         private ActionBarDrawerToggle mDrawerToggle;
@@ -36,7 +35,7 @@ namespace ChGK.Droid.Views
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            _closeDrawerToken = Mvx.Resolve<IMvxMessenger>().SubscribeOnMainThread<CloseDrawerMessage>(
+            _closeDrawerToken = Mvx.Resolve<IMessagesService>().SubscribeOnMainThread<CloseDrawerMessage>(
                 message => mDrawerLayout.CloseDrawer(mDrawerView));
         }
 

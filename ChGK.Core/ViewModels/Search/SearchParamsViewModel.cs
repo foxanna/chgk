@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using ChGK.Core.Models;
-using MvvmCross.Core.ViewModels;
+using ChGK.Core.Utils;
 using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels.Search
@@ -19,10 +19,7 @@ namespace ChGK.Core.ViewModels.Search
 
         private SearchParams SearchParams { get; }
 
-        public ICommand SearchCommand
-        {
-            get { return _searchCommand ?? (_searchCommand = new MvxCommand(DoSearch)); }
-        }
+        public ICommand SearchCommand => _searchCommand ?? (_searchCommand = new Command(DoSearch));
 
         public bool SearchAmongQuestions
         {
@@ -165,10 +162,10 @@ namespace ChGK.Core.ViewModels.Search
             set
             {
                 SearchParams.AnyWord = value;
+
                 if (value)
-                {
                     AllWords = false;
-                }
+
                 RaisePropertyChanged(() => AnyWord);
             }
         }
@@ -180,23 +177,25 @@ namespace ChGK.Core.ViewModels.Search
             set
             {
                 SearchParams.AllWords = value;
+
                 if (value)
-                {
                     AnyWord = false;
-                }
+
                 RaisePropertyChanged(() => AllWords);
             }
         }
 
+        private bool CanSearch => !string.IsNullOrEmpty(SearchParams.SearchQuery) && CanSearchWithThisParams();
+
         private void DoSearch()
         {
-            if (SearchAmongQuestions)
+            if (!SearchAmongQuestions)
+                return;
+
+            if (CanSearch)
             {
-                if (CanSearch())
-                {
-                    ShowViewModel<SearchQuestionsResultsViewModel>(
-                        new {searchParams = JsonConvert.SerializeObject(SearchParams)});
-                }
+                ShowViewModel<SearchQuestionsResultsViewModel>(
+                    new {searchParams = JsonConvert.SerializeObject(SearchParams)});
             }
         }
 
@@ -204,11 +203,6 @@ namespace ChGK.Core.ViewModels.Search
         {
             return (SearchParams.HasAnswer || SearchParams.HasAuthors || SearchParams.HasComment ||
                     SearchParams.HasPassCriteria || SearchParams.HasQuestion || SearchParams.HasSourse);
-        }
-
-        private bool CanSearch()
-        {
-            return !string.IsNullOrEmpty(SearchParams.SearchQuery) && CanSearchWithThisParams();
         }
     }
 }

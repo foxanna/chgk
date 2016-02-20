@@ -1,36 +1,35 @@
-﻿using ChGK.Core.Services;
-using ChGK.Core.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using ChGK.Core.Services;
+using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
     public class SingleTournamentViewModel : TournamentsViewModel
     {
-        readonly IChGKWebService _service;
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private readonly IChGKService _service;
 
-        CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource ();
+        private string _filename;
 
-        public SingleTournamentViewModel(IChGKWebService service)
-		{
+        public SingleTournamentViewModel(IChGKService service)
+        {
             Title = StringResources.Tournament;
 
-			_service = service;
+            _service = service;
 
-			DataLoader = new DataLoader ();
-		}
+            DataLoader = new DataLoader();
+        }
 
-		protected override async Task LoadItems ()
-		{
-			Tournaments = null;
+        protected override async Task LoadItems()
+        {
+            Tournaments = null;
 
             var tournament = await _service.GetTournament(_filename, _cancellationTokenSource.Token);
 
-            Tournaments = new List<TournamentViewModel>() { new TournamentViewModel(tournament) }; 
+            Tournaments = new List<TournamentViewModel> {new TournamentViewModel(tournament)};
         }
-
-        string _filename;
 
         public async void Init(string filename)
         {
@@ -46,7 +45,7 @@ namespace ChGK.Core.ViewModels
 
             _filename = filename;
 
-            await Refresh();
+            await RefreshAsync();
         }
 
         public override void OnViewDestroying()

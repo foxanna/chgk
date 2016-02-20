@@ -1,20 +1,13 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using ChGK.Core.Models;
 using System.Xml.Serialization;
-using System.Collections.Generic;
+using ChGK.Core.Models;
 
 namespace ChGK.Core.DbChGKInfo.Dto
 {
     [XmlRoot("tournament")]
-	public class TournamentDto
-	{
-        [XmlElement("Title")]
-        public string Name { get; set; }
-
-        [XmlElement("PlayedAt")]
-        public string PlayedAt { get; set; }
-
+    public class TournamentDto
+    {
         [XmlElement("CreatedAt")]
         public string AddedAt { get; set; }
 
@@ -22,18 +15,24 @@ namespace ChGK.Core.DbChGKInfo.Dto
         public string FileName { get; set; }
 
         [XmlElement(ElementName = "tour")]
-        public List<TourDto> Tours;
+        public List<TourDto> Tours { get; set; }
 
-		public ITournament ToModel ()
-		{
-			return new Tournament {
-                AddedAt = this.AddedAt,
-                FileName = this.FileName,
-                Name = this.Name,
-                PlayedAt = this.PlayedAt,
-                Tours = this.Tours.Select(tour => tour.ToModel()).ToList(),
+        [XmlElement("Title")]
+        public string Name { get; set; }
+
+        [XmlElement("PlayedAt")]
+        public string PlayedAt { get; set; }
+
+        public ITournament ToModel()
+        {
+            return new Tournament
+            {
+                AddedAt = AddedAt,
+                FileName = FileName,
+                Name = Name,
+                PlayedAt = PlayedAt,
+                Tours = Tours.Select(tour => tour.ToModel()).ToList()
             };
-		}
-	}
+        }
+    }
 }
-

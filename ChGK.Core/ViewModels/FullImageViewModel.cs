@@ -1,20 +1,17 @@
-﻿using MvvmCross.Core.ViewModels;
+﻿using System.Windows.Input;
+using ChGK.Core.Utils;
+using MvvmCross.Core.ViewModels;
 
 namespace ChGK.Core.ViewModels
 {
     public class FullImageViewModel : MvxViewModel
     {
-        private MvxCommand _closeCommand;
+        private ICommand _closeCommand;
+
         public string Picture { get; set; }
 
-        public MvxCommand CloseCommand
-        {
-            get
-            {
-                return _closeCommand ?? (_closeCommand =
-                    new MvxCommand(() => Close(this)));
-            }
-        }
+        public ICommand CloseCommand => _closeCommand ?? (_closeCommand =
+            new Command(() => Close(this)));
 
         public void Init(string image)
         {

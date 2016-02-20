@@ -11,11 +11,12 @@ namespace ChGK.Core.ViewModels
         public void OnShowing()
         {
             var handler = ShowingForTheFirstTime;
-            if (handler != null)
-            {
-                ShowingForTheFirstTime = null;
-                handler(this, EventArgs.Empty);
-            }
+
+            if (handler == null)
+                return;
+
+            ShowingForTheFirstTime = null;
+            handler(this, EventArgs.Empty);
         }
     }
 }

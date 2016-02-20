@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ChGK.Core.Messages;
+using System.Windows.Input;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
+using ChGK.Core.Services.Messenger;
+using ChGK.Core.Services.Teams;
 using ChGK.Core.Utils;
-using ChGK.Core.ViewModels.Tutorials;
 using MvvmCross.Core.ViewModels;
-using MvvmCross.Platform;
-using MvvmCross.Plugins.Messenger;
 
 namespace ChGK.Core.ViewModels
 {
@@ -21,24 +20,28 @@ namespace ChGK.Core.ViewModels
 
     public class TeamsViewModel : MenuItemViewModel
     {
-        private readonly IFirstViewStartInfoProvider _firstViewStartInfoProvider;
+        private readonly IDialogManager _dialogManager;
         private readonly IGAService _gaService;
+        private readonly IMessagesService _messagesService;
         private readonly ITeamsService _service;
 
         private readonly List<ChGKCommand> UndoActions = new List<ChGKCommand>();
 
-        private MvxCommand<object> _removeCommand;
+        private ICommand _removeCommand;
 
         private List<TeamViewModel> _teams;
 
         private UndoBarMetadata _undoBarMetadata;
 
-        public TeamsViewModel(ITeamsService service, IMvxMessenger messenger,
-            IFirstViewStartInfoProvider firstViewStartInfoProvider, IGAService gaService)
+        public TeamsViewModel(ITeamsService service,
+            IMessagesService messagesService,
+            IGAService gaService,
+            IDialogManager dialogManager)
         {
             _service = service;
-            _firstViewStartInfoProvider = firstViewStartInfoProvider;
+            _messagesService = messagesService;
             _gaService = gaService;
+            _dialogManager = dialogManager;
 
             Title = StringResources.Teams;
 
@@ -61,25 +64,14 @@ namespace ChGK.Core.ViewModels
             }
         }
 
-        public MvxCommand<object> RemoveTeamCommand
-        {
-            get { return _removeCommand ?? (_removeCommand = new MvxCommand<object>(RemoveTeam, _ => true)); }
-        }
+        public ICommand RemoveTeamCommand =>
+            _removeCommand ?? (_removeCommand = new Command<object>(RemoveTeam));
 
-        public bool HasNoTeams
-        {
-            get { return Teams.Count == 0; }
-        }
+        public bool HasNoTeams => Teams.Count == 0;
 
-        public bool CanClearScore
-        {
-            get { return Teams != null && Teams.FirstOrDefault(team => team.Score > 0) != null; }
-        }
+        public bool CanClearScore => Teams?.FirstOrDefault(team => team.Score > 0) != null;
 
-        public bool CanRemoveTeams
-        {
-            get { return !HasNoTeams; }
-        }
+        public bool CanRemoveTeams => !HasNoTeams;
 
         public UndoBarMetadata UndoBarMetaData
         {
@@ -96,25 +88,19 @@ namespace ChGK.Core.ViewModels
             base.Start();
 
             LoadTeams();
-
-            if (_firstViewStartInfoProvider.IsSeenForTheFirstTime(GetType()))
-            {
-                ShowViewModel(new FirstTimeSeenViewModelsFactory().CreateViewModel(GetType()));
-                _firstViewStartInfoProvider.SetSeen(GetType());
-            }
         }
 
         private void LoadTeams()
         {
             Teams = null;
             var teams = _service.GetAllTeams();
-            Teams = teams.Select(team => new TeamViewModel(_service, team)).ToList();
+            Teams = teams.Select(team => new TeamViewModel(_service, _messagesService, team)).ToList();
         }
 
         public void InitAddTeam()
         {
-            Mvx.Resolve<IDialogManager>().ShowDialog(DialogType.AddTeamDialog,
-                new MvxCommand<string>(AddTeam, name => !string.IsNullOrWhiteSpace(name)));
+            _dialogManager.ShowDialog(DialogType.AddTeamDialog,
+                new Command<string>(AddTeam, name => !string.IsNullOrWhiteSpace(name)));
         }
 
         private void AddTeam(string name)
@@ -181,7 +167,6 @@ namespace ChGK.Core.ViewModels
                                 catch
                                 {
                                 }
-                                ;
 
                                 return true;
                             }).ToList();
@@ -222,27 +207,27 @@ namespace ChGK.Core.ViewModels
 
         public void UndoableActionUndone()
         {
-            if (UndoActions.Count > 0)
+            lock (UndoActions)
             {
-                lock (UndoActions)
-                {
-                    var action = UndoActions[0];
-                    action.OnUndo();
-                    UndoActions.RemoveAt(0);
-                }
+                if (!UndoActions.Any())
+                    return;
+
+                var action = UndoActions[0];
+                action.OnUndo();
+                UndoActions.RemoveAt(0);
             }
         }
 
         public void UndoableActionConfirmed()
         {
-            if (UndoActions.Count > 0)
+            lock (UndoActions)
             {
-                lock (UndoActions)
-                {
-                    var action = UndoActions[0];
-                    action.OnApply();
-                    UndoActions.RemoveAt(0);
-                }
+                if (!UndoActions.Any())
+                    return;
+
+                var action = UndoActions[0];
+                action.OnApply();
+                UndoActions.RemoveAt(0);
             }
         }
     }
@@ -250,19 +235,21 @@ namespace ChGK.Core.ViewModels
     public class TeamViewModel : MvxViewModel
     {
 #pragma warning disable 414
-        private readonly MvxSubscriptionToken _resultsChangedToken;
+        private readonly object _resultsChangedToken;
 #pragma warning restore 414
 
         private readonly ITeamsService _service;
         private int _score;
 
-        public TeamViewModel(ITeamsService service, Team team)
+        public TeamViewModel(ITeamsService service,
+            IMessagesService messagesService,
+            Team team)
         {
             _service = service;
 
-            _resultsChangedToken = Mvx.Resolve<IMvxMessenger>().Subscribe<ResultsChangedMessage>(OnResultsChanged);
+            _resultsChangedToken = messagesService.Subscribe<ResultsChangedMessage>(OnResultsChanged);
 
-            ID = team.ID;
+            ID = team.Id;
             Name = team.Name;
 
             Score = _service.GetTeamScore(ID);
@@ -272,10 +259,7 @@ namespace ChGK.Core.ViewModels
 
         public string Name { get; private set; }
 
-        public string TeamScore
-        {
-            get { return StringResources.TeamScoreTitle + " " + Score; }
-        }
+        public string TeamScore => StringResources.TeamScoreTitle + " " + Score;
 
         public int Score
         {
@@ -289,7 +273,7 @@ namespace ChGK.Core.ViewModels
 
         private void OnResultsChanged(ResultsChangedMessage message)
         {
-            Score = message.QuestionID.Equals(ResultsChangedMessage.ResultsCleared) ? 0 : _service.GetTeamScore(ID);
+            Score = message.QuestionId.Equals(ResultsChangedMessage.ResultsCleared) ? 0 : _service.GetTeamScore(ID);
         }
     }
 }

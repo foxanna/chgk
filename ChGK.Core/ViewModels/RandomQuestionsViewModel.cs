@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using ChGK.Core.Utils;
-using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels
@@ -13,15 +13,14 @@ namespace ChGK.Core.ViewModels
     {
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly IGAService _gaService;
-        private readonly IChGKWebService _service;
+        private readonly IChGKService _service;
 
         private List<IQuestion> _questions;
 
-        private MvxCommand _refreshCommand;
+        private ICommand _refreshCommand, _showQuestionCommand;
 
-        private MvxCommand<IQuestion> _showQuestionCommand;
-
-        public RandomQuestionsViewModel(IChGKWebService service, IGAService gaService)
+        public RandomQuestionsViewModel(IChGKService service,
+            IGAService gaService)
         {
             Title = StringResources.RandomQuestions;
 
@@ -43,30 +42,27 @@ namespace ChGK.Core.ViewModels
             }
         }
 
-        public MvxCommand<IQuestion> ShowQuestionCommand
+        public ICommand ShowQuestionCommand =>
+            _showQuestionCommand ?? (_showQuestionCommand = new Command<IQuestion>(ShowQuestion));
+
+        public ICommand RefreshCommand =>
+            _refreshCommand ?? (_refreshCommand = new Command(Refresh));
+
+        private async void Refresh()
         {
-            get
-            {
-                _showQuestionCommand = _showQuestionCommand ?? new MvxCommand<IQuestion>(ShowQuestion);
-                return _showQuestionCommand;
-            }
+            _gaService.ReportEvent(GACategory.QuestionsList, GAAction.Click, "refresh");
+
+            await RefreshAsync();
         }
 
-        public MvxCommand RefreshCommand
+        private Task RefreshAsync()
         {
-            get
-            {
-                return _refreshCommand ?? (_refreshCommand = new MvxCommand(async () =>
-                {
-                    _gaService.ReportEvent(GACategory.QuestionsList, GAAction.Click, "refresh");
-                    await DataLoader.LoadItemsAsync(LoadItems);
-                }));
-            }
+            return DataLoader.LoadItemsAsync(LoadItems);
         }
 
         public override async void Start()
         {
-            await DataLoader.LoadItemsAsync(LoadItems);
+            await RefreshAsync();
         }
 
         private async Task LoadItems()

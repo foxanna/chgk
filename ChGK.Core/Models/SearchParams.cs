@@ -2,7 +2,7 @@
 
 namespace ChGK.Core.Models
 {
-    public class SearchParams
+    public class SearchParams : IEquatable<SearchParams>
     {
         public SearchParams()
         {
@@ -66,10 +66,12 @@ namespace ChGK.Core.Models
 
         public bool Equals(SearchParams other)
         {
-            if (ReferenceEquals(null, other))
+            if (other == null)
                 return false;
+
             if (ReferenceEquals(this, other))
                 return true;
+
             return string.Equals(SearchQuery, other.SearchQuery)
                    && string.Equals(Type, other.Type)
                    && HasQuestion == other.HasQuestion
@@ -89,13 +91,7 @@ namespace ChGK.Core.Models
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
-                return false;
-            if (ReferenceEquals(this, obj))
-                return true;
-            if (obj.GetType() != GetType())
-                return false;
-            return Equals((SearchParams) obj);
+            return Equals(obj as SearchParams);
         }
 
         public override int GetHashCode()

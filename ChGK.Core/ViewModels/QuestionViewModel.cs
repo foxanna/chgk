@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using ChGK.Core.Utils;
@@ -11,17 +12,13 @@ namespace ChGK.Core.ViewModels
     {
         private readonly IGAService _gaService;
 
-        private bool _isAnswerShown;
+        private readonly ChGKTimer _timer = new ChGKTimer();
 
+        private bool _isAnswerShown;
         private bool _isTimerStarted;
 
-        private MvxCommand _openImageCommand;
-
-        private MvxCommand _showAnswerCommand;
-
+        private ICommand _openImageCommand, _showAnswerCommand;
         private TimeSpan _timeSpan;
-
-        private readonly ChGKTimer timer = new ChGKTimer();
 
         public QuestionViewModel()
         {
@@ -30,7 +27,7 @@ namespace ChGK.Core.ViewModels
 
         public QuestionViewModel(IQuestion question, int index) : this()
         {
-            ID = question.ID;
+            ID = question.Id;
             Text = question.Text;
             Answer = question.Answer;
             PassCriteria = question.PassCriteria;
@@ -91,20 +88,8 @@ namespace ChGK.Core.ViewModels
             }
         }
 
-        public MvxCommand ShowAnswerCommand
-        {
-            get
-            {
-                return _showAnswerCommand ??
-                       (_showAnswerCommand = new MvxCommand(() =>
-                       {
-                           IsAnswerShown = true;
-                           PauseTimer();
-
-                           _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Click, "answer shown");
-                       }));
-            }
-        }
+        public ICommand ShowAnswerCommand =>
+            _showAnswerCommand ?? (_showAnswerCommand = new Command(ShowAnswer));
 
         public TimeSpan Time
         {
@@ -127,23 +112,22 @@ namespace ChGK.Core.ViewModels
             }
         }
 
-        public bool IsTimerStopped
-        {
-            get { return !IsTimerStarted; }
-        }
+        public bool IsTimerStopped => !IsTimerStarted;
 
-        public MvxCommand OpenImageCommand
-        {
-            get
-            {
-                return _openImageCommand ?? (_openImageCommand =
-                    new MvxCommand(() => ShowViewModel<FullImageViewModel>(new {image = Picture})));
-            }
-        }
+        public ICommand OpenImageCommand => _openImageCommand ?? (_openImageCommand =
+            new Command(() => ShowViewModel<FullImageViewModel>(new {image = Picture})));
 
         public void OnViewDestroying()
         {
             PauseTimer();
+        }
+
+        private void ShowAnswer()
+        {
+            IsAnswerShown = true;
+            PauseTimer();
+
+            _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Click, "answer shown");
         }
 
         private void OnTimerOneSecond(object sender, TimerEventArgs e)
@@ -164,9 +148,9 @@ namespace ChGK.Core.ViewModels
 
         public void StartTimer()
         {
-            timer.OneSecond += OnTimerOneSecond;
+            _timer.OneSecond += OnTimerOneSecond;
 
-            timer.Resume();
+            _timer.Resume();
             IsTimerStarted = true;
 
             _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Timer, "start");
@@ -174,9 +158,9 @@ namespace ChGK.Core.ViewModels
 
         public void PauseTimer()
         {
-            timer.Pause();
+            _timer.Pause();
 
-            timer.OneSecond -= OnTimerOneSecond;
+            _timer.OneSecond -= OnTimerOneSecond;
 
             IsTimerStarted = false;
 

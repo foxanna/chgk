@@ -1,12 +1,11 @@
-﻿// ReSharper disable once RedundantUsingDirective
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using ChGK.Core.Utils;
-using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels.Search
@@ -16,17 +15,14 @@ namespace ChGK.Core.ViewModels.Search
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         private readonly LoadMoreHelper<ISearchQuestionsResult> _loadMoreHelper;
-        private readonly IChGKWebService _service;
-
+        private readonly IChGKService _service;
+        private bool _canLoadMore;
         private List<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> _questions;
+        private SearchParams _searchParams;
 
-        public SearchParams _searchParams;
+        private Command<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> _showQuestionCommand;
 
-        private MvxCommand<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> _showQuestionCommand;
-
-        private bool CanLoadMore;
-
-        public SearchQuestionsResultsViewModel(IChGKWebService service)
+        public SearchQuestionsResultsViewModel(IChGKService service)
         {
             Title = StringResources.SearchResults;
 
@@ -51,15 +47,9 @@ namespace ChGK.Core.ViewModels.Search
             }
         }
 
-        public MvxCommand<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> ShowQuestionCommand
-        {
-            get
-            {
-                return _showQuestionCommand ??
-                       (_showQuestionCommand =
-                           new MvxCommand<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>>(ShowQuestion));
-            }
-        }
+        public ICommand ShowQuestionCommand
+            => _showQuestionCommand ?? (_showQuestionCommand =
+                new Command<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>>(ShowQuestion));
 
         public async void Init(string searchParams)
         {
@@ -94,7 +84,7 @@ namespace ChGK.Core.ViewModels.Search
 
         private void CheckIfThereIsMoreDataToLoad(int newCount, int oldCount)
         {
-            CanLoadMore = newCount > oldCount && newCount%_searchParams.Limit == 0;
+            _canLoadMore = newCount > oldCount && newCount%_searchParams.Limit == 0;
         }
 
         private void UpdatePageAccordingToNewdata(int newCount)
@@ -104,15 +94,15 @@ namespace ChGK.Core.ViewModels.Search
 
         private async void SearchQuestionsResultsViewModel_Showing()
         {
-            if (CanLoadMore && !DataLoader.IsLoading)
-            {
-                _searchParams.Page++;
+            if (!_canLoadMore || DataLoader.IsLoading)
+                return;
 
-                DataLoader.IsLoadingForTheFirstTime = false;
-                DataLoader.IsLoadingMoreData = true;
+            _searchParams.Page++;
 
-                await DataLoader.LoadItemsAsync(LoadItems);
-            }
+            DataLoader.IsLoadingForTheFirstTime = false;
+            DataLoader.IsLoadingMoreData = true;
+
+            await DataLoader.LoadItemsAsync(LoadItems);
         }
 
         private void ShowQuestion(LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult> question)

@@ -1,6 +1,6 @@
-﻿using ChGK.Core.Services;
-using MvvmCross.Core.ViewModels;
-using MvvmCross.Platform;
+﻿using System.Windows.Input;
+using ChGK.Core.Services;
+using ChGK.Core.Utils;
 using MvvmCross.Plugins.Email;
 
 namespace ChGK.Core.ViewModels
@@ -8,22 +8,25 @@ namespace ChGK.Core.ViewModels
     public class AboutViewModel : MenuItemViewModel
     {
         private readonly IAppInfoProvider _appInfoProvider;
+        private readonly IMvxComposeEmailTask _composeEmailTask;
 
-        public AboutViewModel(IAppInfoProvider appInfoProvider)
+        public AboutViewModel(IAppInfoProvider appInfoProvider,
+            IMvxComposeEmailTask composeEmailTask)
         {
             _appInfoProvider = appInfoProvider;
+            _composeEmailTask = composeEmailTask;
 
             Title = StringResources.AboutApp;
 
-            AdvLink = string.Format("<u>{0}</u>", StringResources.ClickOnAd);
-            EmailDeveloperLink = string.Format("<u>{0}</u>", StringResources.EmailDeveloper);
-            RateUs = string.Format("<u>{0}</u>", StringResources.RateApp);
+            AdvLink = $"<u>{StringResources.ClickOnAd}</u>";
+            EmailDeveloperLink = $"<u>{StringResources.EmailDeveloper}</u>";
+            RateUs = $"<u>{StringResources.RateApp}</u>";
 
             CopyrightUrl = "<a href=" + StringResources.LicenceAgreementUrl + ">" + StringResources.LicenceAgreement +
                            "</a>";
             SomeTitle = StringResources.QuestionsBase + " <a href=" + StringResources.DataBaseUrl + ">" +
                         StringResources.WhatWhenWhere + "</a>";
-            Version = string.Format("{0} v{1}", appInfoProvider.AppName, appInfoProvider.AppVersion);
+            Version = $"{appInfoProvider.AppName} v{appInfoProvider.AppVersion}";
         }
 
         public string SomeTitle { get; private set; }
@@ -38,22 +41,10 @@ namespace ChGK.Core.ViewModels
 
         public string EmailDeveloperLink { get; private set; }
 
-        public MvxCommand EmailDeveloperCommand
-        {
-            get
-            {
-                return new MvxCommand(() =>
-                    Mvx.Resolve<IMvxComposeEmailTask>().ComposeEmail(StringResources.Email,
-                        string.Empty,
-                        string.Empty,
-                        string.Empty,
-                        false));
-            }
-        }
+        public ICommand EmailDeveloperCommand => new Command(() =>
+            _composeEmailTask.ComposeEmail(StringResources.Email,
+                string.Empty, string.Empty, string.Empty));
 
-        public MvxCommand RateAppCommand
-        {
-            get { return new MvxCommand(_appInfoProvider.RateAppOnMarket); }
-        }
+        public ICommand RateAppCommand => new Command(_appInfoProvider.RateAppOnMarket);
     }
 }

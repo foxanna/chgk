@@ -5,52 +5,45 @@ using System.Windows.Input;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using ChGK.Core.Utils;
-using MvvmCross.Core.ViewModels;
 
 namespace ChGK.Core.ViewModels
 {
     public class LastAddedTournamentsViewModel : TournamentsViewModel
     {
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private readonly IFirstViewStartInfoProvider _firstViewStartInfoProvider;
         private readonly IGAService _gaService;
-
         private readonly LoadMoreHelper<ITournament> _loadMoreHelper;
-        private readonly IChGKWebService _service;
+        private readonly IChGKService _service;
 
         private int _page;
 
         private ICommand _refreshCommand;
 
-        public LastAddedTournamentsViewModel(IChGKWebService service,
-            IFirstViewStartInfoProvider firstViewStartInfoProvider, IGAService gaService)
+        public LastAddedTournamentsViewModel(IChGKService service,
+            IGAService gaService)
         {
             Title = StringResources.LastAdded;
 
             _service = service;
-            _firstViewStartInfoProvider = firstViewStartInfoProvider;
             _gaService = gaService;
 
             DataLoader = new DataLoader();
             _loadMoreHelper = new LoadMoreHelper<ITournament> {OnLastItemShown = OnLastItemShown};
         }
 
-        public ICommand RefreshCommand
+        public ICommand RefreshCommand =>
+            _refreshCommand ?? (_refreshCommand = new Command(Refresh));
+
+        private async void Refresh()
         {
-            get
-            {
-                return _refreshCommand ?? (_refreshCommand = new MvxCommand(async () =>
-                {
-                    _gaService.ReportEvent(GACategory.QuestionsList, GAAction.Click, "refresh");
-                    await Refresh();
-                }));
-            }
+            _gaService.ReportEvent(GACategory.QuestionsList, GAAction.Click, "refresh");
+            await RefreshAsync();
         }
 
         public override async void Start()
         {
             DataLoader.IsLoadingForTheFirstTime = true;
-            await DataLoader.LoadItemsAsync(LoadItems);
+            await RefreshAsync();
         }
 
         protected override async Task LoadItems()

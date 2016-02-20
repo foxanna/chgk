@@ -1,17 +1,12 @@
-﻿using ChGK.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
+using ChGK.Core.Models;
 
 namespace ChGK.Core.DbChGKInfo.Dto
 {
     public class SearchResultDto
     {
         [XmlElement("QuestionId")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         [XmlElement("Number")]
         public int Number { get; set; }
@@ -50,7 +45,7 @@ namespace ChGK.Core.DbChGKInfo.Dto
         {
             return new SearchQuestionsResult
             {
-                ID = ID,
+                Id = Id,
                 Number = Number,
                 Picture = TextFormatter.GetPicture(Text),
                 Text = TextFormatter.FormatQuestion(Text),

@@ -1,29 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Input;
+using ChGK.Core.Services.Messenger;
 using ChGK.Core.Utils;
 using ChGK.Core.ViewModels.Search;
 using MvvmCross.Core.ViewModels;
-using MvvmCross.Plugins.Messenger;
 
 namespace ChGK.Core.ViewModels
 {
     public class HomeViewModel : MvxViewModel
     {
-        public class MenuItem
-        {
-            public string Name { get; set; }
+        private readonly IMessagesService _messenger;
 
-            public Type ViewModelType { get; set; }
+        private ICommand _showMenuItem;
 
-            public override string ToString()
-            {
-                return Name;
-            }
-        }
-
-        private readonly IMvxMessenger _messenger;
-
-        public HomeViewModel(IMvxMessenger messenger)
+        public HomeViewModel(IMessagesService messenger)
         {
             _messenger = messenger;
 
@@ -37,24 +28,16 @@ namespace ChGK.Core.ViewModels
             };
         }
 
+        public List<MenuItem> MenuItems { get; set; }
+
+        public ICommand ShowMenuItem =>
+            _showMenuItem ?? (_showMenuItem = new Command<MenuItem>(ShowMenu));
+
         public override void Start()
         {
             base.Start();
 
             ShowViewModel<LastAddedTournamentsViewModel>();
-        }
-
-        public List<MenuItem> MenuItems { get; set; }
-
-        private MvxCommand<MenuItem> _showMenuItem;
-
-        public MvxCommand<MenuItem> ShowMenuItem
-        {
-            get
-            {
-                _showMenuItem = _showMenuItem ?? new MvxCommand<MenuItem>(ShowMenu);
-                return _showMenuItem;
-            }
         }
 
         private void ShowMenu(MenuItem item)
@@ -63,6 +46,17 @@ namespace ChGK.Core.ViewModels
 
             ShowViewModel(item.ViewModelType);
         }
+
+        public class MenuItem
+        {
+            public string Name { get; set; }
+
+            public Type ViewModelType { get; set; }
+
+            public override string ToString()
+            {
+                return Name;
+            }
+        }
     }
 }
-

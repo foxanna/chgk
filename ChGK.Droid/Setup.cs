@@ -45,7 +45,6 @@ namespace ChGK.Droid
             Mvx.RegisterSingleton<IAppInfoProvider>(new AppInfoProvider());
             Mvx.RegisterSingleton<IDialogManager>(new DialogManager());
             Mvx.RegisterSingleton<IMvxComposeEmailTask>(new MyComposeEmailTask());
-            Mvx.RegisterSingleton<IFirstViewStartInfoProvider>(new FirstViewStartInfoProvider());
             Mvx.RegisterSingleton<IGAService>(new GAService());
 
             Mvx.RegisterType(() => new SQLiteConnection(new SQLitePlatformAndroid(),

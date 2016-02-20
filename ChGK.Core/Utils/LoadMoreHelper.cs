@@ -1,6 +1,6 @@
-﻿using ChGK.Core.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ChGK.Core.ViewModels;
 
 namespace ChGK.Core.Utils
 {
@@ -14,7 +14,7 @@ namespace ChGK.Core.Utils
         public int LoadBefore { get; set; }
 
         public Action OnLastItemShown { get; set; }
-                
+
         public void Subscribe(List<LoadMoreOnScrollListViewItemViewModel<T>> items)
         {
             if (items.Count > LoadBefore)

@@ -64,10 +64,7 @@ namespace ChGK.Core.Utils
             }
         }
 
-        public bool HasData
-        {
-            get { return !HasError && !IsLoading; }
-        }
+        public bool HasData => !HasError && !IsLoading;
 
         public bool IsLoadingForTheFirstTime
         {

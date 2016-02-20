@@ -1,12 +1,8 @@
-﻿using System;
-
-namespace ChGK.Core.Models
+﻿namespace ChGK.Core.Models
 {
-	public interface IQuestionType
-	{
-		String Code { get; }
-
-		String DisplayName { get; }
-	}
+    public interface IQuestionType
+    {
+        string Code { get; }
+        string DisplayName { get; }
+    }
 }
-

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChGK.Core.Models
+﻿namespace ChGK.Core.Models
 {
     public interface ISearchQuestionsResult
     {
-        string ID { get; }
+        string Id { get; }
 
         int Number { get; }
 
@@ -35,9 +29,9 @@ namespace ChGK.Core.Models
         string TournamentFileName { get; }
     }
 
-    class SearchQuestionsResult : ISearchQuestionsResult
+    internal class SearchQuestionsResult : ISearchQuestionsResult
     {
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         public int Number { get; set; }
 

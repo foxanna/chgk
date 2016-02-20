@@ -1,66 +1,60 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ChGK.Core.Utils
 {
-	public sealed class ChGKTimer : IDisposable
-	{
-		public event EventHandler<TimerEventArgs> OneSecond;
+    public sealed class ChGKTimer : IDisposable
+    {
+        private int _seconds;
 
-		void OnOneSecond (int second)
-		{
-			var handler = OneSecond;
-			if (handler != null) {
-				handler (this, new TimerEventArgs (second));
-			}
-		}
+        private CancellationTokenSource _tokenSource;
 
-		CancellationTokenSource tokenSource;
+        public void Dispose()
+        {
+            _tokenSource?.Cancel();
+        }
 
-		int seconds = 0;
+        public event EventHandler<TimerEventArgs> OneSecond;
 
-		public void Pause ()
-		{
-			if (tokenSource != null) {
-				tokenSource.Cancel ();
-			}
-		}
+        private void OnOneSecond(int second)
+        {
+            OneSecond?.Invoke(this, new TimerEventArgs(second));
+        }
 
-		public void Resume ()
-		{
-			tokenSource = new CancellationTokenSource ();
-			Task.Delay (1000, tokenSource.Token).ContinueWith (async (t, s) => {
-				var handler = ((Tuple<Action<int>>)s).Item1;
-				while (true) {
-					if (tokenSource.IsCancellationRequested)
-						break;
-					seconds++;
+        public void Pause()
+        {
+            _tokenSource?.Cancel();
+        }
 
-					handler (seconds);
-					await Task.Delay (1000);
-				}
-			}, Tuple.Create<Action<int>> (OnOneSecond), CancellationToken.None,
-				TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnRanToCompletion,
-				TaskScheduler.Default);
-		}
+        public void Resume()
+        {
+            _tokenSource = new CancellationTokenSource();
+            Task.Delay(1000, _tokenSource.Token).ContinueWith(async (t, s) =>
+            {
+                var handler = ((Tuple<Action<int>>) s).Item1;
+                while (true)
+                {
+                    if (_tokenSource.IsCancellationRequested)
+                        break;
+                    _seconds++;
 
-		public void Dispose ()
-		{
-			if (tokenSource != null) {
-				tokenSource.Cancel ();
-			}
-		}
-	}
+                    handler(_seconds);
+                    await Task.Delay(1000);
+                }
+            }, Tuple.Create<Action<int>>(OnOneSecond), _tokenSource.Token,
+                TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnRanToCompletion,
+                TaskScheduler.Default);
+        }
+    }
 
-	public class TimerEventArgs : EventArgs
-	{
-		public TimeSpan Seconds { get; private set; }
+    public class TimerEventArgs : EventArgs
+    {
+        public TimerEventArgs(int seconds)
+        {
+            Seconds = new TimeSpan(0, 0, seconds);
+        }
 
-		public TimerEventArgs (int seconds)
-		{
-			Seconds = new TimeSpan (0, 0, seconds);
-		}
-	}
+        public TimeSpan Seconds { get; private set; }
+    }
 }
-

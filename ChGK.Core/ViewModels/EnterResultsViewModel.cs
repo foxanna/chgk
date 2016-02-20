@@ -1,32 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ChGK.Core.Messages;
+using System.Windows.Input;
 using ChGK.Core.Services;
+using ChGK.Core.Services.Messenger;
+using ChGK.Core.Services.Teams;
 using ChGK.Core.Utils;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
-using MvvmCross.Plugins.Messenger;
 
 namespace ChGK.Core.ViewModels
 {
     public class EnterResultsViewModel : MvxViewModel, IViewLifecycle
     {
         private readonly IGAService _gaService;
-        private readonly IMvxMessenger _messenger;
+        private readonly IMessagesService _messenger;
         private readonly ITeamsService _teamsService;
 
-        private MvxCommand _clearResultsCommand;
-
-        private MvxCommand _editTeamsCommand;
+        private ICommand _clearResultsCommand, _editTeamsCommand;
 
         private bool _isEmpty;
-
         private string _questionId;
-
         private List<ResultsTeamViewModel> _teams;
 
-        public EnterResultsViewModel(ITeamsService service, IMvxMessenger messenger, IGAService gaService)
+#pragma warning disable 414
+        private object _teamsChangedToken, _resultsChangedToken;
+#pragma warning restore 414
+
+        public EnterResultsViewModel(ITeamsService service,
+            IMessagesService messenger,
+            IGAService gaService)
         {
             _teamsService = service;
             _messenger = messenger;
@@ -60,23 +63,11 @@ namespace ChGK.Core.ViewModels
             }
         }
 
-        public MvxCommand ClearResultsCommand
-        {
-            get { return _clearResultsCommand ?? (_clearResultsCommand = new MvxCommand(ClearResults)); }
-        }
+        public ICommand ClearResultsCommand
+            => _clearResultsCommand ?? (_clearResultsCommand = new Command(ClearResults));
 
-        public MvxCommand EditTeamsCommand
-        {
-            get
-            {
-                return _editTeamsCommand ?? (_editTeamsCommand = new MvxCommand(() =>
-                {
-                    _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Open,
-                        "edit teams from enter results screen");
-                    ShowViewModel<TeamsViewModel>();
-                }));
-            }
-        }
+        public ICommand EditTeamsCommand =>
+            _editTeamsCommand ?? (_editTeamsCommand = new Command(EditTeams));
 
         public void OnViewDestroying()
         {
@@ -92,6 +83,12 @@ namespace ChGK.Core.ViewModels
             }
         }
 
+        private void EditTeams()
+        {
+            _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Open, "edit teams from enter results screen");
+            ShowViewModel<TeamsViewModel>();
+        }
+
         private void LoadItems()
         {
             Teams = null;
@@ -102,8 +99,8 @@ namespace ChGK.Core.ViewModels
             Teams = teams.Select(team => new ResultsTeamViewModel
             {
                 Name = team.Name,
-                ID = team.ID,
-                AnsweredCorrectly = results.Contains(team.ID)
+                ID = team.Id,
+                AnsweredCorrectly = results.Contains(team.Id)
             }).ToList();
 
             IsEmpty = Teams.Count == 0;
@@ -128,7 +125,7 @@ namespace ChGK.Core.ViewModels
 
         private void OnResultsChanged(ResultsChangedMessage obj)
         {
-            if (_questionId.Equals(obj.QuestionID))
+            if (_questionId.Equals(obj.QuestionId))
             {
                 ReloadResults();
             }
@@ -163,11 +160,6 @@ namespace ChGK.Core.ViewModels
         {
             _teamsService.CleanResults();
         }
-
-#pragma warning disable 414
-        private MvxSubscriptionToken _teamsChangedToken;
-        private MvxSubscriptionToken _resultsChangedToken;
-#pragma warning restore 414
     }
 
     public class ResultsTeamViewModel : MvxViewModel

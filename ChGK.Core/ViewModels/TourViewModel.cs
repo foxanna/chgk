@@ -2,10 +2,10 @@
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using ChGK.Core.Utils;
-using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels
@@ -13,17 +13,17 @@ namespace ChGK.Core.ViewModels
     public class TourViewModel : MenuItemViewModel
     {
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private readonly IChGKService _service;
 
         private string _fileName;
 
         private string _info;
 
         private List<IQuestion> _questions;
-        private readonly IChGKWebService _service;
 
-        private MvxCommand<IQuestion> _showQuestionCommand;
+        private ICommand _showQuestionCommand;
 
-        public TourViewModel(IChGKWebService service)
+        public TourViewModel(IChGKService service)
         {
             _service = service;
 
@@ -52,10 +52,8 @@ namespace ChGK.Core.ViewModels
             }
         }
 
-        public MvxCommand<IQuestion> ShowQuestionCommand
-        {
-            get { return _showQuestionCommand ?? (_showQuestionCommand = new MvxCommand<IQuestion>(ShowQuestion)); }
-        }
+        public ICommand ShowQuestionCommand
+            => _showQuestionCommand ?? (_showQuestionCommand = new Command<IQuestion>(ShowQuestion));
 
         private async Task LoadItems()
         {
@@ -68,10 +66,10 @@ namespace ChGK.Core.ViewModels
             var infoSB = new StringBuilder();
             if (!string.IsNullOrEmpty(tour.Editors))
             {
-                infoSB.Append(string.Format("Редакторы:\n{0}\n", tour.Editors));
+                infoSB.Append($"Редакторы:\n{tour.Editors}\n");
             }
 
-            infoSB.Append(string.Format("\nКоличество вопросов: {0}\n", Questions.Count));
+            infoSB.Append($"\nКоличество вопросов: {Questions.Count}\n");
 
             Info = infoSB.ToString();
         }
