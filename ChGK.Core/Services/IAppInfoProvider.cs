@@ -1,12 +1,11 @@
 ﻿namespace ChGK.Core.Services
 {
-	public interface IAppInfoProvider
-	{
-		string AppVersion { get; }
+    public interface IAppInfoProvider
+    {
+        string AppVersion { get; }
 
-		string AppName { get; }
+        string AppName { get; }
 
-        void RateAppOnMarket();
-	}
+        string AppOnMarketLink { get; }
+    }
 }
-

@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using ChGK.Core.Services;
 using ChGK.Core.Services.Email;
+using ChGK.Core.Services.WebBrowser;
 using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
@@ -8,13 +9,16 @@ namespace ChGK.Core.ViewModels
     public class AboutViewModel : MenuItemViewModel
     {
         private readonly IAppInfoProvider _appInfoProvider;
+        private readonly IWebBrowserService _browserService;
         private readonly IEmailsService _emailsService;
 
         public AboutViewModel(IAppInfoProvider appInfoProvider,
-            IEmailsService emailsService)
+            IEmailsService emailsService,
+            IWebBrowserService browserService)
         {
             _appInfoProvider = appInfoProvider;
             _emailsService = emailsService;
+            _browserService = browserService;
 
             Title = StringResources.AboutApp;
 
@@ -44,6 +48,7 @@ namespace ChGK.Core.ViewModels
         public ICommand EmailDeveloperCommand => new Command(() =>
             _emailsService.SendEmail(StringResources.Email, string.Empty, string.Empty));
 
-        public ICommand RateAppCommand => new Command(_appInfoProvider.RateAppOnMarket);
+        public ICommand RateAppCommand => new Command(() =>
+            _browserService.OpenInWebBrowser(_appInfoProvider.AppOnMarketLink));
     }
 }

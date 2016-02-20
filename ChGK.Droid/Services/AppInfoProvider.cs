@@ -1,31 +1,17 @@
-﻿using Android.Content;
-using Android.Net;
+﻿using Android.App;
 using ChGK.Core.Services;
 
 namespace ChGK.Droid.Services
 {
-	public class AppInfoProvider : IAppInfoProvider
-	{
-		public string AppVersion {
-			get {
-				var packageInfo = Android.App.Application.Context.PackageManager.GetPackageInfo (Android.App.Application.Context.PackageName, 0);
-				return packageInfo != null ? packageInfo.VersionName + " (" + packageInfo.VersionCode + ")" : string.Empty;
-			}
-		}
+    public class AppInfoProvider : IAppInfoProvider
+    {
+        public string AppVersion => Application.Context.PackageManager.GetPackageInfo(
+            Application.Context.PackageName, 0)?.VersionName ?? string.Empty;
 
-		public string AppName {
-			get {
-				var appInfo = Android.App.Application.Context.PackageManager.GetApplicationInfo (Android.App.Application.Context.PackageName, 0);
-				return appInfo != null ? Android.App.Application.Context.PackageManager.GetApplicationLabel (appInfo) : string.Empty;
-			}
-		}
+        public string AppName => Application.Context.PackageManager.GetApplicationLabel(
+            Application.Context.PackageManager.GetApplicationInfo(Application.Context.PackageName, 0))
+                                 ?? string.Empty;
 
-		public void RateAppOnMarket ()
-		{
-			var intent = new Intent (Intent.ActionView);
-			intent.SetData (Uri.Parse ("market://details?id=" + Android.App.Application.Context.PackageName));
-			Android.App.Application.Context.StartActivity (intent.SetFlags (ActivityFlags.NewTask));
-		}
-	}
+        public string AppOnMarketLink => "market://details?id=" + Application.Context.PackageName;
+    }
 }
-
