@@ -53,10 +53,10 @@ namespace ChGK.Droid.Views
             switch (item.ItemId)
             {
                 case Resource.Id.start_timer:
-                    (ViewModel as QuestionViewModel).StartTimer();
+                    (ViewModel as QuestionViewModel)?.StartTimer();
                     return true;
                 case Resource.Id.stop_timer:
-                    (ViewModel as QuestionViewModel).PauseTimer();
+                    (ViewModel as QuestionViewModel)?.PauseTimer();
                     return true;
                 default:
                     return base.OnOptionsItemSelected(item);

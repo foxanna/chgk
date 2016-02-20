@@ -1,6 +1,5 @@
 ﻿using System.Windows.Input;
 using ChGK.Core.Models;
-using ChGK.Core.Services;
 using ChGK.Core.Utils;
 using Newtonsoft.Json;
 
@@ -8,14 +7,7 @@ namespace ChGK.Core.ViewModels.Search
 {
     public class SearchQuestionSingleResultViewModel : MenuItemViewModel
     {
-        private readonly IGAService _gaService;
-
         private Command _openImageCommand, _openTourCommand, _openTournamentCommand;
-
-        public SearchQuestionSingleResultViewModel(IGAService gaService)
-        {
-            _gaService = gaService;
-        }
 
         public ISearchQuestionsResult Question { get; set; }
 

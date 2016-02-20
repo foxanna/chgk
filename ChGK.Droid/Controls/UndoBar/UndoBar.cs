@@ -1,76 +1,77 @@
 ﻿using System;
-using Android.Widget;
-using Android.Views;
-using Android.Content;
-using Android.App;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
+using Android.App;
+using Android.Content;
+using Android.Views;
+using Android.Widget;
 
 namespace ChGK.Droid.Controls.UndoBar
 {
-	public class UndoBar
-	{
-		public event EventHandler Undo;
+    public class UndoBar
+    {
+        private readonly View _parentView;
 
-		public event EventHandler Discard;
+        private readonly PopupWindow _popup;
 
-		readonly PopupWindow _popup;
+        private CancellationTokenSource _cancellationTokenSource;
 
-		readonly View _parentView;
+        private bool _undone;
 
-        bool _undone;
+        public UndoBar(Context context, string text, View parentView)
+        {
+            _parentView = parentView;
 
-		CancellationTokenSource _cancellationTokenSource;
+            var view = LayoutInflater.FromContext(context).Inflate(Resource.Layout.undo_bar, null);
 
-		public UndoBar (Context context, string text, View parentView)
-		{
-			_parentView = parentView;
+            var undoButton = view.FindViewById(Resource.Id.undo_button);
+            undoButton.Click += OnUndoClick;
 
-			var view = (context.GetSystemService (Context.LayoutInflaterService) as LayoutInflater).Inflate (Resource.Layout.undo_bar, null);
+            var titleTextView = view.FindViewById<TextView>(Resource.Id.undo_message);
+            titleTextView.Text = text;
 
-			var undoButton = view.FindViewById (Resource.Id.undo_button);
-			undoButton.Click += OnUndoClick;
+            _popup = new PopupWindow(view, ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent, false)
+            {
+                AnimationStyle = Resource.Style.popup_fade_animation
+            };
+        }
 
-			var titleTextView = view.FindViewById<TextView> (Resource.Id.undo_message);
-			titleTextView.Text = text;
+        public event EventHandler Undo;
 
-			_popup = new PopupWindow (view, ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent, false);
-            _popup.AnimationStyle = Resource.Style.popup_fade_animation;            
-		}
+        public event EventHandler Discard;
 
-        void Popup_DismissEvent(object sender, EventArgs e)
+        private void Popup_DismissEvent(object sender, EventArgs e)
         {
             OnDiscard();
         }
 
-		public void Show ()
-		{
-			_popup.Width = (int)Math.Min (Application.Context.Resources.DisplayMetrics.Density * 400, _parentView.Width * 0.9f);
+        public void Show()
+        {
+            _popup.Width =
+                (int) Math.Min(Application.Context.Resources.DisplayMetrics.Density*400, _parentView.Width*0.9f);
             _popup.DismissEvent += Popup_DismissEvent;
-			_popup.ShowAtLocation (_parentView, GravityFlags.CenterHorizontal | GravityFlags.Bottom, 0, 60);
+            _popup.ShowAtLocation(_parentView, GravityFlags.CenterHorizontal | GravityFlags.Bottom, 0, 60);
 
             SchedulePopupClose();
-		}
+        }
 
-		void OnUndoClick (object sender, EventArgs e)
-		{
-			_undone = true;
+        private void OnUndoClick(object sender, EventArgs e)
+        {
+            _undone = true;
 
             Hide();
-		}
+        }
 
-		void OnDiscard ()
-		{
+        private void OnDiscard()
+        {
             _popup.DismissEvent -= Popup_DismissEvent;
-			_cancellationTokenSource.Cancel ();
+            _cancellationTokenSource.Cancel();
 
-            var handler = _undone ? Undo : Discard;          
+            var handler = _undone ? Undo : Discard;
+            handler?.Invoke(this, EventArgs.Empty);
+        }
 
-            if (handler != null)            
-                handler(this, EventArgs.Empty);            
-		}
-
-        async void SchedulePopupClose()
+        private async void SchedulePopupClose()
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -78,27 +79,29 @@ namespace ChGK.Droid.Controls.UndoBar
             {
                 var ui = TaskScheduler.FromCurrentSynchronizationContext();
                 await Task.Delay(5000, _cancellationTokenSource.Token);
-                await Task.Factory.StartNew(OnPopupTimeOut, _cancellationTokenSource.Token, TaskCreationOptions.None, ui);
+                await
+                    Task.Factory.StartNew(OnPopupTimeOut, _cancellationTokenSource.Token, TaskCreationOptions.None, ui);
             }
             catch (OperationCanceledException)
             {
                 MvvmCross.Platform.Mvx.Trace("Undobar: OperationCanceledException");
             }
         }
-		
-		void OnPopupTimeOut ()
-		{
-			if (_cancellationTokenSource.IsCancellationRequested || _undone)
-				return;
 
-            Hide ();
-		}
+        private void OnPopupTimeOut()
+        {
+            if (_cancellationTokenSource.IsCancellationRequested || _undone)
+                return;
 
-		public void Hide ()
-		{
-			if (_popup.IsShowing) {
-				_popup.Dismiss ();
-			}
-		}
-	}
+            Hide();
+        }
+
+        public void Hide()
+        {
+            if (_popup.IsShowing)
+            {
+                _popup.Dismiss();
+            }
+        }
+    }
 }

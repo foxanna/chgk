@@ -13,21 +13,18 @@ namespace ChGK.Droid.Views
     [Activity(Label = "Вопрос 1", ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
     public class QuestionsView : MenuItemIndependentView
     {
-        private ViewPager viewPager;
+        private ViewPager _viewPager;
 
-        protected override int LayoutId
-        {
-            get { return Resource.Layout.QuestionsView; }
-        }
+        protected override int LayoutId => Resource.Layout.QuestionsView;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            viewPager = FindViewById<ViewPager>(Resource.Id.viewPager);
-            viewPager.Adapter = new QuestionsPagerAdapter(FragmentManager, ((QuestionsViewModel) ViewModel).Questions);
-            viewPager.PageSelected += (sender, e) => ActionBar.Title = viewPager.Adapter.GetPageTitle(e.Position);
-            viewPager.CurrentItem = ((QuestionsViewModel) ViewModel).Index;
+            _viewPager = FindViewById<ViewPager>(Resource.Id.viewPager);
+            _viewPager.Adapter = new QuestionsPagerAdapter(FragmentManager, ((QuestionsViewModel) ViewModel).Questions);
+            _viewPager.PageSelected += (sender, e) => ActionBar.Title = _viewPager.Adapter.GetPageTitle(e.Position);
+            _viewPager.CurrentItem = ((QuestionsViewModel) ViewModel).Index;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -43,7 +40,7 @@ namespace ChGK.Droid.Views
             {
                 case Resource.Id.enter_results:
                 {
-                    (ViewModel as QuestionsViewModel).Questions[viewPager.CurrentItem].EnterResults();
+                    (ViewModel as QuestionsViewModel)?.Questions?[_viewPager.CurrentItem]?.EnterResults();
                     return true;
                 }
                 default:
@@ -61,16 +58,15 @@ namespace ChGK.Droid.Views
             _questions = questions;
         }
 
-        public override int Count
-        {
-            get { return _questions.Count; }
-        }
+        public override int Count => _questions.Count;
 
         public override Fragment GetItem(int position)
         {
-            var fragment = new QuestionView();
-            fragment.RetainInstance = true;
-            fragment.ViewModel = _questions[position];
+            var fragment = new QuestionView
+            {
+                RetainInstance = true,
+                ViewModel = _questions[position]
+            };
             return fragment;
         }
 

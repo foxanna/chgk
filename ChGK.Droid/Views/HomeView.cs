@@ -18,31 +18,32 @@ namespace ChGK.Droid.Views
 #pragma warning disable 414
         private object _closeDrawerToken;
 #pragma warning restore 414
-        private DrawerLayout mDrawerLayout;
-        private ActionBarDrawerToggle mDrawerToggle;
-        private View mDrawerView;
+        private DrawerLayout _mDrawerLayout;
+        private ActionBarDrawerToggle _mDrawerToggle;
+        private View _mDrawerView;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.HomeView);
 
-            mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer);
-            mDrawerView = FindViewById(Resource.Id.items);
-            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, Resource.Drawable.ic_navigation_drawer, 0, 0);
-            mDrawerLayout.SetDrawerListener(mDrawerToggle);
+            _mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer);
+            _mDrawerView = FindViewById(Resource.Id.items);
+            _mDrawerToggle = new ActionBarDrawerToggle(this, _mDrawerLayout, Resource.Drawable.ic_navigation_drawer, 0,
+                0);
+            _mDrawerLayout.SetDrawerListener(_mDrawerToggle);
 
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             _closeDrawerToken = Mvx.Resolve<IMessagesService>().SubscribeOnMainThread<CloseDrawerMessage>(
-                message => mDrawerLayout.CloseDrawer(mDrawerView));
+                message => _mDrawerLayout.CloseDrawer(_mDrawerView));
         }
 
         public void ShowMenuItem(MvxFragment fragment)
         {
             var topFragment = FragmentManager.FindFragmentById(Resource.Id.content_frame);
-            if (topFragment != null && topFragment.GetType().Equals(fragment.GetType()))
+            if (topFragment != null && topFragment.GetType() == fragment.GetType())
             {
                 return;
             }
@@ -54,19 +55,19 @@ namespace ChGK.Droid.Views
         {
             base.OnPostCreate(savedInstanceState);
 
-            mDrawerToggle.SyncState();
+            _mDrawerToggle.SyncState();
         }
 
         public override void OnConfigurationChanged(Configuration newConfig)
         {
             base.OnConfigurationChanged(newConfig);
 
-            mDrawerToggle.OnConfigurationChanged(newConfig);
+            _mDrawerToggle.OnConfigurationChanged(newConfig);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            return mDrawerToggle.OnOptionsItemSelected(item) || base.OnOptionsItemSelected(item);
+            return _mDrawerToggle.OnOptionsItemSelected(item) || base.OnOptionsItemSelected(item);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ChGK.Droid.Views
             SetContentView(LayoutId);
 
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            ActionBar.Title = (ViewModel as MenuItemViewModel).Title;
+            ActionBar.Title = (ViewModel as MenuItemViewModel)?.Title;
         }
 
         protected override void OnStart()
@@ -42,10 +42,7 @@ namespace ChGK.Droid.Views
 
         protected override void OnDestroy()
         {
-            if (ViewModel is IViewLifecycle)
-            {
-                (ViewModel as IViewLifecycle).OnViewDestroying();
-            }
+            (ViewModel as IViewLifecycle)?.OnViewDestroying();
 
             base.OnDestroy();
         }

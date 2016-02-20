@@ -25,7 +25,7 @@ namespace ChGK.Core.ViewModels
         private readonly IMessagesService _messagesService;
         private readonly ITeamsService _service;
 
-        private readonly List<ChGKCommand> UndoActions = new List<ChGKCommand>();
+        private readonly List<ChGKCommand> _undoActions = new List<ChGKCommand>();
 
         private ICommand _removeCommand;
 
@@ -114,12 +114,12 @@ namespace ChGK.Core.ViewModels
 
         private void RemoveTeam(object parameter)
         {
-            lock (UndoActions)
+            lock (_undoActions)
             {
                 var position = ((int[]) parameter)[0];
                 var teamToDelete = Teams[position];
 
-                UndoActions.Add(
+                _undoActions.Add(
                     new ChGKCommand
                     {
                         OnApply = () =>
@@ -143,11 +143,11 @@ namespace ChGK.Core.ViewModels
 
         public void ClearResults()
         {
-            lock (UndoActions)
+            lock (_undoActions)
             {
                 var oldTeamScores = Teams.Select(team => team.Score).ToList();
 
-                UndoActions.Add(
+                _undoActions.Add(
                     new ChGKCommand
                     {
                         OnApply = () =>
@@ -185,9 +185,9 @@ namespace ChGK.Core.ViewModels
 
         public void ClearTeams()
         {
-            lock (UndoActions)
+            lock (_undoActions)
             {
-                UndoActions.Add(
+                _undoActions.Add(
                     new ChGKCommand
                     {
                         OnApply = () =>
@@ -207,27 +207,27 @@ namespace ChGK.Core.ViewModels
 
         public void UndoableActionUndone()
         {
-            lock (UndoActions)
+            lock (_undoActions)
             {
-                if (!UndoActions.Any())
+                if (!_undoActions.Any())
                     return;
 
-                var action = UndoActions[0];
+                var action = _undoActions[0];
                 action.OnUndo();
-                UndoActions.RemoveAt(0);
+                _undoActions.RemoveAt(0);
             }
         }
 
         public void UndoableActionConfirmed()
         {
-            lock (UndoActions)
+            lock (_undoActions)
             {
-                if (!UndoActions.Any())
+                if (!_undoActions.Any())
                     return;
 
-                var action = UndoActions[0];
+                var action = _undoActions[0];
                 action.OnApply();
-                UndoActions.RemoveAt(0);
+                _undoActions.RemoveAt(0);
             }
         }
     }

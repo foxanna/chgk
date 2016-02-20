@@ -1,83 +1,117 @@
-﻿using Android.Widget;
+﻿using System.Collections;
+using System.Windows.Input;
 using Android.Content;
 using Android.Util;
-using System.Collections;
-using System.Windows.Input;
-using MvvmCross.Binding.Droid.Views;
-using MvvmCross.Binding.Droid.ResourceHelpers;
-using MvvmCross.Binding.Droid.BindingContext;
+using Android.Widget;
 using MvvmCross.Binding.Attributes;
+using MvvmCross.Binding.Droid.BindingContext;
+using MvvmCross.Binding.Droid.ResourceHelpers;
+using MvvmCross.Binding.Droid.Views;
 
 namespace ChGK.Droid.Controls
 {
-	public class BindableGroupListView : MvxListView
-	{
-		public BindableGroupListView (Context context, IAttributeSet attrs)
-			: this (context, attrs, new BindableGroupListAdapter (context))
-		{
-		}
+    public class BindableGroupListView : MvxListView
+    {
+        public BindableGroupListView(Context context, IAttributeSet attrs)
+            : this(context, attrs, new BindableGroupListAdapter(context))
+        {
+        }
 
-		public BindableGroupListView (Context context, IAttributeSet attrs, BindableGroupListAdapter adapter)
-			: base (context, attrs, adapter)
-		{
-			var groupTemplateId = MvxAttributeHelpers.ReadAttributeValue (context, attrs,
-				                      MvxAndroidBindingResource.Instance
-				.ListViewStylableGroupId,
-				                      AndroidBindingResource.Instance
-				.BindableListGroupItemTemplateId);
-			adapter.GroupTemplateId = groupTemplateId;
-		}
+        public BindableGroupListView(Context context, IAttributeSet attrs, BindableGroupListAdapter adapter)
+            : base(context, attrs, adapter)
+        {
+            var groupTemplateId = MvxAttributeHelpers.ReadAttributeValue(context, attrs,
+                MvxAndroidBindingResource.Instance
+                    .ListViewStylableGroupId,
+                AndroidBindingResource.Instance
+                    .BindableListGroupItemTemplateId);
+            adapter.GroupTemplateId = groupTemplateId;
+        }
 
-		public ICommand GroupClick { get; set; }
+        public ICommand GroupClick { get; set; }
 
-		protected override void ExecuteCommandOnItem (ICommand command, int position)
-		{
-			var item = Adapter.GetRawItem (position);
-			if (item == null)
-				return;
-			var flatItem = (BindableGroupListAdapter.FlatItem)item;
+        protected override void ExecuteCommandOnItem(ICommand command, int position)
+        {
+            var item = Adapter.GetRawItem(position);
+            if (item == null)
+                return;
+            var flatItem = (BindableGroupListAdapter.FlatItem) item;
 
-			if (flatItem.IsGroup)
-				command = GroupClick;
+            if (flatItem.IsGroup)
+                command = GroupClick;
 
-			if (command == null)
-				return;
+            if (command == null)
+                return;
 
-			if (!command.CanExecute (flatItem.Item))
-				return;
+            if (!command.CanExecute(flatItem.Item))
+                return;
 
-			command.Execute (flatItem.Item);
-		}
-	}
+            command.Execute(flatItem.Item);
+        }
+    }
 
-	public class BindableExpandableListView : ExpandableListView
-	{
-		public BindableExpandableListView (Context context, IAttributeSet attrs)
-			: base (context, attrs)
-		{
+    public class BindableExpandableListView : ExpandableListView
+    {
+        private ICommand _itemClick;
+
+        //		public ICommand GroupClick { get; set; }
+
+        private bool _itemClickOverloaded;
+
+        public BindableExpandableListView(Context context, IAttributeSet attrs)
+            : base(context, attrs)
+        {
             var expandableAdapter = new BindableExpandableListAdapter(context);
-			
-            var groupTemplateId = MvxAttributeHelpers.ReadAttributeValue (context, attrs,
-				                      MvxAndroidBindingResource.Instance
-				.ListViewStylableGroupId,
-				                      AndroidBindingResource.Instance
-				.BindableListGroupItemTemplateId);
 
-			var itemTemplateId = MvxAttributeHelpers.ReadListItemTemplateId (context, attrs);
-            
+            var groupTemplateId = MvxAttributeHelpers.ReadAttributeValue(context, attrs,
+                MvxAndroidBindingResource.Instance
+                    .ListViewStylableGroupId,
+                AndroidBindingResource.Instance
+                    .BindableListGroupItemTemplateId);
+
+            var itemTemplateId = MvxAttributeHelpers.ReadListItemTemplateId(context, attrs);
+
             expandableAdapter.GroupTemplateId = groupTemplateId;
             expandableAdapter.ItemTemplateId = itemTemplateId;
 
             SetAdapter(expandableAdapter);
 
             InitHeaders(context, attrs);
-            InitFooters(context, attrs);            
-		}
+            InitFooters(context, attrs);
+        }
 
-        void InitFooters(Context context, IAttributeSet attrs)
+        // An expandableListView has ExpandableListAdapter as propertyname, but Adapter still exists but is always null.
+        protected BindableExpandableListAdapter ThisAdapter => ExpandableListAdapter as BindableExpandableListAdapter;
+
+        [MvxSetToNullAfterBinding]
+        public virtual IEnumerable ItemsSource
         {
-            var footerId = MvxAttributeHelpers.ReadAttributeValue(context, attrs, MvxAndroidBindingResource.Instance.ListViewStylableGroupId,
-                            AndroidBindingResource.Instance.MvxListViewWithHeader_FooterLayout);
+            get { return ThisAdapter.ItemsSource; }
+            set { ThisAdapter.ItemsSource = value; }
+        }
+
+        public int ItemTemplateId
+        {
+            get { return ThisAdapter.ItemTemplateId; }
+            set { ThisAdapter.ItemTemplateId = value; }
+        }
+
+        public new ICommand ItemClick
+        {
+            get { return _itemClick; }
+            set
+            {
+                _itemClick = value;
+                if (_itemClick != null)
+                    EnsureItemClickOverloaded();
+            }
+        }
+
+        private void InitFooters(Context context, IAttributeSet attrs)
+        {
+            var footerId = MvxAttributeHelpers.ReadAttributeValue(context, attrs,
+                MvxAndroidBindingResource.Instance.ListViewStylableGroupId,
+                AndroidBindingResource.Instance.MvxListViewWithHeader_FooterLayout);
 
             if (footerId != 0)
             {
@@ -88,9 +122,10 @@ namespace ChGK.Droid.Controls
             }
         }
 
-        void InitHeaders(Context context, IAttributeSet attrs)
+        private void InitHeaders(Context context, IAttributeSet attrs)
         {
-            var headerId = MvxAttributeHelpers.ReadAttributeValue(context, attrs, MvxAndroidBindingResource.Instance.ListViewStylableGroupId,
+            var headerId = MvxAttributeHelpers.ReadAttributeValue(context, attrs,
+                MvxAndroidBindingResource.Instance.ListViewStylableGroupId,
                 AndroidBindingResource.Instance.MvxListViewWithHeader_HeaderLayout);
 
             if (headerId != 0)
@@ -102,62 +137,29 @@ namespace ChGK.Droid.Controls
             }
         }
 
-		// An expandableListView has ExpandableListAdapter as propertyname, but Adapter still exists but is always null.
-        protected BindableExpandableListAdapter ThisAdapter
+        private void EnsureItemClickOverloaded()
         {
-            get { return ExpandableListAdapter as BindableExpandableListAdapter; }
-		}
+            if (_itemClickOverloaded)
+                return;
 
-		[MvxSetToNullAfterBinding]
-		public virtual IEnumerable ItemsSource {
-			get { return ThisAdapter.ItemsSource; }
-			set { ThisAdapter.ItemsSource = value; }
-		}
+            _itemClickOverloaded = true;
+            ChildClick +=
+                (sender, args) => ExecuteCommandOnItem(ItemClick, args.GroupPosition, args.ChildPosition);
+        }
 
-		public int ItemTemplateId {
-			get { return ThisAdapter.ItemTemplateId; }
-			set { ThisAdapter.ItemTemplateId = value; }
-		}
+        protected virtual void ExecuteCommandOnItem(ICommand command, int groupPosition, int position)
+        {
+            if (command == null)
+                return;
 
-		private ICommand _itemClick;
+            var item = ThisAdapter.GetRawItem(groupPosition, position);
+            if (item == null)
+                return;
 
-		public new ICommand ItemClick {
-			get { return _itemClick; }
-			set {
-				_itemClick = value;
-				if (_itemClick != null)
-					EnsureItemClickOverloaded ();
-			}
-		}
+            if (!command.CanExecute(item))
+                return;
 
-		//		public ICommand GroupClick { get; set; }
-
-		private bool _itemClickOverloaded = false;
-
-		private void EnsureItemClickOverloaded ()
-		{
-			if (_itemClickOverloaded)
-				return;
-
-			_itemClickOverloaded = true;
-			base.ChildClick +=
-				(sender, args) => ExecuteCommandOnItem (this.ItemClick, args.GroupPosition, args.ChildPosition);
-		}
-
-		protected virtual void ExecuteCommandOnItem (ICommand command, int groupPosition, int position)
-		{
-			if (command == null)
-				return;
-
-			var item = ThisAdapter.GetRawItem (groupPosition, position);
-			if (item == null)
-				return;
-
-			if (!command.CanExecute (item))
-				return;
-
-			command.Execute (item);
-		}
-	}
+            command.Execute(item);
+        }
+    }
 }
-

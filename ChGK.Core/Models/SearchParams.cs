@@ -98,8 +98,8 @@ namespace ChGK.Core.Models
         {
             unchecked
             {
-                return ((SearchQuery != null ? SearchQuery.GetHashCode() : 0)*397) ^
-                       (Type != null ? Type.GetHashCode() : 0);
+                return ((SearchQuery?.GetHashCode() ?? 0)*397) ^
+                       (Type?.GetHashCode() ?? 0);
             }
         }
     }

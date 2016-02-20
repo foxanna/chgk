@@ -1,21 +1,19 @@
-﻿using System;
-
-namespace ChGK.Core
+﻿namespace ChGK.Core
 {
-	public static class StringResources
-	{
-		public static string Add = "Добавить";
-		public static string Save = "Сохранить";
-		public static string Cancel = "Отмена";
+    public static class StringResources
+    {
+        public static string Add = "Добавить";
+        public static string Save = "Сохранить";
+        public static string Cancel = "Отмена";
         public static string Question = "Вопрос";
         public static string Tournament = "Турнир";
 
-		// AboutView
+        // AboutView
 
-		public static string DataBaseUrl = "http://db.chgk.info";
-		public static string LicenceAgreementUrl = "http://db.chgk.info/copyright";
-		public static string LicenceAgreement = "Лицензионное соглашение";
-		public static string AboutApp = "О приложении";
+        public static string DataBaseUrl = "http://db.chgk.info";
+        public static string LicenceAgreementUrl = "http://db.chgk.info/copyright";
+        public static string LicenceAgreement = "Лицензионное соглашение";
+        public static string AboutApp = "О приложении";
         public static string WhatWhenWhere = "Что?&nbsp;Где?&nbsp;Когда?";
         public static string QuestionsBase = "База Вопросов Интернет-клуба";
         public static string ClickOnAd = "Сказать спасибо";
@@ -23,22 +21,22 @@ namespace ChGK.Core
         public static string Email = "que.ou.quand@gmail.com";
         public static string RateApp = "Оценить на Google Play";
 
-		// TeamsView
+        // TeamsView
 
-		public static string Teams = "Команды";
-		public static string TeamName = "Название команды";
-		public static string TeamScoreTitle = "Счет";
-		public static string ScoreRemoved = "Счет команд удален";
-		public static string TeamRemoved = "Команда удалена";
+        public static string Teams = "Команды";
+        public static string TeamName = "Название команды";
+        public static string TeamScoreTitle = "Счет";
+        public static string ScoreRemoved = "Счет команд удален";
+        public static string TeamRemoved = "Команда удалена";
         public static string TeamsRemoved = "Все команды удалены";
 
-		// LastAddedView
+        // LastAddedView
 
-		public static string LastAdded = "Последние добавленные";
+        public static string LastAdded = "Последние добавленные";
 
-		// RandomQuestionsView
+        // RandomQuestionsView
 
-		public static string RandomQuestions = "Случайные вопросы";
+        public static string RandomQuestions = "Случайные вопросы";
 
         // SearchView
 
@@ -47,4 +45,3 @@ namespace ChGK.Core
         public static string NothingFound = "Ничего не найдено по вашему запросу";
     }
 }
-

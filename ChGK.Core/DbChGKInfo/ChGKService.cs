@@ -72,7 +72,7 @@ namespace ChGK.Core.DbChGKInfo
 
                 return _lastTournamentsCache.Item2;
             }
-            catch (Exception e)
+            catch
             {
                 if (_lastTournamentsCache.Item2.Count > 0)
                 {

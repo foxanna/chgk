@@ -1,4 +1,4 @@
-﻿using Android.Util;
+﻿using Android.OS;
 using Android.Views;
 using Android.Widget;
 using ChGK.Core.ViewModels;
@@ -7,15 +7,12 @@ using MvvmCross.Binding.BindingContext;
 
 namespace ChGK.Droid.Views
 {
-	public class LastAddedTournamentsView : MenuItemView
-	{
-		protected override int LayoutId {
-			get {
-				return Resource.Layout.LastAddedTournamentsView;
-			}
-		}
+    public class LastAddedTournamentsView : MenuItemView
+    {
+        private ListView _listView;
 
-        MenuItemWrapper refreshButton;
+        private MenuItemWrapper _refreshButton;
+        protected override int LayoutId => Resource.Layout.LastAddedTournamentsView;
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
@@ -23,11 +20,11 @@ namespace ChGK.Droid.Views
 
             inflater.Inflate(Resource.Menu.menuitem, menu);
 
-            refreshButton = new MenuItemWrapper(menu.FindItem(Resource.Id.refresh));
+            _refreshButton = new MenuItemWrapper(menu.FindItem(Resource.Id.refresh));
 
             var bindingSet = this.CreateBindingSet<LastAddedTournamentsView, LastAddedTournamentsViewModel>();
-            bindingSet.Bind(refreshButton).For(n => n.Visible).To(vm => vm.DataLoader.HasError);
-            bindingSet.Apply();            
+            bindingSet.Bind(_refreshButton).For(n => n.Visible).To(vm => vm.DataLoader.HasError);
+            bindingSet.Apply();
         }
 
         public override void OnDestroyOptionsMenu()
@@ -42,39 +39,37 @@ namespace ChGK.Droid.Views
             switch (item.ItemId)
             {
                 case Resource.Id.refresh:
-                    (ViewModel as LastAddedTournamentsViewModel).RefreshCommand.Execute(null);
+                    (ViewModel as LastAddedTournamentsViewModel)?.RefreshCommand?.Execute(null);
                     return true;
                 default:
                     return base.OnOptionsItemSelected(item);
             }
         }
 
-        ListView listView;
-
-        public override void OnViewCreated(View view, Android.OS.Bundle savedInstanceState)
+        public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
 
-            listView = view.FindViewById<ListView>(Resource.Id.items);
-            listView.Scroll += list_Scroll;
+            _listView = view.FindViewById<ListView>(Resource.Id.items);
+            _listView.Scroll += list_Scroll;
         }
-        
+
         public override void OnDestroyView()
         {
-            listView.Scroll -= list_Scroll;
+            _listView.Scroll -= list_Scroll;
 
             base.OnDestroyView();
         }
 
-        void list_Scroll(object sender, AbsListView.ScrollEventArgs e)
+        private void list_Scroll(object sender, AbsListView.ScrollEventArgs e)
         {
-            var tournaments = (ViewModel as LastAddedTournamentsViewModel).Tournaments;
-            for (int i = e.FirstVisibleItem - listView.HeaderViewsCount; 
-                i < e.FirstVisibleItem + e.VisibleItemCount - listView.FooterViewsCount && i < tournaments.Count; i++)
+            var tournaments = (ViewModel as LastAddedTournamentsViewModel)?.Tournaments;
+            for (var i = e.FirstVisibleItem - _listView.HeaderViewsCount;
+                i < e.FirstVisibleItem + e.VisibleItemCount - _listView.FooterViewsCount && i < tournaments.Count;
+                i++)
             {
-                tournaments[i].OnShowing();
+                tournaments[i]?.OnShowing();
             }
         }
-	}
+    }
 }
-

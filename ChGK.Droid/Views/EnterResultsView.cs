@@ -32,7 +32,7 @@ namespace ChGK.Droid.Views
 
             builder.SetView(view);
             builder.SetCancelable(true);
-            builder.SetPositiveButton(StringResources.Save, (s, e) => viewModel.SubmitResults())
+            builder.SetPositiveButton(StringResources.Save, (s, e) => viewModel?.SubmitResults())
                 .SetNegativeButton(StringResources.Cancel, (EventHandler<DialogClickEventArgs>) null);
 
             return builder.Create();
@@ -47,7 +47,7 @@ namespace ChGK.Droid.Views
 
         public override void OnDismiss(IDialogInterface dialog)
         {
-            (ViewModel as IViewLifecycle).OnViewDestroying();
+            (ViewModel as IViewLifecycle)?.OnViewDestroying();
 
             DataContext = null;
             BindingContext = null;

@@ -11,11 +11,11 @@ namespace ChGK.Core.DbChGKInfo
 {
     internal class XmlDeserializer<T> : IDeserializer<T>
     {
-        private readonly XmlSerializer serializer;
+        private readonly XmlSerializer _serializer;
 
         public XmlDeserializer()
         {
-            serializer = new XmlSerializer(typeof (T));
+            _serializer = new XmlSerializer(typeof (T));
         }
 
         public Task<T> Deserialize(string responseBody)
@@ -26,14 +26,14 @@ namespace ChGK.Core.DbChGKInfo
                 {
                     using (var reader = XmlReader.Create(read))
                     {
-                        return (T) serializer.Deserialize(reader);
+                        return (T) _serializer.Deserialize(reader);
                     }
                 }
             });
         }
     }
 
-    internal interface IHtmlDeserializable<T>
+    internal interface IHtmlDeserializable<out T>
     {
         bool RecognitionPattern(HtmlNode node);
 

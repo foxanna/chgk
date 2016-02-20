@@ -1,14 +1,11 @@
-﻿using Android.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using Android.Views;
 
 namespace ChGK.Droid.Helpers
 {
     public class MenuItemWrapper
     {
-        readonly IMenuItem item;
+        private readonly IMenuItem _item;
 
         public MenuItemWrapper(IMenuItem item)
         {
@@ -17,19 +14,13 @@ namespace ChGK.Droid.Helpers
                 throw new ArgumentNullException();
             }
 
-            this.item = item;
+            _item = item;
         }
 
         public bool Visible
         {
-            get
-            {
-                return item.IsVisible;
-            }
-            set
-            {
-                item.SetVisible(value);
-            }
+            get { return _item.IsVisible; }
+            set { _item.SetVisible(value); }
         }
     }
 }

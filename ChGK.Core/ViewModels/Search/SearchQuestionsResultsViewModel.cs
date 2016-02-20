@@ -17,7 +17,10 @@ namespace ChGK.Core.ViewModels.Search
         private readonly LoadMoreHelper<ISearchQuestionsResult> _loadMoreHelper;
         private readonly IChGKService _service;
         private bool _canLoadMore;
-        private List<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> _questions;
+
+        private List<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> _questions =
+            new List<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>>();
+
         private SearchParams _searchParams;
 
         private Command<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> _showQuestionCommand;
@@ -63,7 +66,7 @@ namespace ChGK.Core.ViewModels.Search
         {
             var questions = await _service.SearchQuestions(_searchParams, _cancellationTokenSource.Token);
 
-            CheckIfThereIsMoreDataToLoad(questions.Count, Questions != null ? Questions.Count : 0);
+            CheckIfThereIsMoreDataToLoad(questions.Count, Questions?.Count ?? 0);
             UpdatePageAccordingToNewdata(questions.Count);
 
             Questions =
@@ -76,7 +79,7 @@ namespace ChGK.Core.ViewModels.Search
 
         private void DisplayErrorIfNoData()
         {
-            if (Questions.Count == 0)
+            if (!Questions.Any())
             {
                 DataLoader.Error = StringResources.NothingFound;
             }

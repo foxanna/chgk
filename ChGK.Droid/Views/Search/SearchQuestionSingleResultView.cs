@@ -1,16 +1,11 @@
 using Android.App;
+using Android.Content.PM;
 
 namespace ChGK.Droid.Views.Search
 {
-    [Activity(Label = "", ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(Label = "", ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
     public class SearchQuestionSingleResultView : MenuItemIndependentView
     {
-        protected override int LayoutId
-        {
-            get
-            {
-                return Resource.Layout.SearchQuestionSingleResultView;
-            }
-        }
+        protected override int LayoutId => Resource.Layout.SearchQuestionSingleResultView;
     }
 }

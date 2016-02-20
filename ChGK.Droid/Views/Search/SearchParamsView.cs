@@ -1,43 +1,45 @@
-﻿using Android.OS;
+﻿using System;
+using Android.OS;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
 using ChGK.Core.ViewModels.Search;
 using ChGK.Droid.Controls;
-using System;
+using Java.Lang;
 
 namespace ChGK.Droid.Views.Search
 {
     public class SearchParamsView : MenuItemView, ITextWatcher
     {
-        protected override int LayoutId
-        {
-            get
-            {
-                return Resource.Layout.SearchParamsView;
-            }
-        }
+        private EditText _searchQueryEditText;
+        protected override int LayoutId => Resource.Layout.SearchParamsView;
 
         public new SearchParamsViewModel ViewModel
         {
-            get
-            {
-                return base.ViewModel as SearchParamsViewModel;
-            }
-            set
-            {
-                base.ViewModel = value;
-            }
+            get { return base.ViewModel as SearchParamsViewModel; }
+            set { base.ViewModel = value; }
         }
 
-        EditText searchQueryEditText;
+        public void AfterTextChanged(IEditable s)
+        {
+            _searchQueryEditText.SetError(
+                (s == null || s.Length() == 0 ? Resources.GetString(Resource.String.empty_search_error) : null), null);
+        }
+
+        public void BeforeTextChanged(ICharSequence s, int start, int count, int after)
+        {
+        }
+
+        public void OnTextChanged(ICharSequence s, int start, int before, int count)
+        {
+        }
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
-           
-            searchQueryEditText = view.FindViewById<EditText>(Resource.Id.searchQueryEditText);
-            searchQueryEditText.AddTextChangedListener(this);
+
+            _searchQueryEditText = view.FindViewById<EditText>(Resource.Id.searchQueryEditText);
+            _searchQueryEditText.AddTextChangedListener(this);
 
             var searchButton = view.FindViewById<Button>(Resource.Id.searchButton);
             searchButton.Click += searchButton_Click;
@@ -49,44 +51,34 @@ namespace ChGK.Droid.Views.Search
             endDateButton.Click += endDateButton_Click;
         }
 
-        void endDateButton_Click(object sender, EventArgs e)
+        private void endDateButton_Click(object sender, EventArgs e)
         {
-            var dialog = DatePickerFragment.NewInstance((year, month, day) => ViewModel.EndDate = new DateTime(year, month, day),
-                ViewModel.EndDate.Year, ViewModel.EndDate.Month, ViewModel.EndDate.Day);
+            var dialog =
+                DatePickerFragment.NewInstance((year, month, day) => ViewModel.EndDate = new DateTime(year, month, day),
+                    ViewModel.EndDate.Year, ViewModel.EndDate.Month, ViewModel.EndDate.Day);
             dialog.Show(ChildFragmentManager, "endDatePicker");
         }
 
-        void startDateButton_Click(object sender, EventArgs e)
+        private void startDateButton_Click(object sender, EventArgs e)
         {
-            var dialog = DatePickerFragment.NewInstance((year, month, day) => ViewModel.StartDate = new DateTime(year, month, day),
-                ViewModel.StartDate.Year, ViewModel.StartDate.Month, ViewModel.StartDate.Day);
+            var dialog =
+                DatePickerFragment.NewInstance(
+                    (year, month, day) => ViewModel.StartDate = new DateTime(year, month, day),
+                    ViewModel.StartDate.Year, ViewModel.StartDate.Month, ViewModel.StartDate.Day);
             dialog.Show(ChildFragmentManager, "startDatePicker");
         }
 
-        void searchButton_Click(object sender, EventArgs e)
+        private void searchButton_Click(object sender, EventArgs e)
         {
-            if (!(ViewModel as SearchParamsViewModel).CanSearchWithThisParams())
+            if (!ViewModel.CanSearchWithThisParams())
             {
                 Toast.MakeText(Activity, Resource.String.empty_search_params_error, ToastLength.Short).Show();
             }
-            else if (string.IsNullOrEmpty(searchQueryEditText.Text))
+            else if (string.IsNullOrEmpty(_searchQueryEditText.Text))
             {
-                searchQueryEditText.RequestFocus();
+                _searchQueryEditText.RequestFocus();
                 AfterTextChanged(null);
             }
-        }
-
-        public void AfterTextChanged(IEditable s)
-        {
-            searchQueryEditText.SetError((s == null || s.Length() == 0 ? Resources.GetString(Resource.String.empty_search_error) : null), null);            
-        }
-
-        public void BeforeTextChanged(Java.Lang.ICharSequence s, int start, int count, int after)
-        {
-        }
-
-        public void OnTextChanged(Java.Lang.ICharSequence s, int start, int before, int count)
-        {
         }
     }
 }
