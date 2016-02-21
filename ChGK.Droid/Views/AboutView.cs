@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -39,11 +40,9 @@ namespace ChGK.Droid.Views
             var value = Security.Unify(Resources.GetStringArray(Resource.Array.billing_key), new[] {0, 1, 2, 3});
 
             _serviceConnection = new InAppBillingServiceConnection(this, value);
-            if (_serviceConnection != null)
-            {
-                _serviceConnection.OnConnected += Connected;
-                _serviceConnection.Connect();
-            }
+
+            _serviceConnection.OnConnected += Connected;
+            _serviceConnection.Connect();
         }
 
         private void ShowToast(string message)
@@ -57,7 +56,7 @@ namespace ChGK.Droid.Views
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            _serviceConnection?.BillingHandler.HandleActivityResult(requestCode, resultCode, data);
+            _serviceConnection?.BillingHandler?.HandleActivityResult(requestCode, resultCode, data);
         }
 
         private async void Connected()
@@ -65,22 +64,20 @@ namespace ChGK.Droid.Views
             var products = await
                 _serviceConnection.BillingHandler.QueryInventoryAsync(new List<string> {"donate"}, ItemType.Product);
 
-            if (products != null && products.Count > 0)
-            {
-                _serviceConnection.BillingHandler.OnProductPurchaseCompleted +=
-                    BillingHandler_OnProductPurchaseCompleted;
+            if (!products.Any())
+                return;
 
-                _donateButton.Visibility = ViewStates.Visible;
-                _selectedProduct = products[0];
-            }
+            _serviceConnection.BillingHandler.OnProductPurchaseCompleted +=
+                BillingHandler_OnProductPurchaseCompleted;
+
+            _donateButton.Visibility = ViewStates.Visible;
+            _selectedProduct = products[0];
         }
 
         private void BuyProduct(Product product)
         {
             if (product == null)
-            {
                 return;
-            }
 
             _serviceConnection.BillingHandler.BuyProduct(product);
         }

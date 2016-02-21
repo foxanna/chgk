@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using MvvmCross.Platform.Platform;
 
 namespace ChGK.Droid.Helpers
@@ -8,19 +7,18 @@ namespace ChGK.Droid.Helpers
     {
         public void Trace(MvxTraceLevel level, string tag, Func<string> message)
         {
-            Debug.WriteLine(tag + ":" + level + ":" + message());
+            Trace(level, tag, message());
         }
 
         public void Trace(MvxTraceLevel level, string tag, string message)
         {
-            Debug.WriteLine(tag + ":" + level + ":" + message);
+            Trace(level, tag, message, null);
         }
 
         public void Trace(MvxTraceLevel level, string tag, string message, params object[] args)
         {
             try
             {
-                Debug.WriteLine(tag + ":" + level + ":" + message, args);
             }
             catch (FormatException)
             {
