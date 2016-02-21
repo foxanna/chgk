@@ -11,7 +11,6 @@ namespace ChGK.Core.ViewModels
             Item = tournament;
 
             Name = tournament.Name;
-            FileName = tournament.FileName;
             Dates = $"Отыгран&nbsp;{tournament.PlayedAt.Replace(" ", "&nbsp;")}  Добавлен&nbsp;{tournament.AddedAt}";
             Tours = tournament.Tours;
         }
@@ -19,8 +18,6 @@ namespace ChGK.Core.ViewModels
         private List<ITour> Tours { get; }
 
         public string Name { get; set; }
-
-        public string FileName { get; set; }
 
         public string Dates { get; set; }
 

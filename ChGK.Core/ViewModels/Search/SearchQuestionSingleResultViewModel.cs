@@ -31,7 +31,7 @@ namespace ChGK.Core.ViewModels.Search
             new Command(() => ShowViewModel<FullImageViewModel>(new {image = Picture})));
 
         public ICommand OpenTourCommand => _openTourCommand ?? (_openTourCommand = new Command(
-            () => ShowViewModel<TourViewModel>(new {name = Question.TourName, filename = Question.TourFileName})));
+            () => ShowViewModel<TourViewModel>(new {name = Question.TourName, path = Question.TourFileName})));
 
         public ICommand OpenTournamentCommand => _openTournamentCommand ?? (_openTournamentCommand =
             new Command(() => ShowViewModel<SingleTournamentViewModel>(new {filename = Question.TournamentFileName})));

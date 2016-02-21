@@ -6,6 +6,9 @@ namespace ChGK.Core.DbChGKInfo
     {
         public static string FormatQuestion(string text)
         {
+            if (text == null)
+                return null;
+
             text = Regex.Replace(text, @"(\(pic: )\d+\.\w*(\))\n( *)", ""); // remove (pic:...) tag
             text = Regex.Replace(text, @"(<раздатка>)[\s\S]*(<\/раздатка>)", ""); // remove <раздатка> tag
 
@@ -21,17 +24,23 @@ namespace ChGK.Core.DbChGKInfo
 
         public static string GetPicture(string text)
         {
+            if (text == null)
+                return null;
+
             var regex = new Regex("(?<=pic: )\\d+\\.\\w*(?=\\))");
             return regex.Match(text).Value.Trim();
         }
 
         public static string FormatEditors(string text)
         {
-            return Regex.Replace(text, "\n", " ").Trim();
+            return text == null ? null : Regex.Replace(text, "\n", " ").Trim();
         }
 
         public static string FormatComments(string text)
         {
+            if (text == null)
+                return null;
+
             const string commentPattern =
                 "( *)(\n)( *)(?=[A-Z]{2,}|[А-Я]{2,}|[0-9]{2,}|[а-я]|[a-z]-|\\)|\\(|\\[|\\]|\")";
             return Regex.Replace(text, commentPattern, " ").Trim();

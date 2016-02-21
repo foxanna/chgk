@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ChGK.Core.Models;
+using ChGK.Core.Models.Database;
 
 namespace ChGK.Core.Services.Database
 {

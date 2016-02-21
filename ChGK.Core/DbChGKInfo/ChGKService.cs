@@ -115,8 +115,8 @@ namespace ChGK.Core.DbChGKInfo
 
         private void CacheTour(ITour tour)
         {
-            if (!_cachedTours.ContainsKey(tour.FileName))
-                _cachedTours.Add(tour.FileName, tour);
+            if (!_cachedTours.ContainsKey(tour.Id))
+                _cachedTours.Add(tour.Id, tour);
         }
 
         private ITour ReadTourFromCache(string filename)
@@ -133,8 +133,8 @@ namespace ChGK.Core.DbChGKInfo
 
         private void CacheTournament(ITournament tournament)
         {
-            if (!_cachedTournaments.ContainsKey(tournament.FileName))
-                _cachedTournaments.Add(tournament.FileName, tournament);
+            if (!_cachedTournaments.ContainsKey(tournament.Id))
+                _cachedTournaments.Add(tournament.Id, tournament);
         }
 
         private ITournament ReadTournamentFromCache(string filename)

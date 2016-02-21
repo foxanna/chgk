@@ -34,7 +34,7 @@
   <ItemGroup>
     <Compile Include="DbChGKInfo\Dto\SearchResultsDto.cs" />
     <Compile Include="DbChGKInfo\Dto\SearchResultDto.cs" />
-    <Compile Include="Models\IDatabaseModel.cs" />
+    <Compile Include="Models\Database\IDatabaseModel.cs" />
     <Compile Include="Models\ISearchQuestionsResult.cs" />
     <Compile Include="Models\SearchParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,7 +52,7 @@
     <Compile Include="Services\Rest\IRestService.cs" />
     <Compile Include="Services\Rest\RestService.cs" />
     <Compile Include="Services\IGAService.cs" />
-    <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\Database\Answer.cs" />
     <Compile Include="Converters\DateValueConverter.cs" />
     <Compile Include="Services\WebBrowser\IWebBrowserService.cs" />
     <Compile Include="Services\WebBrowser\WebBrowserService.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="Utils\DataLoader.cs" />
     <Compile Include="StringResources.cs" />
     <Compile Include="Services\Teams\ITeamsService.cs" />
-    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\Database\Team.cs" />
     <Compile Include="Services\Teams\TeamsService.cs" />
     <Compile Include="ViewModels\TeamsViewModel.cs" />
     <Compile Include="Services\IDialogManager.cs" />

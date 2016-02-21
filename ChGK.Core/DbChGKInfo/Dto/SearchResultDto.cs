@@ -54,7 +54,7 @@ namespace ChGK.Core.DbChGKInfo.Dto
                 Author = TextFormatter.FormatAnswer(Author),
                 Comment = TextFormatter.FormatComments(Comment),
                 Source = Source,
-                TourFileName = TourFileName,
+                TourFileName = (!TourFileName.StartsWith("tour/")) ? "tour/" + TourFileName : TourFileName,
                 TourName = TourName,
                 TournamentFileName = TournamentFileName,
                 TournamentName = TournamentName

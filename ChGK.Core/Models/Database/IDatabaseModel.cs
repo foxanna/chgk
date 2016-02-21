@@ -1,6 +1,6 @@
 ﻿using SQLite.Net.Attributes;
 
-namespace ChGK.Core.Models
+namespace ChGK.Core.Models.Database
 {
     public interface IDatabaseModel
     {

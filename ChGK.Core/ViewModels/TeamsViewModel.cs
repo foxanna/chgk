@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using ChGK.Core.Models;
+using ChGK.Core.Models.Database;
 using ChGK.Core.Services;
 using ChGK.Core.Services.Messenger;
 using ChGK.Core.Services.Teams;

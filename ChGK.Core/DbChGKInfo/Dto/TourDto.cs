@@ -25,9 +25,10 @@ namespace ChGK.Core.DbChGKInfo.Dto
             return new Tour
             {
                 Name = Name,
-                FileName = FileName,
+                Id = FileName,
                 Editors = TextFormatter.FormatEditors(Editors),
-                Questions = Questions.Select(question => question.ToModel()).ToList()
+                Questions = Questions?.Select(question => question.ToModel())?.ToList(),
+                Path = (!FileName.StartsWith("tour/")) ? "tour/" + FileName : FileName
             };
         }
     }

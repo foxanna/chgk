@@ -15,9 +15,9 @@ namespace ChGK.Core.ViewModels
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly IChGKService _service;
 
-        private string _fileName;
-
         private string _info;
+
+        private string _path;
 
         private List<IQuestion> _questions;
 
@@ -59,7 +59,7 @@ namespace ChGK.Core.ViewModels
         {
             Questions = null;
 
-            var tour = await _service.GetTourDetails(_fileName, _cancellationTokenSource.Token);
+            var tour = await _service.GetTourDetails(_path, _cancellationTokenSource.Token);
 
             Questions = tour.Questions;
 
@@ -74,15 +74,10 @@ namespace ChGK.Core.ViewModels
             Info = infoSB.ToString();
         }
 
-        public async void Init(string name, string filename)
+        public async void Init(string name, string path)
         {
             Title = name;
-            if (!filename.StartsWith("tour/"))
-            {
-                filename = "tour/" + filename;
-            }
-
-            _fileName = filename;
+            _path = path;
 
             await DataLoader.LoadItemsAsync(LoadItems);
         }

@@ -1,4 +1,4 @@
-﻿namespace ChGK.Core.Models
+﻿namespace ChGK.Core.Models.Database
 {
     internal class Answer : DatabaseModel
     {

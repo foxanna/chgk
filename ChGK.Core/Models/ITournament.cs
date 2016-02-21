@@ -4,7 +4,7 @@ namespace ChGK.Core.Models
 {
     public interface ITournament
     {
-        string FileName { get; }
+        string Id { get; }
 
         string Name { get; }
 
@@ -17,7 +17,7 @@ namespace ChGK.Core.Models
 
     internal class Tournament : ITournament
     {
-        public string FileName { get; set; }
+        public string Id { get; set; }
 
         public string Name { get; set; }
 

@@ -26,16 +26,15 @@ namespace ChGK.Core.DbChGKInfo.Dto
 
                     var tournament = new Tournament
                     {
-                        FileName =
-                            tds[0].FirstChild.Attributes.FirstOrDefault(attr => attr.OriginalName.Equals("href")).Value,
+                        Id = tds[0].FirstChild.Attributes.FirstOrDefault(attr => attr.OriginalName.Equals("href")).Value,
                         Name = WebUtility.HtmlDecode(tds[0].FirstChild.InnerText.Trim()),
                         PlayedAt = tds[0].LastChild.InnerText.Trim(),
                         AddedAt = tds[2].InnerText.Trim(),
-                        Tours = tds[1].Elements("a").Select(a => new Tour
+                        Tours = tds[1].Elements("a").Select(a => new TourDto
                         {
                             FileName = a.Attributes.FirstOrDefault(attr => attr.OriginalName.Equals("href")).Value,
                             Name = WebUtility.HtmlDecode(a.InnerText.Trim())
-                        }).Cast<ITour>().ToList()
+                        }.ToModel()).ToList()
                     };
 
                     return tournament;

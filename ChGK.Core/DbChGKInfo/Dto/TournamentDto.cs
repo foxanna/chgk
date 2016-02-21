@@ -28,7 +28,7 @@ namespace ChGK.Core.DbChGKInfo.Dto
             return new Tournament
             {
                 AddedAt = AddedAt,
-                FileName = FileName,
+                Id = FileName,
                 Name = Name,
                 PlayedAt = PlayedAt,
                 Tours = Tours.Select(tour => tour.ToModel()).ToList()

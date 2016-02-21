@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ChGK.Core.Models;
+using ChGK.Core.Models.Database;
 using ChGK.Core.Services.Database;
 using ChGK.Core.Services.Messenger;
 
