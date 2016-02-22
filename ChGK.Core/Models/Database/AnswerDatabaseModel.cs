@@ -1,6 +1,6 @@
 ﻿namespace ChGK.Core.Models.Database
 {
-    internal class Answer : DatabaseModel
+    internal class AnswerDatabaseModel : DatabaseModel
     {
         public string QuestionId { get; set; }
 

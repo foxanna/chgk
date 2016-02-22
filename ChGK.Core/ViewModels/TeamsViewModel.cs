@@ -243,14 +243,14 @@ namespace ChGK.Core.ViewModels
 
         public TeamViewModel(ITeamsService service,
             IMessagesService messagesService,
-            Team team)
+            TeamDatabaseModel teamDatabaseModel)
         {
             _service = service;
 
             _resultsChangedToken = messagesService.Subscribe<ResultsChangedMessage>(OnResultsChanged);
 
-            ID = team.Id;
-            Name = team.Name;
+            ID = teamDatabaseModel.Id;
+            Name = teamDatabaseModel.Name;
 
             Score = _service.GetTeamScore(ID);
         }

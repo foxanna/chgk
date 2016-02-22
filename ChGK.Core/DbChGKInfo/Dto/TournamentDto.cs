@@ -8,11 +8,11 @@ namespace ChGK.Core.DbChGKInfo.Dto
     [XmlRoot("tournament")]
     public class TournamentDto
     {
+        [XmlElement("TextId")]
+        public string Id { get; set; }
+
         [XmlElement("CreatedAt")]
         public string AddedAt { get; set; }
-
-        [XmlElement("FileName")]
-        public string FileName { get; set; }
 
         [XmlElement(ElementName = "tour")]
         public List<TourDto> Tours { get; set; }
@@ -27,9 +27,9 @@ namespace ChGK.Core.DbChGKInfo.Dto
         {
             return new Tournament
             {
-                AddedAt = AddedAt,
-                Id = FileName,
+                Id = Id,
                 Name = Name,
+                AddedAt = AddedAt,
                 PlayedAt = PlayedAt,
                 Tours = Tours.Select(tour => tour.ToModel()).ToList()
             };

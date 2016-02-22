@@ -5,7 +5,7 @@ namespace ChGK.Core.Services.Teams
 {
     public interface ITeamsService
     {
-        List<Team> GetAllTeams();
+        List<TeamDatabaseModel> GetAllTeams();
 
         List<int> GetAllResults(string questionId);
 

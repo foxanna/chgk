@@ -1,6 +1,6 @@
 ﻿namespace ChGK.Core.Models.Database
 {
-    public class Team : DatabaseModel
+    public class TeamDatabaseModel : DatabaseModel
     {
         public string Name { get; set; }
     }

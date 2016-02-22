@@ -22,11 +22,11 @@
 
         string TourName { get; }
 
-        string TourFileName { get; }
+        string TourId { get; }
 
         string TournamentName { get; }
 
-        string TournamentFileName { get; }
+        string TournamentId { get; }
     }
 
     internal class SearchQuestionsResult : ISearchQuestionsResult
@@ -51,10 +51,10 @@
 
         public string TourName { get; set; }
 
-        public string TourFileName { get; set; }
+        public string TourId { get; set; }
 
         public string TournamentName { get; set; }
 
-        public string TournamentFileName { get; set; }
+        public string TournamentId { get; set; }
     }
 }

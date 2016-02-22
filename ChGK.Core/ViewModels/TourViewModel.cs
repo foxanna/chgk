@@ -14,13 +14,9 @@ namespace ChGK.Core.ViewModels
     {
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly IChGKService _service;
-
+        private string _id;
         private string _info;
-
-        private string _path;
-
         private List<IQuestion> _questions;
-
         private ICommand _showQuestionCommand;
 
         public TourViewModel(IChGKService service)
@@ -59,7 +55,7 @@ namespace ChGK.Core.ViewModels
         {
             Questions = null;
 
-            var tour = await _service.GetTourDetails(_path, _cancellationTokenSource.Token);
+            var tour = await _service.GetTourDetails(_id, _cancellationTokenSource.Token);
 
             Questions = tour.Questions;
 
@@ -74,10 +70,10 @@ namespace ChGK.Core.ViewModels
             Info = infoSB.ToString();
         }
 
-        public async void Init(string name, string path)
+        public async void Init(string name, string id)
         {
             Title = name;
-            _path = path;
+            _id = id;
 
             await DataLoader.LoadItemsAsync(LoadItems);
         }

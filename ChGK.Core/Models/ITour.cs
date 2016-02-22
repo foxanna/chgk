@@ -11,8 +11,6 @@ namespace ChGK.Core.Models
         string Editors { get; }
 
         List<IQuestion> Questions { get; }
-
-        string Path { get; }
     }
 
     internal class Tour : ITour
@@ -24,7 +22,5 @@ namespace ChGK.Core.Models
         public string Editors { get; set; }
 
         public List<IQuestion> Questions { get; set; }
-
-        public string Path { get; set; }
     }
 }

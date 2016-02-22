@@ -31,10 +31,10 @@ namespace ChGK.Core.ViewModels.Search
             new Command(() => ShowViewModel<FullImageViewModel>(new {image = Picture})));
 
         public ICommand OpenTourCommand => _openTourCommand ?? (_openTourCommand = new Command(
-            () => ShowViewModel<TourViewModel>(new {name = Question.TourName, path = Question.TourFileName})));
+            () => ShowViewModel<TourViewModel>(new {name = Question.TourName, id = Question.TourId})));
 
         public ICommand OpenTournamentCommand => _openTournamentCommand ?? (_openTournamentCommand =
-            new Command(() => ShowViewModel<SingleTournamentViewModel>(new {filename = Question.TournamentFileName})));
+            new Command(() => ShowViewModel<SingleTournamentViewModel>(new {id = Question.TournamentId})));
 
         public void Init(string json)
         {

@@ -93,9 +93,9 @@ namespace ChGK.Core.DbChGKInfo
 
         #region Tours
 
-        public async Task<ITour> GetTourDetails(string filename, CancellationToken cancellationToken)
+        public async Task<ITour> GetTourDetails(string id, CancellationToken cancellationToken)
         {
-            var tour = ReadTourFromCache(filename);
+            var tour = ReadTourFromCache(id);
 
             if (tour != null)
                 return tour;
@@ -103,26 +103,26 @@ namespace ChGK.Core.DbChGKInfo
             PreLoad(cancellationToken);
 
             var tourDto = await _restService.GetAsync(Host,
-                $"{filename}/xml", new XmlDeserializer<TourDto>(), cancellationToken);
+                $"/tour/{id}/xml", new XmlDeserializer<TourDto>(), cancellationToken);
 
             tour = tourDto.ToModel();
+
             CacheTour(tour);
+            //CacheTour(tour, id);
 
             return tour;
         }
 
         private readonly Dictionary<string, ITour> _cachedTours = new Dictionary<string, ITour>();
 
-        private void CacheTour(ITour tour)
+        private void CacheTour(ITour tour, string id = null)
         {
-            if (!_cachedTours.ContainsKey(tour.Id))
-                _cachedTours.Add(tour.Id, tour);
+            _cachedTours[id ?? tour.Id] = tour;
         }
 
-        private ITour ReadTourFromCache(string filename)
+        private ITour ReadTourFromCache(string id)
         {
-            var file = filename.StartsWith("tour/") ? filename.Substring(5) : filename;
-            return _cachedTours.FirstOrDefault(t => t.Key == file).Value;
+            return _cachedTours.ContainsKey(id) ? _cachedTours[id] : null;
         }
 
         #endregion // Tours
@@ -131,23 +131,19 @@ namespace ChGK.Core.DbChGKInfo
 
         private readonly Dictionary<string, ITournament> _cachedTournaments = new Dictionary<string, ITournament>();
 
-        private void CacheTournament(ITournament tournament)
+        private void CacheTournament(ITournament tournament, string id = null)
         {
-            if (!_cachedTournaments.ContainsKey(tournament.Id))
-                _cachedTournaments.Add(tournament.Id, tournament);
+            _cachedTournaments[id ?? tournament.Id] = tournament;
         }
 
-        private ITournament ReadTournamentFromCache(string filename)
+        private ITournament ReadTournamentFromCache(string id)
         {
-            var file = filename.StartsWith("tour/") ? filename.Substring(5) : filename;
-            if (!filename.EndsWith(".txt"))
-                file += ".txt";
-            return _cachedTournaments.FirstOrDefault(t => t.Key == file).Value;
+            return _cachedTournaments.ContainsKey(id) ? _cachedTournaments[id] : null;
         }
 
-        public async Task<ITournament> GetTournament(string filename, CancellationToken cancellationToken)
+        public async Task<ITournament> GetTournament(string id, CancellationToken cancellationToken)
         {
-            var tournament = ReadTournamentFromCache(filename);
+            var tournament = ReadTournamentFromCache(id);
 
             if (tournament != null)
                 return tournament;
@@ -155,10 +151,12 @@ namespace ChGK.Core.DbChGKInfo
             PreLoad(cancellationToken);
 
             var tournamentDto = await _restService.GetAsync(Host,
-                $"{filename}/xml", new XmlDeserializer<TournamentDto>(), cancellationToken);
+                $"/tour/{id}/xml", new XmlDeserializer<TournamentDto>(), cancellationToken);
 
             tournament = tournamentDto.ToModel();
+
             CacheTournament(tournament);
+            //CacheTournament(tournament, id);
 
             return tournament;
         }

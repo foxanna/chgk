@@ -69,9 +69,6 @@ namespace ChGK.Core.Models
             if (other == null)
                 return false;
 
-            if (ReferenceEquals(this, other))
-                return true;
-
             return string.Equals(SearchQuery, other.SearchQuery)
                    && string.Equals(Type, other.Type)
                    && HasQuestion == other.HasQuestion

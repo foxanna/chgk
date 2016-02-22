@@ -17,44 +17,44 @@ namespace ChGK.Core.Services.Teams
             _databaseService = databaseService;
             _messenger = messenger;
 
-            _databaseService.CreateTable<Team>();
-            _databaseService.CreateTable<Answer>();
+            _databaseService.CreateTable<TeamDatabaseModel>();
+            _databaseService.CreateTable<AnswerDatabaseModel>();
         }
 
-        public List<Team> GetAllTeams()
+        public List<TeamDatabaseModel> GetAllTeams()
         {
-            return _databaseService.GetAll<Team>().ToList();
+            return _databaseService.GetAll<TeamDatabaseModel>().ToList();
         }
 
         public void AddTeam(string name)
         {
-            _databaseService.Insert(new Team {Name = name});
+            _databaseService.Insert(new TeamDatabaseModel {Name = name});
 
             _messenger.Publish(new TeamsChangedMessage(this));
         }
 
         public void RemoveTeam(int teamId)
         {
-            _databaseService.Delete<Team>(teamId);
+            _databaseService.Delete<TeamDatabaseModel>(teamId);
 
             _messenger.Publish(new TeamsChangedMessage(this));
         }
 
         public void IncrementScore(string questionId, int teamId)
         {
-            var existingAnswer = _databaseService.GetAll<Answer>()
+            var existingAnswer = _databaseService.GetAll<AnswerDatabaseModel>()
                 .FirstOrDefault(answer => answer.QuestionId.Equals(questionId) && answer.TeamId == teamId);
 
             if (existingAnswer != null) return;
 
-            _databaseService.Insert(new Answer {QuestionId = questionId, TeamId = teamId});
+            _databaseService.Insert(new AnswerDatabaseModel {QuestionId = questionId, TeamId = teamId});
 
             _messenger.Publish(new ResultsChangedMessage(this, questionId));
         }
 
         public void DecrementScore(string questionId, int teamId)
         {
-            var answersToDelete = _databaseService.GetAll<Answer>()
+            var answersToDelete = _databaseService.GetAll<AnswerDatabaseModel>()
                 .Where(answer => answer.QuestionId.Equals(questionId) && answer.TeamId == teamId)
                 .ToList();
 
@@ -67,7 +67,7 @@ namespace ChGK.Core.Services.Teams
 
         public void CleanResults()
         {
-            _databaseService.DeleteAll<Answer>();
+            _databaseService.DeleteAll<AnswerDatabaseModel>();
 
             _messenger.Publish(new ResultsChangedMessage(this, ResultsChangedMessage.ResultsCleared));
         }
@@ -76,19 +76,19 @@ namespace ChGK.Core.Services.Teams
         {
             CleanResults();
 
-            _databaseService.DeleteAll<Team>();
+            _databaseService.DeleteAll<TeamDatabaseModel>();
 
             _messenger.Publish(new TeamsChangedMessage(this));
         }
 
         public int GetTeamScore(int teamId)
         {
-            return _databaseService.GetAll<Answer>().Count(answer => answer.TeamId == teamId);
+            return _databaseService.GetAll<AnswerDatabaseModel>().Count(answer => answer.TeamId == teamId);
         }
 
         public List<int> GetAllResults(string questionId)
         {
-            return _databaseService.GetAll<Answer>()
+            return _databaseService.GetAll<AnswerDatabaseModel>()
                 .Where(a => a.QuestionId.Equals(questionId))
                 .Select(a => a.TeamId)
                 .ToList();

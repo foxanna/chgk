@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
     android:paddingRight="?android:attr/expandableListPreferredItemPaddingLeft">
@@ -13,9 +12,21 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         local:MvxBind="Text Name" />
-    <TextView
-        android:layout_width="fill_parent"
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:gravity="right"
-        local:MvxBind="TextFormatted Dates,Converter=HtmlToSpannable" />
+        android:layout_width="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:minLines="2"
+            local:MvxBind="TextFormatted Dates,Converter=HtmlToSpannable" />
+        <Checkbox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            local:MvxBind="Checked IsFavorite" />
+    </LinearLayout>
 </LinearLayout>

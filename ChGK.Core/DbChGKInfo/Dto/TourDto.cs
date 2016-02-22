@@ -8,8 +8,8 @@ namespace ChGK.Core.DbChGKInfo.Dto
     [XmlRoot("tournament")]
     public class TourDto
     {
-        [XmlElement("FileName")]
-        public string FileName { get; set; }
+        [XmlElement("TextId")]
+        public string Id { get; set; }
 
         [XmlElement("Editors")]
         public string Editors { get; set; }
@@ -20,15 +20,16 @@ namespace ChGK.Core.DbChGKInfo.Dto
         [XmlElement("Title")]
         public string Name { get; set; }
 
+        public string FileName { get; set; }
+
         public ITour ToModel()
         {
             return new Tour
             {
                 Name = Name,
-                Id = FileName,
+                Id = Id ?? FileName.ToProperDbChGKInfoId(),
                 Editors = TextFormatter.FormatEditors(Editors),
-                Questions = Questions?.Select(question => question.ToModel())?.ToList(),
-                Path = (!FileName.StartsWith("tour/")) ? "tour/" + FileName : FileName
+                Questions = Questions?.Select(question => question.ToModel())?.ToList()
             };
         }
     }

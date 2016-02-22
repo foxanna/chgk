@@ -27,7 +27,7 @@ namespace ChGK.Core.ViewModels
 
         private void ClickTour(ITour tour)
         {
-            ShowViewModel<TourViewModel>(new {name = tour.Name, path = tour.Path});
+            ShowViewModel<TourViewModel>(new {name = tour.Name, id = tour.Id});
         }
 
         public virtual Task RefreshAsync()
