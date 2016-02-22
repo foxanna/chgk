@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:local="http://schemas.android.com/apk/res-auto"
+              xmlns:local="http://schemas.android.com/apk/res-auto"
+              android:layout_height="wrap_content"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:minHeight="?android:attr/listPreferredItemHeight"
+              android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+              android:paddingRight="20dp">
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    local:MvxBind="Text Name" />
+  <LinearLayout
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-    android:paddingRight="?android:attr/expandableListPreferredItemPaddingLeft">
+    android:orientation="horizontal">
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        local:MvxBind="Text Name" />
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:minLines="2"
-            local:MvxBind="TextFormatted Dates,Converter=HtmlToSpannable" />
-        <Checkbox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            local:MvxBind="Checked IsFavorite" />
-    </LinearLayout>
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="match_parent"
+      android:gravity="right|center_vertical"
+      local:MvxBind="TextFormatted Dates,Converter=HtmlToSpannable" />
+    <Checkbox
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:focusable="false"
+      style="@style/FavoriteCheckBox.Chgk"
+      local:MvxBind="Checked IsFavorite" />
+  </LinearLayout>
 </LinearLayout>
