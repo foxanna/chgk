@@ -4,11 +4,10 @@ using System.Windows.Input;
 using ChGK.Core.Services.Messenger;
 using ChGK.Core.Utils;
 using ChGK.Core.ViewModels.Search;
-using MvvmCross.Core.ViewModels;
 
 namespace ChGK.Core.ViewModels
 {
-    public class HomeViewModel : MvxViewModel
+    public class HomeViewModel : BaseViewModel
     {
         private readonly IMessagesService _messenger;
 

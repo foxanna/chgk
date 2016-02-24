@@ -11,7 +11,6 @@ namespace ChGK.Core.ViewModels
 {
     public class LastAddedTournamentsViewModel : TournamentsViewModel
     {
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly IFavoritesService _favoritesService;
         private readonly IGAService _gaService;
         private readonly LoadMoreHelper<ITournament> _loadMoreHelper;
@@ -31,7 +30,6 @@ namespace ChGK.Core.ViewModels
             _gaService = gaService;
             _favoritesService = favoritesService;
 
-            DataLoader = new DataLoader();
             _loadMoreHelper = new LoadMoreHelper<ITournament> {OnLastItemShown = OnLastItemShown};
         }
 
@@ -50,24 +48,15 @@ namespace ChGK.Core.ViewModels
             await RefreshAsync();
         }
 
-        protected override async Task LoadItems()
+        protected override async Task LoadItems(CancellationToken token, bool useCache)
         {
-            //  Tournaments = null;
-
-            var tournaments = await _service.GetLastAddedTournaments(_cancellationTokenSource.Token, _page);
+            var tournaments = await _service.GetLastAddedTournaments(token, _page, useCache);
 
             Tournaments = tournaments.Select(tournament =>
                 new TournamentViewModel(_favoritesService, tournament)).ToList();
             _page = Tournaments.Count/101;
 
             _loadMoreHelper.Subscribe(Tournaments.Cast<LoadMoreOnScrollListViewItemViewModel<ITournament>>().ToList());
-        }
-
-        public override void OnViewDestroying()
-        {
-            _cancellationTokenSource.Cancel();
-
-            base.OnViewDestroying();
         }
 
         private async void OnLastItemShown()
@@ -77,7 +66,7 @@ namespace ChGK.Core.ViewModels
             DataLoader.IsLoadingForTheFirstTime = false;
             DataLoader.IsLoadingMoreData = true;
 
-            await DataLoader.LoadItemsAsync(LoadItems);
+            await DataLoader.LoadItemsAsync(token => LoadItems(token, true));
         }
     }
 }

@@ -1,14 +1,7 @@
-﻿using ChGK.Core.Utils;
-using MvvmCross.Core.ViewModels;
-
-namespace ChGK.Core.ViewModels
+﻿namespace ChGK.Core.ViewModels
 {
-    public abstract class MenuItemViewModel : MvxViewModel, IViewLifecycle
+    public abstract class MenuItemViewModel : BaseViewModel
     {
         public string Title { get; protected set; }
-
-        public virtual void OnViewDestroying()
-        {
-        }
     }
 }

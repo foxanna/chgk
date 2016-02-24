@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using ChGK.Core.DbChGKInfo;
 using MvvmCross.Core.ViewModels;
@@ -8,14 +9,12 @@ namespace ChGK.Core.Utils
 {
     public class DataLoader : MvxNotifyPropertyChanged
     {
+        private CancellationTokenSource _cancellationTokenSource;
         private string _error;
 
         private bool _hasError;
-
         private bool _isLoading;
-
         private bool _isLoadingForTheFirstTime;
-
         private bool _isLoadingMoreData;
 
         public DataLoader()
@@ -78,8 +77,21 @@ namespace ChGK.Core.Utils
             get { return IsLoading && _isLoadingMoreData; }
         }
 
-        public async Task LoadItemsAsync(Func<Task> loadDataTaskFactory)
+        private void RefreshCancellationTokenSource()
         {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource = new CancellationTokenSource();
+        }
+
+        public void CancelLoading()
+        {
+            RefreshCancellationTokenSource();
+        }
+
+        public async Task LoadItemsAsync(Func<CancellationToken, Task> loadDataTaskFactory)
+        {
+            RefreshCancellationTokenSource();
+
             if (IsLoading)
             {
                 return;
@@ -90,7 +102,7 @@ namespace ChGK.Core.Utils
 
             try
             {
-                await loadDataTaskFactory();
+                await loadDataTaskFactory(_cancellationTokenSource.Token);
             }
             catch (NoConnectionException e)
             {

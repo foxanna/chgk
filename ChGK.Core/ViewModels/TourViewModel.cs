@@ -12,7 +12,6 @@ namespace ChGK.Core.ViewModels
 {
     public class TourViewModel : MenuItemViewModel
     {
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly IChGKService _service;
         private string _id;
         private string _info;
@@ -22,11 +21,7 @@ namespace ChGK.Core.ViewModels
         public TourViewModel(IChGKService service)
         {
             _service = service;
-
-            DataLoader = new DataLoader();
         }
-
-        public DataLoader DataLoader { get; set; }
 
         public string Info
         {
@@ -51,11 +46,11 @@ namespace ChGK.Core.ViewModels
         public ICommand ShowQuestionCommand
             => _showQuestionCommand ?? (_showQuestionCommand = new Command<IQuestion>(ShowQuestion));
 
-        private async Task LoadItems()
+        private async Task LoadItems(CancellationToken token)
         {
             Questions = null;
 
-            var tour = await _service.GetTourDetails(_id, _cancellationTokenSource.Token);
+            var tour = await _service.GetTourDetails(_id, token);
 
             Questions = tour.Questions;
 
@@ -85,13 +80,6 @@ namespace ChGK.Core.ViewModels
                 questionsJson = JsonConvert.SerializeObject(Questions),
                 index = Questions.IndexOf(question)
             });
-        }
-
-        public override void OnViewDestroying()
-        {
-            _cancellationTokenSource.Cancel();
-
-            base.OnViewDestroying();
         }
     }
 }

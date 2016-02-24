@@ -1,16 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ChGK.Core.Models;
+using ChGK.Core.Services;
 using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels
 {
     public class QuestionsViewModel : MenuItemViewModel
     {
+        private readonly IAudioPlayerService _audioPlayerService;
+        private readonly IGAService _gaService;
+
         private List<QuestionViewModel> _questions;
 
-        public QuestionsViewModel()
+        public QuestionsViewModel(IGAService gaService,
+            IAudioPlayerService audioPlayerService)
         {
+            _gaService = gaService;
+            _audioPlayerService = audioPlayerService;
+
             Title = "Вопрос 1";
         }
 
@@ -29,7 +37,7 @@ namespace ChGK.Core.ViewModels
         public void Init(string questionsJson, int index)
         {
             Questions = JsonConvert.DeserializeObject<List<Question>>(questionsJson).Cast<IQuestion>()
-                .Select((iquestion, i) => new QuestionViewModel(iquestion, i)).ToList();
+                .Select((iquestion, i) => new QuestionViewModel(_gaService, _audioPlayerService, iquestion, i)).ToList();
 
             Index = index;
         }
@@ -40,6 +48,8 @@ namespace ChGK.Core.ViewModels
             {
                 questionViewModel.OnViewDestroying();
             }
+
+            base.OnViewDestroying();
         }
     }
 }

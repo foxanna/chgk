@@ -11,7 +11,6 @@ namespace ChGK.Core.ViewModels
 {
     public class RandomQuestionsViewModel : MenuItemViewModel
     {
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly IGAService _gaService;
         private readonly IChGKService _service;
 
@@ -26,11 +25,7 @@ namespace ChGK.Core.ViewModels
 
             _service = service;
             _gaService = gaService;
-
-            DataLoader = new DataLoader();
         }
-
-        public DataLoader DataLoader { get; set; }
 
         public List<IQuestion> Questions
         {
@@ -65,11 +60,10 @@ namespace ChGK.Core.ViewModels
             await RefreshAsync();
         }
 
-        private async Task LoadItems()
+        private async Task LoadItems(CancellationToken token)
         {
             Questions = null;
-
-            Questions = await _service.GetRandomPackage(_cancellationTokenSource.Token);
+            Questions = await _service.GetRandomPackage(token);
         }
 
         private void ShowQuestion(IQuestion question)
@@ -79,13 +73,6 @@ namespace ChGK.Core.ViewModels
                 questionsJson = JsonConvert.SerializeObject(Questions),
                 index = Questions.IndexOf(question)
             });
-        }
-
-        public override void OnViewDestroying()
-        {
-            _cancellationTokenSource.Cancel();
-
-            base.OnViewDestroying();
         }
     }
 }

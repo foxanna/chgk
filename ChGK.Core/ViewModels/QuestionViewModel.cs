@@ -3,13 +3,12 @@ using System.Windows.Input;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using ChGK.Core.Utils;
-using MvvmCross.Core.ViewModels;
-using MvvmCross.Platform;
 
 namespace ChGK.Core.ViewModels
 {
-    public class QuestionViewModel : MvxViewModel, IViewLifecycle
+    public class QuestionViewModel : BaseViewModel
     {
+        private readonly IAudioPlayerService _audioPlayerService;
         private readonly IGAService _gaService;
 
         private readonly ChGKTimer _timer = new ChGKTimer();
@@ -20,13 +19,13 @@ namespace ChGK.Core.ViewModels
         private ICommand _openImageCommand, _showAnswerCommand;
         private TimeSpan _timeSpan;
 
-        public QuestionViewModel()
+        public QuestionViewModel(IGAService gaService,
+            IAudioPlayerService audioPlayerService,
+            IQuestion question, int index)
         {
-            _gaService = Mvx.Resolve<IGAService>();
-        }
+            _gaService = gaService;
+            _audioPlayerService = audioPlayerService;
 
-        public QuestionViewModel(IQuestion question, int index) : this()
-        {
             ID = question.Id;
             Text = question.Text;
             Answer = question.Answer;
@@ -117,9 +116,11 @@ namespace ChGK.Core.ViewModels
         public ICommand OpenImageCommand => _openImageCommand ?? (_openImageCommand =
             new Command(() => ShowViewModel<FullImageViewModel>(new {image = Picture})));
 
-        public void OnViewDestroying()
+        public override void OnViewDestroying()
         {
             PauseTimer();
+
+            base.OnViewDestroying();
         }
 
         private void ShowAnswer()
@@ -136,13 +137,13 @@ namespace ChGK.Core.ViewModels
 
             if (e.Seconds == new TimeSpan(0, 0, 50))
             {
-                Mvx.Resolve<IAudioPlayerService>().PlayShort();
+                _audioPlayerService.PlayShort();
             }
             else if (e.Seconds == new TimeSpan(0, 1, 0))
             {
                 PauseTimer();
 
-                Mvx.Resolve<IAudioPlayerService>().PlayLong();
+                _audioPlayerService.PlayLong();
             }
         }
 

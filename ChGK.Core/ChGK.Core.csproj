@@ -63,6 +63,8 @@
     <Compile Include="Utils\Command.cs" />
     <Compile Include="Utils\IViewLifecycle.cs" />
     <Compile Include="Utils\LoadMoreHelper.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\FavoriteTournamentsViewModel.cs" />
     <Compile Include="ViewModels\LoadMoreOnScrollListViewItemViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\RandomQuestionsViewModel.cs" />

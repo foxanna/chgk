@@ -1,10 +1,9 @@
 ﻿using System.Windows.Input;
 using ChGK.Core.Utils;
-using MvvmCross.Core.ViewModels;
 
 namespace ChGK.Core.ViewModels
 {
-    public class FullImageViewModel : MvxViewModel
+    public class FullImageViewModel : BaseViewModel
     {
         private ICommand _closeCommand;
 

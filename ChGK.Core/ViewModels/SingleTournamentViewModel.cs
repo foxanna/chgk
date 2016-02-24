@@ -9,7 +9,6 @@ namespace ChGK.Core.ViewModels
 {
     public class SingleTournamentViewModel : TournamentsViewModel
     {
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly IFavoritesService _favoritesService;
         private readonly IChGKService _service;
 
@@ -26,11 +25,11 @@ namespace ChGK.Core.ViewModels
             DataLoader = new DataLoader();
         }
 
-        protected override async Task LoadItems()
+        protected override async Task LoadItems(CancellationToken token)
         {
             Tournaments = null;
 
-            var tournament = await _service.GetTournament(_id, _cancellationTokenSource.Token);
+            var tournament = await _service.GetTournament(_id, token);
 
             Tournaments = new List<TournamentViewModel> {new TournamentViewModel(_favoritesService, tournament)};
         }
@@ -40,13 +39,6 @@ namespace ChGK.Core.ViewModels
             _id = id;
 
             await RefreshAsync();
-        }
-
-        public override void OnViewDestroying()
-        {
-            _cancellationTokenSource.Cancel();
-
-            base.OnViewDestroying();
         }
     }
 }

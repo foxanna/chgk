@@ -12,8 +12,6 @@ namespace ChGK.Core.ViewModels.Search
 {
     public class SearchQuestionsResultsViewModel : MenuItemViewModel
     {
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-
         private readonly LoadMoreHelper<ISearchQuestionsResult> _loadMoreHelper;
         private readonly IChGKService _service;
         private bool _canLoadMore;
@@ -31,14 +29,11 @@ namespace ChGK.Core.ViewModels.Search
 
             _service = service;
 
-            DataLoader = new DataLoader();
             _loadMoreHelper = new LoadMoreHelper<ISearchQuestionsResult>
             {
                 OnLastItemShown = SearchQuestionsResultsViewModel_Showing
             };
         }
-
-        public DataLoader DataLoader { get; }
 
         public List<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>> Questions
         {
@@ -50,9 +45,8 @@ namespace ChGK.Core.ViewModels.Search
             }
         }
 
-        public ICommand ShowQuestionCommand
-            => _showQuestionCommand ?? (_showQuestionCommand =
-                new Command<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>>(ShowQuestion));
+        public ICommand ShowQuestionCommand => _showQuestionCommand ?? (_showQuestionCommand =
+            new Command<LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult>>(ShowQuestion));
 
         public async void Init(string searchParams)
         {
@@ -62,16 +56,16 @@ namespace ChGK.Core.ViewModels.Search
             await DataLoader.LoadItemsAsync(LoadItems);
         }
 
-        private async Task LoadItems()
+        private async Task LoadItems(CancellationToken token)
         {
-            var questions = await _service.SearchQuestions(_searchParams, _cancellationTokenSource.Token);
+            var questions = await _service.SearchQuestions(_searchParams, token);
 
             CheckIfThereIsMoreDataToLoad(questions.Count, Questions?.Count ?? 0);
             UpdatePageAccordingToNewdata(questions.Count);
 
-            Questions =
-                questions.Select(t => new LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult> {Item = t})
-                    .ToList();
+            Questions = questions.Select(t =>
+                new LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult> {Item = t})
+                .ToList();
 
             DisplayErrorIfNoData();
             _loadMoreHelper.Subscribe(Questions);
@@ -111,13 +105,6 @@ namespace ChGK.Core.ViewModels.Search
         private void ShowQuestion(LoadMoreOnScrollListViewItemViewModel<ISearchQuestionsResult> question)
         {
             ShowViewModel<SearchQuestionSingleResultViewModel>(new {json = JsonConvert.SerializeObject(question.Item)});
-        }
-
-        public override void OnViewDestroying()
-        {
-            _cancellationTokenSource.Cancel();
-
-            base.OnViewDestroying();
         }
     }
 }

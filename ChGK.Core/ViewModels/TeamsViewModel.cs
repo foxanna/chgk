@@ -7,7 +7,6 @@ using ChGK.Core.Services;
 using ChGK.Core.Services.Messenger;
 using ChGK.Core.Services.Teams;
 using ChGK.Core.Utils;
-using MvvmCross.Core.ViewModels;
 
 namespace ChGK.Core.ViewModels
 {
@@ -44,11 +43,7 @@ namespace ChGK.Core.ViewModels
             _dialogManager = dialogManager;
 
             Title = StringResources.Teams;
-
-            DataLoader = new DataLoader();
         }
-
-        public DataLoader DataLoader { get; set; }
 
         public List<TeamViewModel> Teams
         {
@@ -232,7 +227,7 @@ namespace ChGK.Core.ViewModels
         }
     }
 
-    public class TeamViewModel : MvxViewModel
+    public class TeamViewModel : BaseViewModel
     {
 #pragma warning disable 414
         private readonly object _resultsChangedToken;
