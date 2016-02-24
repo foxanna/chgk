@@ -55,18 +55,21 @@ namespace ChGK.Core.DbChGKInfo
 
         private Tuple<int, List<ITournament>> _lastTournamentsCache = Tuple.Create(-1, new List<ITournament>());
 
-        public async Task<List<ITournament>> GetLastAddedTournaments(CancellationToken cancellationToken, int page = 0)
+        public async Task<List<ITournament>> GetLastAddedTournaments(CancellationToken cancellationToken, int page = 0,
+            bool useCache = true)
         {
+            if (!useCache)
+                _lastTournamentsCache = Tuple.Create(-1, new List<ITournament>());
+
             if (page <= _lastTournamentsCache.Item1)
-            {
                 return _lastTournamentsCache.Item2;
-            }
 
             try
             {
                 PreLoad(cancellationToken);
 
-                var lastAddedTournaments = await LoadNewLastAddedTournaments(cancellationToken, page);
+                var lastAddedTournaments = await _restService.GetAsync(Host, "last?page=" + page,
+                    new HtmlDeserializer<LastAddedTournamentsDto>(), cancellationToken);
                 _lastTournamentsCache = Tuple.Create(page, _lastTournamentsCache.Item2);
                 _lastTournamentsCache.Item2.AddRange(lastAddedTournaments.Tournaments);
 
@@ -75,18 +78,10 @@ namespace ChGK.Core.DbChGKInfo
             catch
             {
                 if (_lastTournamentsCache.Item2.Count > 0)
-                {
                     return _lastTournamentsCache.Item2;
-                }
+
                 throw;
             }
-        }
-
-        private Task<LastAddedTournamentsDto> LoadNewLastAddedTournaments(CancellationToken cancellationToken,
-            int page = 0)
-        {
-            return _restService.GetAsync(Host,
-                "last?page=" + page, new HtmlDeserializer<LastAddedTournamentsDto>(), cancellationToken);
         }
 
         #endregion // Last added tournaments
