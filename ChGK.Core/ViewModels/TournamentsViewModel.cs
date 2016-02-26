@@ -29,11 +29,6 @@ namespace ChGK.Core.ViewModels
             ShowViewModel<TourViewModel>(new {name = tour.Name, id = tour.Id});
         }
 
-        public virtual Task RefreshAsync()
-        {
-            return DataLoader.LoadItemsAsync(token => LoadItems(token, false));
-        }
-
-        protected abstract Task LoadItems(CancellationToken token, bool useCache);
+        protected abstract Task LoadItems(CancellationToken token);
     }
 }

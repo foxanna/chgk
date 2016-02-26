@@ -2,8 +2,6 @@
 using Android.Views;
 using Android.Widget;
 using ChGK.Core.ViewModels;
-using ChGK.Droid.Helpers;
-using MvvmCross.Binding.BindingContext;
 
 namespace ChGK.Droid.Views
 {
@@ -11,27 +9,12 @@ namespace ChGK.Droid.Views
     {
         private ListView _listView;
 
-        private MenuItemWrapper _refreshButton;
         protected override int LayoutId => Resource.Layout.LastAddedTournamentsView;
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             base.OnCreateOptionsMenu(menu, inflater);
-
             inflater.Inflate(Resource.Menu.menuitem, menu);
-
-            _refreshButton = new MenuItemWrapper(menu.FindItem(Resource.Id.refresh));
-
-            var bindingSet = this.CreateBindingSet<LastAddedTournamentsView, LastAddedTournamentsViewModel>();
-            bindingSet.Bind(_refreshButton).For(n => n.Visible).To(vm => vm.DataLoader.HasError);
-            bindingSet.Apply();
-        }
-
-        public override void OnDestroyOptionsMenu()
-        {
-            BindingContext.ClearAllBindings();
-
-            base.OnDestroyOptionsMenu();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -39,6 +22,7 @@ namespace ChGK.Droid.Views
             switch (item.ItemId)
             {
                 case Resource.Id.refresh:
+                    _listView.SetSelection(0);
                     (ViewModel as LastAddedTournamentsViewModel)?.RefreshCommand?.Execute(null);
                     return true;
                 default:

@@ -9,7 +9,8 @@ namespace ChGK.Core.Services
     {
         Task<List<IQuestion>> GetRandomPackage(CancellationToken token);
 
-        Task<List<ITournament>> GetLastAddedTournaments(CancellationToken token, int page = 0, bool useCache = true);
+        void ClearLastAddedTournamentsCache();
+        Task<List<ITournament>> GetLastAddedTournaments(CancellationToken token, int page = 0);
 
         Task<ITournament> GetTournament(string id, CancellationToken token);
 

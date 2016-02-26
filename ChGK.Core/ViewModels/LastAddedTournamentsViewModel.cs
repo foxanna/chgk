@@ -36,21 +36,34 @@ namespace ChGK.Core.ViewModels
         public ICommand RefreshCommand =>
             _refreshCommand ?? (_refreshCommand = new Command(Refresh));
 
-        private async void Refresh()
+        private void Refresh()
         {
             _gaService.ReportEvent(GACategory.QuestionsList, GAAction.Click, "refresh");
-            await RefreshAsync();
+
+            LoadForTheFirstTime();
         }
 
-        public override async void Start()
+        public override void Start()
         {
+            LoadForTheFirstTime();
+        }
+
+        private async void LoadForTheFirstTime()
+        {
+            _service.ClearLastAddedTournamentsCache();
+
+            Tournaments = null;
+            _page = 0;
+
             DataLoader.IsLoadingForTheFirstTime = true;
-            await RefreshAsync();
+            DataLoader.IsLoadingMoreData = false;
+
+            await DataLoader.LoadItemsAsync(LoadItems);
         }
 
-        protected override async Task LoadItems(CancellationToken token, bool useCache)
+        protected override async Task LoadItems(CancellationToken token)
         {
-            var tournaments = await _service.GetLastAddedTournaments(token, _page, useCache);
+            var tournaments = await _service.GetLastAddedTournaments(token, _page);
 
             Tournaments = tournaments.Select(tournament =>
                 new TournamentViewModel(_favoritesService, tournament)).ToList();
@@ -66,7 +79,7 @@ namespace ChGK.Core.ViewModels
             DataLoader.IsLoadingForTheFirstTime = false;
             DataLoader.IsLoadingMoreData = true;
 
-            await DataLoader.LoadItemsAsync(token => LoadItems(token, true));
+            await DataLoader.LoadItemsAsync(LoadItems);
         }
     }
 }

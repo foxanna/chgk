@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using ChGK.Core.Services;
 using ChGK.Core.Services.Favorites;
-using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
@@ -21,8 +20,13 @@ namespace ChGK.Core.ViewModels
 
             _service = service;
             _favoritesService = favoritesService;
+        }
 
-            DataLoader = new DataLoader();
+        public async void Init(string id)
+        {
+            _id = id;
+
+            await DataLoader.LoadItemsAsync(LoadItems);
         }
 
         protected override async Task LoadItems(CancellationToken token)
@@ -32,13 +36,6 @@ namespace ChGK.Core.ViewModels
             var tournament = await _service.GetTournament(_id, token);
 
             Tournaments = new List<TournamentViewModel> {new TournamentViewModel(_favoritesService, tournament)};
-        }
-
-        public async void Init(string id)
-        {
-            _id = id;
-
-            await RefreshAsync();
         }
     }
 }
