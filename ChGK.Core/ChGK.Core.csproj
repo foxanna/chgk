@@ -48,6 +48,7 @@
     <Compile Include="Services\Favorites\IFavoritesService.cs" />
     <Compile Include="Services\Messenger\CloseDrawerMessage.cs" />
     <Compile Include="Services\Messenger\IMessagesService.cs" />
+    <Compile Include="Services\Messenger\IsFavoriteChangedMessage.cs" />
     <Compile Include="Services\Messenger\MessagesService.cs" />
     <Compile Include="Services\Database\DatabaseService.cs" />
     <Compile Include="Services\Database\IDatabaseService.cs" />

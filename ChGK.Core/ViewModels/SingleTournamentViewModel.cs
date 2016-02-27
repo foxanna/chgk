@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ChGK.Core.Services;
 using ChGK.Core.Services.Favorites;
+using ChGK.Core.Services.Messenger;
 
 namespace ChGK.Core.ViewModels
 {
@@ -13,8 +14,10 @@ namespace ChGK.Core.ViewModels
 
         private string _id;
 
-        public SingleTournamentViewModel(IChGKService service,
-            IFavoritesService favoritesService)
+        public SingleTournamentViewModel(IFavoritesService favoritesService,
+            IMessagesService messagesService,
+            IChGKService service)
+            : base(favoritesService, messagesService)
         {
             Title = StringResources.Tournament;
 
@@ -35,7 +38,10 @@ namespace ChGK.Core.ViewModels
 
             var tournament = await _service.GetTournament(_id, token);
 
-            Tournaments = new List<TournamentViewModel> {new TournamentViewModel(_favoritesService, tournament)};
+            Tournaments = new List<TournamentViewModel>
+            {
+                new TournamentViewModel(FavoritesService, MessagesService, tournament)
+            };
         }
     }
 }

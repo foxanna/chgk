@@ -1,4 +1,5 @@
-﻿using ChGK.Core.Models;
+﻿using System.Collections.Generic;
+using ChGK.Core.Models;
 
 namespace ChGK.Core.Services.Favorites
 {
@@ -6,5 +7,6 @@ namespace ChGK.Core.Services.Favorites
     {
         bool IsTournamentFavorite(ITournament tournament);
         void SetTournamentFavourite(ITournament tournament, bool isFavorite);
+        IEnumerable<ITournament> GetFavoriteTournaments();
     }
 }

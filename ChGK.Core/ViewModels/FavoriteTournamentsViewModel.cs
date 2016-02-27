@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ChGK.Core.Services;
 using ChGK.Core.Services.Favorites;
+using ChGK.Core.Services.Messenger;
 
 namespace ChGK.Core.ViewModels
 {
@@ -11,9 +12,13 @@ namespace ChGK.Core.ViewModels
         private readonly IChGKService _chGkService;
         private readonly IFavoritesService _favoritesService;
 
-        public FavoriteTournamentsViewModel(IFavoritesService favoritesService,
-            IChGKService chGkService)
+        public FavoriteTournamentsViewModel(IChGKService chGkService,
+            IFavoritesService favoritesService,
+            IMessagesService messagesService)
+            : base(favoritesService, messagesService)
         {
+            Title = StringResources.Favorites;
+
             _favoritesService = favoritesService;
             _chGkService = chGkService;
         }
@@ -24,7 +29,14 @@ namespace ChGK.Core.ViewModels
                 .Select(favoriteTournament => _chGkService.GetTournament(favoriteTournament.Id, token)));
 
             Tournaments = favoriteTournaments.Select(tournament =>
-                new TournamentViewModel(_favoritesService, tournament)).ToList();
+                new TournamentViewModel(FavoritesService, MessagesService, tournament)).ToList();
+        }
+
+        public override async void Start()
+        {
+            base.Start();
+
+            await DataLoader.LoadItemsAsync(LoadItems);
         }
     }
 }

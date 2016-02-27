@@ -2,7 +2,7 @@
 
 namespace ChGK.Core.ViewModels
 {
-    public class LoadMoreOnScrollListViewItemViewModel<T>
+    public class LoadMoreOnScrollListViewItemViewModel<T> : BaseViewModel
     {
         public T Item { get; set; }
 

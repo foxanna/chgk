@@ -194,6 +194,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="Views\FavoriteTournamentsView.cs" />
     <Compile Include="Views\Search\SearchParamsView.cs" />
     <Compile Include="Views\Search\SearchQuestionSingleResultView.cs" />
     <Compile Include="Views\Search\SearchQuestionsResultsView.cs" />
@@ -262,6 +263,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\SplashScreen.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\FavoriteTournamentsView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

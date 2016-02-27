@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ChGK.Core.Models;
 using ChGK.Core.Services.Favorites;
+using ChGK.Core.Services.Messenger;
 
 namespace ChGK.Core.ViewModels
 {
@@ -9,10 +10,17 @@ namespace ChGK.Core.ViewModels
     {
         private readonly IFavoritesService _favoritesService;
 
+#pragma warning disable 414
+        private object _isFavoriteChangedToken;
+#pragma warning restore 414
+
         public TournamentViewModel(IFavoritesService favoritesService,
+            IMessagesService messagesService,
             ITournament tournament)
         {
             _favoritesService = favoritesService;
+            _isFavoriteChangedToken = messagesService.Subscribe<IsFavoriteChangedMessage>(IsFavoriteChanged);
+
             Item = tournament;
 
             Name = tournament.Name;
@@ -40,6 +48,12 @@ namespace ChGK.Core.ViewModels
         IEnumerator IEnumerable.GetEnumerator()
         {
             return Tours.GetEnumerator();
+        }
+
+        private void IsFavoriteChanged(IsFavoriteChangedMessage message)
+        {
+            if (Item.Id == message.TournamentId)
+                RaisePropertyChanged(() => IsFavorite);
         }
     }
 }

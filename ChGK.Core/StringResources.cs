@@ -38,6 +38,10 @@
 
         public static string RandomQuestions = "Случайные вопросы";
 
+        // Favorites
+
+        public static string Favorites = "Избранные турниры";
+
         // SearchView
 
         public static string Search = "Поиск";

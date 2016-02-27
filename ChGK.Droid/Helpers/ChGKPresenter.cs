@@ -29,6 +29,10 @@ namespace ChGK.Droid.Helpers
                     request => ReplaceFragment(new RandomQuestionsView(), request)
                 },
                 {
+                    typeof (FavoriteTournamentsViewModel),
+                    request => ReplaceFragment(new FavoriteTournamentsView(), request)
+                },
+                {
                     typeof (EnterResultsViewModel),
                     request => ShowDialog(new EnterResultsView(), request)
                 },

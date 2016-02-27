@@ -21,6 +21,7 @@ namespace ChGK.Core.ViewModels
             {
                 new MenuItem {Name = StringResources.LastAdded, ViewModelType = typeof (LastAddedTournamentsViewModel)},
                 new MenuItem {Name = StringResources.RandomQuestions, ViewModelType = typeof (RandomQuestionsViewModel)},
+                new MenuItem {Name = StringResources.Favorites, ViewModelType = typeof (FavoriteTournamentsViewModel)},
                 new MenuItem {Name = StringResources.Search, ViewModelType = typeof (SearchParamsViewModel)},
                 new MenuItem {Name = StringResources.Teams, ViewModelType = typeof (TeamsViewModel)},
                 new MenuItem {Name = StringResources.AboutApp, ViewModelType = typeof (AboutViewModel)}

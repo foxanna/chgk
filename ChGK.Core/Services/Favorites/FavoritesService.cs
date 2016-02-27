@@ -1,17 +1,22 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using ChGK.Core.Models;
 using ChGK.Core.Models.Database;
 using ChGK.Core.Services.Database;
+using ChGK.Core.Services.Messenger;
 
 namespace ChGK.Core.Services.Favorites
 {
     internal class FavoritesService : IFavoritesService
     {
         private readonly IDatabaseService _databaseService;
+        private readonly IMessagesService _messagesService;
 
-        public FavoritesService(IDatabaseService databaseService)
+        public FavoritesService(IDatabaseService databaseService,
+            IMessagesService messagesService)
         {
             _databaseService = databaseService;
+            _messagesService = messagesService;
 
             _databaseService.CreateTable<FavoriteTournamentDatabaseModel>();
         }
@@ -32,6 +37,14 @@ namespace ChGK.Core.Services.Favorites
 
             if (isFavorite)
                 _databaseService.Insert(new FavoriteTournamentDatabaseModel {TournamentId = tournament.Id});
+
+            _messagesService.Publish(new IsFavoriteChangedMessage(this, tournament.Id));
+        }
+
+        public IEnumerable<ITournament> GetFavoriteTournaments()
+        {
+            return _databaseService.GetAll<FavoriteTournamentDatabaseModel>()
+                .Select(favoriteTournament => new Tournament {Id = favoriteTournament.TournamentId});
         }
     }
 }

@@ -5,13 +5,13 @@ using System.Windows.Input;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
 using ChGK.Core.Services.Favorites;
+using ChGK.Core.Services.Messenger;
 using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
     public class LastAddedTournamentsViewModel : TournamentsViewModel
     {
-        private readonly IFavoritesService _favoritesService;
         private readonly IGAService _gaService;
         private readonly LoadMoreHelper<ITournament> _loadMoreHelper;
         private readonly IChGKService _service;
@@ -20,15 +20,16 @@ namespace ChGK.Core.ViewModels
 
         private ICommand _refreshCommand;
 
-        public LastAddedTournamentsViewModel(IChGKService service,
+        public LastAddedTournamentsViewModel(IFavoritesService favoritesService,
+            IMessagesService messagesService,
             IGAService gaService,
-            IFavoritesService favoritesService)
+            IChGKService service)
+            : base(favoritesService, messagesService)
         {
             Title = StringResources.LastAdded;
 
             _service = service;
             _gaService = gaService;
-            _favoritesService = favoritesService;
 
             _loadMoreHelper = new LoadMoreHelper<ITournament> {OnLastItemShown = OnLastItemShown};
         }
@@ -66,7 +67,7 @@ namespace ChGK.Core.ViewModels
             var tournaments = await _service.GetLastAddedTournaments(token, _page);
 
             Tournaments = tournaments.Select(tournament =>
-                new TournamentViewModel(_favoritesService, tournament)).ToList();
+                new TournamentViewModel(FavoritesService, MessagesService, tournament)).ToList();
             _page = Tournaments.Count/101;
 
             _loadMoreHelper.Subscribe(Tournaments.Cast<LoadMoreOnScrollListViewItemViewModel<ITournament>>().ToList());
