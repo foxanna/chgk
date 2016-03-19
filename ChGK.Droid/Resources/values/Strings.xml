@@ -1,32 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="app_name">Интеллектуальное казино</string>
-    <string name="www">Что? Где? Когда?</string>
-	<string name="refresh">Обновить</string>
-	<string name="start">Старт</string>
-	<string name="stop">Пауза</string>
-	<string name="add">Добавить</string>
-	<string name="cancel">Отменить</string>
-	<string name="clear_results">Обнулить результаты</string>
-    <string name="clear_teams">Удалить все команды</string>
-	<string name="enter_results">Внести результаты</string>
-	<string name="no_teams">Список команд пуст</string>
-    <string name="search_among">Искать среди</string>
-    <string name="empty_search_error">Не забудьте указать слова для поиска</string>
-    <string name="empty_search_params_error">Не забудьте указать среди каких полей вопроса производить поиск</string>
-    <string name="search_any_word">любое слово</string>
-    <string name="search_all_words">все слова</string>
-    <string name="search_questions">Вопросы</string>
-    <string name="search_tours">Туры</string>
-    <string name="search_unsorted">Новое</string>
-    <string name="gearbox">Раздатка</string>
-    <string name="donate_thanks">Благодарим за поддержку разработчиков</string>
-    <string name="search_no_results">Ничего не найдено по вашему запросу</string>
 
-    <string name="search_among_q">вопросов</string>
-    <string name="search_among_a">ответов</string>
-    <string name="search_among_p">зачетов</string>
-    <string name="search_among_c">комментариев</string>
-    <string name="search_among_s">источников</string>
-    <string name="search_among_u">авторов</string>
+<resources>
+  <string name="app_name">Интеллектуальное казино</string>
+  <string name="www">Что? Где? Когда?</string>
+  <string name="refresh">Обновить</string>
+  <string name="start">Старт</string>
+  <string name="stop">Пауза</string>
+  <string name="add">Добавить</string>
+  <string name="cancel">Отменить</string>
+  <string name="clear_results">Обнулить результаты</string>
+  <string name="clear_teams">Удалить все команды</string>
+  <string name="enter_results">Внести результаты</string>
+  <string name="no_teams">Список команд пуст</string>
+  <string name="no_favorites">Список избранных турниров пока пуст</string>
+  <string name="search_among">Искать среди</string>
+  <string name="empty_search_error">Не забудьте указать слова для поиска</string>
+  <string name="empty_search_params_error">Не забудьте указать среди каких полей вопроса производить поиск</string>
+  <string name="search_any_word">любое слово</string>
+  <string name="search_all_words">все слова</string>
+  <string name="search_questions">Вопросы</string>
+  <string name="search_tours">Туры</string>
+  <string name="search_unsorted">Новое</string>
+  <string name="gearbox">Раздатка</string>
+  <string name="donate_thanks">Благодарим за поддержку разработчиков</string>
+  <string name="search_no_results">Ничего не найдено по вашему запросу</string>
+
+  <string name="search_among_q">вопросов</string>
+  <string name="search_among_a">ответов</string>
+  <string name="search_among_p">зачетов</string>
+  <string name="search_among_c">комментариев</string>
+  <string name="search_among_s">источников</string>
+  <string name="search_among_u">авторов</string>
 </resources>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -30,12 +31,16 @@ namespace ChGK.Core.ViewModels
             set
             {
                 _tournaments = value;
-                RaisePropertyChanged(() => Tournaments);
+                RaisePropertyChanged();
+
+                RaisePropertyChanged(() => HasNoTournaments);
             }
         }
 
+        public bool HasNoTournaments => Tournaments != null && !Tournaments.Any();
+
         public ICommand OnTourClick => _onTourClick ?? (_onTourClick = new Command<ITour>(ClickTour));
-        
+
         private void ClickTour(ITour tour)
         {
             ShowViewModel<TourViewModel>(new {name = tour.Name, id = tour.Id});
