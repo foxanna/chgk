@@ -14,7 +14,6 @@ namespace ChGK.Core.ViewModels
         private object _isFavoriteChangedToken;
 #pragma warning restore 414
 
-
         public TournamentViewModel(IFavoritesService favoritesService,
             IMessagesService messagesService,
             ITournament tournament)
@@ -38,15 +37,8 @@ namespace ChGK.Core.ViewModels
         public bool IsFavorite
         {
             get { return _favoritesService.IsTournamentFavorite(Item); }
-            set
-            {
-                _favoritesService.SetTournamentFavourite(Item, value);
-
-                if (!value)
-                    ShowUndoBar();
-            }
+            set { _favoritesService.SetTournamentFavourite(Item, value); }
         }
-
 
         public IEnumerator<ITour> GetEnumerator()
         {
@@ -56,10 +48,6 @@ namespace ChGK.Core.ViewModels
         IEnumerator IEnumerable.GetEnumerator()
         {
             return Tours.GetEnumerator();
-        }
-
-        private void ShowUndoBar()
-        {
         }
 
         private void IsFavoriteChanged(IsFavoriteChangedMessage message)
