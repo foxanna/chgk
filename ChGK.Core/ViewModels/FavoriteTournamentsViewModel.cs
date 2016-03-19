@@ -1,15 +1,18 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ChGK.Core.Services;
 using ChGK.Core.Services.Favorites;
 using ChGK.Core.Services.Messenger;
+using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
     public class FavoriteTournamentsViewModel : TournamentsViewModel
     {
         private readonly IChGKService _chGkService;
+        private ICommand _refreshCommand;
 
         public FavoriteTournamentsViewModel(IChGKService chGkService,
             IFavoritesService favoritesService,
@@ -19,6 +22,14 @@ namespace ChGK.Core.ViewModels
             Title = StringResources.Favorites;
 
             _chGkService = chGkService;
+        }
+
+        public ICommand RefreshCommand =>
+            _refreshCommand ?? (_refreshCommand = new Command(Refresh));
+
+        private async void Refresh()
+        {
+            await DataLoader.LoadItemsAsync(LoadItems).ConfigureAwait(false);
         }
 
         protected override async Task LoadItems(CancellationToken token)
@@ -31,11 +42,11 @@ namespace ChGK.Core.ViewModels
                 new TournamentViewModel(FavoritesService, MessagesService, tournament)).ToList();
         }
 
-        public override async void Start()
+        public override void Start()
         {
             base.Start();
 
-            await DataLoader.LoadItemsAsync(LoadItems).ConfigureAwait(false);
+            Refresh();
         }
     }
 }

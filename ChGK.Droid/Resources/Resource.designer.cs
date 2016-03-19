@@ -1991,16 +1991,19 @@ namespace ChGK.Droid
 		{
 			
 			// aapt resource value: 0x7f0d0000
-			public const int menuitem = 2131558400;
+			public const int favoritetournamentsview = 2131558400;
 			
 			// aapt resource value: 0x7f0d0001
-			public const int question = 2131558401;
+			public const int menuitem = 2131558401;
 			
 			// aapt resource value: 0x7f0d0002
-			public const int questions = 2131558402;
+			public const int question = 2131558402;
 			
 			// aapt resource value: 0x7f0d0003
-			public const int teamsview = 2131558403;
+			public const int questions = 2131558403;
+			
+			// aapt resource value: 0x7f0d0004
+			public const int teamsview = 2131558404;
 			
 			static Menu()
 			{
