@@ -59,12 +59,12 @@ namespace ChGK.Core.ViewModels
             DataLoader.IsLoadingForTheFirstTime = true;
             DataLoader.IsLoadingMoreData = false;
 
-            await DataLoader.LoadItemsAsync(LoadItems);
+            await DataLoader.LoadItemsAsync(LoadItems).ConfigureAwait(false);
         }
 
         protected override async Task LoadItems(CancellationToken token)
         {
-            var tournaments = await _service.GetLastAddedTournaments(token, _page);
+            var tournaments = await _service.GetLastAddedTournaments(token, _page).ConfigureAwait(true);
 
             Tournaments = tournaments.Select(tournament =>
                 new TournamentViewModel(FavoritesService, MessagesService, tournament)).ToList();
@@ -80,7 +80,7 @@ namespace ChGK.Core.ViewModels
             DataLoader.IsLoadingForTheFirstTime = false;
             DataLoader.IsLoadingMoreData = true;
 
-            await DataLoader.LoadItemsAsync(LoadItems);
+            await DataLoader.LoadItemsAsync(LoadItems).ConfigureAwait(false);
         }
     }
 }

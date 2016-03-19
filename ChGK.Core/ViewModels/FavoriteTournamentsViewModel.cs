@@ -10,7 +10,6 @@ namespace ChGK.Core.ViewModels
     public class FavoriteTournamentsViewModel : TournamentsViewModel
     {
         private readonly IChGKService _chGkService;
-        private readonly IFavoritesService _favoritesService;
 
         public FavoriteTournamentsViewModel(IChGKService chGkService,
             IFavoritesService favoritesService,
@@ -19,14 +18,14 @@ namespace ChGK.Core.ViewModels
         {
             Title = StringResources.Favorites;
 
-            _favoritesService = favoritesService;
             _chGkService = chGkService;
         }
 
         protected override async Task LoadItems(CancellationToken token)
         {
-            var favoriteTournaments = await Task.WhenAll(_favoritesService.GetFavoriteTournaments()
-                .Select(favoriteTournament => _chGkService.GetTournament(favoriteTournament.Id, token)));
+            var favoriteTournaments = await Task.WhenAll(FavoritesService.GetFavoriteTournaments()
+                .Select(favoriteTournament => _chGkService.GetTournament(favoriteTournament.Id, token)))
+                .ConfigureAwait(true);
 
             Tournaments = favoriteTournaments.Select(tournament =>
                 new TournamentViewModel(FavoritesService, MessagesService, tournament)).ToList();
@@ -36,7 +35,7 @@ namespace ChGK.Core.ViewModels
         {
             base.Start();
 
-            await DataLoader.LoadItemsAsync(LoadItems);
+            await DataLoader.LoadItemsAsync(LoadItems).ConfigureAwait(false);
         }
     }
 }

@@ -9,7 +9,6 @@ namespace ChGK.Core.ViewModels
 {
     public class SingleTournamentViewModel : TournamentsViewModel
     {
-        private readonly IFavoritesService _favoritesService;
         private readonly IChGKService _service;
 
         private string _id;
@@ -22,21 +21,20 @@ namespace ChGK.Core.ViewModels
             Title = StringResources.Tournament;
 
             _service = service;
-            _favoritesService = favoritesService;
         }
 
         public async void Init(string id)
         {
             _id = id;
 
-            await DataLoader.LoadItemsAsync(LoadItems);
+            await DataLoader.LoadItemsAsync(LoadItems).ConfigureAwait(false);
         }
 
         protected override async Task LoadItems(CancellationToken token)
         {
             Tournaments = null;
 
-            var tournament = await _service.GetTournament(_id, token);
+            var tournament = await _service.GetTournament(_id, token).ConfigureAwait(true);
 
             Tournaments = new List<TournamentViewModel>
             {
