@@ -76,6 +76,7 @@ namespace ChGK.Core.ViewModels
                 _messenger.Unsubscribe<ResultsChangedMessage>(_resultsChangedToken);
                 _resultsChangedToken = null;
             }
+
             if (_teamsChangedToken != null)
             {
                 _messenger.Unsubscribe<TeamsChangedMessage>(_teamsChangedToken);
@@ -124,10 +125,8 @@ namespace ChGK.Core.ViewModels
 
         private void OnResultsChanged(ResultsChangedMessage obj)
         {
-            if (_questionId.Equals(obj.QuestionId))
-            {
+            if (_questionId.Equals(obj.QuestionId) || obj.QuestionId.Equals(ResultsChangedMessage.ResultsCleared))
                 ReloadResults();
-            }
         }
 
         public void SubmitResults()
@@ -137,13 +136,9 @@ namespace ChGK.Core.ViewModels
             try
             {
                 foreach (var team in Teams.Where(t => t.AnsweredCorrectly))
-                {
                     _teamsService.IncrementScore(_questionId, team.ID);
-                }
                 foreach (var team in Teams.Where(t => !t.AnsweredCorrectly))
-                {
                     _teamsService.DecrementScore(_questionId, team.ID);
-                }
             }
             catch (Exception e)
             {
