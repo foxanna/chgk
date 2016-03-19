@@ -1459,6 +1459,9 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b0007
 			public const int MvxBindingTagUnique = 2131427335;
 			
+			// aapt resource value: 0x7f0b0053
+			public const int TournamentsListView = 2131427411;
+			
 			// aapt resource value: 0x7f0b0051
 			public const int a1 = 2131427409;
 			
@@ -1501,17 +1504,17 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b0039
 			public const int activity_chooser_view_content = 2131427385;
 			
-			// aapt resource value: 0x7f0b006e
-			public const int add_team = 2131427438;
+			// aapt resource value: 0x7f0b006f
+			public const int add_team = 2131427439;
 			
-			// aapt resource value: 0x7f0b005e
-			public const int all_word_button = 2131427422;
+			// aapt resource value: 0x7f0b005f
+			public const int all_word_button = 2131427423;
 			
 			// aapt resource value: 0x7f0b0011
 			public const int always = 2131427345;
 			
-			// aapt resource value: 0x7f0b005d
-			public const int any_word_button = 2131427421;
+			// aapt resource value: 0x7f0b005e
+			public const int any_word_button = 2131427422;
 			
 			// aapt resource value: 0x7f0b0018
 			public const int beginning = 2131427352;
@@ -1534,20 +1537,20 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b002b
 			public const int classic = 2131427371;
 			
-			// aapt resource value: 0x7f0b006c
-			public const int clear_results = 2131427436;
-			
 			// aapt resource value: 0x7f0b006d
-			public const int clear_teams = 2131427437;
+			public const int clear_results = 2131427437;
+			
+			// aapt resource value: 0x7f0b006e
+			public const int clear_teams = 2131427438;
 			
 			// aapt resource value: 0x7f0b0012
 			public const int collapseActionView = 2131427346;
 			
-			// aapt resource value: 0x7f0b0054
-			public const int content_frame = 2131427412;
+			// aapt resource value: 0x7f0b0055
+			public const int content_frame = 2131427413;
 			
-			// aapt resource value: 0x7f0b0064
-			public const int data = 2131427428;
+			// aapt resource value: 0x7f0b0065
+			public const int data = 2131427429;
 			
 			// aapt resource value: 0x7f0b003c
 			public const int default_activity_button = 2131427388;
@@ -1561,8 +1564,8 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b0050
 			public const int donate = 2131427408;
 			
-			// aapt resource value: 0x7f0b0053
-			public const int drawer = 2131427411;
+			// aapt resource value: 0x7f0b0054
+			public const int drawer = 2131427412;
 			
 			// aapt resource value: 0x7f0b0017
 			public const int dropdown = 2131427351;
@@ -1573,11 +1576,11 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b0019
 			public const int end = 2131427353;
 			
-			// aapt resource value: 0x7f0b0060
-			public const int end_date_button = 2131427424;
+			// aapt resource value: 0x7f0b0061
+			public const int end_date_button = 2131427425;
 			
-			// aapt resource value: 0x7f0b006b
-			public const int enter_results = 2131427435;
+			// aapt resource value: 0x7f0b006c
+			public const int enter_results = 2131427436;
 			
 			// aapt resource value: 0x7f0b003a
 			public const int expand_activities_button = 2131427386;
@@ -1612,8 +1615,8 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b003b
 			public const int image = 2131427387;
 			
-			// aapt resource value: 0x7f0b0055
-			public const int items = 2131427413;
+			// aapt resource value: 0x7f0b0056
+			public const int items = 2131427414;
 			
 			// aapt resource value: 0x7f0b0008
 			public const int listMode = 2131427336;
@@ -1624,20 +1627,20 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b0026
 			public const int match_parent = 2131427366;
 			
-			// aapt resource value: 0x7f0b0059
-			public const int media_route_control_frame = 2131427417;
-			
 			// aapt resource value: 0x7f0b005a
-			public const int media_route_disconnect_button = 2131427418;
+			public const int media_route_control_frame = 2131427418;
 			
-			// aapt resource value: 0x7f0b0056
-			public const int media_route_list = 2131427414;
+			// aapt resource value: 0x7f0b005b
+			public const int media_route_disconnect_button = 2131427419;
 			
 			// aapt resource value: 0x7f0b0057
-			public const int media_route_volume_layout = 2131427415;
+			public const int media_route_list = 2131427415;
 			
 			// aapt resource value: 0x7f0b0058
-			public const int media_route_volume_slider = 2131427416;
+			public const int media_route_volume_layout = 2131427416;
+			
+			// aapt resource value: 0x7f0b0059
+			public const int media_route_volume_slider = 2131427417;
 			
 			// aapt resource value: 0x7f0b001a
 			public const int middle = 2131427354;
@@ -1666,8 +1669,8 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b0043
 			public const int radio = 2131427395;
 			
-			// aapt resource value: 0x7f0b0067
-			public const int refresh = 2131427431;
+			// aapt resource value: 0x7f0b0068
+			public const int refresh = 2131427432;
 			
 			// aapt resource value: 0x7f0b0022
 			public const int sandbox = 2131427362;
@@ -1675,11 +1678,11 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b001d
 			public const int satellite = 2131427357;
 			
-			// aapt resource value: 0x7f0b0061
-			public const int searchButton = 2131427425;
+			// aapt resource value: 0x7f0b0062
+			public const int searchButton = 2131427426;
 			
-			// aapt resource value: 0x7f0b005c
-			public const int searchQueryEditText = 2131427420;
+			// aapt resource value: 0x7f0b005d
+			public const int searchQueryEditText = 2131427421;
 			
 			// aapt resource value: 0x7f0b0046
 			public const int search_badge = 2131427398;
@@ -1729,14 +1732,14 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b0032
 			public const int split_action_bar = 2131427378;
 			
-			// aapt resource value: 0x7f0b005f
-			public const int start_date_button = 2131427423;
-			
-			// aapt resource value: 0x7f0b0069
-			public const int start_timer = 2131427433;
+			// aapt resource value: 0x7f0b0060
+			public const int start_date_button = 2131427424;
 			
 			// aapt resource value: 0x7f0b006a
-			public const int stop_timer = 2131427434;
+			public const int start_timer = 2131427434;
+			
+			// aapt resource value: 0x7f0b006b
+			public const int stop_timer = 2131427435;
 			
 			// aapt resource value: 0x7f0b0023
 			public const int strict_sandbox = 2131427363;
@@ -1747,14 +1750,14 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b000a
 			public const int tabMode = 2131427338;
 			
-			// aapt resource value: 0x7f0b0063
-			public const int teams = 2131427427;
+			// aapt resource value: 0x7f0b0064
+			public const int teams = 2131427428;
 			
 			// aapt resource value: 0x7f0b001e
 			public const int terrain = 2131427358;
 			
-			// aapt resource value: 0x7f0b0068
-			public const int time = 2131427432;
+			// aapt resource value: 0x7f0b0069
+			public const int time = 2131427433;
 			
 			// aapt resource value: 0x7f0b003f
 			public const int title = 2131427391;
@@ -1762,14 +1765,14 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b0034
 			public const int top_action_bar = 2131427380;
 			
-			// aapt resource value: 0x7f0b0062
-			public const int tournamentsList = 2131427426;
+			// aapt resource value: 0x7f0b0063
+			public const int tournamentsList = 2131427427;
+			
+			// aapt resource value: 0x7f0b0067
+			public const int undo_button = 2131427431;
 			
 			// aapt resource value: 0x7f0b0066
-			public const int undo_button = 2131427430;
-			
-			// aapt resource value: 0x7f0b0065
-			public const int undo_message = 2131427429;
+			public const int undo_message = 2131427430;
 			
 			// aapt resource value: 0x7f0b0035
 			public const int up = 2131427381;
@@ -1777,8 +1780,8 @@ namespace ChGK.Droid
 			// aapt resource value: 0x7f0b0010
 			public const int useLogo = 2131427344;
 			
-			// aapt resource value: 0x7f0b005b
-			public const int viewPager = 2131427419;
+			// aapt resource value: 0x7f0b005c
+			public const int viewPager = 2131427420;
 			
 			// aapt resource value: 0x7f0b0015
 			public const int withText = 2131427349;
@@ -3137,7 +3140,7 @@ namespace ChGK.Droid
 					16843055,
 					16843056,
 					16843057,
-					18219084};
+					18219093};
 			
 			// aapt resource value: 4
 			public const int MenuView_android_headerBackground = 4;

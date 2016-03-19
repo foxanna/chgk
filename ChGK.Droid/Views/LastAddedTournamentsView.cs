@@ -2,12 +2,13 @@
 using Android.Views;
 using Android.Widget;
 using ChGK.Core.ViewModels;
+using ChGK.Droid.Helpers;
 
 namespace ChGK.Droid.Views
 {
     public class LastAddedTournamentsView : MenuItemView
     {
-        private ListView _listView;
+        private ExpandableListView _listView;
 
         protected override int LayoutId => Resource.Layout.LastAddedTournamentsView;
 
@@ -22,6 +23,7 @@ namespace ChGK.Droid.Views
             switch (item.ItemId)
             {
                 case Resource.Id.refresh:
+                    _listView.CollapseAllGroups();
                     _listView.SetSelection(0);
                     (ViewModel as LastAddedTournamentsViewModel)?.RefreshCommand?.Execute(null);
                     return true;
@@ -34,7 +36,7 @@ namespace ChGK.Droid.Views
         {
             base.OnViewCreated(view, savedInstanceState);
 
-            _listView = view.FindViewById<ListView>(Resource.Id.items);
+            _listView = view.FindViewById<ExpandableListView>(Resource.Id.items);
             _listView.Scroll += list_Scroll;
         }
 

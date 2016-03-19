@@ -190,6 +190,7 @@
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
     <Compile Include="Controls\DatePickerFragment.cs" />
     <Compile Include="Helpers\MenuItemWrapper.cs" />
+    <Compile Include="Helpers\Utils.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
