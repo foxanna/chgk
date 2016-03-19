@@ -70,6 +70,8 @@ namespace ChGK.Droid.Views
         {
             ((TeamsViewModel) ViewModel).UndoBarRequested -= TeamsView_UndoBarRequested;
 
+            _undoBar?.Hide();
+
             base.OnStop();
         }
 
@@ -91,13 +93,6 @@ namespace ChGK.Droid.Views
                 default:
                     return base.OnOptionsItemSelected(item);
             }
-        }
-
-        protected override void OnDestroy()
-        {
-            _undoBar?.Hide();
-
-            base.OnDestroy();
         }
     }
 }
