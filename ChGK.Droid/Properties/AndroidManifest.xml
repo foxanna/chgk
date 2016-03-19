@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          android:versionName="1.1"
+          android:versionName="1.2"
           package="chgk.droid"
           android:versionCode="16">
-  <uses-sdk android:minSdkVersion="14"
-            android:targetSdkVersion="22" />
+  <uses-sdk android:minSdkVersion="14" />
   <meta-data android:name="com.google.android.gms.version"
              android:value="@integer/google_play_services_version" />
   <uses-permission android:name="android.permission.INTERNET" />
