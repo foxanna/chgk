@@ -21,26 +21,6 @@ namespace ChGK.Droid.Views
 
         protected override int LayoutId => Resource.Layout.TeamsView;
 
-        public UndoBarMetadata UndoBarData
-        {
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-
-                _undoBar?.Hide();
-
-                _undoBar = new UndoBar(this, value.Text, _listView);
-                _undoBar.Undo += (sender, e) => (ViewModel as TeamsViewModel)?.UndoableActionUndone();
-                _undoBar.Discard += (sender, e) => (ViewModel as TeamsViewModel)?.UndoableActionConfirmed();
-
-                _undoBar.Show();
-            }
-            get { return null; }
-        }
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.teamsview, menu);
@@ -66,10 +46,31 @@ namespace ChGK.Droid.Views
                 (ViewModel as TeamsViewModel)?.RemoveTeamCommand);
             _listView.SetOnTouchListener(touchListener);
             _listView.SetOnScrollListener(touchListener);
+        }
 
-            var bindingSet = this.CreateBindingSet<TeamsView, TeamsViewModel>();
-            bindingSet.Bind(this).For(view => view.UndoBarData).To(vm => vm.UndoBarMetaData);
-            bindingSet.Apply();
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            ((TeamsViewModel) ViewModel).UndoBarRequested += TeamsView_UndoBarRequested;
+        }
+
+        private void TeamsView_UndoBarRequested(object sender, UndoBarRequestEventArgs args)
+        {
+            _undoBar?.Hide();
+
+            _undoBar = new UndoBar(this, args.Title, _listView);
+            _undoBar.Undo += (s, e) => args.OnUndo?.Invoke();
+            _undoBar.Discard += (s, e) => args.OnApply?.Invoke();
+
+            _undoBar.Show();
+        }
+
+        protected override void OnStop()
+        {
+            ((TeamsViewModel) ViewModel).UndoBarRequested -= TeamsView_UndoBarRequested;
+
+            base.OnStop();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

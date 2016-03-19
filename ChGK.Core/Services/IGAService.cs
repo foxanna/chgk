@@ -3,8 +3,7 @@
     public enum GACategory
     {
         PlayQuestion,
-        QuestionsList,
-        DealWithTeams
+        QuestionsList
     }
 
     public enum GAAction

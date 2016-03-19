@@ -109,7 +109,7 @@
     <Compile Include="ViewModels\TeamsViewModel.cs" />
     <Compile Include="Services\IDialogManager.cs" />
     <Compile Include="ViewModels\EnterResultsViewModel.cs" />
-    <Compile Include="Utils\UndoBarMetadata.cs" />
+    <Compile Include="Utils\UndoBarRequestEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

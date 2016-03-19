@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using ChGK.Core.Models.Database;
@@ -10,42 +10,28 @@ using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
 {
-    internal class ChGKCommand
-    {
-        public Action OnUndo { get; set; }
-
-        public Action OnApply { get; set; }
-    }
-
     public class TeamsViewModel : MenuItemViewModel
     {
         private readonly IDialogManager _dialogManager;
-        private readonly IGAService _gaService;
         private readonly IMessagesService _messagesService;
         private readonly ITeamsService _service;
 
-        private readonly List<ChGKCommand> _undoActions = new List<ChGKCommand>();
-
         private ICommand _removeCommand;
 
-        private List<TeamViewModel> _teams;
-
-        private UndoBarMetadata _undoBarMetadata;
+        private ObservableCollection<TeamViewModel> _teams;
 
         public TeamsViewModel(ITeamsService service,
             IMessagesService messagesService,
-            IGAService gaService,
             IDialogManager dialogManager)
         {
             _service = service;
             _messagesService = messagesService;
-            _gaService = gaService;
             _dialogManager = dialogManager;
 
             Title = StringResources.Teams;
         }
 
-        public List<TeamViewModel> Teams
+        public ObservableCollection<TeamViewModel> Teams
         {
             get { return _teams; }
             set
@@ -62,21 +48,11 @@ namespace ChGK.Core.ViewModels
         public ICommand RemoveTeamCommand =>
             _removeCommand ?? (_removeCommand = new Command<object>(RemoveTeam));
 
-        public bool HasNoTeams => Teams.Count == 0;
+        public bool HasNoTeams => !Teams.Any();
 
-        public bool CanClearScore => Teams?.FirstOrDefault(team => team.Score > 0) != null;
+        public bool CanClearScore => Teams.Any(team => team.Score > 0);
 
         public bool CanRemoveTeams => !HasNoTeams;
-
-        public UndoBarMetadata UndoBarMetaData
-        {
-            get { return _undoBarMetadata; }
-            set
-            {
-                _undoBarMetadata = value;
-                RaisePropertyChanged(() => UndoBarMetaData);
-            }
-        }
 
         public override void Start()
         {
@@ -87,9 +63,10 @@ namespace ChGK.Core.ViewModels
 
         private void LoadTeams()
         {
-            Teams = null;
+            Teams = new ObservableCollection<TeamViewModel>();
             var teams = _service.GetAllTeams();
-            Teams = teams.Select(team => new TeamViewModel(_service, _messagesService, team)).ToList();
+            Teams = new ObservableCollection<TeamViewModel>(
+                teams.Select(team => new TeamViewModel(_service, _messagesService, team)));
         }
 
         public void InitAddTeam()
@@ -102,128 +79,49 @@ namespace ChGK.Core.ViewModels
         {
             _service.AddTeam(name.Trim());
 
-            _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Click, "team added");
-
             LoadTeams();
         }
 
         private void RemoveTeam(object parameter)
         {
-            lock (_undoActions)
-            {
-                var position = ((int[]) parameter)[0];
-                var teamToDelete = Teams[position];
+            var position = ((int[]) parameter)[0];
+            var teamToDelete = Teams[position];
 
-                _undoActions.Add(
-                    new ChGKCommand
-                    {
-                        OnApply = () =>
-                        {
-                            _service.RemoveTeam(teamToDelete.ID);
+            Teams.RemoveAt(position);
 
-                            _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Click, "team removed");
-                        },
-                        OnUndo = () =>
-                        {
-                            Teams.Insert(position, teamToDelete);
-                            Teams = Teams.Where(_ => true).ToList();
-                        }
-                    });
-
-                Teams = Teams.Where((m, i) => i != position).ToList();
-            }
-
-            UndoBarMetaData = new UndoBarMetadata {Text = StringResources.TeamRemoved};
+            UndoBarRequested?.Invoke(this, new UndoBarRequestEventArgs(
+                StringResources.TeamRemoved,
+                () => _service.RemoveTeam(teamToDelete.ID),
+                () => Teams.Insert(position, teamToDelete)));
         }
+
+        public event EventHandler<UndoBarRequestEventArgs> UndoBarRequested;
 
         public void ClearResults()
         {
-            lock (_undoActions)
-            {
-                var oldTeamScores = Teams.Select(team => team.Score).ToList();
+            var oldTeamScores = Teams.Select(team => team.Score).ToList();
 
-                _undoActions.Add(
-                    new ChGKCommand
-                    {
-                        OnApply = () =>
-                        {
-                            _service.CleanResults();
+            foreach (var team in Teams)
+                team.Score = 0;
 
-                            _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Click, "results cleaned");
-                        },
-                        OnUndo = () =>
-                        {
-                            Teams = Teams.Where((team, i) =>
-                            {
-                                try
-                                {
-                                    team.Score = oldTeamScores[i];
-                                }
-                                catch
-                                {
-                                }
-
-                                return true;
-                            }).ToList();
-                        }
-                    });
-
-                Teams = Teams.Where(team =>
+            UndoBarRequested?.Invoke(this, new UndoBarRequestEventArgs(
+                StringResources.ScoreRemoved,
+                () => _service.CleanResults(),
+                () =>
                 {
-                    team.Score = 0;
-                    return true;
-                }).ToList();
-            }
-
-            UndoBarMetaData = new UndoBarMetadata {Text = StringResources.ScoreRemoved};
+                    for (var i = 0; i < Teams.Count; i++)
+                        Teams[i].Score = oldTeamScores[i];
+                }));
         }
 
         public void ClearTeams()
         {
-            lock (_undoActions)
-            {
-                _undoActions.Add(
-                    new ChGKCommand
-                    {
-                        OnApply = () =>
-                        {
-                            _service.RemoveAllTeams();
+            Teams = new ObservableCollection<TeamViewModel>();
 
-                            _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Click, "all teams removed");
-                        },
-                        OnUndo = () => { LoadTeams(); }
-                    });
-
-                Teams = new List<TeamViewModel>();
-            }
-
-            UndoBarMetaData = new UndoBarMetadata {Text = StringResources.TeamsRemoved};
-        }
-
-        public void UndoableActionUndone()
-        {
-            lock (_undoActions)
-            {
-                if (!_undoActions.Any())
-                    return;
-
-                var action = _undoActions[0];
-                action.OnUndo();
-                _undoActions.RemoveAt(0);
-            }
-        }
-
-        public void UndoableActionConfirmed()
-        {
-            lock (_undoActions)
-            {
-                if (!_undoActions.Any())
-                    return;
-
-                var action = _undoActions[0];
-                action.OnApply();
-                _undoActions.RemoveAt(0);
-            }
+            UndoBarRequested?.Invoke(this, new UndoBarRequestEventArgs(
+                StringResources.TeamsRemoved,
+                () => _service.RemoveAllTeams(),
+                LoadTeams));
         }
     }
 
@@ -250,11 +148,11 @@ namespace ChGK.Core.ViewModels
             Score = _service.GetTeamScore(ID);
         }
 
-        public int ID { get; set; }
+        public int ID { get; }
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public string TeamScore => StringResources.TeamScoreTitle + " " + Score;
+        public string TeamScore => $"{StringResources.TeamScoreTitle} {Score}";
 
         public int Score
         {

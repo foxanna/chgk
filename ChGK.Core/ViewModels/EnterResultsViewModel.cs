@@ -85,7 +85,6 @@ namespace ChGK.Core.ViewModels
 
         private void EditTeams()
         {
-            _gaService.ReportEvent(GACategory.DealWithTeams, GAAction.Open, "edit teams from enter results screen");
             ShowViewModel<TeamsViewModel>();
         }
 
