@@ -2,6 +2,7 @@
 using System.Linq;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
+using MvvmCross.Platform;
 using Newtonsoft.Json;
 
 namespace ChGK.Core.ViewModels
@@ -10,14 +11,17 @@ namespace ChGK.Core.ViewModels
     {
         private readonly IAudioPlayerService _audioPlayerService;
         private readonly IGAService _gaService;
+        private readonly IChGKService _service;
 
         private List<QuestionViewModel> _questions;
 
         public QuestionsViewModel(IGAService gaService,
-            IAudioPlayerService audioPlayerService)
+            IAudioPlayerService audioPlayerService,
+            IChGKService service)
         {
             _gaService = gaService;
             _audioPlayerService = audioPlayerService;
+            _service = service;
 
             Title = "Вопрос 1";
         }
@@ -37,7 +41,13 @@ namespace ChGK.Core.ViewModels
         public void Init(string questionsJson, int index)
         {
             Questions = JsonConvert.DeserializeObject<List<Question>>(questionsJson).Cast<IQuestion>()
-                .Select((iquestion, i) => new QuestionViewModel(_gaService, _audioPlayerService, iquestion, i)).ToList();
+                .Select(question =>
+                {
+                    var viewModel = Mvx.Create<QuestionViewModel>();
+                    viewModel.Question = question;
+                    return viewModel;
+                })
+                .ToList();
 
             Index = index;
         }

@@ -19,6 +19,10 @@
         string PassCriteria { get; }
 
         string Gearbox { get; }
+
+        string Number { get; }
+
+        string Url { get; }
     }
 
     internal class Question : IQuestion
@@ -40,6 +44,10 @@
         public string PassCriteria { get; set; }
 
         public string Gearbox { get; set; }
+
+        public string Number { get; set; }
+
+        public string Url { get; set; }
 
         public override bool Equals(object obj)
         {

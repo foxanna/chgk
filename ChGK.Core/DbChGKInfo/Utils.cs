@@ -2,6 +2,8 @@
 {
     public static class Utils
     {
+        public const string Host = "http://db.chgk.info";
+
         public static string ToProperDbChGKInfoId(this string id)
         {
             if (string.IsNullOrEmpty(id))

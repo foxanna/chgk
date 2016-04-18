@@ -1,5 +1,6 @@
 using ChGK.Core.ViewModels;
 using MvvmCross.Core.ViewModels;
+using MvvmCross.Platform;
 using MvvmCross.Platform.IoC;
 
 namespace ChGK.Core
@@ -12,6 +13,8 @@ namespace ChGK.Core
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
+
+            Mvx.RegisterType<QuestionViewModel, QuestionViewModel>();
 
             RegisterAppStart<HomeViewModel>();
         }

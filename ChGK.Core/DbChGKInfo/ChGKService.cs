@@ -17,8 +17,6 @@ namespace ChGK.Core.DbChGKInfo
 
     public class ChGKService : IChGKService
     {
-        private const string Host = "http://db.chgk.info";
-
         private readonly IDeviceConnectivityService _reachabilityService;
         private readonly IRestService _restService;
 
@@ -34,7 +32,7 @@ namespace ChGK.Core.DbChGKInfo
         {
             PreLoad(cancellationToken);
 
-            var randomPackage = await _restService.GetAsync(Host,
+            var randomPackage = await _restService.GetAsync(Utils.Host,
                 "xml/random", new XmlDeserializer<RandomPackageDto>(), cancellationToken);
             return randomPackage.Questions.Select(dto => dto.ToModel()).ToList();
         }
@@ -69,7 +67,7 @@ namespace ChGK.Core.DbChGKInfo
             {
                 PreLoad(cancellationToken);
 
-                var lastAddedTournaments = await _restService.GetAsync(Host, "last?page=" + page,
+                var lastAddedTournaments = await _restService.GetAsync(Utils.Host, "last?page=" + page,
                     new HtmlDeserializer<LastAddedTournamentsDto>(), cancellationToken);
                 _lastTournamentsCache = Tuple.Create(page, _lastTournamentsCache?.Item2 ?? new List<ITournament>());
                 _lastTournamentsCache.Item2.AddRange(lastAddedTournaments.Tournaments);
@@ -98,7 +96,7 @@ namespace ChGK.Core.DbChGKInfo
 
             PreLoad(cancellationToken);
 
-            var tourDto = await _restService.GetAsync(Host,
+            var tourDto = await _restService.GetAsync(Utils.Host,
                 $"/tour/{id}/xml", new XmlDeserializer<TourDto>(), cancellationToken);
 
             tour = tourDto.ToModel();
@@ -146,7 +144,7 @@ namespace ChGK.Core.DbChGKInfo
 
             PreLoad(cancellationToken);
 
-            var tournamentDto = await _restService.GetAsync(Host,
+            var tournamentDto = await _restService.GetAsync(Utils.Host,
                 $"/tour/{id}/xml", new XmlDeserializer<TournamentDto>(), cancellationToken);
 
             tournament = tournamentDto.ToModel();
@@ -184,7 +182,7 @@ namespace ChGK.Core.DbChGKInfo
                       + "limit" + searchParams.Limit
                       + "?page=" + searchParams.Page;
 
-            var searchResults = await _restService.GetAsync(Host, url,
+            var searchResults = await _restService.GetAsync(Utils.Host, url,
                 new XmlDeserializer<SearchResultsDto>(), cancellationToken);
 
             var questions = searchResults.Questions.Select(dto => dto.ToModel()).ToList();

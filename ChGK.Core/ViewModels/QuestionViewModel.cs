@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using ChGK.Core.Models;
 using ChGK.Core.Services;
+using ChGK.Core.Services.WebBrowser;
 using ChGK.Core.Utils;
 
 namespace ChGK.Core.ViewModels
@@ -12,70 +13,80 @@ namespace ChGK.Core.ViewModels
         private readonly IGAService _gaService;
 
         private readonly ChGKTimer _timer = new ChGKTimer();
+        private readonly IWebBrowserService _webBrowserService;
 
         private bool _isAnswerShown;
         private bool _isTimerStarted;
 
         private ICommand _openImageCommand, _showAnswerCommand;
+        private ICommand _openQuestionInWebCommand;
+        private IQuestion _question;
         private TimeSpan _timeSpan;
 
         public QuestionViewModel(IGAService gaService,
             IAudioPlayerService audioPlayerService,
-            IQuestion question, int index)
+            IWebBrowserService webBrowserService)
         {
             _gaService = gaService;
             _audioPlayerService = audioPlayerService;
-
-            ID = question.Id;
-            Text = question.Text;
-            Answer = question.Answer;
-            PassCriteria = question.PassCriteria;
-            Comment = question.Comment;
-            Author = question.Author;
-            Source = question.Source;
-            Index = index;
-            HasPicture = !string.IsNullOrEmpty(question.Picture);
-            Picture = "http://db.chgk.info/images/db/" + question.Picture;
-            Gearbox = question.Gearbox;
-
-            HasComments = !string.IsNullOrEmpty(Comment);
-            HasAuthor = !string.IsNullOrEmpty(Author);
-            HasSource = !string.IsNullOrEmpty(Source);
-            HasPassCriteria = !string.IsNullOrEmpty(PassCriteria);
-            HasGearbox = !string.IsNullOrEmpty(Gearbox);
+            _webBrowserService = webBrowserService;
         }
 
-        public string ID { get; set; }
+        public IQuestion Question
+        {
+            get { return _question; }
+            set
+            {
+                _question = value;
 
-        public string Text { get; set; }
+                RaisePropertyChanged(() => Id);
+                RaisePropertyChanged(() => Text);
+                RaisePropertyChanged(() => Answer);
+                RaisePropertyChanged(() => PassCriteria);
+                RaisePropertyChanged(() => Comment);
+                RaisePropertyChanged(() => Author);
+                RaisePropertyChanged(() => Gearbox);
+                RaisePropertyChanged(() => Source);
+                RaisePropertyChanged(() => Picture);
 
-        public string Answer { get; set; }
+                RaisePropertyChanged(() => HasComments);
+                RaisePropertyChanged(() => HasAuthor);
+                RaisePropertyChanged(() => HasSource);
+                RaisePropertyChanged(() => HasPicture);
+                RaisePropertyChanged(() => HasPassCriteria);
+                RaisePropertyChanged(() => HasGearbox);
+            }
+        }
 
-        public string PassCriteria { get; set; }
+        public string Id => Question?.Id;
 
-        public string Comment { get; set; }
+        public string Text => Question?.Text;
 
-        public string Author { get; set; }
+        public string Answer => Question?.Answer;
 
-        public string Gearbox { get; set; }
+        public string PassCriteria => Question?.PassCriteria;
 
-        public string Source { get; set; }
+        public string Comment => Question?.Comment;
 
-        public string Picture { get; set; }
+        public string Author => Question?.Author;
 
-        public int Index { get; set; }
+        public string Gearbox => Question?.Gearbox;
 
-        public bool HasComments { get; set; }
+        public string Source => Question?.Source;
 
-        public bool HasAuthor { get; set; }
+        public string Picture => Question?.Picture;
 
-        public bool HasSource { get; set; }
+        public bool HasComments => !string.IsNullOrEmpty(Comment);
 
-        public bool HasPicture { get; set; }
+        public bool HasAuthor => !string.IsNullOrEmpty(Author);
 
-        public bool HasPassCriteria { get; set; }
+        public bool HasSource => !string.IsNullOrEmpty(Source);
 
-        public bool HasGearbox { get; set; }
+        public bool HasPicture => !string.IsNullOrEmpty(Picture);
+
+        public bool HasPassCriteria => !string.IsNullOrEmpty(PassCriteria);
+
+        public bool HasGearbox => !string.IsNullOrEmpty(Gearbox);
 
         public bool IsAnswerShown
         {
@@ -83,12 +94,15 @@ namespace ChGK.Core.ViewModels
             set
             {
                 _isAnswerShown = value;
-                RaisePropertyChanged(() => IsAnswerShown);
+                RaisePropertyChanged();
             }
         }
 
         public ICommand ShowAnswerCommand =>
             _showAnswerCommand ?? (_showAnswerCommand = new Command(ShowAnswer));
+
+        public ICommand OpenQuestionInWebCommand =>
+            _openQuestionInWebCommand ?? (_openQuestionInWebCommand = new Command(OpenQuestionInWeb));
 
         public TimeSpan Time
         {
@@ -106,6 +120,7 @@ namespace ChGK.Core.ViewModels
             set
             {
                 _isTimerStarted = value;
+
                 RaisePropertyChanged(() => IsTimerStarted);
                 RaisePropertyChanged(() => IsTimerStopped);
             }
@@ -115,6 +130,11 @@ namespace ChGK.Core.ViewModels
 
         public ICommand OpenImageCommand => _openImageCommand ?? (_openImageCommand =
             new Command(() => ShowViewModel<FullImageViewModel>(new {image = Picture})));
+
+        private void OpenQuestionInWeb()
+        {
+            _webBrowserService.OpenInWebBrowser(Question.Url);
+        }
 
         public override void OnViewDestroying()
         {
@@ -159,11 +179,10 @@ namespace ChGK.Core.ViewModels
 
         public void PauseTimer()
         {
+            IsTimerStarted = false;
             _timer.Pause();
 
             _timer.OneSecond -= OnTimerOneSecond;
-
-            IsTimerStarted = false;
 
             _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Timer, "stop");
         }
@@ -172,7 +191,7 @@ namespace ChGK.Core.ViewModels
         {
             _gaService.ReportEvent(GACategory.PlayQuestion, GAAction.Click, "enter results dialog opened");
 
-            ShowViewModel<EnterResultsViewModel>(new {questionId = ID});
+            ShowViewModel<EnterResultsViewModel>(new {questionId = Id});
         }
     }
 }
