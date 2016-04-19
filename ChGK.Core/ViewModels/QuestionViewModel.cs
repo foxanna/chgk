@@ -88,6 +88,8 @@ namespace ChGK.Core.ViewModels
 
         public bool HasGearbox => !string.IsNullOrEmpty(Gearbox);
 
+        public bool HasWebUrl => !string.IsNullOrEmpty(Question?.Url);
+
         public bool IsAnswerShown
         {
             get { return _isAnswerShown; }

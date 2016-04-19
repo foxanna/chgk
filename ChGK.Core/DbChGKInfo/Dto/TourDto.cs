@@ -24,12 +24,14 @@ namespace ChGK.Core.DbChGKInfo.Dto
 
         public ITour ToModel()
         {
+            var id = Id ?? FileName.ToProperDbChGKInfoId();
+
             return new Tour
             {
                 Name = Name,
-                Id = Id ?? FileName.ToProperDbChGKInfoId(),
+                Id = id,
                 Editors = TextFormatter.FormatEditors(Editors),
-                Questions = Questions?.Select(question => question.ToModel())?.ToList()
+                Questions = Questions?.Select(question => question.ToModel(id))?.ToList()
             };
         }
     }

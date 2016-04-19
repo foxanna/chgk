@@ -24,6 +24,8 @@
   <string name="gearbox">Раздатка</string>
   <string name="donate_thanks">Благодарим за поддержку разработчиков</string>
   <string name="search_no_results">Ничего не найдено по вашему запросу</string>
+  <string name="show_in_web">Открыть в браузере</string>
+  <string name="spoillers">Осторожно, спойлер ответа!</string>
 
   <string name="search_among_q">вопросов</string>
   <string name="search_among_a">ответов</string>

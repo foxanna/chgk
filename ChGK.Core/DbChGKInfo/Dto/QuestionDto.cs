@@ -26,12 +26,21 @@ namespace ChGK.Core.DbChGKInfo.Dto
         [XmlElement("Sources")]
         public string Source { get; set; }
 
-        [XmlElement("number")]
+        [XmlElement("Number")]
         public string Number { get; set; }
+
+        [XmlElement("tourFileName")]
+        public string TourFileName { get; set; }
 
         public IQuestion ToModel()
         {
+            return ToModel(null);
+        }
+
+        public IQuestion ToModel(string tourId)
+        {
             var pictureId = TextFormatter.GetPicture(Text);
+            tourId = TourFileName?.ToProperDbChGKInfoId() ?? tourId;
 
             return new Question
             {
@@ -44,7 +53,8 @@ namespace ChGK.Core.DbChGKInfo.Dto
                 Author = TextFormatter.FormatAnswer(Author),
                 Comment = TextFormatter.FormatComments(Comment),
                 Source = Source,
-                Number = Number
+                Number = Number,
+                Url = !string.IsNullOrEmpty(tourId) ? $"{Utils.Host}/question/{tourId}/{Number}" : null
             };
         }
     }
